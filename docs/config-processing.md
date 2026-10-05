@@ -2,11 +2,13 @@
 
 ## Scope and API
 
-The pure Python `processing` package normalizes inline text and compares an
-**explicit pair** of snapshots. It needs only the existing schemas and Python
-standard library: no Kafka, Spark, Java, network access, or new dependencies.
-The Phase 4 Spark consumer still only parses/validates and prints safe metadata.
-It does **not** call this package or maintain previous-version state yet.
+The pure Python `processing` normalization/diff API compares an **explicit pair**
+of inline text snapshots. That API needs only the existing schemas and Python
+standard library: no Kafka, Spark, Java, or network access. The separate rule
+loader added in Phase 6 uses PyYAML.
+Phase 6 now calls this package from native Spark state processing. The APIs below
+remain usable without Spark; [streaming pairing policy](stateful-processing.md)
+is stricter than the offline API and only emits adjacent version pairs.
 
 ```python
 from processing import compare_snapshots, normalize_snapshot, process_snapshot_pair
@@ -217,8 +219,7 @@ Only exact `config_format="text"` with inline content is accepted. Other labels
 raise `UnsupportedConfigFormatError`; URI-only content raises
 `ContentUnavailableError`. No fetcher or JSON/YAML semantic parser is implemented.
 
-Phase 6 must design per-asset version state, duplicate and late-event policies,
-bounded state/watermarks, checkpoint/replay behavior, and then rules/alerts and
-window metrics. It can reuse these functions after establishing an explicit pair.
-The choice of Spark stateful execution and Python overhead needs measurement;
-no Python UDF, Spark adapter, distributed state, or scalability claim is added here.
+Phase 6 implements native per-asset state, bounded dedup/watermarks, checkpoint
+recovery, and YAML rules/Kafka alerts, reusing these functions after selecting an
+adjacent pair. Python execution overhead still needs measurement; no scalability
+claim or durable historical sink is supplied by this pure processing package.

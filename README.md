@@ -13,15 +13,15 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0, 1, 2, 3, 4, and 5 complete.** Pydantic contracts,
+**Phases 0, 1, 2, 3, 4, 5, and 6 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
-Spark Structured Streaming now reads `config.snapshots`, parses and validates
-envelopes, and prints safe metadata with valid/invalid diagnostics.
-Pure Python text normalization, secret masking, and deterministic same-asset
-snapshot comparison are available separately in `processing`.
-**Spark stateful previous-version tracking is Phase 6**, not implemented yet.
-Rules, data-lake, search, API, dashboard, and Kubernetes components remain planned.
+Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
+and uses checkpointed native per-asset version buffers. It reuses pure Python
+normalization/diff logic and YAML rules to publish deterministic Alerts to Kafka.
+Pairing uses **asset_id + adjacent versions**, not previous-row arrival order.
+**Durable analytical storage is Phase 7**; search, API, dashboard, and Kubernetes
+remain planned. Invalid input continues to produce safe diagnostics, not a DLQ.
 
 Implemented Kafka path (all keys are `asset_id`):
 
@@ -29,7 +29,9 @@ Implemented Kafka path (all keys are `asset_id`):
 Generator
   ├─> config.assets       (startup registry)
   ├─> config.events       (audit / operational history)
-  └─> config.snapshots ─> Spark readStream ─> parse / validate ─> console
+  └─> config.snapshots ─> Spark parse / validate ─> watermark + dedup
+       ─> per-asset version state ─> normalize + diff ─> YAML rules
+       ─> Alert ─> Kafka config.alerts
 ```
 
 ## Architecture overview (long-term target)
@@ -83,9 +85,11 @@ library's base dependencies remain sufficient for JSONL; Kafka imports are lazy.
 | `make kafka-status` | Show broker status |
 | `make integration-test` | Run real Kafka tests, separately from unit tests |
 | `make spark-setup` | Install locked Kafka + Spark extras; requires an external Java 21 JDK |
-| `make spark-stream` | Read snapshot envelopes into a safe diagnostic console |
-| `make spark-test` | Run tiny local[2] Spark SQL tests, without Kafka |
-| `make spark-integration-test` | Verify real Kafka → Spark, invalid records, and checkpoint resume |
+| `make spark-stream` | Run stateful snapshot processing and Kafka alert output |
+| `make phase6-demo` | Publish v1, v3, v2; expect only adjacent diffs and two alerts |
+| `make kafka-consume-alerts` | Print retained alert keys and envelopes |
+| `make spark-test` | Run local[2] SQL/native state tests, without Kafka |
+| `make spark-integration-test` | Verify Kafka → Spark → alerts, invalid input, and process restart |
 | `make clean` | Remove test/build outputs, not datasets or environments |
 
 [GitHub Actions CI](https://github.com/kongwoang/ConfigStream/actions/workflows/ci.yml)
@@ -164,24 +168,31 @@ make spark-stream
 Wait for the first `Progress` log (initial offsets established). In terminal B:
 
 ```sh
-make kafka-demo
+make phase6-demo PHASE6_ARGS='--order out-of-order --asset-id demo-router'
+make kafka-consume-alerts KAFKA_CONSUME_MAX_MESSAGES=2
 ```
 
-Expect **8 valid snapshot rows**, showing asset ID, version, snapshot ID, UTC event
-time, hash, and Kafka metadata. Assets/events are not consumed. The single console
-query labels invalid rows with `record_status=invalid` and `validation_error`;
-neither branch prints configuration content or URIs. The display samples at most
-20 rows per batch by default; it is not durable storage or a full audit log.
+Expect **two adjacent diffs: v1→v2 and v2→v3**, never v1→v3, and logging-disabled
+(high) plus telnet-enabled (critical) Alert envelopes in `config.alerts`. Keys equal
+asset_id. Assets/events are not consumed. One query combines stateful outputs and
+Phase 4 invalid diagnostics; it logs safe summaries, not configuration bodies.
+The summary sample is capped at 20 rows per batch; full counts are logged separately.
+The consumer starts at retained history, so reused brokers may show older alerts.
 
 To exercise malformed JSON, wrong record type, missing asset ID, and key mismatch:
 
 ```sh
 .venv/bin/python -m scripts.kafka_invalid_demo
-make spark-integration-test
 ```
 
 These are deliberately bad **local test records**. The live query stays running
-and shows four diagnostics. Stop it with Ctrl-C, then `make kafka-down`.
+and shows four diagnostics. Stop the live query before integration tests, which
+write their own records/alerts:
+
+```sh
+make spark-integration-test
+make kafka-down
+```
 
 Default `SPARK_STARTING_OFFSETS=latest` reads new data on a fresh query. For bounded
 replay of retained history, use **a new checkpoint directory**:
@@ -196,6 +207,15 @@ An existing checkpoint overrides starting offsets; reusing it resumes rather tha
 replaying. Checkpoints and downloaded JARs are ignored. See [Spark runtime, SQL
 validation, progress, and acceptance](docs/spark-streaming.md). `make setup` syncs
 only the base/Kafka environment; use `make spark-setup` again before Spark commands.
+
+Phase 6 defaults to a new `.cache/spark-checkpoints/config-snapshots-v6` directory;
+never reuse a Phase 4 console checkpoint. Defaults are a 10-minute event-time
+watermark, 30-minute asset inactivity timeout, and 32 buffered versions per asset.
+The demo uses fixed 2026-10-05 timestamps; the generator defaults to 2026-09-30.
+Use aligned `--start-time` values or separate checkpoints when mixing workloads.
+Rules come from `rules/default.yaml`. See [state, rules, replay, and delivery
+semantics](docs/stateful-processing.md). Deterministic IDs do not make Kafka sink
+retries end-to-end exactly-once; physical duplicate alerts remain possible.
 
 ## Try the schemas
 
@@ -311,9 +331,9 @@ ConfigSnapshots, or normalize each once and call `compare_snapshots`. Same asset
 and strictly increasing versions are required. Gaps are allowed and reported
 separately in `result.version_gap`. Text/inline content only; no remote fetching.
 
-Core processing tests need neither Kafka nor Spark. This logic is **not wired
-into the streaming query yet**; Phase 6 will select previous versions and manage
-distributed state. Normalization is conservative, not a universal secret detector.
+Core processing tests need neither Kafka nor Spark. Phase 6 reuses this logic
+inside native Spark state processing, selecting only adjacent versions (unlike the
+offline API, which permits gaps). Normalization is not a universal secret detector.
 See [exact rules, hash semantics, version pairing, and limitations](docs/config-processing.md).
 
 ## Initial roadmap
@@ -326,7 +346,7 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 3 — complete | Single-broker Kafka, asset registry, producer tests, GitHub Actions quality checks |
 | 4 — complete | Direct Spark Kafka source, envelope parsing, validation, diagnostics, checkpoints |
 | 5 — complete | Pure text normalization/masking, normalized hashes, deterministic explicit-pair diff |
-| 6 | Spark version state, YAML rules, event-time handling, deduplication, metrics |
+| 6 — complete | Native Spark version state, watermark/dedup, YAML rules, Kafka alerts, safe progress metrics |
 | 7–9 | MinIO/Parquet, Elasticsearch, and thin FastAPI: end-to-end MVP |
 | 10 | Historical Spark analytics and simple frequency anomalies |
 | 11–13 | Optional dashboard, SSH/FRR adapters, then Kubernetes deployment |

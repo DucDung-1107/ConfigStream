@@ -5,6 +5,7 @@ from threading import Event
 from types import FrameType
 from typing import TYPE_CHECKING
 
+from processing.rules import Rule, load_rules
 from spark.common.config import SNAPSHOTS_TOPIC, SparkConfig
 from spark.common.runtime import create_session
 
@@ -13,6 +14,30 @@ if TYPE_CHECKING:
     from pyspark.sql.streaming import StreamingQuery
 
 LOGGER = logging.getLogger(__name__)
+
+
+def start_stateful(
+    classified: "DataFrame",
+    config: SparkConfig,
+    rules: tuple[Rule, ...],
+    *,
+    available_now: bool = False,
+) -> "StreamingQuery":
+    from spark.streaming.outputs import publish_batch
+    from spark.streaming.stateful import stateful_records
+
+    output = stateful_records(classified, config, rules)
+    writer = (
+        output.writeStream.foreachBatch(
+            lambda batch, batch_id: publish_batch(batch, batch_id, config)
+        )
+        .outputMode("append")
+        .queryName("config_snapshots_stateful")
+        .option("checkpointLocation", str(config.checkpoint_dir.resolve()))
+    )
+    if available_now:
+        return writer.trigger(availableNow=True).start()
+    return writer.trigger(processingTime=f"{config.trigger_seconds} seconds").start()
 
 
 def start_console(
@@ -48,11 +73,13 @@ def monitor_query(
             last_progress = signature
             LOGGER.info(
                 "Progress batchId=%s numInputRows=%s inputRowsPerSecond=%s "
-                "processedRowsPerSecond=%s",
+                "processedRowsPerSecond=%s eventTime=%s stateOperators=%s",
                 progress["batchId"],
                 progress["numInputRows"],
                 progress["inputRowsPerSecond"],
                 progress["processedRowsPerSecond"],
+                progress.get("eventTime", {}),
+                progress.get("stateOperators", []),
             )
         if terminated:
             if not available_now:
@@ -61,9 +88,14 @@ def monitor_query(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Read and validate Kafka snapshots using Spark")
+    parser = argparse.ArgumentParser(
+        description="Process version-aware Kafka snapshots using Spark"
+    )
     parser.add_argument(
         "--available-now", action="store_true", help="drain available data and exit"
+    )
+    parser.add_argument(
+        "--parse-only", action="store_true", help="run the Phase 4 diagnostic query"
     )
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
@@ -80,6 +112,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         config = SparkConfig.from_env()
+        rules = load_rules(config.rules_file) if not args.parse_only else ()
         session = create_session(config)
         for signum in previous_handlers:
             signal.signal(signum, request_shutdown)
@@ -95,7 +128,10 @@ def main(argv: list[str] | None = None) -> int:
             config.console_rows,
         )
         classified = classify_records(parse_records(read_snapshots(session, config)))
-        query = start_console(classified, config, available_now=args.available_now)
+        if args.parse_only:
+            query = start_console(classified, config, available_now=args.available_now)
+        else:
+            query = start_stateful(classified, config, rules, available_now=args.available_now)
         LOGGER.info("Query started: %s (%s)", query.name, query.id)
         monitor_query(query, available_now=args.available_now, stop_requested=stop_requested)
     except KeyboardInterrupt:

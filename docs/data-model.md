@@ -157,9 +157,14 @@ Source: `schemas/alert.py`.
 | `message` | Non-empty string, required | Human-readable explanation |
 | `created_at` | UTC timestamp, now | Rule evaluation/alert creation time |
 
-Severity is case-sensitive. For `logging-disabled`, the intended later rule emits
-severity `high` and message `Logging was disabled`. Phase 1 validates that alert
-shape; it does not evaluate any rule.
+Severity is case-sensitive. Phase 1 defines and validates the alert shape;
+rule evaluation is separate from that schema.
+
+Phase 6 evaluates normalized diff lines using YAML rules and reuses this exact
+model. It derives alert_id from diff_id/rule_id and explicitly sets created_at to
+the new snapshot's event time, so replay does not introduce wall-clock variation.
+The default `logging-disabled` rule emits severity `high` and message
+`Configuration logging was disabled`.
 
 ## Evolution, safety, and limits
 

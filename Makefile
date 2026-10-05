@@ -9,9 +9,10 @@ export TMPDIR := $(CURDIR)/.cache/tmp
 
 .PHONY: setup test lint format check generator processing-demo clean
 .PHONY: kafka-up kafka-down kafka-topics kafka-status kafka-demo integration-test
-.PHONY: kafka-consume-assets kafka-consume-events kafka-consume-snapshots
+.PHONY: kafka-consume-assets kafka-consume-events kafka-consume-snapshots kafka-consume-alerts phase6-demo
 .PHONY: spark-setup spark-test spark-stream spark-integration-test
 SPARK_ARGS ?=
+PHASE6_ARGS ?=
 
 setup:
 	mkdir -p .cache/tmp .tools
@@ -49,6 +50,9 @@ generator:
 processing-demo:
 	@.venv/bin/python -m processing.demo
 
+phase6-demo:
+	.venv/bin/python -m scripts.kafka_stateful_demo $(PHASE6_ARGS)
+
 kafka-up:
 	$(DOCKER) compose up -d --wait --wait-timeout 180
 
@@ -67,7 +71,7 @@ kafka-demo:
 integration-test:
 	.venv/bin/python -m pytest -m integration tests/integration
 
-kafka-consume-assets kafka-consume-events kafka-consume-snapshots:
+kafka-consume-assets kafka-consume-events kafka-consume-snapshots kafka-consume-alerts:
 	$(DOCKER) compose exec -T kafka /opt/kafka/bin/kafka-console-consumer.sh \
 		--bootstrap-server kafka:29092 --topic config.$(patsubst kafka-consume-%,%,$@) \
 		--from-beginning --timeout-ms 10000 --max-messages $(KAFKA_CONSUME_MAX_MESSAGES) \

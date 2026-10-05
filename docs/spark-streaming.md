@@ -1,5 +1,10 @@
 # Spark Structured Streaming
 
+Phase 6 is the default stateful/rule/alert application. The SQL parsing contract
+below is unchanged. The earlier Phase 4 console path remains available through
+`--parse-only`; console-specific examples below explicitly select it. See
+[stateful processing](stateful-processing.md) for the current default workflow.
+
 ## Version matrix
 
 | Component | Selected version |
@@ -10,6 +15,8 @@
 | Scala binary version | 2.13, required by the Spark 4.0 distribution |
 | Spark Kafka connector | `org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.2` |
 | Kafka broker | Existing `apache/kafka:4.1.2`, unchanged |
+| Stateful Python dependencies | pandas 2.2.3, PyArrow 19.0.1, protobuf 5.29.5 in Spark extra |
+| Rule loader | PyYAML 6.0.2 in base dependencies |
 
 Spark 4.0.2 is a maintenance release on the 4.0 line, which supports Python 3.9+
 and Java 17/21. This project targets Java 21 consistently for local use and CI;
@@ -31,13 +38,17 @@ belongs in Git. Initial connector resolution needs access to Maven repositories.
 The authoritative entry point is `.venv/bin/python -m spark.streaming.main`,
 wrapped by `make spark-stream`. It starts local Spark, sets UTC, loads the matching
 Kafka connector, and uses `readStream.format("kafka")` directly. It does not create
-a Python consumer, call `json.loads` in a UDF, or validate rows with Pydantic.
+a Python consumer or call `json.loads` in a parsing UDF. Phase 4 validation stays
+in SQL; Phase 6 reconstructs the existing ConfigSnapshot only at normalized-state
+admission, adding its stricter hash/content checks before business processing.
 
 Only `config.snapshots` is subscribed. `config.events` remains an independent audit
 stream, and `config.assets` is not joined yet. There is no cross-topic ordering
 assumption. Each Kafka row flows through metadata extraction, SQL envelope parsing,
-basic validation, then a safe console projection. Normalization, configuration
-comparison, alerts, deduplication, business watermarks, and storage are absent.
+basic validation, then either safe invalid diagnostics or watermark/dedup and
+native version-aware state. Phase 5 normalization/diff and YAML rules produce
+Kafka alerts. Analytical storage remains absent. `--parse-only` selects the
+previous diagnostic-only projection without stateful business processing.
 
 ## Configuration
 
@@ -50,12 +61,16 @@ Export variables explicitly; Python does not load `.env` automatically.
 | `SPARK_MASTER` | `local[*]` | Local host threads; use `local[2]` to limit CPU |
 | `SPARK_APP_NAME` | `ConfigStreamStreaming` | Spark application name |
 | `KAFKA_BOOTSTRAP_SERVERS` | `localhost:9092` | Host-accessible broker address |
-| `SPARK_CHECKPOINT_DIR` | `.cache/spark-checkpoints/config-snapshots` | One query's persistent progress |
+| `SPARK_CHECKPOINT_DIR` | `.cache/spark-checkpoints/config-snapshots-v6` | Dedicated Phase 6 progress/state; do not reuse Phase 4 checkpoints |
 | `SPARK_RUNTIME_DIR` | `.cache/spark` | Ivy JARs, scratch space, JVM temp files, warehouse location |
 | `SPARK_STARTING_OFFSETS` | `latest` | `latest`, `earliest`, or explicit snapshot partition offsets |
 | `SPARK_TRIGGER_SECONDS` | `2` | Processing-time micro-batch trigger |
 | `SPARK_MAX_OFFSETS_PER_TRIGGER` | `10000` | Rate limit in source offsets, not a throughput guarantee |
 | `SPARK_CONSOLE_ROWS` | `20` | Maximum displayed rows per batch |
+| `SPARK_WATERMARK_DELAY` | `10 minutes` | Snapshot event-time lateness bound |
+| `SPARK_STATE_TIMEOUT` | `30 minutes` | Asset event-time inactivity timeout |
+| `SPARK_MAX_VERSIONS_PER_ASSET` | `32` | Version buffer cap, minimum 2 |
+| `CONFIGSTREAM_RULES_FILE` | `rules/default.yaml` | YAML validated before session/query startup |
 
 `JAVA_HOME`/`PATH` select the external JDK. Spark SQL session timezone is explicitly
 UTC and timestamp type is `TIMESTAMP_LTZ`. Local tests use `local[2]`, two shuffle
@@ -127,7 +142,12 @@ For invalid records it suppresses payload-derived display columns entirely. It
 never includes configuration, URI, or raw JSON; no raw-content debug mode exists.
 Identifiers/keys themselves may still be sensitive and logs need appropriate access.
 
-## One console query, checkpoint, and progress
+## Optional Phase 4 console query, checkpoint, and progress
+
+This section describes `--parse-only`. The Phase 6 default instead uses one
+native-state query and `foreachBatch` Kafka alert output, with the same startup,
+shutdown, source offset, and progress-monitoring machinery. It also logs native
+state metrics, event-time watermarks, and bounded output/diagnostic counts.
 
 The console sink is `writeStream.format("console").outputMode("append")`, with
 `truncate=false` and a row display cap. **One classified query** provides both valid
@@ -186,7 +206,7 @@ Terminal A (choose a previously unused checkpoint path):
 ```sh
 SPARK_MASTER='local[2]' SPARK_STARTING_OFFSETS=latest \
 SPARK_CHECKPOINT_DIR=.cache/spark-checkpoints/live-demo \
-make spark-stream
+make spark-stream SPARK_ARGS=--parse-only
 ```
 
 After the initial progress log, terminal B:
@@ -211,7 +231,7 @@ The existing Kafka suite remains separate. The Spark integration test records
 starting offsets with the Kafka Admin API, publishes 8 changes and 4 malformed
 fixtures, and reads Kafka directly through Spark. It uses `availableNow`, bounded
 timeouts, five offsets per trigger, and a tiny test-only `foreachBatch` collector
-for assertions. Production uses the console sink, not that collector. Assertions
+for assertions. Parse-only uses the console sink, not that collector. Assertions
 check 8 valid / 4 invalid, keys, timestamps, provenance, then restart from the same
 checkpoint with `earliest`: no old records return, and a subsequent new snapshot
 does return. Tests assume no concurrent topic writers and leave small fixture
@@ -227,7 +247,7 @@ without leaving a process running:
 ```sh
 SPARK_STARTING_OFFSETS=earliest \
 SPARK_CHECKPOINT_DIR=.cache/spark-checkpoints/replay-demo \
-make spark-stream SPARK_ARGS=--available-now
+make spark-stream SPARK_ARGS='--parse-only --available-now'
 ```
 
 `make check` stays fast and does not require Java, Spark, or Kafka. `make spark-test`
@@ -235,7 +255,7 @@ uses tiny static Spark DataFrames without downloading the Kafka connector. CI ru
 it in a separate Java 21 job; full Kafka/Spark integration remains an explicit local
 command. The Spark extra is large on first install (PySpark bundles the Spark JARs).
 
-## Recorded local acceptance
+## Recorded Phase 4 local acceptance
 
 On macOS arm64, Python 3.12.14, OpenJDK 21.0.12.1, Spark/PySpark 4.0.2, and the
 unchanged Kafka 4.1.2 broker, the following checks passed:
@@ -267,11 +287,11 @@ smoke checks, not scalability, latency, or fault-tolerance experiments.
 
 Local mode is a single host, not evidence of distributed-cluster throughput or HA.
 Kafka remains the Phase 3 loopback-only plaintext single-broker development setup.
-This streaming query includes no watermark, deduplication, asset join, stateful
-diff, normalization, rule engine, alert/DLQ producer, MinIO, Elasticsearch, API,
-or cloud deployment. Phase 5 provides tested [pure normalization/secret masking
-and explicit-pair diff](config-processing.md) separately, without changing this
-ingestion contract. Wiring it into stateful streaming belongs to Phase 6.
+The default Phase 6 query now includes watermark-aware dedup, native version
+state, Phase 5 normalization/diff, YAML rules, and Kafka alerts. It still has no
+asset join, full DLQ, MinIO, Elasticsearch, API, or cloud deployment. Pure APIs
+remain independently testable; [stateful processing](stateful-processing.md)
+documents bounded retention and replay/at-least-once Kafka sink limitations.
 
 ## References
 

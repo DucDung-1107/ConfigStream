@@ -29,6 +29,7 @@ RECORD_TOPICS = {
     "asset": "config.assets",
     "change_event": "config.events",
     "config_snapshot": "config.snapshots",
+    "alert": "config.alerts",
 }
 
 

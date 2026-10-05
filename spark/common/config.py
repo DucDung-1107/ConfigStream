@@ -13,6 +13,16 @@ KAFKA_CONNECTOR = f"org.apache.spark:spark-sql-kafka-0-10_{SCALA_BINARY_VERSION}
 SNAPSHOTS_TOPIC = "config.snapshots"
 
 
+def duration_ms(value: str) -> int:
+    match = re.fullmatch(r"([1-9]\d*) (milliseconds?|seconds?|minutes?|hours?)", value)
+    if match is None:
+        raise ValueError(
+            "Duration must be a positive integer and milliseconds/seconds/minutes/hours"
+        )
+    units = {"millisecond": 1, "second": 1000, "minute": 60_000, "hour": 3_600_000}
+    return int(match[1]) * units[match[2].removesuffix("s")]
+
+
 def validate_offsets(value: str) -> None:
     if value in {"earliest", "latest"}:
         return
@@ -38,12 +48,16 @@ class SparkConfig:
     master: str = "local[*]"
     app_name: str = "ConfigStreamStreaming"
     bootstrap_servers: str = "localhost:9092"
-    checkpoint_dir: Path = Path(".cache/spark-checkpoints/config-snapshots")
+    checkpoint_dir: Path = Path(".cache/spark-checkpoints/config-snapshots-v6")
     runtime_dir: Path = Path(".cache/spark")
     starting_offsets: str = "latest"
     trigger_seconds: int = 2
     max_offsets_per_trigger: int = 10_000
     console_rows: int = 20
+    watermark_delay: str = "10 minutes"
+    state_timeout: str = "30 minutes"
+    max_versions_per_asset: int = 32
+    rules_file: Path = Path("rules/default.yaml")
 
     def __post_init__(self) -> None:
         if not re.fullmatch(r"local(?:\[(?:\*|[1-9]\d*)\])?", self.master):
@@ -56,6 +70,10 @@ class SparkConfig:
                     "Spark trigger seconds, offset limit, and console rows must be positive"
                 )
         validate_offsets(self.starting_offsets)
+        duration_ms(self.watermark_delay)
+        duration_ms(self.state_timeout)
+        if type(self.max_versions_per_asset) is not int or self.max_versions_per_asset < 2:
+            raise ValueError("SPARK_MAX_VERSIONS_PER_ASSET must be an integer >= 2")
 
     @classmethod
     def from_env(cls, environ: Mapping[str, str] | None = None) -> "SparkConfig":
@@ -67,11 +85,15 @@ class SparkConfig:
                 "KAFKA_BOOTSTRAP_SERVERS", KafkaConfig().bootstrap_servers
             ),
             checkpoint_dir=Path(
-                values.get("SPARK_CHECKPOINT_DIR", ".cache/spark-checkpoints/config-snapshots")
+                values.get("SPARK_CHECKPOINT_DIR", ".cache/spark-checkpoints/config-snapshots-v6")
             ),
             runtime_dir=Path(values.get("SPARK_RUNTIME_DIR", ".cache/spark")),
             starting_offsets=values.get("SPARK_STARTING_OFFSETS", "latest"),
             trigger_seconds=int(values.get("SPARK_TRIGGER_SECONDS", "2")),
             max_offsets_per_trigger=int(values.get("SPARK_MAX_OFFSETS_PER_TRIGGER", "10000")),
             console_rows=int(values.get("SPARK_CONSOLE_ROWS", "20")),
+            watermark_delay=values.get("SPARK_WATERMARK_DELAY", "10 minutes"),
+            state_timeout=values.get("SPARK_STATE_TIMEOUT", "30 minutes"),
+            max_versions_per_asset=int(values.get("SPARK_MAX_VERSIONS_PER_ASSET", "32")),
+            rules_file=Path(values.get("CONFIGSTREAM_RULES_FILE", "rules/default.yaml")),
         )

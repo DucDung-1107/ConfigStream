@@ -9,9 +9,10 @@ without putting Kafka internals into generator state. `make setup` installs the
 locked Kafka extra; a base `configstream` install remains sufficient for JSONL.
 
 All five topics below are explicitly initialized, with **replication factor 1**.
-Only assets/events/snapshots have producers. Alert evaluation and DLQ routing
-are **not implemented**. Phase 4 adds a [Spark snapshot console
-consumer](spark-streaming.md). RF=1 and a combined broker/controller are local
+Phase 6 activates `config.alerts` through Spark's distributed Kafka writer and
+the shared Alert envelope. DLQ routing is **not implemented**. See the
+[Spark consumer](spark-streaming.md) and [state/rule contracts](stateful-processing.md).
+RF=1 and a combined broker/controller are local
 development choices, not a production deployment.
 
 ## Topic contracts
@@ -20,8 +21,8 @@ development choices, not a production deployment.
 | --- | --- | --- | --- | --- | --- | --- |
 | `config.assets` | 3 | `asset_id` | Asset | Workload startup; updates via producer wrapper | Compacted reference registry; metadata enrichment | `compact`, `retention.ms=-1` |
 | `config.events` | 6 | `asset_id` | ChangeEvent | Each generator mutation | Audit, event analytics, operational history, triggers | `delete`, 7 days |
-| `config.snapshots` | 6 | `asset_id` | ConfigSnapshot | Each generator mutation | **Primary Spark configuration stream; Phase 4 console consumer** | `delete`, 7 days |
-| `config.alerts` | 3 | `asset_id` (planned) | Alert (planned) | None | Processing output / alert consumers | `delete`, 7 days |
+| `config.snapshots` | 6 | `asset_id` | ConfigSnapshot | Each generator mutation | **Primary Spark stateful configuration stream** | `delete`, 7 days |
+| `config.alerts` | 3 | `asset_id` | Alert | Spark Phase 6 rule evaluation | Alert consumers; future serving upserts by alert_id | `delete`, 7 days |
 | `config.dlq` | 3 | Original key when known (planned) | Original payload + error + ingest time (not implemented) | None | Invalid/unprocessable-record inspection and replay | `delete`, 7 days |
 
 Partition counts and cleanup/retention settings have one source of truth in
@@ -52,11 +53,15 @@ Every UTF-8 JSON value uses the same envelope as JSONL:
 {"record_type":"asset","payload":{"schema_version":"1.0","asset_id":"router-000001","asset_type":"network_device","metadata":{"source":"synthetic"},"tags":["synthetic"],"created_at":"2026-09-30T00:00:00Z"}}
 ```
 
-Other active `record_type` values are `change_event` and `config_snapshot`.
+Other active `record_type` values are `change_event`, `config_snapshot`, and `alert`.
 `schema_version` remains inside the payload. Serialization uses sorted compact
 JSON and one trailing newline in both transports; configuration newlines are
-escaped. JSONL change output remains byte-identical to Phase 2. No Avro, Protobuf,
-Schema Registry, or new external schema was introduced.
+escaped. JSONL change output remains byte-identical to Phase 2. Kafka values remain
+JSON: no Avro, Protobuf wire format, Schema Registry, or new external schema.
+The Spark extra's protobuf dependency is only for Spark's internal state protocol.
+`make kafka-consume-alerts` prints keys/envelopes using the same CLI conventions.
+Kafka sink retries may physically duplicate deterministic alert IDs; they are not
+Kafka-level uniqueness constraints or an end-to-end exactly-once guarantee.
 
 Kafka mode publishes N Asset records once at startup and flushes that batch before
 generating workload changes. It then enqueues event followed by snapshot for each

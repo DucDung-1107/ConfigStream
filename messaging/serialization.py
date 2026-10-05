@@ -1,10 +1,15 @@
 import json
 
-from schemas import Asset, ChangeEvent, ConfigSnapshot
+from schemas import Alert, Asset, ChangeEvent, ConfigSnapshot
 
-type Record = Asset | ChangeEvent | ConfigSnapshot
+type Record = Asset | ChangeEvent | ConfigSnapshot | Alert
 
-RECORD_TYPES = {Asset: "asset", ChangeEvent: "change_event", ConfigSnapshot: "config_snapshot"}
+RECORD_TYPES = {
+    Asset: "asset",
+    ChangeEvent: "change_event",
+    ConfigSnapshot: "config_snapshot",
+    Alert: "alert",
+}
 
 
 def record_type(record: Record) -> str:

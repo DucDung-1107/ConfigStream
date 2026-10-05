@@ -60,6 +60,10 @@ def create_session(config: SparkConfig, *, kafka: bool = True) -> "SparkSession"
         .config("spark.sql.shuffle.partitions", "2")
         .config("spark.ui.enabled", "false")
         .config("spark.sql.adaptive.enabled", "false")
+        .config(
+            "spark.sql.streaming.stateStore.providerClass",
+            "org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider",
+        )
         .config("spark.sql.warehouse.dir", (runtime / "warehouse").as_uri())
         .config("spark.jars.ivy", str(runtime / "ivy"))
         .config("spark.driver.extraJavaOptions", f'-Djava.io.tmpdir="{runtime / "tmp"}"')

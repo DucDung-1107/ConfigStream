@@ -1,0 +1,25 @@
+rules:
+  - id: logging-disabled
+    enabled: true
+    severity: high
+    operation: added
+    pattern: "^logging disabled$"
+    message: "Configuration logging was disabled"
+  - id: telnet-enabled
+    enabled: true
+    severity: critical
+    operation: added
+    pattern: "^telnet enabled$"
+    message: "Telnet was enabled"
+  - id: debug-enabled
+    enabled: true
+    severity: medium
+    operation: added
+    pattern: "^debug enabled$"
+    message: "Debug mode was enabled"
+  - id: nginx-access-log-disabled
+    enabled: true
+    severity: high
+    operation: added
+    pattern: "^access_log disabled$"
+    message: "Nginx access logging was disabled"

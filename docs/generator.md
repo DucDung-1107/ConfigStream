@@ -247,4 +247,6 @@ Phase 4 adds a direct Spark consumer for `config.snapshots` while retaining JSON
 as an offline test path. See [Spark parsing and validation](spark-streaming.md).
 Phase 5 adds [pure normalization and explicit-pair diff](config-processing.md),
 tested with these generator templates and successive per-asset snapshots.
-Spark stateful comparison and rules remain future work.
+Phase 6 adds [native version-aware state and YAML rules](stateful-processing.md).
+Its dedicated demo uses 2026-10-05 timestamps, unlike this generator's 2026-09-30
+default; align start times or use fresh checkpoints to avoid intentional late drops.

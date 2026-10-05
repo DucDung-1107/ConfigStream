@@ -3,12 +3,12 @@
 ## Scope and status
 
 ConfigStream focuses on distributed configuration-change storage and processing.
-Phases 0–5 supply a Python project, tested versioned schemas, a stateful generator,
+Phases 0–6 supply a Python project, tested versioned schemas, a stateful generator,
 JSONL output, Kafka ingestion with an asset registry, and direct Spark Structured
-Streaming parsing/validation to console, and standalone normalization/diff logic.
+Streaming parsing/validation, native version buffers, normalization/diff, and YAML
+rules publishing Kafka alerts.
 The generator and pure processing package can run without external services.
-Stateful streaming comparison, rules, data-lake/serving sinks, APIs, Kubernetes,
-and monitoring systems remain future work.
+Data-lake/serving sinks, APIs, Kubernetes, and monitoring systems remain future work.
 
 ## Implemented synthetic source
 
@@ -66,15 +66,18 @@ and Kafka key equality; no per-row Python/Pydantic UDF is involved.
 
 The classified streaming DataFrame retains snapshot content and Kafka provenance.
 A valid-snapshot projection exposes the clean transport fields and metadata.
-One checkpointed `writeStream.format("console")` projects safe columns only and
-labels each row valid/invalid with a fixed diagnostic reason. This is one query,
-not two independently advancing readers; malformed records remain visible without
-logging raw configuration. This diagnostic classification is not a DLQ producer.
+Phase 6 sends valid snapshots through watermark-aware ID deduplication and
+`groupBy(asset_id).transformWithStateInPandas`. Invalid records bypass business
+state and retain the Phase 4 safe diagnostic projection. Their output is unioned
+with stateful diffs/alerts into one checkpointed query and one `foreachBatch`.
+The batch is cached for counts, bounded safe logging, and distributed Kafka alert
+writes, then unpersisted. Malformed records remain visible without config logging.
+The optional `--parse-only` console query remains available with its own checkpoint.
 
 Checkpointed query progress supports local restart. Starting offsets apply only
 without prior progress; Kafka retention/deletion can still prevent recovery. A
-console display is not a durable or exactly-once sink. Spark's native progress
-metrics are logged without claiming measured throughput. See
+console display is not durable; Kafka alert retries can duplicate physical records.
+Spark's native progress metrics are logged without claiming measured throughput. See
 [version matrix, launch commands, and validation scope](spark-streaming.md).
 
 ## Component responsibilities
@@ -83,8 +86,8 @@ metrics are logged without claiming measured throughput. See
 | --- | --- |
 | Sources and collector | Obtain configuration; generate IDs, versions, timestamps; publish records without processing business rules |
 | Kafka | Decouple ingestion from compute; retain an ordered, replayable log per partition |
-| Spark Structured Streaming | Implemented parsing and basic validation; planned normalization, stateful comparison, rules, and event-time aggregations |
-| Pure processing | Implemented text normalization and explicit same-asset pair comparison; reusable logic, not distributed state management |
+| Spark Structured Streaming | Parsing, watermark/dedup, native per-asset version buffers, normalization/diff, rules and Kafka alerts; business window analytics remain future work |
+| Pure processing | Text normalization, explicit same-asset pair comparison, bounded transitions and YAML rules; Spark owns distributed state persistence |
 | MinIO + Parquet | S3-compatible local historical source of truth; columnar data for analytical reads |
 | Elasticsearch | Derived, rebuildable serving/search indexes; not the authoritative historical store |
 | Spark batch | Read historical Parquet for frequency, severity, and anomaly analytics |
@@ -100,42 +103,44 @@ existing ConfigDiff plus internal gap/hash diagnostics; no schema was extended.
 
 The current boundaries are:
 
-- Kafka → Spark parse/validate → safe console diagnostics (running stream).
+- Kafka → Spark parse/validate → native version state → normalization/diff/rules → Kafka alerts.
 - ConfigSnapshot pair → pure normalization → deterministic diff (offline API).
 
-Normalization/diff logic is **available but not connected to the stream**.
+Normalization/diff logic is now **reused by the stateful stream**.
 The caller must select snapshots for the same asset with increasing versions;
 cross-asset, duplicate, reverse, or reused snapshot identities fail clearly.
-Version gaps are allowed and exposed, never silently treated as consecutive.
-Arrival order does not establish a prior version. Phase 6 will own that state,
-lateness/deduplication, and replay policy inside Spark; no Python-side substitute
-or UDF is introduced now. See [processing contracts](config-processing.md).
+The pure offline API permits explicit gaps, but canonical streaming holds missing
+versions and emits only adjacent pairs. Arrival order does not establish a prior
+version. Spark owns durable state, timers, ID dedup, and edge flags; pure Python
+transitions only decide changes to a bounded buffer. See [processing contracts](config-processing.md)
+and [stateful policies and failure boundaries](stateful-processing.md).
 
 ## Streaming path
 
 Collectors publish `ConfigSnapshot` and `ChangeEvent` records separately.
 The initialized Kafka topics are `config.assets`, `config.snapshots`, `config.events`,
-`config.alerts`, and `config.dlq`; only the first three have producers. Use
+`config.alerts`, and `config.dlq`; only the DLQ has no producer. Use
 **asset_id as the Kafka key** whenever per-asset ordering
 matters. A single development broker is sufficient. Kafka ordering is within a
 partition, not global and not across topics. Producers must coordinate version
 assignment for the same asset; repartitioning and retries need explicit handling.
 
-Spark now parses and validates snapshots to console diagnostics. Future stages
-will route malformed/unsupported records to the DLQ, deduplicate IDs, normalize
-content, compare consecutive snapshots per asset,
-evaluate YAML rules, and calculate window metrics. The DLQ must preserve the
+Spark now deduplicates IDs, normalizes content, compares adjacent versions per
+asset, evaluates YAML rules, and publishes alerts. Future stages will persist
+history, route malformed/unsupported records to the DLQ, and calculate business
+window metrics. The DLQ must preserve the
 original payload, ingestion timestamp, and reason under controlled access.
 Spark owns this state and computation; the collector and API do not emulate it.
 
 `event_time` means when a source observed the change. `ingest_time` means when the
 collector accepted it; neither is Spark processing time. Both must carry a
-timezone. Event-time watermarks will bound state and tolerated lateness. Delayed,
-duplicate, and out-of-order records require tested policies before adding sinks.
+timezone. Event-time watermarks bound dedup and advance per-asset timers. A size cap
+also bounds retained versions; cleanup needs event-time progress, not wall time.
 Arrival order alone is not enough to identify the correct preceding version.
 
-Console query checkpointing is implemented; idempotent document identifiers are
-planned. Multiple sinks are not automatically one atomic transaction; replay and partial-write recovery
+Checkpointed version state and deterministic diff/alert IDs are implemented;
+future serving storage should upsert these IDs. Multiple sinks are not automatically
+one atomic transaction; replay and partial-write recovery
 must be designed and tested rather than advertised as end-to-end exactly-once.
 
 ## Storage and batch path
@@ -179,7 +184,7 @@ assets, and later rolling mean/standard-deviation/z-score anomalies.
 3. Stateful generator produces meaningful consecutive versions on the console.
 4. Kafka consumer CLI observes keyed messages; Spark then parses them to console.
 5. Pure normalization and explicit-pair diff are tested without services.
-6. Future rules, event-time version state, and replay behavior are tested in Spark.
+6. Rules, event-time version state, out-of-order pairs, and process restart are tested in Spark.
 7. Lake and serving sinks preserve history and expose results through FastAPI.
 
 The MVP scenario changes `logging enabled` to `logging disabled`, preserves both

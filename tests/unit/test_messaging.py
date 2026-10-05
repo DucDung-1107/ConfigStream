@@ -115,9 +115,16 @@ def test_serialization_stays_byte_compatible_with_jsonl(records: tuple) -> None:
     assert "máy-chủ" in serialize_record(asset)
 
 
-def test_unsupported_types_are_not_routed(alert_payload: dict) -> None:
+def test_unsupported_types_are_not_routed() -> None:
     with pytest.raises(TypeError):
-        topic_for(Alert.model_validate(alert_payload))
+        topic_for(object())
+
+
+def test_alert_routing_and_key(alert_payload: dict, client: Mock) -> None:
+    alert = Alert.model_validate(alert_payload)
+    KafkaProducer(KafkaConfig(), client).publish(alert)
+    assert client.produce.call_args.args == ("config.alerts",)
+    assert client.produce.call_args.kwargs["key"] == alert.asset_id.encode()
 
 
 def test_delivery_failure_is_logged_and_propagates(
