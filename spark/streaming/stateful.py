@@ -52,6 +52,7 @@ class VersionProcessor(StatefulProcessor):
         self.timeout_ms = duration_ms(config.state_timeout)
         self.max_versions = config.max_versions_per_asset
         self.rules = rules
+        self.lake_enabled = config.lake is not None
 
     def init(self, handle: StatefulProcessorHandle) -> None:
         self.handle = handle
@@ -207,6 +208,30 @@ class VersionProcessor(StatefulProcessor):
                 records = self._outputs(transition, event_ms, watermark)
                 if transition.accepted:
                     records.append(output_record("accepted", asset_id, event_ms, metadata))
+                    if self.lake_enabled:
+                        records.append(
+                            output_record(
+                                "normalized_snapshot",
+                                asset_id,
+                                event_ms,
+                                metadata,
+                                json.dumps(
+                                    {
+                                        "normalization_version": "text-v1",
+                                        "snapshot_id": snapshot.snapshot_id,
+                                        "asset_id": snapshot.asset_id,
+                                        "version": snapshot.version,
+                                        "event_time": snapshot.event_time.isoformat(),
+                                        "ingest_time": snapshot.ingest_time.isoformat(),
+                                        "raw_hash": snapshot.hash,
+                                        "normalized_hash": normalized.normalized_hash,
+                                        "normalized_content": normalized.normalized_content,
+                                    },
+                                    sort_keys=True,
+                                    separators=(",", ":"),
+                                ),
+                            )
+                        )
                 if records:
                     yield pd.DataFrame(records)
                 state = transition.state
@@ -226,7 +251,10 @@ class VersionProcessor(StatefulProcessor):
 
 
 def stateful_records(
-    classified: DataFrame, config: SparkConfig, rules: tuple[Rule, ...]
+    classified: DataFrame,
+    config: SparkConfig,
+    rules: tuple[Rule, ...],
+    raw_records: DataFrame | None = None,
 ) -> DataFrame:
     valid = (
         valid_snapshots(classified)
@@ -248,4 +276,11 @@ def stateful_records(
         functions.to_json(functions.struct(*invalid.columns)).alias("summary"),
         functions.lit(None).cast("string").alias("value"),
     )
-    return processed.unionByName(diagnostics)
+    output = processed.unionByName(diagnostics)
+    if config.lake is not None:
+        if raw_records is None:
+            raise ValueError("Lake processing requires the original Kafka source")
+        from spark.streaming.sinks.lake import raw_outputs
+
+        output = output.unionByName(raw_outputs(raw_records))
+    return output

@@ -22,11 +22,12 @@ def start_stateful(
     rules: tuple[Rule, ...],
     *,
     available_now: bool = False,
+    raw_records: "DataFrame | None" = None,
 ) -> "StreamingQuery":
     from spark.streaming.outputs import publish_batch
     from spark.streaming.stateful import stateful_records
 
-    output = stateful_records(classified, config, rules)
+    output = stateful_records(classified, config, rules, raw_records)
     writer = (
         output.writeStream.foreachBatch(
             lambda batch, batch_id: publish_batch(batch, batch_id, config)
@@ -112,6 +113,8 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         config = SparkConfig.from_env()
+        if config.lake is not None and args.parse_only:
+            raise ValueError("Lake storage requires the stateful query; disable --parse-only")
         rules = load_rules(config.rules_file) if not args.parse_only else ()
         session = create_session(config)
         for signum in previous_handlers:
@@ -127,11 +130,14 @@ def main(argv: list[str] | None = None) -> int:
             config.checkpoint_dir.resolve(),
             config.console_rows,
         )
-        classified = classify_records(parse_records(read_snapshots(session, config)))
+        raw_records = read_snapshots(session, config)
+        classified = classify_records(parse_records(raw_records))
         if args.parse_only:
             query = start_console(classified, config, available_now=args.available_now)
         else:
-            query = start_stateful(classified, config, rules, available_now=args.available_now)
+            query = start_stateful(
+                classified, config, rules, available_now=args.available_now, raw_records=raw_records
+            )
         LOGGER.info("Query started: %s (%s)", query.name, query.id)
         monitor_query(query, available_now=args.available_now, stop_requested=stop_requested)
     except KeyboardInterrupt:

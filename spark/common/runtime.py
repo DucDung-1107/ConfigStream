@@ -14,6 +14,9 @@ if TYPE_CHECKING:
     from pyspark.sql import SparkSession
 
 LOGGER = logging.getLogger(__name__)
+HADOOP_VERSION = "3.4.1"
+S3A_CONNECTOR = f"org.apache.hadoop:hadoop-aws:{HADOOP_VERSION}"
+CLOUD_CONNECTOR = f"org.apache.spark:spark-hadoop-cloud_2.13:{SPARK_VERSION}"
 
 
 def check_runtime() -> None:
@@ -68,12 +71,56 @@ def create_session(config: SparkConfig, *, kafka: bool = True) -> "SparkSession"
         .config("spark.jars.ivy", str(runtime / "ivy"))
         .config("spark.driver.extraJavaOptions", f'-Djava.io.tmpdir="{runtime / "tmp"}"')
     )
-    if kafka:
-        builder = builder.config("spark.jars.packages", KAFKA_CONNECTOR)
+    packages = [KAFKA_CONNECTOR] if kafka else []
+    if config.lake is not None:
+        packages.extend([S3A_CONNECTOR, CLOUD_CONNECTOR])
+        builder = (
+            builder.config(
+                "spark.jars.excludes",
+                "org.apache.hadoop:hadoop-azure,org.apache.hadoop:hadoop-cloud-storage,"
+                "com.google.cloud.bigdataoss:gcs-connector",
+            )
+            .config(
+                "spark.sql.sources.commitProtocolClass",
+                "org.apache.spark.internal.io.cloud.PathOutputCommitProtocol",
+            )
+            .config(
+                "spark.sql.parquet.output.committer.class",
+                "org.apache.spark.internal.io.cloud.BindingParquetOutputCommitter",
+            )
+        )
+    if packages:
+        builder = builder.config("spark.jars.packages", ",".join(packages))
     LOGGER.info("Starting Spark %s on %s (UTC)", SPARK_VERSION, config.master)
     session = builder.getOrCreate()
     session.sparkContext.setLogLevel("WARN")
     if session.version != SPARK_VERSION:
         session.stop()
         raise RuntimeError(f"Spark runtime must match connector version {SPARK_VERSION}")
+    if config.lake is not None:
+        if session._jvm.org.apache.hadoop.util.VersionInfo.getVersion() != HADOOP_VERSION:
+            session.stop()
+            raise RuntimeError("Hadoop runtime must match the pinned S3A connector")
+        lake = config.lake
+        options = {
+            "fs.s3a.endpoint": lake.endpoint,
+            "fs.s3a.endpoint.region": lake.region,
+            "fs.s3a.path.style.access": "true",
+            "fs.s3a.connection.ssl.enabled": str(lake.endpoint.startswith("https:")).lower(),
+            "fs.s3a.aws.credentials.provider": (
+                "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider"
+            ),
+            "fs.s3a.access.key": lake.access_key,
+            "fs.s3a.secret.key": lake.secret_key,
+            "fs.s3a.committer.name": "magic",
+            "fs.s3a.committer.magic.enabled": "true",
+            "mapreduce.outputcommitter.factory.scheme.s3a": (
+                "org.apache.hadoop.fs.s3a.commit.S3ACommitterFactory"
+            ),
+            "fs.s3a.buffer.dir": str(runtime / "tmp" / "s3a"),
+            "fs.s3a.connection.timeout": "5s",
+            "fs.s3a.connection.establish.timeout": "5s",
+        }
+        for name, value in options.items():
+            session.sparkContext._jsc.hadoopConfiguration().set(name, value)
     return session

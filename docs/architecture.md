@@ -3,12 +3,12 @@
 ## Scope and status
 
 ConfigStream focuses on distributed configuration-change storage and processing.
-Phases 0–6 supply a Python project, tested versioned schemas, a stateful generator,
+Phases 0–7 supply a Python project, tested versioned schemas, a stateful generator,
 JSONL output, Kafka ingestion with an asset registry, and direct Spark Structured
 Streaming parsing/validation, native version buffers, normalization/diff, and YAML
-rules publishing Kafka alerts.
+rules publishing Kafka alerts, plus optional MinIO/Parquet history.
 The generator and pure processing package can run without external services.
-Data-lake/serving sinks, APIs, Kubernetes, and monitoring systems remain future work.
+Serving sinks, APIs, Kubernetes, and monitoring systems remain future work.
 
 ## Implemented synthetic source
 
@@ -71,7 +71,10 @@ Phase 6 sends valid snapshots through watermark-aware ID deduplication and
 state and retain the Phase 4 safe diagnostic projection. Their output is unioned
 with stateful diffs/alerts into one checkpointed query and one `foreachBatch`.
 The batch is cached for counts, bounded safe logging, and distributed Kafka alert
-writes, then unpersisted. Malformed records remain visible without config logging.
+writes, then unpersisted. Lake mode also archives original Kafka bytes before
+dedup/late filtering and accepted normalized snapshots into partitioned Parquet.
+A per-batch manifest publishes complete lake output before the Kafka alert write.
+Malformed records remain visible without config logging.
 The optional `--parse-only` console query remains available with its own checkpoint.
 
 Checkpointed query progress supports local restart. Starting offsets apply only
@@ -126,9 +129,9 @@ partition, not global and not across topics. Producers must coordinate version
 assignment for the same asset; repartitioning and retries need explicit handling.
 
 Spark now deduplicates IDs, normalizes content, compares adjacent versions per
-asset, evaluates YAML rules, and publishes alerts. Future stages will persist
-history, route malformed/unsupported records to the DLQ, and calculate business
-window metrics. The DLQ must preserve the
+asset, evaluates YAML rules, and publishes alerts. Optional lake mode persists
+raw/processed history. Future stages will route malformed/unsupported records to
+the DLQ and calculate business window metrics. The DLQ must preserve the
 original payload, ingestion timestamp, and reason under controlled access.
 Spark owns this state and computation; the collector and API do not emulate it.
 
@@ -145,18 +148,18 @@ must be designed and tested rather than advertised as end-to-end exactly-once.
 
 ## Storage and batch path
 
-Planned logical locations under the `config-lake` bucket:
+Implemented logical locations under the private `config-lake` bucket:
 
-- `raw/`: accepted original payloads and ingestion context, access restricted.
-- `processed/`: normalized snapshots, diffs, events, and alerts in Parquet.
-- `analytics/`: Spark batch reports and derived aggregate results.
+- `raw/`: all fetched original snapshot-topic records and Kafka provenance, access restricted.
+- `processed/`: accepted normalized snapshots, diffs, alerts and safe diagnostics in Parquet.
+- `analytics/`: reserved for future batch reports and derived aggregate results.
 
-Processed snapshots should be partitioned by UTC event date (`year`, `month`,
-`day`) and `asset_type`, not `asset_id`. This supports date/type pruning without
-creating one tiny partition per asset. File sizes and compaction need later
-measurement. Asset type/metadata enrichment will require an explicit reference
-data join or collection envelope; snapshots reference an asset by ID rather than
-embedding vendor-specific fields.
+Processed snapshots are partitioned by UTC event date (`year`, `month`, `day`),
+inside a query/batch namespace for replay-safe writes. There is no asset_id
+partition. Asset type is not in ConfigSnapshot, so type partitions are deferred
+until an explicit registry join/enrichment. File sizes and compaction need later
+measurement. The committed-reader helper excludes incomplete batches; MinIO and
+Kafka writes are not one transaction. See [lake schemas, recovery and commands](data-lake.md).
 
 Elasticsearch will hold `assets`, `snapshots`, `config-events`, `alerts`, and
 `metrics`. Large raw configuration blobs belong in the lake, not duplicated in

@@ -30,6 +30,10 @@ def publish_batch(batch: DataFrame, batch_id: int, config: SparkConfig) -> None:
         counts = {
             row.record_type: row["count"] for row in batch.groupBy("record_type").count().collect()
         }
+        if config.lake is not None:
+            from spark.streaming.sinks.lake import write_lake_batch
+
+            write_lake_batch(batch, batch_id, config, counts)
         if counts.get("alert", 0):
             write_alerts(batch, config)
         reasons = {

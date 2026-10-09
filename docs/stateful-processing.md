@@ -335,8 +335,9 @@ These are correctness smoke tests, not throughput or production-latency benchmar
 
 ## Remaining limits
 
-No durable analytical history, full DLQ, rule sandbox, global state byte quota, or
-cluster/throughput claim. Supported-secret masking is not universal redaction;
-protect checkpoints and cached output as potentially sensitive. MinIO/Parquet
-history belongs to Phase 7, with explicit replay-safe multi-sink semantics before
-claiming stronger delivery guarantees. No storage service is implemented here.
+Phase 7 now supplies optional [MinIO/Parquet history](data-lake.md), preserving the
+Phase 6 state policy and adding accepted normalized snapshots to lake-mode output.
+Full DLQ, rule sandbox, global state byte quota, and cluster/throughput claims
+remain absent. Supported-secret masking is not universal redaction; protect
+checkpoints and cached output as potentially sensitive. Kafka delivery remains
+at-least-once even with the added lake commit protocol.

@@ -5,6 +5,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
+from lake.config import LakeConfig, lake_enabled
 from messaging.config import KafkaConfig
 
 SPARK_VERSION = "4.0.2"
@@ -58,6 +59,7 @@ class SparkConfig:
     state_timeout: str = "30 minutes"
     max_versions_per_asset: int = 32
     rules_file: Path = Path("rules/default.yaml")
+    lake: LakeConfig | None = None
 
     def __post_init__(self) -> None:
         if not re.fullmatch(r"local(?:\[(?:\*|[1-9]\d*)\])?", self.master):
@@ -78,6 +80,7 @@ class SparkConfig:
     @classmethod
     def from_env(cls, environ: Mapping[str, str] | None = None) -> "SparkConfig":
         values = os.environ if environ is None else environ
+        enabled = lake_enabled(values)
         return cls(
             master=values.get("SPARK_MASTER", "local[*]"),
             app_name=values.get("SPARK_APP_NAME", "ConfigStreamStreaming"),
@@ -85,7 +88,12 @@ class SparkConfig:
                 "KAFKA_BOOTSTRAP_SERVERS", KafkaConfig().bootstrap_servers
             ),
             checkpoint_dir=Path(
-                values.get("SPARK_CHECKPOINT_DIR", ".cache/spark-checkpoints/config-snapshots-v6")
+                values.get(
+                    "SPARK_CHECKPOINT_DIR",
+                    ".cache/spark-checkpoints/config-snapshots-v7"
+                    if enabled
+                    else ".cache/spark-checkpoints/config-snapshots-v6",
+                )
             ),
             runtime_dir=Path(values.get("SPARK_RUNTIME_DIR", ".cache/spark")),
             starting_offsets=values.get("SPARK_STARTING_OFFSETS", "latest"),
@@ -96,4 +104,5 @@ class SparkConfig:
             state_timeout=values.get("SPARK_STATE_TIMEOUT", "30 minutes"),
             max_versions_per_asset=int(values.get("SPARK_MAX_VERSIONS_PER_ASSET", "32")),
             rules_file=Path(values.get("CONFIGSTREAM_RULES_FILE", "rules/default.yaml")),
+            lake=LakeConfig.from_env(values) if enabled else None,
         )

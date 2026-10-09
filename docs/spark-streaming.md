@@ -289,7 +289,9 @@ Local mode is a single host, not evidence of distributed-cluster throughput or H
 Kafka remains the Phase 3 loopback-only plaintext single-broker development setup.
 The default Phase 6 query now includes watermark-aware dedup, native version
 state, Phase 5 normalization/diff, YAML rules, and Kafka alerts. It still has no
-asset join, full DLQ, MinIO, Elasticsearch, API, or cloud deployment. Pure APIs
+asset join, full DLQ, Elasticsearch, API, or cloud deployment. Phase 7 adds an
+optional [MinIO/Parquet sink](data-lake.md), with a separate v7 checkpoint and
+matching Hadoop 3.4.1 S3A dependencies. Pure APIs
 remain independently testable; [stateful processing](stateful-processing.md)
 documents bounded retention and replay/at-least-once Kafka sink limitations.
 

@@ -13,15 +13,16 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0, 1, 2, 3, 4, 5, and 6 complete.** Pydantic contracts,
+**Phases 0, 1, 2, 3, 4, 5, 6, and 7 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
 Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
 and uses checkpointed native per-asset version buffers. It reuses pure Python
 normalization/diff logic and YAML rules to publish deterministic Alerts to Kafka.
 Pairing uses **asset_id + adjacent versions**, not previous-row arrival order.
-**Durable analytical storage is Phase 7**; search, API, dashboard, and Kubernetes
-remain planned. Invalid input continues to produce safe diagnostics, not a DLQ.
+Optional **MinIO/Parquet history is now available in Phase 7**; search, API,
+dashboard, and Kubernetes remain planned. Invalid input continues to produce
+safe diagnostics, not a DLQ.
 
 Implemented Kafka path (all keys are `asset_id`):
 
@@ -90,6 +91,12 @@ library's base dependencies remain sufficient for JSONL; Kafka imports are lazy.
 | `make kafka-consume-alerts` | Print retained alert keys and envelopes |
 | `make spark-test` | Run local[2] SQL/native state tests, without Kafka |
 | `make spark-integration-test` | Verify Kafka → Spark → alerts, invalid input, and process restart |
+| `make lake-setup` / `make lake-env` | Install locked lake dependencies / generate private local MinIO credentials |
+| `make lake-up` / `make lake-down` | Build/start Kafka + MinIO / stop them, preserving volumes |
+| `make lake-init` | Create the private lake bucket idempotently |
+| `make lake-stream` | Run stateful streaming with raw/processed Parquet history |
+| `make lake-inspect` | Count committed history without printing configuration bodies |
+| `make lake-integration-test` | Verify Kafka → Spark → MinIO, sink failure, replay and restart |
 | `make clean` | Remove test/build outputs, not datasets or environments |
 
 [GitHub Actions CI](https://github.com/kongwoang/ConfigStream/actions/workflows/ci.yml)
@@ -216,6 +223,53 @@ Use aligned `--start-time` values or separate checkpoints when mixing workloads.
 Rules come from `rules/default.yaml`. See [state, rules, replay, and delivery
 semantics](docs/stateful-processing.md). Deterministic IDs do not make Kafka sink
 retries end-to-end exactly-once; physical duplicate alerts remain possible.
+
+## MinIO data-lake quickstart
+
+Lake mode preserves original Kafka key/value bytes and provenance before
+deduplication or late-event filtering. It stores accepted normalized snapshots,
+ConfigDiffs, Alerts and safe diagnostics as typed Parquet. The existing query uses
+one output boundary for the lake and Kafka alert sinks.
+
+```sh
+make lake-setup
+make lake-env
+set -a; . .cache/minio.env; set +a
+make lake-up
+make kafka-topics
+make lake-init
+SPARK_MASTER='local[2]' SPARK_STARTING_OFFSETS=latest \
+SPARK_CHECKPOINT_DIR=.cache/spark-checkpoints/phase7-example make lake-stream
+```
+
+Wait for initial progress, then in another terminal with credentials exported:
+
+```sh
+make phase6-demo PHASE6_ARGS='--order out-of-order --asset-id phase7-example'
+make lake-inspect
+```
+
+For this fresh workload expect **3 raw snapshots, 3 normalized snapshots, 2 diffs,
+and 2 alerts**. Counts otherwise include earlier committed histories. Use
+`LAKE_ARGS='--query-id <query UUID>'` to inspect one query. Stop the live stream
+before `make lake-integration-test`; finish with `make lake-down`.
+
+The default private `config-lake` bucket uses `raw/`, `processed/`, and a reserved
+`analytics/` zone. Date partitions are UTC year/month/day, inside deterministic
+query/batch directories; asset-type enrichment comes later. A commit manifest
+publishes complete batches, so readers exclude partial writes and retries retain
+committed files. Kafka delivery remains at-least-once; the two sinks are not atomic.
+
+MinIO is built inside Docker from fixed release `RELEASE.2025-10-15T17-29-55Z` and
+commit `9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a`, with Go 1.24.9 and Alpine 3.22.2.
+First build and S3A dependency downloads can take several minutes. The source-build
+choice reflects the upstream community distribution; see [lake runtime, schemas,
+security, committed reads and recovery](docs/data-lake.md). Ports bind to loopback;
+credentials are random, mode 0600, and remain in ignored `.cache/minio.env`.
+
+Lake mode defaults to a **fresh v7 checkpoint**. Keep it separate from Phase 6 and
+parse-only checkpoints. `make setup` and `make spark-setup` do not include the lake
+extra; rerun `make lake-setup` before lake commands if dependencies were resynced.
 
 ## Try the schemas
 
@@ -347,11 +401,13 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 4 — complete | Direct Spark Kafka source, envelope parsing, validation, diagnostics, checkpoints |
 | 5 — complete | Pure text normalization/masking, normalized hashes, deterministic explicit-pair diff |
 | 6 — complete | Native Spark version state, watermark/dedup, YAML rules, Kafka alerts, safe progress metrics |
-| 7–9 | MinIO/Parquet, Elasticsearch, and thin FastAPI: end-to-end MVP |
+| 7 — complete | MinIO/Parquet raw and processed history, committed reads, retry/restart acceptance |
+| 8–9 | Elasticsearch and thin FastAPI: end-to-end MVP |
 | 10 | Historical Spark analytics and simple frequency anomalies |
 | 11–13 | Optional dashboard, SSH/FRR adapters, then Kubernetes deployment |
 
 Python 3.12, Pydantic, pytest, Ruff, Kafka, optional confluent-kafka, and PySpark 4.0.2
-form the current stack. MinIO, Parquet, Elasticsearch, and FastAPI remain planned.
+form the current stack alongside optional MinIO/Parquet history. Elasticsearch
+and FastAPI remain planned.
 Each phase is tested, committed, and pushed before the next begins. No throughput,
 latency, fault-tolerance, or exactly-once claims are made before experiments.

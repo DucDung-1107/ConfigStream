@@ -11,6 +11,7 @@ export TMPDIR := $(CURDIR)/.cache/tmp
 .PHONY: kafka-up kafka-down kafka-topics kafka-status kafka-demo integration-test
 .PHONY: kafka-consume-assets kafka-consume-events kafka-consume-snapshots kafka-consume-alerts phase6-demo
 .PHONY: spark-setup spark-test spark-stream spark-integration-test
+.PHONY: lake-setup lake-env lake-up lake-down lake-init lake-stream lake-inspect lake-integration-test
 SPARK_ARGS ?=
 PHASE6_ARGS ?=
 
@@ -24,6 +25,31 @@ test:
 
 spark-setup: setup
 	"$(UV)" sync --locked --extra kafka --extra spark
+
+lake-setup: setup
+	"$(UV)" sync --locked --extra kafka --extra spark --extra lake
+
+lake-env:
+	.venv/bin/python -m scripts.lake_dev_credentials
+
+lake-up:
+	.venv/bin/python -m lake.main --check-config
+	$(DOCKER) compose --profile lake up -d --build --wait --wait-timeout 180
+
+lake-down:
+	$(DOCKER) compose --profile lake down
+
+lake-init:
+	.venv/bin/python -m lake.main
+
+lake-stream:
+	CONFIGSTREAM_LAKE_ENABLED=true .venv/bin/python -m spark.streaming.main $(SPARK_ARGS)
+
+lake-inspect:
+	.venv/bin/python -m lake.inspect $(LAKE_ARGS)
+
+lake-integration-test:
+	.venv/bin/python -m pytest -m lake_integration tests/lake_integration
 
 spark-test:
 	.venv/bin/python -m pytest tests/spark
@@ -54,7 +80,7 @@ phase6-demo:
 	.venv/bin/python -m scripts.kafka_stateful_demo $(PHASE6_ARGS)
 
 kafka-up:
-	$(DOCKER) compose up -d --wait --wait-timeout 180
+	$(DOCKER) compose up -d --wait --wait-timeout 180 kafka
 
 kafka-down:
 	$(DOCKER) compose down

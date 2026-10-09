@@ -13,12 +13,13 @@ dependencies = ["pydantic>=2.10,<3", "PyYAML==6.0.2"]
 [project.optional-dependencies]
 kafka = ["confluent-kafka>=2.6,<3"]
 spark = ["pyspark==4.0.2", "pandas==2.2.3", "pyarrow==19.0.1", "protobuf==5.29.5"]
+lake = ["boto3==1.40.45"]
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["schemas", "generator", "messaging", "spark", "processing"]
+packages = ["schemas", "generator", "messaging", "spark", "processing", "lake"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -26,6 +27,7 @@ addopts = "-ra --strict-markers --strict-config"
 markers = [
     "integration: requires a running Kafka broker and initialized topics",
     "spark_integration: requires local Spark, Java 21, Kafka, and the Kafka connector",
+    "lake_integration: requires local Spark, Kafka, MinIO, and the S3A connector",
 ]
 
 [tool.ruff]
