@@ -149,12 +149,17 @@ def write_lake_batch(
 
 
 def read_committed(
-    session: SparkSession, config: LakeConfig, dataset: str, query_id: str | None = None
+    session: SparkSession,
+    config: LakeConfig,
+    dataset: str,
+    query_id: str | None = None,
+    *,
+    manifests: list[dict] | None = None,
 ) -> DataFrame:
     if dataset not in DATASET_SCHEMAS:
         raise ValueError("Unknown lake dataset")
     paths = []
-    for manifest in list_commits(config, query_id):
+    for manifest in list_commits(config, query_id) if manifests is None else manifests:
         if manifest.get("format_version") != "1.0":
             raise RuntimeError("Unsupported lake manifest format")
         path = manifest["datasets"].get(dataset)

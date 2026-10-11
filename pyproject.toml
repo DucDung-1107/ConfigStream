@@ -21,7 +21,7 @@ api = ["fastapi==0.143.0", "uvicorn==0.54.0", "httpx==0.28.1"]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["schemas", "generator", "messaging", "spark", "processing", "lake", "search", "api", "workloads"]
+packages = ["schemas", "generator", "messaging", "spark", "processing", "lake", "search", "api", "workloads", "analytics"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -32,6 +32,7 @@ markers = [
     "lake_integration: requires local Spark, Kafka, MinIO, and the S3A connector",
     "search_integration: requires local Elasticsearch; full pipeline also needs Kafka and MinIO",
     "api_integration: requires local Elasticsearch; end-to-end also needs Kafka and MinIO",
+    "phase10_integration: requires local Kafka, MinIO, Spark and the pinned fixture baseline",
 ]
 
 [tool.ruff]

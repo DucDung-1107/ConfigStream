@@ -32,6 +32,19 @@ dataset-inspect:
 workload-generate:
 	.venv/bin/python -m workloads.main generate $(WORKLOAD_ARGS)
 
+.PHONY: analytics-run analytics-inspect analytics-test phase10-integration-test
+analytics-run:
+	CONFIGSTREAM_LAKE_ENABLED=true .venv/bin/python -m analytics.main $(ANALYTICS_ARGS)
+
+analytics-inspect:
+	CONFIGSTREAM_LAKE_ENABLED=true .venv/bin/python -m analytics.main --inspect $(ANALYTICS_ARGS)
+
+analytics-test:
+	.venv/bin/python -m pytest tests/spark/test_analytics.py tests/unit/test_analytics_config.py
+
+phase10-integration-test:
+	.venv/bin/python -m pytest -m phase10_integration tests/phase10_integration
+
 api-setup: setup
 	"$(UV)" sync --locked --extra kafka --extra spark --extra lake --extra search --extra api
 
