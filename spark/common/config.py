@@ -7,6 +7,7 @@ from pathlib import Path
 
 from lake.config import LakeConfig, lake_enabled
 from messaging.config import KafkaConfig
+from search.config import SearchConfig, boolean
 
 SPARK_VERSION = "4.0.2"
 SCALA_BINARY_VERSION = "2.13"
@@ -60,8 +61,11 @@ class SparkConfig:
     max_versions_per_asset: int = 32
     rules_file: Path = Path("rules/default.yaml")
     lake: LakeConfig | None = None
+    search: SearchConfig | None = None
 
     def __post_init__(self) -> None:
+        if self.search is not None and self.lake is None:
+            raise ValueError("Live search requires the authoritative lake sink to be enabled")
         if not re.fullmatch(r"local(?:\[(?:\*|[1-9]\d*)\])?", self.master):
             raise ValueError("SPARK_MASTER must use local mode, for example local[*] or local[2]")
         if not self.app_name.strip() or not self.bootstrap_servers.strip():
@@ -105,4 +109,7 @@ class SparkConfig:
             max_versions_per_asset=int(values.get("SPARK_MAX_VERSIONS_PER_ASSET", "32")),
             rules_file=Path(values.get("CONFIGSTREAM_RULES_FILE", "rules/default.yaml")),
             lake=LakeConfig.from_env(values) if enabled else None,
+            search=SearchConfig.from_env(values)
+            if boolean(values, "CONFIGSTREAM_SEARCH_ENABLED")
+            else None,
         )

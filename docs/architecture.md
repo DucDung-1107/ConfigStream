@@ -3,12 +3,13 @@
 ## Scope and status
 
 ConfigStream focuses on distributed configuration-change storage and processing.
-Phases 0–7 supply a Python project, tested versioned schemas, a stateful generator,
+Phases 0–8 supply a Python project, tested versioned schemas, a stateful generator,
 JSONL output, Kafka ingestion with an asset registry, and direct Spark Structured
 Streaming parsing/validation, native version buffers, normalization/diff, and YAML
-rules publishing Kafka alerts, plus optional MinIO/Parquet history.
+rules publishing Kafka alerts, plus optional MinIO/Parquet history and a rebuildable
+Elasticsearch metadata projection.
 The generator and pure processing package can run without external services.
-Serving sinks, APIs, Kubernetes, and monitoring systems remain future work.
+APIs, Kubernetes, and monitoring systems remain future work.
 
 ## Implemented synthetic source
 
@@ -73,7 +74,9 @@ with stateful diffs/alerts into one checkpointed query and one `foreachBatch`.
 The batch is cached for counts, bounded safe logging, and distributed Kafka alert
 writes, then unpersisted. Lake mode also archives original Kafka bytes before
 dedup/late filtering and accepted normalized snapshots into partitioned Parquet.
-A per-batch manifest publishes complete lake output before the Kafka alert write.
+A per-batch manifest publishes complete lake output before optional Elasticsearch
+indexing and the Kafka alert write. Elasticsearch failure fails that batch; retry
+preserves committed Parquet and replaces search documents by deterministic ID.
 Malformed records remain visible without config logging.
 The optional `--parse-only` console query remains available with its own checkpoint.
 
@@ -161,9 +164,14 @@ until an explicit registry join/enrichment. File sizes and compaction need later
 measurement. The committed-reader helper excludes incomplete batches; MinIO and
 Kafka writes are not one transaction. See [lake schemas, recovery and commands](data-lake.md).
 
-Elasticsearch will hold `assets`, `snapshots`, `config-events`, `alerts`, and
-`metrics`. Large raw configuration blobs belong in the lake, not duplicated in
-search indexes. Batch jobs read the lake independently of the serving layer,
+Elasticsearch now holds strict, versioned indices/aliases for snapshot metadata,
+diff summaries, Alerts and safe diagnostics. Raw/full normalized configuration
+and diff lines stay out of search. Worker partitions use bounded Bulk API writes;
+batch rebuilds read only committed Parquet through the existing reader contract.
+Elasticsearch is derived and disposable, while MinIO remains authoritative.
+See [search mappings, security, rebuild and failure semantics](elasticsearch.md).
+Asset/event/metric projections are not implemented here. Future batch jobs read
+the lake independently of the serving layer,
 calculating changes by asset/hour/day/type, severity counts, frequently changing
 assets, and later rolling mean/standard-deviation/z-score anomalies.
 

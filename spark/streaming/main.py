@@ -116,6 +116,10 @@ def main(argv: list[str] | None = None) -> int:
         if config.lake is not None and args.parse_only:
             raise ValueError("Lake storage requires the stateful query; disable --parse-only")
         rules = load_rules(config.rules_file) if not args.parse_only else ()
+        if config.search is not None:
+            from search.client import initialize_indices
+
+            initialize_indices(config.search)
         session = create_session(config)
         for signum in previous_handlers:
             signal.signal(signum, request_shutdown)

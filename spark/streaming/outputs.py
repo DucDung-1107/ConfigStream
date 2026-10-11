@@ -34,6 +34,10 @@ def publish_batch(batch: DataFrame, batch_id: int, config: SparkConfig) -> None:
             from spark.streaming.sinks.lake import write_lake_batch
 
             write_lake_batch(batch, batch_id, config, counts)
+        if config.search is not None:
+            from search.sink import index_batch
+
+            index_batch(batch, config)
         if counts.get("alert", 0):
             write_alerts(batch, config)
         reasons = {

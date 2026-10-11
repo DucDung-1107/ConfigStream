@@ -9,7 +9,8 @@ also emits each newly accepted normalized snapshot once. Both branches share the
 same output schema and one checkpointed `foreachBatch` boundary.
 
 The batch is persisted and fully consumed, then the lake sink writes Parquet and
-publishes a small commit manifest. Kafka alerts are written afterward. Operational
+publishes a small commit manifest. Optional Phase 8 Elasticsearch indexing runs
+next, then Kafka alerts are written. Operational
 logs continue to contain counts and safe metadata only. Spark writes rows on its
 workers; the Python S3 client handles bucket initialization and manifests only.
 
@@ -104,7 +105,8 @@ For each nonempty batch:
    Overwrite applies only to that uncommitted batch, never an entire dataset.
 4. Publish one manifest containing dataset paths and record counts, using a
    conditional S3 put that rejects overwriting an existing manifest.
-5. Continue to the existing Kafka alert sink, then return for Spark batch commit.
+5. Continue to optional derived search indexing, then the existing Kafka alert
+   sink, and return for Spark batch commit.
 
 Parquet uses Hadoop's **S3A magic committer** via Spark's
 PathOutputCommitProtocol/BindingParquetOutputCommitter, avoiding filesystem rename
@@ -125,7 +127,7 @@ of scope. Deleting a checkpoint creates a new query namespace and can replay the
 same logical IDs; deduplicate across independent runs by snapshot_id/diff_id/alert_id
 (or Kafka provenance for raw records) when constructing a later consolidated table.
 
-There is **no atomic transaction across MinIO and Kafka**, and no end-to-end
+There is **no atomic transaction across MinIO, Elasticsearch and Kafka**, and no end-to-end
 exactly-once claim. A failure after lake commit reuses its files on retry; a
 failure after Kafka delivery may still duplicate physical alerts. Sink exceptions
 fail the query visibly. Protect both the checkpoint and bucket for recovery.
@@ -248,4 +250,6 @@ All configuration remains potentially sensitive: raw contains original secrets;
 normalized masking is conservative, not universal. Restrict bucket, volume,
 checkpoints, credentials and backups. There is no encryption-at-rest configuration,
 production HA, lifecycle cleanup, compaction, table format, or performance claim.
-Elasticsearch serving is the next phase; historical batch analytics come later.
+Phase 8 now supplies [safe Elasticsearch projections](elasticsearch.md). They can
+be deleted and rebuilt with `read_committed`; the lake remains authoritative.
+Historical batch analytics come later.

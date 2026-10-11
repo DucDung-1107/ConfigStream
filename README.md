@@ -13,16 +13,16 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0, 1, 2, 3, 4, 5, 6, and 7 complete.** Pydantic contracts,
+**Phases 0, 1, 2, 3, 4, 5, 6, 7, and 8 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
 Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
 and uses checkpointed native per-asset version buffers. It reuses pure Python
 normalization/diff logic and YAML rules to publish deterministic Alerts to Kafka.
 Pairing uses **asset_id + adjacent versions**, not previous-row arrival order.
-Optional **MinIO/Parquet history is now available in Phase 7**; search, API,
-dashboard, and Kubernetes remain planned. Invalid input continues to produce
-safe diagnostics, not a DLQ.
+Optional **MinIO/Parquet history is authoritative**. Phase 8 adds Elasticsearch
+as a rebuildable metadata-only search projection. API, dashboard, and Kubernetes
+remain planned. Invalid input produces safe diagnostics, not a DLQ.
 
 Implemented Kafka path (all keys are `asset_id`):
 
@@ -34,6 +34,18 @@ Generator
        ─> per-asset version state ─> normalize + diff ─> YAML rules
        ─> Alert ─> Kafka config.alerts
 ```
+
+With optional storage/search enabled, the same stateful output boundary writes:
+
+```text
+Spark state / normalize / diff / rules
+  ├─> MinIO / committed Parquet     (authoritative history, written first)
+  ├─> Elasticsearch                (safe derived search projection)
+  └─> Kafka config.alerts           (Alert envelopes)
+```
+
+Elasticsearch is **not the source of truth**; raw configuration, full normalized
+content and diff lines are excluded from search. No atomic multi-sink transaction.
 
 ## Architecture overview (long-term target)
 
@@ -97,6 +109,12 @@ library's base dependencies remain sufficient for JSONL; Kafka imports are lazy.
 | `make lake-stream` | Run stateful streaming with raw/processed Parquet history |
 | `make lake-inspect` | Count committed history without printing configuration bodies |
 | `make lake-integration-test` | Verify Kafka → Spark → MinIO, sink failure, replay and restart |
+| `make search-setup` / `make search-up` | Install locked search dependencies / start Kafka + MinIO + Elasticsearch |
+| `make search-init` | Idempotently create/verify strict mappings and versioned-index aliases |
+| `make search-stream` | Enable lake-first live metadata indexing, then Kafka alerts |
+| `make search-inspect` / `make search-query` | Count and query safe derived documents |
+| `make search-reindex` | Rebuild from committed Parquet using distributed bulk writes |
+| `make search-integration-test` / `make search-down` | Run real recovery/rebuild tests / stop all services, preserving volumes |
 | `make clean` | Remove test/build outputs, not datasets or environments |
 
 [GitHub Actions CI](https://github.com/kongwoang/ConfigStream/actions/workflows/ci.yml)
@@ -271,6 +289,51 @@ Lake mode defaults to a **fresh v7 checkpoint**. Keep it separate from Phase 6 a
 parse-only checkpoints. `make setup` and `make spark-setup` do not include the lake
 extra; rerun `make lake-setup` before lake commands if dependencies were resynced.
 
+## Elasticsearch quickstart
+
+Server **9.5.5** and official Python client **9.5.1** are pinned. Elasticsearch is
+an optional loopback-only, unauthenticated local development service; no Kibana or
+FastAPI is required.
+
+```sh
+make search-setup
+make lake-env
+set -a; . .cache/minio.env; set +a
+make search-up
+make kafka-topics
+make lake-init
+make search-init
+SPARK_MASTER='local[2]' SPARK_STARTING_OFFSETS=latest \
+SPARK_CHECKPOINT_DIR=.cache/spark-checkpoints/phase8-example \
+CONFIGSTREAM_LAKE_PREFIX=phase8-example make search-stream
+```
+
+After initial query progress, in another terminal:
+
+```sh
+make phase6-demo PHASE6_ARGS='--order out-of-order --asset-id phase8-router --start-time 2026-10-11T00:00:00Z'
+make search-inspect
+make search-query SEARCH_ARGS='snapshots --asset-id phase8-router --latest'
+make search-query SEARCH_ARGS='diffs --asset-id phase8-router'
+make search-query SEARCH_ARGS='alerts --group-by severity'
+```
+
+Empty indices should contain **3 snapshots, 2 adjacent diffs, 2 alerts**, with
+latest snapshot version 3. Stop the query before rebuilding:
+
+```sh
+CONFIGSTREAM_LAKE_PREFIX=phase8-example make search-reindex
+CONFIGSTREAM_LAKE_PREFIX=phase8-example make search-reindex
+make search-inspect
+make search-down
+```
+
+Reindex replaces documents by deterministic ID, so a second pass does not increase
+logical counts. To prove a complete rebuild, intentionally remove only your four
+development indices and run `search-init` first; never remove MinIO history.
+See [mappings, safe fields, query examples, bulk retries and recovery](docs/elasticsearch.md).
+FastAPI remains Phase 9; the current query helpers use stable aliases directly.
+
 ## Try the schemas
 
 After setup, this example constructs and validates an inline snapshot:
@@ -402,12 +465,13 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 5 — complete | Pure text normalization/masking, normalized hashes, deterministic explicit-pair diff |
 | 6 — complete | Native Spark version state, watermark/dedup, YAML rules, Kafka alerts, safe progress metrics |
 | 7 — complete | MinIO/Parquet raw and processed history, committed reads, retry/restart acceptance |
-| 8–9 | Elasticsearch and thin FastAPI: end-to-end MVP |
+| 8 — complete | Safe Elasticsearch projections/aliases, distributed bulk indexing, committed-lake rebuild |
+| 9 | Thin FastAPI over Elasticsearch: end-to-end MVP |
 | 10 | Historical Spark analytics and simple frequency anomalies |
 | 11–13 | Optional dashboard, SSH/FRR adapters, then Kubernetes deployment |
 
 Python 3.12, Pydantic, pytest, Ruff, Kafka, optional confluent-kafka, and PySpark 4.0.2
-form the current stack alongside optional MinIO/Parquet history. Elasticsearch
-and FastAPI remain planned.
+form the current stack alongside optional MinIO/Parquet history and Elasticsearch
+search. FastAPI remains planned.
 Each phase is tested, committed, and pushed before the next begins. No throughput,
 latency, fault-tolerance, or exactly-once claims are made before experiments.

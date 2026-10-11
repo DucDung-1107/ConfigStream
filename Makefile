@@ -12,6 +12,7 @@ export TMPDIR := $(CURDIR)/.cache/tmp
 .PHONY: kafka-consume-assets kafka-consume-events kafka-consume-snapshots kafka-consume-alerts phase6-demo
 .PHONY: spark-setup spark-test spark-stream spark-integration-test
 .PHONY: lake-setup lake-env lake-up lake-down lake-init lake-stream lake-inspect lake-integration-test
+.PHONY: search-setup search-up search-down search-init search-stream search-inspect search-query search-reindex search-integration-test
 SPARK_ARGS ?=
 PHASE6_ARGS ?=
 
@@ -50,6 +51,34 @@ lake-inspect:
 
 lake-integration-test:
 	.venv/bin/python -m pytest -m lake_integration tests/lake_integration
+
+search-setup: setup
+	"$(UV)" sync --locked --extra kafka --extra spark --extra lake --extra search
+
+search-up:
+	.venv/bin/python -m lake.main --check-config
+	$(DOCKER) compose --profile lake --profile search up -d --build --wait --wait-timeout 240
+
+search-down:
+	$(DOCKER) compose --profile lake --profile search down
+
+search-init:
+	.venv/bin/python -m search.main init
+
+search-stream:
+	CONFIGSTREAM_LAKE_ENABLED=true CONFIGSTREAM_SEARCH_ENABLED=true .venv/bin/python -m spark.streaming.main $(SPARK_ARGS)
+
+search-inspect:
+	.venv/bin/python -m search.main inspect
+
+search-query:
+	.venv/bin/python -m search.main query $(SEARCH_ARGS)
+
+search-reindex:
+	.venv/bin/python -m search.reindex $(SEARCH_ARGS)
+
+search-integration-test:
+	.venv/bin/python -m pytest -m search_integration tests/search_integration
 
 spark-test:
 	.venv/bin/python -m pytest tests/spark
