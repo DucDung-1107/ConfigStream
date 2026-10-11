@@ -1,5 +1,23 @@
 # Controlled local replay experiments
 
+## Phase 12 real IaC replay (separate experiment)
+
+All accepted histories from the deterministic TerraDS sample were replayed without
+cloning: 10188 snapshots, 3683 adjacent diffs, 12278085 logical config bytes,
+29402997 committed raw/processed Parquet bytes, zero alerts/diagnostics. Target
+500/s achieved 500.023 publisher snapshots/s; completion including drain was
+68.742 seconds (~148.205 logical accepted snapshots/s). Native Spark branch metrics
+are not interchangeable with logical records. [Acceptance](phase12-acceptance.md)
+records exact pairs, lag/state/resources and analytics output validation.
+
+Original history covers about 10.83 years; physical replay takes about a minute.
+The high input rates represent **accelerated replay/stress testing of accumulated
+configuration history, not expected per-device configuration frequency** or
+Terraform apply cadence. This small, high-uniqueness, date-partitioned observed run
+is not a matched throughput comparison with the reused-content 1M stress run.
+Phase 12 decision B retains the architecture-evaluation framing; estimates are
+not an additional observed million-record benchmark.
+
 This page preserves the Phase 10 measurements. Phase 11 adds separate
 [observed and empirically calibrated replay experiments](workload-calibration.md)
 and [external-validity assessment](external-validity.md); the million run remains

@@ -1,0 +1,6 @@
+dataset,kind,assets,snapshots,adjacent_pairs,logical_bytes,unique_contents,unique_ratio
+terraform,observed,6505,10188,3683,12278085,8409,0.8253828032979976
+frr-nginx,observed,1906,2525,619,1133998,2220,0.8792079207920792
+controlled-reference,controlled,100,10000,9900,12542677,7700,0.77
+phase11-calibrated,calibrated,76240,100518,24278,45002724,2220,0.022085596609562465
+phase10-1m,stress/semi-synthetic,10000,1000000,990000,1144675896,26800,0.0268

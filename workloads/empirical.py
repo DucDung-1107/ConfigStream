@@ -69,7 +69,7 @@ def next_period(timestamp, period):
     return timestamp + timedelta(days=7 if period == "week" else 1)
 
 
-def measure(snapshots, provenance, label="combined", *, weights=None):
+def measure(snapshots, provenance, label="combined", *, weights=None, bundle_by_repository=False):
     grouped = defaultdict(list)
     for snapshot in snapshots:
         grouped[snapshot.asset_id].append(snapshot)
@@ -138,7 +138,12 @@ def measure(snapshots, provenance, label="combined", *, weights=None):
                 for period in period_counts:
                     per_period[period][period_key(snapshot.event_time, period)] += 1
             if not metadata["boundary_baseline"]:
-                bundle = bundles[metadata["git_commit"]]
+                bundle_key = (
+                    metadata["repository"] + ":" + metadata["git_commit"]
+                    if bundle_by_repository
+                    else metadata["git_commit"]
+                )
+                bundle = bundles[bundle_key]
                 bundle["assets"].add(asset_id)
                 bundle["bytes"] += weight * len(snapshot.content.encode("utf-8"))
                 bundle["changed"] += weight * magnitude
@@ -228,6 +233,41 @@ def measure(snapshots, provenance, label="combined", *, weights=None):
     }
 
 
+def write_distribution_plot(curves, destination: Path, name):
+    maximum = max((stats["max"] or 0 for _, stats in curves), default=1) or 1
+    svg = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380">',
+        '<rect width="100%" height="100%" fill="white"/>',
+        f'<text x="60" y="25">{html.escape(name)}: empirical CDF (log1p x)</text>',
+        '<path d="M60 50 V300 H720" fill="none" stroke="black"/>',
+    ]
+    for fraction in (0, 0.25, 0.5, 0.75, 1):
+        svg.append(f'<text x="5" y="{300 - fraction * 250}">{fraction:g}</text>')
+        value = math.expm1(fraction * math.log1p(maximum))
+        svg.append(
+            f'<text x="{60 + fraction * 660}" y="325" text-anchor="middle">{value:.1f}</text>'
+        )
+    for index, (label, stats) in enumerate(curves):
+        color = ["#125cb3", "#b83b20", "#268443", "#743db0"][index % 4]
+        cumulative = 0
+        points = ["60.000,300.000"]
+        for value, count in stats["histogram"]:
+            horizontal = 60 + math.log1p(value) / math.log1p(maximum) * 660
+            points.append(f"{horizontal:.3f},{300 - cumulative / stats['count'] * 250:.3f}")
+            cumulative += count
+            points.append(f"{horizontal:.3f},{300 - cumulative / stats['count'] * 250:.3f}")
+        svg.extend(
+            [
+                f'<polyline points="{" ".join(points)}" fill="none" stroke="{color}"/>',
+                f'<text x="{60 + index * 220}" y="365" fill="{color}">'
+                f"{html.escape(label)} (n={stats['count']})</text>",
+            ]
+        )
+    svg.append("</svg>")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text("\n".join(svg) + "\n")
+
+
 def write_report(summaries, destination: Path):
     destination.mkdir(parents=True, exist_ok=True)
     (destination / "observed-summary.json").write_text(json.dumps(summaries, indent=2) + "\n")
@@ -283,37 +323,7 @@ def write_report(summaries, destination: Path):
         curves = [
             (label, getter(summary)) for label, summary in summaries.items() if label != "combined"
         ]
-        maximum = max((stats["max"] or 0 for _, stats in curves), default=1) or 1
-        svg = [
-            '<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380">',
-            '<rect width="100%" height="100%" fill="white"/>',
-            f'<text x="60" y="25">{html.escape(name)}: empirical CDF (log1p x)</text>',
-            '<path d="M60 50 V300 H720" fill="none" stroke="black"/>',
-        ]
-        for fraction in (0, 0.25, 0.5, 0.75, 1):
-            svg.append(f'<text x="5" y="{300 - fraction * 250}">{fraction:g}</text>')
-            value = math.expm1(fraction * math.log1p(maximum))
-            svg.append(
-                f'<text x="{60 + fraction * 660}" y="325" text-anchor="middle">{value:.1f}</text>'
-            )
-        for index, (label, stats) in enumerate(curves):
-            color = ["#125cb3", "#b83b20", "#268443", "#743db0"][index % 4]
-            cumulative = 0
-            points = ["60.000,300.000"]
-            for value, count in stats["histogram"]:
-                horizontal = 60 + math.log1p(value) / math.log1p(maximum) * 660
-                points.append(f"{horizontal:.3f},{300 - cumulative / stats['count'] * 250:.3f}")
-                cumulative += count
-                points.append(f"{horizontal:.3f},{300 - cumulative / stats['count'] * 250:.3f}")
-            svg.extend(
-                [
-                    f'<polyline points="{" ".join(points)}" fill="none" stroke="{color}"/>',
-                    f'<text x="{60 + index * 220}" y="365" fill="{color}">'
-                    f"{html.escape(label)} (n={stats['count']})</text>",
-                ]
-            )
-        svg.append("</svg>")
-        (destination / f"{name}.svg").write_text("\n".join(svg) + "\n")
+        write_distribution_plot(curves, destination / f"{name}.svg", name)
     lines = [
         "# Measured public Git history",
         "",

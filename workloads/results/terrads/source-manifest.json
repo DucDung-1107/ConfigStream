@@ -1,0 +1,65 @@
+{
+  "artifact_license": "cc-by-4.0",
+  "available_artifacts": [
+    {
+      "bytes": 66165,
+      "checksum": "md5:73bb51903d76149c6fbeafc3cf32d703",
+      "name": "HCL Dataset Tools.zip"
+    },
+    {
+      "bytes": 613322752,
+      "checksum": "md5:faa52a357eefb8729d042f09bd236881",
+      "name": "TerraDS.sqlite"
+    },
+    {
+      "bytes": 523682960,
+      "checksum": "md5:f3cc4d3e1c3b6328111ff6284711dc6b",
+      "name": "TerraDS.tar.gz"
+    }
+  ],
+  "cutoff": "2026-01",
+  "doi": "10.5281/zenodo.20339474",
+  "download_metric_scope": "Final resumed invocation only; prior attempt time/traffic not measured",
+  "files": [
+    {
+      "bytes": 613322752,
+      "cached": false,
+      "name": "TerraDS.sqlite",
+      "network_bytes": 406753280,
+      "published_checksum": "md5:faa52a357eefb8729d042f09bd236881",
+      "range_workers": 4,
+      "resumed_prefix_bytes": 206569472,
+      "seconds": 303.48237433307804,
+      "sha256": "728477a499dd949e4dd74ca6230318544839ac465d317ef743da093f3c2e96aa"
+    },
+    {
+      "bytes": 523682960,
+      "cached": false,
+      "name": "TerraDS.tar.gz",
+      "network_bytes": 22463632,
+      "published_checksum": "md5:f3cc4d3e1c3b6328111ff6284711dc6b",
+      "seconds": 65.31014837499242,
+      "sha256": "e3e14764a5a1205f38ed4790d840773ca8c6fccb06adf0e5c5c3c1bf45ae0b79"
+    }
+  ],
+  "machine": {
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "disk_reserve_bytes": 21474836480,
+    "initial_free_bytes": 677783748608,
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "ram_bytes": 19327352832,
+    "total_disk_bytes": 994662584320
+  },
+  "publication_date": "2026-05-26",
+  "record": "20339474",
+  "reported_counts": {
+    "modules": 394004,
+    "repositories": 82749,
+    "resources": 2497629
+  },
+  "schema_version": "1.0",
+  "url": "https://zenodo.org/records/20339474",
+  "verified_at": "2026-10-11T11:15:35.871910+00:00",
+  "version": "v2"
+}

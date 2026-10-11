@@ -1,5 +1,6 @@
 import fnmatch
 import json
+import os
 import re
 import subprocess
 from collections import Counter, defaultdict
@@ -66,6 +67,7 @@ def git(repository: Path, *arguments: str) -> bytes:
         ["git", "--git-dir", str(repository), *arguments],
         capture_output=True,
         timeout=180,
+        env={**os.environ, "GIT_TERMINAL_PROMPT": "0"},
     )
     if result.returncode:
         raise ValueError("Git source command failed; verify pinned objects and fetch boundary")
@@ -109,7 +111,15 @@ def rejection(content: bytes) -> str | None:
     return None
 
 
-def extract(source: GitSource, repository: Path, destination: Path) -> dict:
+def extract(
+    source: GitSource,
+    repository: Path,
+    destination: Path,
+    *,
+    content_filter=rejection,
+    incarnation_rejection=False,
+    max_file_bytes=None,
+) -> dict:
     license_bytes = git(repository, "show", f"{source.end_revision}:{source.license_path}")
     if sha256(license_bytes).hexdigest() != source.license_sha256:
         raise ValueError("Pinned source license verification failed")
@@ -139,7 +149,7 @@ def extract(source: GitSource, repository: Path, destination: Path) -> dict:
             "--first-parent",
             f"{source.start_revision}..{source.end_revision}",
             "--",
-            source.scope,
+            *getattr(source, "history_pathspecs", [source.scope]),
         )
         .decode()
         .splitlines()
@@ -150,6 +160,10 @@ def extract(source: GitSource, repository: Path, destination: Path) -> dict:
         .decode()
         .splitlines()
     }
+    if hasattr(source, "prefetch"):
+        source.prefetch(
+            repository, [commits[0], *[commit for commit in commits[1:] if commit in relevant]]
+        )
     active = {}
     histories = defaultdict(list)
     rejected = {}
@@ -175,17 +189,22 @@ def extract(source: GitSource, repository: Path, destination: Path) -> dict:
             if histories.get((path, incarnations[path])):
                 histories[(path, incarnations[path])][-1]["observation_end"] = timestamps[commit]
         for path, blob in sorted(current.items()):
-            if path in rejected or active.get(path) == blob:
-                continue
-            if blob not in blob_cache:
-                content = git(repository, "cat-file", "blob", blob)
-                blob_cache[blob] = (rejection(content), content)
-            reason, content = blob_cache[blob]
-            if reason:
-                rejected[path] = reason
-                continue
             if path not in active:
                 incarnations[path] += 1
+            rejection_key = (path, incarnations[path]) if incarnation_rejection else path
+            if rejection_key in rejected or active.get(path) == blob:
+                continue
+            if blob not in blob_cache:
+                size = int(git(repository, "cat-file", "-s", blob))
+                if max_file_bytes is not None and size > max_file_bytes:
+                    blob_cache[blob] = ("oversize", b"")
+                else:
+                    content = git(repository, "cat-file", "blob", blob)
+                    blob_cache[blob] = (content_filter(content), content)
+            reason, content = blob_cache[blob]
+            if reason:
+                rejected[rejection_key] = reason
+                continue
             histories[(path, incarnations[path])].append(
                 {
                     "commit": commit,
@@ -201,7 +220,7 @@ def extract(source: GitSource, repository: Path, destination: Path) -> dict:
     snapshots = []
     end_time = timestamps[source.end_revision]
     for (path, incarnation), versions in sorted(histories.items()):
-        if path in rejected:
+        if ((path, incarnation) if incarnation_rejection else path) in rejected:
             continue
         observation_end = versions[-1].get("observation_end", end_time)
         versions.sort(
@@ -270,7 +289,10 @@ def extract(source: GitSource, repository: Path, destination: Path) -> dict:
         "rejections": [
             {
                 "source": source.name,
-                "path_sha256": sha256(path.encode()).hexdigest(),
+                "path_sha256": sha256(
+                    (path[0] if isinstance(path, tuple) else path).encode()
+                ).hexdigest(),
+                "incarnation": path[1] if isinstance(path, tuple) else None,
                 "category": reason,
             }
             for path, reason in sorted(rejected.items())

@@ -1,0 +1,70 @@
+{
+  "estimand": "recoverable accepted history under pinned extraction/filter/censor policy",
+  "estimates": {
+    "accepted": {
+      "ci95": [
+        59089.57927235414,
+        65210.738950392544
+      ],
+      "point": 62068.64966452637
+    },
+    "adjacent_pairs": {
+      "ci95": [
+        437571.9958459289,
+        818604.8299522944
+      ],
+      "point": 608948.5868984922
+    },
+    "assets": {
+      "ci95": [
+        819121.2988552408,
+        1398095.434467302
+      ],
+      "point": 1075302.4615107134
+    },
+    "bytes": {
+      "ci95": [
+        1527853313.6584146,
+        2597583717.6616206
+      ],
+      "point": 2029291960.3685882
+    },
+    "license_accepted": {
+      "ci95": [
+        62739.00568260817,
+        68685.61744237585
+      ],
+      "point": 65709.45162686675
+    },
+    "reachable": {
+      "ci95": [
+        78286.21794176842,
+        81095.14664988134
+      ],
+      "point": 79772.8479186206
+    },
+    "revisions": {
+      "ci95": [
+        1308541.5524202222,
+        2135728.4176580156
+      ],
+      "point": 1684251.0484092056
+    }
+  },
+  "limitations": [
+    "conditional on extraction caps and filters",
+    "heavy tails may dominate",
+    "bootstrap does not recover unseen extremes or inaccessible histories"
+  ],
+  "policy": "stratified-repository-bootstrap-fpc-v1",
+  "population_size": 82749,
+  "repetitions": 2000,
+  "sample_size": 500,
+  "seed": 42,
+  "stratum_weights": {
+    "size-0": 165.19760479041915,
+    "size-1": 166.13253012048193,
+    "size-2": 165.1676646706587
+  },
+  "unavailable_policy": "zero yield; no replacement, not estimated underlying history"
+}

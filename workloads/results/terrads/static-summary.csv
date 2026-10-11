@@ -1,0 +1,2 @@
+Repositories,Modules,Resources,artifact_sha256,archive_repositories,terraform_files,logical_terraform_bytes,compressed_archive_bytes,unique_contents,unique_content_ratio,file_size_count,file_size_min,file_size_mean,file_size_max,file_size_p10,file_size_p25,file_size_p50,file_size_p75,file_size_p90,file_size_p95,file_size_p99
+82749,394004,2497629,e3e14764a5a1205f38ed4790d840773ca8c6fccb06adf0e5c5c3c1bf45ae0b79,82749,1513378,2601501820,523682960,868124,0.5736332892377185,1513378,0,1719.0033289766338,5211802,121.0,261.0,721.0,1715.0,3789.0,6043.0,14435.229999999981

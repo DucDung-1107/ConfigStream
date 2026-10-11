@@ -1,0 +1,4 @@
+source,assets,revisions,history_days,content_bytes,median_file_bytes,median_versions,median_change_interval_hours,median_changed_lines,p95_changed_lines,max_correlated_files
+terraform,6505,10188,3956.228946759259,12278085,645.0,1.0,161.10430555555556,1.0,7.0,484
+frr-nginx,1906,2525,2219.8278819444445,1133998,298.0,1.0,3023.667361111111,0.0,4.0,136
+controlled-reference,100,10000,99.99,12542677,632.0,100.0,24.0,0.0,0.0,5

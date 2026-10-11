@@ -13,7 +13,7 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0–11 complete.** Pydantic contracts,
+**Phases 0–12 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
 Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
@@ -41,6 +41,16 @@ configuration evolution, not device deployment frequency.**
 The [Phase 11 acceptance record](docs/phase11-acceptance.md) includes real-history
 replay, a 100518-snapshot calibrated run, committed-history analytics and regression.
 
+Phase 12 adds [TerraDS v2](docs/terrads.md): a measured **1513378 current Terraform
+files / 2.60 GB source corpus**, followed by a fixed 500-repository history sample.
+Accepted observed history contains **6505 file incarnations / 10188 revisions /
+12.28 MB**; all 3683 adjacent pairs were verified through Kafka–Spark–MinIO and
+historical analytics, with a real Terraform Elasticsearch/FastAPI smoke.
+**Decision B:** [empirical acceptance](docs/phase12-acceptance.md) supports an
+architecture-evaluation framing, not naturally high-frequency telemetry.
+77.48% of accepted files have one version. Population estimates are inferred,
+not additional observed data. See [reproduction](docs/phase12-methodology.md).
+
 | Dataset | Observed? | Assets | Versions | Content bytes | Purpose |
 | --- | --- | ---: | ---: | ---: | --- |
 | Batfish public baseline | Real files, baseline only | 324 | Baseline only | 361177 | Syntax |
@@ -48,6 +58,8 @@ replay, a 100518-snapshot calibrated run, committed-history analytics and regres
 | NGINX selected Git history | Yes, shipped templates | 6 | 9 | 24540 | Cross-domain |
 | observed-calibrated ×40 | No, cloned histories | 76240 | 100518 | 45002724 | Controlled scaling |
 | Phase 10 stress-replay | No, semi-synthetic | 10000 | 1000000 | 1144675896 | Capacity |
+| TerraDS v2 static | Real current source, not temporal | 82749 repos / 1513378 files | Current files only | 2601501820 | Static scale/variety |
+| TerraDS Git sample | Yes, accepted file histories | 375 repos / 6505 incarnations | 10188 | 12278085 | Observed IaC evolution |
 
 Observed public history is sparse/small; the project is best framed as a scalable
 data-pipeline evaluation with empirically characterized configuration workloads,

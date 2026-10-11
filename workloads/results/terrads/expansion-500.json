@@ -1,0 +1,27 @@
+{
+  "metrics": {
+    "free_disk_bytes": 674885586944,
+    "git_cache_bytes": 35307220,
+    "max_concurrency": 4,
+    "sample_size": 500,
+    "statuses": {
+      "accepted": 375,
+      "license_unknown": 85,
+      "no_accepted_history": 22,
+      "unreachable": 18
+    },
+    "totals": {
+      "accepted": 375,
+      "assets": 6505,
+      "bytes": 12278085,
+      "license_accepted": 397,
+      "reachable": 482,
+      "revisions": 10188,
+      "security_rejections": 3348
+    },
+    "wall_seconds_this_invocation": 346.2812809579773
+  },
+  "policy": "resource/yield gate; no resampling of failed or sparse repositories",
+  "safe_to_expand": true,
+  "sample_size": 500
+}

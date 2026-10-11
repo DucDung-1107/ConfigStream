@@ -1,5 +1,29 @@
 # External validity and project framing
 
+## Phase 12 decision: B
+
+[TerraDS](terrads.md) is materially larger static evidence: 1.51 million public
+Terraform files and 2.60 GB source. The fixed 500-origin sample actually observed
+10188 accepted revisions across 6505 incarnations in 375 repos. The weighted
+recoverable-history estimate is ~1.68 million states (95% bootstrap ~1.31–2.14
+million), **not a mined temporal dataset**. Only ~609 thousand adjacent comparisons
+are estimated; states include initial baselines. The filtered byte estimate is
+~2.03 GB, not terabytes of natural temporal telemetry.
+
+Accepted Terraform history is richer than FRR/NGINX, but 77.48% of incarnations have
+one version. Median uncensored spacing is 6.71 days among the changing subset,
+not apply/deployment cadence. License evidence, conservative scanner false
+positives, examples/forks/vendor code, omitted branches and deleted origins limit
+generalization. A 484-file bundle includes introductions; the maximum correlated
+existing-file edit bundle is 39. Neither proves production rollout behavior.
+
+The experiment strengthens realism and validates a generic pipeline, not a claim
+that configuration change naturally demands high-rate streaming. Keep the project
+as an **empirically grounded Big Data architecture evaluation for infrastructure
+configuration history**, subject to instructor agreement. If the course requires
+inherently massive *observed temporal* data, changing topic is safer than further
+data-search phases. [Full decision and uncertainties](phase12-acceptance.md).
+
 **Git history is an observable public proxy for configuration evolution.**
 It does not directly measure router configuration-change/deployment frequency.
 

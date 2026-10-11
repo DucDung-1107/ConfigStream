@@ -1,5 +1,20 @@
 # Dataset methodology
 
+## Phase 12: larger static IaC corpus, bounded observed sample
+
+[TerraDS v2](terrads.md) expands the source domains without altering ConfigSnapshot.
+Complete static measurement: 82749 repositories, 1513378 `.tf` files, 2601501820
+logical bytes; median/p95 file size 721/6043 bytes. These are current source files,
+not changes or observed deployed infrastructure.
+
+The seed-42, byte-size-stratified 100→500 pilot/expansion accepted 375 repositories,
+6505 file incarnations and 10188 actual revisions (12278085 bytes). No replacements
+were made for inaccessible or sparse units. Licensing and whole-incarnation
+security filtering are separate from the dataset's CC-BY-4.0 license. Raw data
+stays ignored. [Acceptance](phase12-acceptance.md) distinguishes actual observations,
+recoverable-population inference, calibrated clones and stress inputs, and selects
+**B: architecture-evaluation only**. Previous Phase 10/11 limitations remain valid.
+
 ## Categories and source
 
 | Category | Role | What is real? |

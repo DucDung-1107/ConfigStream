@@ -1,5 +1,20 @@
 # Empirical validation and calibrated workloads
 
+## Phase 12 external check
+
+The new [observed Terraform sample](phase12-acceptance.md) has median/p95 versions
+1/4, median/p95 config bytes 645/4115.9, median uncensored interval 6.71 days and
+p95 textual changed lines 7. The existing controlled 100×100 reference instead
+has median 100 versions and p95 changed lines zero. The reference is useful
+capacity ground truth, not a matched natural frequency/magnitude distribution.
+
+The accepted Terraform sample's content uniqueness is 82.54%, versus 2.21% for
+Phase 11 cloned histories and 2.68% in the Phase 10 million-record workload.
+Storage/throughput comparisons must disclose reuse and differing output sets.
+`workloads/results/terrads/comparison.csv` and CDFs reproduce the comparison.
+No Terraform-calibrated synthetic run or artificial Terraform alerts were added;
+Phase 12 replays all 10188 accepted **actual** states without scaling.
+
 Observed data, calibrated clones and capacity stress are **separate evidence**.
 Git history is an observable public proxy for configuration evolution, not router
 deployment frequency. See [source decisions](real-history-sources.md) and

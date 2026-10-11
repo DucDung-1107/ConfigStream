@@ -1,0 +1,73 @@
+{
+  "api_counts": {
+    "alerts": 0,
+    "diagnostics": 0,
+    "diffs": 5,
+    "snapshots": 6
+  },
+  "asset_id": "observed-001c37e1-7ab0-5efc-9d77-0d2536dd8d4c",
+  "configuration_bodies_excluded": true,
+  "health": {
+    "/healthz": 200,
+    "/readyz": 200
+  },
+  "id": "phase12-terrads-serving",
+  "lake": {
+    "commits": 1,
+    "counts": {
+      "accepted": 6,
+      "config_diff": 5,
+      "normalized_snapshot": 6,
+      "raw_snapshot": 6
+    },
+    "parquet_bytes": 90090
+  },
+  "latest_version": 6,
+  "live_http": {
+    "/api/v1/alerts": {
+      "count": 0,
+      "status": 200
+    },
+    "/api/v1/assets/observed-001c37e1-7ab0-5efc-9d77-0d2536dd8d4c/latest-snapshot": {
+      "status": 200,
+      "version": 6
+    },
+    "/api/v1/diffs": {
+      "count": 5,
+      "status": 200
+    },
+    "/api/v1/snapshots": {
+      "count": 6,
+      "status": 200
+    },
+    "/healthz": {
+      "status": 200
+    },
+    "/readyz": {
+      "status": 200
+    }
+  },
+  "pairs": [
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      5,
+      6
+    ]
+  ],
+  "query_id": "0c173466-55f9-4d1a-b3ce-ecbdcf67e9f9"
+}
