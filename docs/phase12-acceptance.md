@@ -531,3 +531,16 @@ neither object-cache size nor host disk consumption is logical configuration vol
 No Terraform or other external configuration command was executed. Project-owned
 Kafka/MinIO/Elasticsearch services were used only for replay/regression; volumes are
 preserved, and temporary services are stopped after validation.
+
+### Verified supplemental CI
+
+Implementation/evidence commit: `d07a035cefac4363a68506979a9d4299ee3ddee9`.
+[GitHub Actions run 38157800261](https://github.com/kongwoang/ConfigStream/actions/runs/38157800261)
+completed **success** on 2026-10-12 local time (2026-10-11 UTC).
+Python 3.12 quality and Spark transformation jobs both succeeded. Completed logs
+verify **789 unit / 80 API / 60 Spark** passing cases; integrations are the separately
+recorded local suites above. No external corpus was downloaded in CI.
+
+This final acceptance-only documentation commit is also pushed and its own latest
+workflow conclusion is verified in the final handoff, without claiming success
+before it completes. Working history is preserved and no force push is used.
