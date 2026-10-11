@@ -22,6 +22,16 @@ setup:
 	test -x "$(UV)" || ($(PYTHON) -m venv .tools/uv && .tools/uv/bin/python -m pip install --no-cache-dir 'uv==0.12.21')
 	"$(UV)" sync --locked --extra kafka
 
+.PHONY: dataset-fetch dataset-inspect workload-generate
+dataset-fetch:
+	.venv/bin/python -m workloads.main fetch $(DATASET_ARGS)
+
+dataset-inspect:
+	.venv/bin/python -m workloads.main inspect $(DATASET_ARGS)
+
+workload-generate:
+	.venv/bin/python -m workloads.main generate $(WORKLOAD_ARGS)
+
 api-setup: setup
 	"$(UV)" sync --locked --extra kafka --extra spark --extra lake --extra search --extra api
 

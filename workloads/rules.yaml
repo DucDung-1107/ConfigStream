@@ -1,0 +1,7 @@
+rules:
+  - id: ios-logging-disabled
+    enabled: true
+    severity: high
+    operation: added
+    pattern: "^no logging on$"
+    message: "IOS configuration logging was disabled"

@@ -1,0 +1,8 @@
+{
+  "name": "batfish-curated-config-tests",
+  "repository": "batfish/batfish",
+  "revision": "540a4644e0245adffc5d51ec911411a5cd09aa0d",
+  "license": "Apache-2.0",
+  "license_path": "LICENSE",
+  "archive_sha256": "791ce74605602dde03d4f44b52b2106bced8ff8e43dd1b605f3759436e123ed7"
+}
