@@ -27,6 +27,7 @@ class AnalyticsConfig:
             raise ValueError("Require 2 <= minimum prior windows <= baseline windows <= 366")
         if self.minimum_count < 1 or not 0 < self.z_threshold < 100:
             raise ValueError("Anomaly count and finite threshold must be positive")
+        object.__setattr__(self, "z_threshold", float(self.z_threshold))
 
     def parameters(self) -> dict:
         return {

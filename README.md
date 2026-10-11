@@ -13,7 +13,7 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9 complete.** Pydantic contracts,
+**Phases 0–10 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
 Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
@@ -24,6 +24,27 @@ Optional **MinIO/Parquet history is authoritative**. Phase 8 adds Elasticsearch
 as a rebuildable metadata-only search projection. Phase 9 adds a thin read-only
 FastAPI metadata API. Dashboard and Kubernetes remain planned. Invalid input
 produces safe diagnostics, not a DLQ.
+
+Phase 10 adds [public baseline provenance](docs/datasets.md), controlled
+semi-synthetic histories, [historical Spark analytics](docs/historical-analytics.md)
+and a [measured replay harness](docs/benchmark.md). The
+[acceptance record](docs/phase10-acceptance.md) includes the completed one-million
+snapshot local run; do not interpret generated histories as observed production data.
+
+**The high input rates represent accelerated replay/stress testing of accumulated
+fleet configuration history, not expected per-device configuration frequency.**
+
+```text
+Public configurations -> controlled histories -> Kafka -> Spark streaming
+                                                          ├─> Kafka alerts
+                                                          ├─> Elasticsearch -> FastAPI
+                                                          └─> MinIO -> Spark batch -> analytics/
+```
+
+`make dataset-fetch`, `make dataset-inspect`, `make workload-generate`,
+`make analytics-run`, `make analytics-inspect`, `make benchmark-smoke`,
+`make benchmark-main` and `make benchmark-report` operate from the project root.
+Downloaded/generated inputs stay ignored; setup does not download the corpus.
 
 Implemented Kafka path (all keys are `asset_id`):
 
@@ -315,8 +336,8 @@ and 2 alerts**. Counts otherwise include earlier committed histories. Use
 `LAKE_ARGS='--query-id <query UUID>'` to inspect one query. Stop the live stream
 before `make lake-integration-test`; finish with `make lake-down`.
 
-The default private `config-lake` bucket uses `raw/`, `processed/`, and a reserved
-`analytics/` zone. Date partitions are UTC year/month/day, inside deterministic
+The default private `config-lake` bucket uses `raw/`, `processed/`, and the Phase 10
+`analytics/` zone. History date partitions are UTC year/month/day, inside deterministic
 query/batch directories; asset-type enrichment comes later. A commit manifest
 publishes complete batches, so readers exclude partial writes and retries retain
 committed files. Kafka delivery remains at-least-once; the two sinks are not atomic.
@@ -510,11 +531,12 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 7 — complete | MinIO/Parquet raw and processed history, committed reads, retry/restart acceptance |
 | 8 — complete | Safe Elasticsearch projections/aliases, distributed bulk indexing, committed-lake rebuild |
 | 9 — complete | Read-only metadata FastAPI, bounded cursors, safe errors, HTTP end-to-end/rebuild acceptance |
-| 10 | Historical Spark analytics and simple frequency anomalies |
+| 10 — complete | Public configuration baselines, controlled histories, historical Spark analytics, measured local replay |
 | 11–13 | Optional dashboard, SSH/FRR adapters, then Kubernetes deployment |
 
 Python 3.12, Pydantic, pytest, Ruff, Kafka, optional confluent-kafka, and PySpark 4.0.2
 form the current stack alongside optional MinIO/Parquet history and Elasticsearch
 search and a thin read-only FastAPI serving layer.
-Each phase is tested, committed, and pushed before the next begins. No throughput,
-latency, fault-tolerance, or exactly-once claims are made before experiments.
+Each phase is tested, committed, and pushed before the next begins. Recorded local
+replay measurements do not establish production throughput, distributed-cluster
+scalability, or end-to-end exactly-once delivery.

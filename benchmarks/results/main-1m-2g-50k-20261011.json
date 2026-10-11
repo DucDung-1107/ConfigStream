@@ -1,0 +1,747 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "main-1m-2g-50k-20261011",
+  "config": {
+    "benchmark_id": "main-1m-2g-50k-20261011",
+    "assets": 10000,
+    "versions_per_asset": 100,
+    "rate": 1000.0,
+    "profile": "stress-replay",
+    "seed": 42,
+    "master": "local[2]",
+    "corpus": ".cache/datasets/batfish",
+    "max_seconds": 1800,
+    "max_offsets": 50000,
+    "duplicate_ratio": 0,
+    "out_of_order_ratio": 0,
+    "watermark": "48 hours",
+    "driver_memory": "2g"
+  },
+  "machine": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "cpu_model": "Apple M3 Pro",
+    "ram_bytes": 19327352832,
+    "python": "3.12.14",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)",
+    "spark": "4.0.2",
+    "kafka": "4.1.2",
+    "docker": "Docker version 29.8.1, build 4a63305",
+    "docker_engine": "2 CPUs; 6189654016 RAM bytes; overlayfs",
+    "storage": "local single-machine storage; physical device not probed"
+  },
+  "started_at": "2026-10-11T06:08:34.365797+00:00",
+  "status": "success",
+  "progress_capture": "recent-progress-history-v1",
+  "corpus": {
+    "schema_version": "1.0",
+    "source": {
+      "name": "batfish-curated-config-tests",
+      "repository": "batfish/batfish",
+      "revision": "540a4644e0245adffc5d51ec911411a5cd09aa0d",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "archive_sha256": "791ce74605602dde03d4f44b52b2106bced8ff8e43dd1b605f3759436e123ed7"
+    },
+    "retrieved_at": "2026-10-11",
+    "archive_bytes": 9386252,
+    "raw_files": 748,
+    "raw_bytes": 824149,
+    "usable_files": 324,
+    "usable_bytes": 361177,
+    "skipped_files": 424,
+    "skip_reasons": {
+      "potential_credentials": 58,
+      "unsupported_syntax": 366
+    },
+    "types": {
+      "cisco_ios": 324
+    },
+    "size_bytes": {
+      "min": 108,
+      "median": 557.5,
+      "p90": 3302.0,
+      "p95": 3837.0,
+      "max": 8015,
+      "mean": 1114.7438271604938
+    },
+    "corpus_sha256": "a46694c94f684cdc6811a14f3cd1f209543c71bf0279da769813a0dc8990894b"
+  },
+  "startup_seconds": 6.4605031670071185,
+  "runtime": {
+    "checkpoint": ".cache/benchmarks/main-1m-2g-50k-20261011/checkpoint",
+    "lake_prefix": "benchmarks/main-1m-2g-50k-20261011",
+    "starting_offsets": {
+      "0": 127579,
+      "1": 118349,
+      "2": 121266,
+      "3": 130463,
+      "4": 130735,
+      "5": 122505
+    },
+    "partitions": 6,
+    "watermark": "48 hours",
+    "state_timeout": "87600 hours",
+    "max_versions_per_asset": 32,
+    "max_offsets_per_trigger": 50000,
+    "search_enabled": false,
+    "trigger_seconds": 2,
+    "logical_history_days": 100,
+    "starting_event_time": "2026-01-01T00:00:00+00:00",
+    "driver_memory": "2g",
+    "driver_max_heap_bytes": 2147483648,
+    "workload_policy": "history-v2"
+  },
+  "publisher": {
+    "snapshots": 1000000,
+    "logical_raw_config_bytes": 1144675896,
+    "kafka_value_bytes": 1622093126,
+    "seconds": 1000.0005999170244,
+    "achieved_snapshots_per_second": 999.9993997083623,
+    "end_offsets": {
+      "0": 288279,
+      "1": 283849,
+      "2": 285666,
+      "3": 299063,
+      "4": 305635,
+      "5": 288405
+    }
+  },
+  "streaming_seconds": 1065.6183105839882,
+  "final_lag": 0,
+  "drain_seconds": 65.61771066696383,
+  "query_id": "a6d7a498-55c2-406b-916b-264bb2466c86",
+  "lake": {
+    "counts": {
+      "accepted": 1000000,
+      "normalized_snapshot": 1000000,
+      "raw_snapshot": 1000000,
+      "alert": 250000,
+      "config_diff": 990000,
+      "diagnostic": 680000
+    },
+    "parquet_bytes": 876030173,
+    "commits": 25
+  },
+  "analytics": {
+    "schema_version": "1.0",
+    "run_id": "b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+    "job_version": "batch-v1",
+    "input_commits": [
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        0
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        1
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        2
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        3
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        4
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        5
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        6
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        7
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        8
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        9
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        10
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        11
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        12
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        13
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        14
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        15
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        16
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        17
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        18
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        19
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        20
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        21
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        22
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        23
+      ],
+      [
+        "a6d7a498-55c2-406b-916b-264bb2466c86",
+        24
+      ]
+    ],
+    "parameters": {
+      "window": "1 day",
+      "start": null,
+      "end": null,
+      "baseline_windows": 7,
+      "minimum_prior_windows": 3,
+      "minimum_count": 5,
+      "z_threshold": 3.0
+    },
+    "datasets": {
+      "change-frequency": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/change-frequency/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 1000000,
+        "seconds": 14.427263458957896,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-activity": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/fleet-activity/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 100,
+        "seconds": 13.2853349999059,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diff-magnitude": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/diff-magnitude/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 1,
+        "seconds": 5.339115540962666,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "alert-trends": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/alert-trends/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 250000,
+        "seconds": 1.8131604579975829,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "severity",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rule_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diagnostic-trends": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/diagnostic-trends/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 71,
+        "seconds": 4.806664582923986,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diagnostic_type",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "asset-summary": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/asset-summary/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 10000,
+        "seconds": 11.107551582972519,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "anomalies": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/anomalies/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 1000000,
+        "seconds": 17.689773416961543,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-bursts": {
+        "path": "s3a://config-lake/benchmarks/main-1m-2g-50k-20261011/analytics/fleet-bursts/run_id=b945e67612f69704aeedb7297912c5be307a1ba72fffa3b25b519e621b8131d4",
+        "rows": 100,
+        "seconds": 16.65259558300022,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  "metrics": {
+    "batches": 25,
+    "spark_reported_input_rows": 3000000,
+    "processed_rows_per_second_mean": 2678.3689177118995,
+    "input_rows_per_second_mean": 2811.5750210634933,
+    "batch_p50_ms": 48026,
+    "batch_p95_ms": 49932,
+    "max_state_rows": 89997,
+    "max_state_memory_bytes": 17510807,
+    "rows_dropped_by_watermark": 0,
+    "watermark": "2026-04-06T19:37:46.560Z"
+  },
+  "finished_at": "2026-10-11T06:27:53.474574+00:00",
+  "total_seconds": 1159.1023008750053,
+  "sample_summary": {
+    "resource_samples": 204,
+    "lag_samples": 204,
+    "peak_lag": 99593,
+    "java_max_rss_bytes": 2487205888,
+    "java_max_ps_cpu_percent": 417.4,
+    "samples": 204,
+    "container_peaks": {
+      "configstream-kafka-1": {
+        "max_cpu_percent": 147.2,
+        "max_memory_bytes": 1017223577
+      },
+      "configstream-minio-1": {
+        "max_cpu_percent": 37.81,
+        "max_memory_bytes": 487797555
+      }
+    }
+  }
+}

@@ -7,6 +7,8 @@ the input halfway through a run. Domain IDs are deduplicated across input querie
 Diagnostics count committed diagnostic occurrences, not inferred incident counts.
 
 Run ID is SHA-256 of canonical sorted input manifests, `batch-v1` and parameters.
+UTC timestamps and numeric thresholds are canonicalized: CLI integer defaults and
+equivalent floating-point API values identify the same effective job.
 Outputs are typed Snappy Parquet below `analytics/<job>/run_id=<hash>`.
 `_analytics_commits/<hash>/<job>.json` is written only after every selected output
 succeeds. Repeating a completed run returns its existing manifest without rewriting.
@@ -28,6 +30,12 @@ transaction or concurrent-writer lock. Uncommitted outputs are not authoritative
 
 Windows are aligned to UTC (`1 hour` or `1 day`). Start is inclusive, end exclusive.
 Snapshot counts include the observed baseline; a baseline is not itself a diff.
+Diff counts count persisted comparisons, including zero-magnitude normalized
+comparisons. Alerts are configured rule matches, not verified security incidents.
+Diagnostics use event time, falling back to Kafka timestamp when available. Undated
+diagnostics are retained in null-time buckets for an unfiltered run; explicit time
+filters exclude them rather than inventing an event time. Anomaly baselines use
+prior windows within the selected input interval, not history outside that interval.
 Idle anomaly windows are explicitly filled with zero between each group's first
 and last observed window. This calendar expansion can be expensive for large
 fleets/long retention: restrict the query interval. No windows are invented outside
@@ -57,7 +65,7 @@ make phase10-integration-test
 ```
 
 `--job` selects one job or `all`; `--start`/`--end` accept timezone-aware ISO times.
-The reader validates committed paths before opening Parquet. Timestamp predicates
-can be pushed into Parquet, but commit discovery currently examines all manifests;
-there is no independent partition/catalog index. Elasticsearch/API stats remain
-small serving aggregations, not this historical batch plane.
+The reader validates committed paths before opening Parquet. Time filters bound
+results, but there is no manifest/date-path pruning or independent partition/catalog
+index. ID deduplication may also limit predicate pushdown; no pruning speedup is
+claimed. Elasticsearch/API stats are small serving queries, not this batch plane.

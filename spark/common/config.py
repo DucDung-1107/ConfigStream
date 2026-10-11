@@ -62,8 +62,12 @@ class SparkConfig:
     rules_file: Path = Path("rules/default.yaml")
     lake: LakeConfig | None = None
     search: SearchConfig | None = None
+    driver_memory: str = "1g"
 
     def __post_init__(self) -> None:
+        memory = re.fullmatch(r"([1-9]\d*)([mg])", self.driver_memory)
+        if memory is None or not 512 <= int(memory[1]) * (1024 if memory[2] == "g" else 1) <= 8192:
+            raise ValueError("SPARK_DRIVER_MEMORY must be between 512m and 8g")
         if self.search is not None and self.lake is None:
             raise ValueError("Live search requires the authoritative lake sink to be enabled")
         if not re.fullmatch(r"local(?:\[(?:\*|[1-9]\d*)\])?", self.master):
@@ -87,6 +91,7 @@ class SparkConfig:
         enabled = lake_enabled(values)
         return cls(
             master=values.get("SPARK_MASTER", "local[*]"),
+            driver_memory=values.get("SPARK_DRIVER_MEMORY", "1g"),
             app_name=values.get("SPARK_APP_NAME", "ConfigStreamStreaming"),
             bootstrap_servers=values.get(
                 "KAFKA_BOOTSTRAP_SERVERS", KafkaConfig().bootstrap_servers

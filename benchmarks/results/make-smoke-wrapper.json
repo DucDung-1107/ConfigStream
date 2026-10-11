@@ -1,0 +1,172 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "make-smoke-wrapper",
+  "config": {
+    "benchmark_id": "make-smoke-wrapper",
+    "assets": 100,
+    "versions_per_asset": 100,
+    "rate": 1000.0,
+    "profile": "stress-replay",
+    "seed": 42,
+    "master": "local[2]",
+    "corpus": ".cache/datasets/batfish",
+    "max_seconds": 1800,
+    "max_offsets": 10000,
+    "duplicate_ratio": 0,
+    "out_of_order_ratio": 0,
+    "watermark": "48 hours",
+    "driver_memory": "1g",
+    "max_reordering_distance": 16,
+    "start_time": "2026-01-01 00:00:00+00:00",
+    "state_timeout": "87600 hours",
+    "max_versions_per_asset": 32
+  },
+  "machine": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "cpu_model": "Apple M3 Pro",
+    "ram_bytes": 19327352832,
+    "python": "3.12.14",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)",
+    "spark": "4.0.2",
+    "kafka": "4.1.2",
+    "docker": "Docker version 29.8.1, build 4a63305",
+    "docker_engine": "2 CPUs; 6189654016 RAM bytes; overlayfs",
+    "storage": "local single-machine storage; physical device not probed"
+  },
+  "started_at": "2026-10-11T07:03:26.436533+00:00",
+  "status": "failed",
+  "progress_capture": "recent-progress-history-v1",
+  "corpus": {
+    "schema_version": "1.0",
+    "source_url": "https://github.com/batfish/batfish/tree/540a4644e0245adffc5d51ec911411a5cd09aa0d",
+    "archive_url": "https://codeload.github.com/batfish/batfish/tar.gz/540a4644e0245adffc5d51ec911411a5cd09aa0d",
+    "file_patterns": [
+      "regular archive members under /configs/"
+    ],
+    "source": {
+      "name": "batfish-curated-config-tests",
+      "repository": "batfish/batfish",
+      "revision": "540a4644e0245adffc5d51ec911411a5cd09aa0d",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "archive_sha256": "791ce74605602dde03d4f44b52b2106bced8ff8e43dd1b605f3759436e123ed7"
+    },
+    "retrieved_at": "2026-10-11",
+    "retrieval_date_basis": "local archive write time; cached import preserves this date",
+    "archive_bytes": 9386252,
+    "raw_files": 748,
+    "raw_bytes": 824149,
+    "usable_files": 324,
+    "unique_content_hashes": 268,
+    "usable_bytes": 361177,
+    "skipped_files": 424,
+    "skip_reasons": {
+      "potential_credentials": 58,
+      "unsupported_syntax": 366
+    },
+    "types": {
+      "cisco_ios": 324
+    },
+    "size_bytes": {
+      "min": 108,
+      "median": 557.5,
+      "p90": 3302.0,
+      "p95": 3837.0,
+      "max": 8015,
+      "mean": 1114.7438271604938
+    },
+    "corpus_sha256": "a46694c94f684cdc6811a14f3cd1f209543c71bf0279da769813a0dc8990894b"
+  },
+  "startup_seconds": 5.8075418749358505,
+  "runtime": {
+    "checkpoint": ".cache/benchmarks/make-smoke-wrapper/checkpoint",
+    "lake_prefix": "benchmarks/make-smoke-wrapper",
+    "starting_offsets": {
+      "0": 296455,
+      "1": 293753,
+      "2": 293196,
+      "3": 308769,
+      "4": 314759,
+      "5": 297738
+    },
+    "partitions": 6,
+    "watermark": "48 hours",
+    "state_timeout": "87600 hours",
+    "max_versions_per_asset": 32,
+    "max_offsets_per_trigger": 10000,
+    "search_enabled": false,
+    "trigger_seconds": 2,
+    "logical_history_days": 100,
+    "starting_event_time": "2026-01-01T00:00:00+00:00",
+    "driver_memory": "1g",
+    "driver_max_heap_bytes": 1073741824,
+    "workload_policy": "history-v2"
+  },
+  "publisher": {
+    "snapshots": 10000,
+    "logical_raw_config_bytes": 12542677,
+    "kafka_value_bytes": 17313728,
+    "seconds": 10.000269958982244,
+    "achieved_snapshots_per_second": 999.9729590352215,
+    "end_offsets": {
+      "0": 297955,
+      "1": 295053,
+      "2": 294896,
+      "3": 310869,
+      "4": 316559,
+      "5": 299338
+    }
+  },
+  "streaming_seconds": 33.85885687498376,
+  "final_lag": 0,
+  "drain_seconds": 23.858586916001514,
+  "query_id": "51d55ec4-cada-4e94-aa32-07717dd2ffff",
+  "lake": {
+    "counts": {
+      "accepted": 9729,
+      "alert": 2375,
+      "config_diff": 9470,
+      "diagnostic": 6959,
+      "normalized_snapshot": 9729,
+      "raw_snapshot": 10000
+    },
+    "parquet_bytes": 13642689,
+    "commits": 2
+  },
+  "failure": "RuntimeError",
+  "metrics": {
+    "batches": 2,
+    "spark_reported_input_rows": 30000,
+    "processed_rows_per_second_mean": 1154.3803382018057,
+    "input_rows_per_second_mean": 1863.5079624941886,
+    "batch_p50_ms": 12311,
+    "batch_p95_ms": 13340,
+    "max_state_rows": 6808,
+    "max_state_memory_bytes": 4455538,
+    "rows_dropped_by_watermark": 0,
+    "watermark": "2026-04-08T23:45:36.000Z",
+    "duplicate_rows_dropped": 0
+  },
+  "finished_at": "2026-10-11T07:04:07.209970+00:00",
+  "total_seconds": 40.77287508395966,
+  "sample_summary": {
+    "resource_samples": 7,
+    "lag_samples": 7,
+    "peak_lag": 10000,
+    "java_max_rss_bytes": 1434304512,
+    "java_max_ps_cpu_percent": 261.5,
+    "samples": 7,
+    "container_peaks": {
+      "configstream-kafka-1": {
+        "max_cpu_percent": 116.3,
+        "max_memory_bytes": 1048576000
+      },
+      "configstream-minio-1": {
+        "max_cpu_percent": 53.87,
+        "max_memory_bytes": 407791206
+      }
+    }
+  }
+}

@@ -45,6 +45,19 @@ analytics-test:
 phase10-integration-test:
 	.venv/bin/python -m pytest -m phase10_integration tests/phase10_integration
 
+.PHONY: benchmark-smoke benchmark-main benchmark-stress benchmark-report
+benchmark-smoke:
+	.venv/bin/python -m benchmarks.main --benchmark-id smoke --assets 500 --versions-per-asset 20 $(BENCHMARK_ARGS)
+
+benchmark-main:
+	.venv/bin/python -m benchmarks.main --benchmark-id main --assets 10000 --versions-per-asset 100 --rate 1000 --driver-memory 2g --max-offsets 50000 $(BENCHMARK_ARGS)
+
+benchmark-stress:
+	.venv/bin/python -m benchmarks.main --benchmark-id stress --assets 50000 --versions-per-asset 100 --rate 1000 --driver-memory 2g --max-offsets 50000 --max-seconds 7200 $(BENCHMARK_ARGS)
+
+benchmark-report:
+	.venv/bin/python -m benchmarks.report $(BENCHMARK_REPORT_ARGS)
+
 api-setup: setup
 	"$(UV)" sync --locked --extra kafka --extra spark --extra lake --extra search --extra api
 

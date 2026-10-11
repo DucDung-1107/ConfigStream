@@ -1,0 +1,642 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "correctness-fixed-20261011",
+  "config": {
+    "benchmark_id": "correctness-fixed-20261011",
+    "assets": 3,
+    "versions_per_asset": 6,
+    "rate": 100.0,
+    "profile": "fleet-rollout",
+    "seed": 42,
+    "master": "local[2]",
+    "corpus": ".cache/datasets/batfish",
+    "max_seconds": 1800,
+    "max_offsets": 10000,
+    "duplicate_ratio": 0,
+    "out_of_order_ratio": 0,
+    "watermark": "48 hours"
+  },
+  "machine": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "cpu_model": "Apple M3 Pro",
+    "ram_bytes": "19327352832",
+    "python": "3.12.14",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)",
+    "spark": "4.0.2",
+    "kafka": "4.1.2",
+    "docker": "Docker version 29.8.1, build 4a63305",
+    "storage": "host SSD; Kafka/MinIO inside project-local Lima VM; single machine"
+  },
+  "started_at": "2026-10-11T05:41:37.212593+00:00",
+  "status": "success",
+  "corpus": {
+    "schema_version": "1.0",
+    "source": {
+      "name": "batfish-curated-config-tests",
+      "repository": "batfish/batfish",
+      "revision": "540a4644e0245adffc5d51ec911411a5cd09aa0d",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "archive_sha256": "791ce74605602dde03d4f44b52b2106bced8ff8e43dd1b605f3759436e123ed7"
+    },
+    "retrieved_at": "2026-10-11",
+    "archive_bytes": 9386252,
+    "raw_files": 748,
+    "raw_bytes": 824149,
+    "usable_files": 324,
+    "usable_bytes": 361177,
+    "skipped_files": 424,
+    "skip_reasons": {
+      "potential_credentials": 58,
+      "unsupported_syntax": 366
+    },
+    "types": {
+      "cisco_ios": 324
+    },
+    "size_bytes": {
+      "min": 108,
+      "median": 557.5,
+      "p90": 3302.0,
+      "p95": 3837.0,
+      "max": 8015,
+      "mean": 1114.7438271604938
+    },
+    "corpus_sha256": "a46694c94f684cdc6811a14f3cd1f209543c71bf0279da769813a0dc8990894b"
+  },
+  "startup_seconds": 6.750113790971227,
+  "runtime": {
+    "checkpoint": ".cache/benchmarks/correctness-fixed-20261011/checkpoint",
+    "lake_prefix": "benchmarks/correctness-fixed-20261011",
+    "starting_offsets": {
+      "0": 233,
+      "1": 50,
+      "2": 49,
+      "3": 36,
+      "4": 110,
+      "5": 43
+    },
+    "partitions": 6,
+    "watermark": "48 hours",
+    "state_timeout": "87600 hours",
+    "max_versions_per_asset": 32,
+    "max_offsets_per_trigger": 10000,
+    "search_enabled": false,
+    "trigger_seconds": 2,
+    "logical_history_days": 6
+  },
+  "publisher": {
+    "snapshots": 18,
+    "logical_raw_config_bytes": 34322,
+    "kafka_value_bytes": 43672,
+    "seconds": 0.5276875830022618,
+    "achieved_snapshots_per_second": 34.11103873389146,
+    "end_offsets": {
+      "0": 233,
+      "1": 56,
+      "2": 55,
+      "3": 36,
+      "4": 110,
+      "5": 49
+    }
+  },
+  "streaming_seconds": 13.614874957944266,
+  "drain_seconds": 13.087187374942005,
+  "query_id": "5ee5e94f-d26d-4b5f-b782-ce6278826615",
+  "lake": {
+    "counts": {
+      "accepted": 18,
+      "alert": 6,
+      "config_diff": 15,
+      "normalized_snapshot": 18,
+      "raw_snapshot": 18
+    },
+    "parquet_bytes": 109651,
+    "commits": 1
+  },
+  "analytics": {
+    "schema_version": "1.0",
+    "run_id": "9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+    "job_version": "batch-v1",
+    "input_commits": [
+      [
+        "5ee5e94f-d26d-4b5f-b782-ce6278826615",
+        1
+      ]
+    ],
+    "parameters": {
+      "window": "1 day",
+      "start": null,
+      "end": null,
+      "baseline_windows": 7,
+      "minimum_prior_windows": 3,
+      "minimum_count": 5,
+      "z_threshold": 3.0
+    },
+    "datasets": {
+      "change-frequency": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/change-frequency/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 18,
+        "seconds": 0.6634165409486741,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-activity": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/fleet-activity/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 6,
+        "seconds": 0.4929494590032846,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diff-magnitude": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/diff-magnitude/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 1,
+        "seconds": 0.30303425004240125,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "alert-trends": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/alert-trends/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 6,
+        "seconds": 0.25359474995639175,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "severity",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rule_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diagnostic-trends": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/diagnostic-trends/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 0,
+        "seconds": 0.3401389589998871,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diagnostic_type",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "asset-summary": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/asset-summary/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 3,
+        "seconds": 0.6197087499313056,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "anomalies": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/anomalies/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 18,
+        "seconds": 0.6721767090493813,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-bursts": {
+        "path": "s3a://config-lake/benchmarks/correctness-fixed-20261011/analytics/fleet-bursts/run_id=9d79795127061f286371f9d9833f82e11a0763a705169bdec2bcb17be62ff0b8",
+        "rows": 6,
+        "seconds": 0.5980739999795333,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  "metrics": {
+    "batches": 1,
+    "spark_reported_input_rows": 54,
+    "processed_rows_per_second_mean": 7.734173589229447,
+    "input_rows_per_second_mean": 8.54295206454675,
+    "batch_p50_ms": 6982,
+    "batch_p95_ms": 6982,
+    "max_state_rows": 18,
+    "max_state_memory_bytes": 8552,
+    "rows_dropped_by_watermark": 0,
+    "watermark": "1970-01-01T00:00:00.000Z"
+  },
+  "finished_at": "2026-10-11T05:42:02.113153+00:00",
+  "total_seconds": 24.900193791021593,
+  "sample_summary": {
+    "resource_samples": 3,
+    "lag_samples": 3,
+    "peak_lag": 18,
+    "java_max_rss_bytes": 1160577024,
+    "java_max_ps_cpu_percent": 357.1,
+    "samples": 3,
+    "container_peaks": {
+      "configstream-kafka-1": {
+        "max_cpu_percent": 53.81,
+        "max_memory_bytes": 622539571
+      },
+      "configstream-minio-1": {
+        "max_cpu_percent": 4.93,
+        "max_memory_bytes": 315726233
+      }
+    }
+  }
+}

@@ -85,6 +85,13 @@ def alert_trends(frame: DataFrame, config: AnalyticsConfig) -> DataFrame:
 
 
 def diagnostic_trends(frame: DataFrame, config: AnalyticsConfig) -> DataFrame:
+    frame = frame.withColumn(
+        "event_time",
+        functions.coalesce(
+            functions.col("event_time"),
+            functions.try_to_timestamp(functions.get_json_object("summary", "$.kafka_timestamp")),
+        ),
+    )
     tagged = frame.withColumn(
         "diagnostic_type",
         functions.coalesce(
@@ -96,14 +103,25 @@ def diagnostic_trends(frame: DataFrame, config: AnalyticsConfig) -> DataFrame:
             functions.lit("unknown"),
         ),
     )
-    return (
-        filtered(tagged, "event_time", config)
+    dated = (
+        filtered(tagged.filter(functions.col("event_time").isNotNull()), "event_time", config)
         .groupBy("diagnostic_type", functions.window("event_time", config.window).alias("window"))
         .count()
         .select(
             "diagnostic_type",
             functions.col("window.start").alias("window_start"),
             functions.col("window.end").alias("window_end"),
+            "count",
+        )
+    )
+    if config.start is not None or config.end is not None:
+        return dated
+    undated = tagged.filter(functions.col("event_time").isNull()).groupBy("diagnostic_type").count()
+    return dated.unionByName(
+        undated.select(
+            "diagnostic_type",
+            functions.lit(None).cast("timestamp").alias("window_start"),
+            functions.lit(None).cast("timestamp").alias("window_end"),
             "count",
         )
     )

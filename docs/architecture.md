@@ -12,6 +12,21 @@ The generator and pure processing package can run without external services.
 A thin read-only FastAPI boundary now serves the Elasticsearch projection.
 Kubernetes and monitoring systems remain future work.
 
+## Phase 10 planes
+
+- Streaming: curated real-baseline-derived histories or the original synthetic
+  generator → Kafka → native stateful Structured Streaming → committed lake/search.
+- Batch: a frozen set of committed Parquet manifests → Spark DataFrame aggregations
+  and prior-window thresholds → typed `analytics/` Parquet plus completion manifests.
+- Serving: Elasticsearch's metadata-only projection → read-only FastAPI. This does
+  not replace historical Spark analytics and is not the source of truth.
+
+The replay harness measures local fleet/version/retention workloads with fresh
+checkpoints, prefixes and explicit Kafka offsets. High rates are accelerated history
+replay/stress, not natural device-frequency claims. External corpus retrieval and
+large experiments never run in ordinary CI. See [datasets](datasets.md),
+[historical analytics](historical-analytics.md), and [benchmark methodology](benchmark.md).
+
 ## Implemented synthetic source
 
 `generator/engine.py` maintains a list of per-asset states and selects an asset
@@ -93,7 +108,7 @@ Spark's native progress metrics are logged without claiming measured throughput.
 | --- | --- |
 | Sources and collector | Obtain configuration; generate IDs, versions, timestamps; publish records without processing business rules |
 | Kafka | Decouple ingestion from compute; retain an ordered, replayable log per partition |
-| Spark Structured Streaming | Parsing, watermark/dedup, native per-asset version buffers, normalization/diff, rules and Kafka alerts; business window analytics remain future work |
+| Spark Structured Streaming | Parsing, watermark/dedup, native per-asset version buffers, normalization/diff, rules and Kafka alerts; live business-window aggregation remains future work |
 | Pure processing | Text normalization, explicit same-asset pair comparison, bounded transitions and YAML rules; Spark owns distributed state persistence |
 | MinIO + Parquet | S3-compatible local historical source of truth; columnar data for analytical reads |
 | Elasticsearch | Derived, rebuildable serving/search indexes; not the authoritative historical store |
@@ -134,8 +149,9 @@ assignment for the same asset; repartitioning and retries need explicit handling
 
 Spark now deduplicates IDs, normalizes content, compares adjacent versions per
 asset, evaluates YAML rules, and publishes alerts. Optional lake mode persists
-raw/processed history. Future stages will route malformed/unsupported records to
-the DLQ and calculate business window metrics. The DLQ must preserve the
+raw/processed history. Phase 10 calculates historical window metrics in the separate
+batch plane. Future streaming stages may route malformed/unsupported records to
+the DLQ and calculate live business-window metrics. The DLQ must preserve the
 original payload, ingestion timestamp, and reason under controlled access.
 Spark owns this state and computation; the collector and API do not emulate it.
 
@@ -156,7 +172,7 @@ Implemented logical locations under the private `config-lake` bucket:
 
 - `raw/`: all fetched original snapshot-topic records and Kafka provenance, access restricted.
 - `processed/`: accepted normalized snapshots, diffs, alerts and safe diagnostics in Parquet.
-- `analytics/`: reserved for future batch reports and derived aggregate results.
+- `analytics/`: typed Phase 10 historical aggregates, keyed by deterministic input/parameter run IDs.
 
 Processed snapshots are partitioned by UTC event date (`year`, `month`, `day`),
 inside a query/batch namespace for replay-safe writes. There is no asset_id

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "method": "Spark metadata joins over committed snapshots/diffs, persisted analytics sums, and delivery-side ground truth",
+  "checks": {
+    "main-1m-2g-50k-20261011": {
+      "totals": {
+        "snapshots": 1000000,
+        "diffs": 990000,
+        "alerts": 250000
+      },
+      "invalid_version_pairs": 0,
+      "diagnostic_reasons": {
+        "state_eviction": 680000
+      }
+    },
+    "final-duplicates-ooo-wide": {
+      "totals": {
+        "snapshots": 1000,
+        "diffs": 950,
+        "alerts": 250
+      },
+      "invalid_version_pairs": 0,
+      "observed_version_inversions": 339
+    },
+    "final-rollout": {
+      "totals": {
+        "snapshots": 600,
+        "diffs": 500,
+        "alerts": 200
+      },
+      "invalid_version_pairs": 0,
+      "campaign": {
+        "window_start": "2026-01-03T00:00:00Z",
+        "window_end": "2026-01-03T01:00:00Z",
+        "snapshot_count": "100",
+        "diff_count": "100",
+        "alert_count": "0",
+        "assets_changed": "100"
+      },
+      "detected_burst_windows": 1,
+      "hourly_analytics_parameters": {
+        "baseline_windows": 7,
+        "end": null,
+        "minimum_count": 10,
+        "minimum_prior_windows": 3,
+        "start": null,
+        "window": "1 hour",
+        "z_threshold": 3
+      },
+      "hourly_output_rows": {
+        "alert-trends": 200,
+        "anomalies": 12100,
+        "asset-summary": 100,
+        "change-frequency": 600,
+        "diagnostic-trends": 0,
+        "diff-magnitude": 1,
+        "fleet-activity": 121,
+        "fleet-bursts": 144
+      }
+    },
+    "make-smoke-wrapper": {
+      "diagnostic_reasons": {
+        "state_eviction": 6529,
+        "unresolved_version_gap": 159,
+        "evicted_version": 271
+      }
+    }
+  }
+}

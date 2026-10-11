@@ -1,3 +1,4 @@
+import json
 import random
 import re
 from dataclasses import dataclass
@@ -31,6 +32,7 @@ class WorkloadConfig:
             raise ValueError("Positive asset/version counts and a supported profile are required")
         if self.start_time.tzinfo is None:
             raise ValueError("Starting time must be timezone-aware")
+        object.__setattr__(self, "start_time", self.start_time.astimezone(UTC))
         if not 0 <= self.duplicate_ratio <= 1 or not 0 <= self.out_of_order_ratio <= 1:
             raise ValueError("Replay ratios must be between zero and one")
         if self.max_reordering_distance < 1:
@@ -40,11 +42,15 @@ class WorkloadConfig:
 def mutate(content: str, syntax: str, version: int) -> tuple[str, str, str]:
     if syntax == "cisco_ios":
         if version % 2 == 0:
-            command = "no logging on" if version % 4 == 2 else "logging on"
+            disabled = re.search(r"(?m)^no logging on\s*$", content) is not None
+            command = "logging on" if disabled else "no logging on"
             updated = re.sub(r"(?m)^(?:no )?logging on\s*\n?", "", content)
             mutation, group = "logging-policy", "operations"
         else:
-            command = f"ip name-server 192.0.2.{version % 254 + 1}"
+            value = version % 254 + 1
+            command = f"ip name-server 192.0.2.{value}"
+            if command in content.splitlines():
+                command = f"ip name-server 192.0.2.{value % 254 + 1}"
             updated = re.sub(r"(?m)^ip name-server[^\n]*\n?", "", content)
             mutation, group = "dns-change", "operations"
         updated = re.sub(r"(?m)^end\s*$", "", updated).rstrip() + f"\n{command}\nend\n"
@@ -68,18 +74,29 @@ class History:
         baselines = load_baselines(config.corpus, config.size_bucket)
         self.states = []
         self.assets = []
-        self.identity = f"history-v1:{config.seed}:{config.profile}:{config.start_time.isoformat()}"
+        self._used = False
+        corpus = json.loads((config.corpus / "manifest.json").read_text())
+        source_identity = sha256(
+            json.dumps(corpus.get("source", {}), sort_keys=True).encode()
+        ).hexdigest()
+        self.identity = (
+            f"history-v2:{source_identity}:{config.seed}:{config.profile}:"
+            f"{config.start_time.isoformat()}:{config.assets}:{config.versions_per_asset}:"
+            f"{config.size_bucket}"
+        )
         for index in range(config.assets):
             baseline = self.random.choice(baselines)
             asset_id = f"corpus-{uuid5(NAMESPACE_URL, self.identity + ':' + str(index))}"
-            content = (config.corpus / "files" / baseline["path"]).read_text()
+            content = (config.corpus / "files" / baseline["path"]).read_bytes().decode("utf-8")
             self.states.append({"content": content, "baseline": baseline, "rollback": content})
             self.assets.append(
                 Asset(
                     asset_id=asset_id,
-                    asset_type="network_device"
-                    if baseline["syntax"] == "cisco_ios"
-                    else "nginx_server",
+                    asset_type={
+                        "cisco_ios": "network_device",
+                        "nginx": "nginx_server",
+                        "generic_service": "generic_service",
+                    }[baseline["syntax"]],
                     created_at=config.start_time,
                     metadata={
                         "dataset_category": "semi-synthetic",
@@ -89,16 +106,23 @@ class History:
             )
 
     def canonical(self):
+        if self._used:
+            raise ValueError("History instances are single-pass; construct a new one to replay")
+        self._used = True
         config = self.config
         burst_version = max(2, config.versions_per_asset // 2)
         for version in range(1, config.versions_per_asset + 1):
-            rollout = str(uuid5(NAMESPACE_URL, f"{self.identity}:rollout:{version}"))
+            campaign_version = (
+                burst_version if config.profile == "incident-remediation" else version
+            )
+            rollout = str(uuid5(NAMESPACE_URL, f"{self.identity}:rollout:{campaign_version}"))
             for index, asset in enumerate(self.assets):
                 state = self.states[index]
                 previous = state["content"]
                 mutation, group = "real-baseline", "baseline"
-                burst = config.profile in {"fleet-rollout", "incident-remediation"} and (
-                    version == burst_version
+                burst = (config.profile == "fleet-rollout" and version == burst_version) or (
+                    config.profile == "incident-remediation"
+                    and version in {burst_version, burst_version + 1}
                 )
                 if version > 1:
                     if config.profile == "incident-remediation" and version == burst_version + 1:
@@ -112,6 +136,8 @@ class History:
                         )
                 spacing = 0 if burst else index * (86400 / config.assets)
                 event_time = config.start_time + timedelta(days=version - 1, seconds=spacing)
+                if config.profile == "incident-remediation" and version == burst_version + 1:
+                    event_time = config.start_time + timedelta(days=burst_version - 1, minutes=15)
                 digest = sha256(state["content"].encode()).hexdigest()
                 identity = f"{self.identity}:{asset.asset_id}:{version}:{digest}"
                 snapshot_id = f"snapshot-{uuid5(NAMESPACE_URL, identity)}"
@@ -153,6 +179,7 @@ class History:
                     event_id=f"event-{uuid5(NAMESPACE_URL, snapshot_id)}",
                     asset_id=asset.asset_id,
                     source="semi-synthetic",
+                    event_type="config_observed" if version == 1 else "config_changed",
                     event_time=event_time,
                     ingest_time=snapshot.ingest_time,
                     metadata={

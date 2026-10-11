@@ -1,9 +1,9 @@
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
 from analytics.config import AnalyticsConfig
-from analytics.jobs import all_jobs, frequency_anomalies
+from analytics.jobs import all_jobs, diagnostic_trends, filtered, frequency_anomalies
 from spark.common.config import SparkConfig
 from spark.common.runtime import create_session
 
@@ -20,7 +20,7 @@ def session(tmp_path_factory):
 
 @pytest.fixture(scope="module")
 def results(session):
-    start = datetime(2026, 1, 1)
+    start = datetime(2026, 1, 1, tzinfo=UTC)
     inputs = {
         "snapshot": session.createDataFrame(
             [
@@ -71,6 +71,8 @@ def test_diff_magnitude_and_summary(results):
     magnitude = results["diff-magnitude"][0]
     assert magnitude.added_mean == 1.5
     assert magnitude.changed_max == 2
+    assert magnitude.added_p50 == 1
+    assert magnitude.added_p90 == magnitude.added_p95 == magnitude.added_max == 2
     assert magnitude.diff_count == 2
     summary = {row.asset_id: row for row in results["asset-summary"]}
     assert summary["A"].snapshot_count == 2
@@ -88,7 +90,7 @@ def test_alert_and_diagnostic_trends(results):
 
 @pytest.mark.parametrize("fleet", [False, True])
 def test_prior_only_anomaly_and_zero_variance(session, fleet):
-    start = datetime(2026, 1, 1)
+    start = datetime(2026, 1, 1, tzinfo=UTC)
     values = [
         ("A", start + timedelta(days=index), count)
         for index, count in enumerate([1, 1, 1, 10, 1, 100])
@@ -111,10 +113,34 @@ def test_prior_only_anomaly_and_zero_variance(session, fleet):
 
 def test_dense_windows_fill_idle_periods(session):
     frame = session.createDataFrame(
-        [("A", datetime(2026, 1, 1), 1), ("A", datetime(2026, 1, 5), 10)],
+        [("A", datetime(2026, 1, 1, tzinfo=UTC), 1), ("A", datetime(2026, 1, 5, tzinfo=UTC), 10)],
         "asset_id STRING, window_start TIMESTAMP, count LONG",
     )
     rows = frequency_anomalies(frame, "count", AnalyticsConfig()).orderBy("window_start").collect()
     assert len(rows) == 5
     assert [row["count"] for row in rows] == [1, 0, 0, 0, 10]
     assert rows[-1].is_anomaly
+
+
+def test_undated_diagnostic_is_not_silently_lost(session):
+    frame = session.createDataFrame(
+        [
+            ("invalid", None, "{}"),
+            ("invalid", None, '{"kafka_timestamp":"2026-01-01T00:00:00Z"}'),
+        ],
+        "record_type STRING, event_time TIMESTAMP, summary STRING",
+    )
+    rows = diagnostic_trends(frame, AnalyticsConfig()).collect()
+    assert sum(row["count"] for row in rows) == 2
+    assert len(rows) == 2
+    assert all(row.diagnostic_type == "invalid_record" for row in rows)
+
+
+def test_utc_interval_is_start_inclusive_end_exclusive(session):
+    start = datetime(2026, 1, 1, tzinfo=UTC)
+    frame = session.createDataFrame(
+        [(start - timedelta(seconds=1),), (start,), (start + timedelta(days=1),)],
+        "event_time TIMESTAMP",
+    )
+    config = AnalyticsConfig(start=start, end=start + timedelta(days=1))
+    assert filtered(frame, "event_time", config).count() == 1

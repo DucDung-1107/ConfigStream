@@ -1,4 +1,5 @@
 import io
+import json
 import tarfile
 from dataclasses import replace
 
@@ -57,6 +58,59 @@ def test_checksum_rejects_modified_baseline(corpus):
         load_baselines(directory)
 
 
+@pytest.mark.parametrize("field,value", [("bytes", 1), ("syntax", "nginx")])
+def test_reject_inaccurate_baseline_metadata(corpus, field, value):
+    directory, manifest = corpus
+    manifest["files"][0][field] = value
+    (directory / "manifest.json").write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="Baseline validation failed"):
+        load_baselines(directory)
+
+
+def test_seed_changes_baseline_choices(corpus):
+    directory, manifest = corpus
+    content = (directory / "files/lab/configs/router.cfg").read_bytes().replace(b"test", b"other")
+    target = directory / "files/lab/configs/other.cfg"
+    target.write_bytes(content)
+    manifest["files"].append(
+        {
+            "path": "lab/configs/other.cfg",
+            "bytes": len(content),
+            "sha256": checksum(content),
+            "syntax": "cisco_ios",
+        }
+    )
+    (directory / "manifest.json").write_text(json.dumps(manifest))
+    first = History(WorkloadConfig(assets=20, corpus=directory, seed=42))
+    second = History(WorkloadConfig(assets=20, corpus=directory, seed=43))
+    assert [state["baseline"]["sha256"] for state in first.states] != [
+        state["baseline"]["sha256"] for state in second.states
+    ]
+
+
+def test_history_is_single_pass(corpus):
+    history = History(WorkloadConfig(assets=1, versions_per_asset=2, corpus=corpus[0]))
+    list(history.records())
+    with pytest.raises(ValueError):
+        list(history.records())
+
+
+def test_logical_shape_changes_identity_but_delivery_order_does_not(corpus):
+    config = WorkloadConfig(assets=3, versions_per_asset=4, corpus=corpus[0])
+    original = {snapshot.snapshot_id for _, snapshot, _ in History(config).records()}
+    changed = {
+        snapshot.snapshot_id for _, snapshot, _ in History(replace(config, assets=4)).records()
+    }
+    assert original.isdisjoint(changed)
+    reordered = {
+        snapshot.snapshot_id
+        for _, snapshot, _ in History(
+            replace(config, out_of_order_ratio=1, duplicate_ratio=1)
+        ).records()
+    }
+    assert original == reordered
+
+
 @pytest.mark.parametrize(
     "profile", ["normal-maintenance", "fleet-rollout", "incident-remediation", "stress-replay"]
 )
@@ -110,6 +164,29 @@ def test_non_network_mutations(syntax, content):
     assert updated != content
 
 
+def test_logging_mutation_changes_intent_not_only_line_position():
+    updated, _, _ = mutate("no logging on\nhostname test\nend\n", "cisco_ios", 2)
+    assert "\nlogging on\n" in updated
+    assert "no logging on" not in updated
+    updated, _, _ = mutate("ip name-server 192.0.2.4\nend\n", "cisco_ios", 3)
+    assert "ip name-server 192.0.2.5" in updated
+
+
+def test_remediation_rollback_is_correlated_and_nearby(corpus):
+    records = list(
+        History(
+            WorkloadConfig(
+                assets=3, versions_per_asset=6, corpus=corpus[0], profile="incident-remediation"
+            )
+        ).records()
+    )
+    changed = [entry for entry in records if entry[1].version == 3]
+    rolled_back = [entry for entry in records if entry[1].version == 4]
+    assert len({entry[1].event_time for entry in rolled_back}) == 1
+    assert (rolled_back[0][1].event_time - changed[0][1].event_time).total_seconds() == 900
+    assert changed[0][2]["rollout_id"] == rolled_back[0][2]["rollout_id"]
+
+
 @pytest.mark.parametrize(
     "content",
     [b"token secret", b"SNMP-server community public", b"password x", b"api_key y", b"\xff"],
@@ -127,6 +204,45 @@ def test_manifest_validation():
             license="unknown",
             archive_sha256="bad",
         )
+
+
+@pytest.mark.parametrize("path", ["root/../escape/configs/router.cfg", "/root/configs/router.cfg"])
+def test_archive_rejects_unsafe_paths(tmp_path, path):
+    archive = tmp_path / "unsafe.tar.gz"
+    with tarfile.open(archive, "w:gz") as bundle:
+        member = tarfile.TarInfo(path)
+        member.size = 1
+        bundle.addfile(member, io.BytesIO(b"x"))
+    source = Source(
+        name="fixture",
+        repository="batfish/batfish",
+        revision="a" * 40,
+        license="Apache-2.0",
+        archive_sha256=checksum(archive.read_bytes()),
+    )
+    with pytest.raises(ValueError, match="Unsafe archive path"):
+        import_archive(archive, source, tmp_path)
+
+
+@pytest.mark.parametrize(
+    "syntax,content,asset_type",
+    [
+        ("nginx", "worker_processes 2;\nkeepalive_timeout 65;\n", "nginx_server"),
+        ("generic_service", "timeout 30\nreplicas 2\n", "generic_service"),
+    ],
+)
+def test_nonnetwork_baselines_use_the_generic_asset_contract(corpus, syntax, content, asset_type):
+    directory, manifest = corpus
+    entry = manifest["files"][0]
+    (directory / "files" / entry["path"]).write_text(content)
+    entry.update(bytes=len(content.encode()), sha256=checksum(content.encode()), syntax=syntax)
+    (directory / "manifest.json").write_text(json.dumps(manifest))
+    history = History(WorkloadConfig(assets=1, versions_per_asset=2, corpus=directory))
+    assert history.assets[0].asset_type == asset_type
+    records = list(history.records())
+    assert records[0][0].event_type == "config_observed"
+    assert records[1][0].event_type == "config_changed"
+    assert records[0][1].content != records[1][1].content
 
 
 @pytest.mark.parametrize(

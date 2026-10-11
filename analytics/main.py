@@ -88,6 +88,10 @@ def main():
     parser.add_argument("--end", type=datetime.fromisoformat)
     parser.add_argument("--window", choices=["1 hour", "1 day"], default="1 day")
     parser.add_argument("--inspect", action="store_true")
+    parser.add_argument("--baseline-windows", type=int, default=7)
+    parser.add_argument("--minimum-prior-windows", type=int, default=3)
+    parser.add_argument("--minimum-count", type=int, default=5)
+    parser.add_argument("--z-threshold", type=float, default=3)
     args = parser.parse_args()
     runtime = SparkConfig.from_env()
     if runtime.lake is None:
@@ -112,7 +116,15 @@ def main():
                     )
                 )
         return
-    config = AnalyticsConfig(window=args.window, start=args.start, end=args.end)
+    config = AnalyticsConfig(
+        window=args.window,
+        start=args.start,
+        end=args.end,
+        baseline_windows=args.baseline_windows,
+        minimum_prior_windows=args.minimum_prior_windows,
+        minimum_count=args.minimum_count,
+        z_threshold=args.z_threshold,
+    )
     from spark.common.runtime import create_session
 
     session = create_session(runtime, kafka=False)

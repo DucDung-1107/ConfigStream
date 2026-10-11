@@ -58,6 +58,7 @@ def create_session(config: SparkConfig, *, kafka: bool = True) -> "SparkSession"
     builder = (
         SparkSession.builder.master(config.master)
         .appName(config.app_name)
+        .config("spark.driver.memory", config.driver_memory)
         .config("spark.sql.session.timeZone", "UTC")
         .config("spark.sql.timestampType", "TIMESTAMP_LTZ")
         .config("spark.sql.shuffle.partitions", "2")

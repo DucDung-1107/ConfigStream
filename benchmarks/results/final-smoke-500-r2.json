@@ -1,0 +1,670 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "final-smoke-500-r2",
+  "config": {
+    "benchmark_id": "final-smoke-500-r2",
+    "assets": 500,
+    "versions_per_asset": 20,
+    "rate": 500.0,
+    "profile": "stress-replay",
+    "seed": 42,
+    "master": "local[2]",
+    "corpus": ".cache/datasets/batfish",
+    "max_seconds": 1800,
+    "max_offsets": 10000,
+    "duplicate_ratio": 0,
+    "out_of_order_ratio": 0,
+    "watermark": "48 hours",
+    "driver_memory": "1g"
+  },
+  "machine": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "cpu_model": "Apple M3 Pro",
+    "ram_bytes": 19327352832,
+    "python": "3.12.14",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)",
+    "spark": "4.0.2",
+    "kafka": "4.1.2",
+    "docker": "Docker version 29.8.1, build 4a63305",
+    "docker_engine": "2 CPUs; 6189654016 RAM bytes; overlayfs",
+    "storage": "local single-machine storage; physical device not probed"
+  },
+  "started_at": "2026-10-11T06:49:27.589033+00:00",
+  "status": "success",
+  "progress_capture": "recent-progress-history-v1",
+  "corpus": {
+    "schema_version": "1.0",
+    "source_url": "https://github.com/batfish/batfish/tree/540a4644e0245adffc5d51ec911411a5cd09aa0d",
+    "archive_url": "https://codeload.github.com/batfish/batfish/tar.gz/540a4644e0245adffc5d51ec911411a5cd09aa0d",
+    "file_patterns": [
+      "regular archive members under /configs/"
+    ],
+    "source": {
+      "name": "batfish-curated-config-tests",
+      "repository": "batfish/batfish",
+      "revision": "540a4644e0245adffc5d51ec911411a5cd09aa0d",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "archive_sha256": "791ce74605602dde03d4f44b52b2106bced8ff8e43dd1b605f3759436e123ed7"
+    },
+    "retrieved_at": "2026-10-11",
+    "retrieval_date_basis": "local archive write time; cached import preserves this date",
+    "archive_bytes": 9386252,
+    "raw_files": 748,
+    "raw_bytes": 824149,
+    "usable_files": 324,
+    "unique_content_hashes": 268,
+    "usable_bytes": 361177,
+    "skipped_files": 424,
+    "skip_reasons": {
+      "potential_credentials": 58,
+      "unsupported_syntax": 366
+    },
+    "types": {
+      "cisco_ios": 324
+    },
+    "size_bytes": {
+      "min": 108,
+      "median": 557.5,
+      "p90": 3302.0,
+      "p95": 3837.0,
+      "max": 8015,
+      "mean": 1114.7438271604938
+    },
+    "corpus_sha256": "a46694c94f684cdc6811a14f3cd1f209543c71bf0279da769813a0dc8990894b"
+  },
+  "startup_seconds": 5.585630499990657,
+  "runtime": {
+    "checkpoint": ".cache/benchmarks/final-smoke-500-r2/checkpoint",
+    "lake_prefix": "benchmarks/final-smoke-500-r2",
+    "starting_offsets": {
+      "0": 291279,
+      "1": 287529,
+      "2": 288426,
+      "3": 302743,
+      "4": 309035,
+      "5": 291885
+    },
+    "partitions": 6,
+    "watermark": "48 hours",
+    "state_timeout": "87600 hours",
+    "max_versions_per_asset": 32,
+    "max_offsets_per_trigger": 10000,
+    "search_enabled": false,
+    "trigger_seconds": 2,
+    "logical_history_days": 20,
+    "starting_event_time": "2026-01-01T00:00:00+00:00",
+    "driver_memory": "1g",
+    "driver_max_heap_bytes": 1073741824,
+    "workload_policy": "history-v2"
+  },
+  "publisher": {
+    "snapshots": 10000,
+    "logical_raw_config_bytes": 12091451,
+    "kafka_value_bytes": 16881087,
+    "seconds": 19.999895459041,
+    "achieved_snapshots_per_second": 500.0026052138537,
+    "end_offsets": {
+      "0": 292779,
+      "1": 289369,
+      "2": 289806,
+      "3": 304583,
+      "4": 310735,
+      "5": 293625
+    }
+  },
+  "streaming_seconds": 33.89879937504884,
+  "final_lag": 0,
+  "drain_seconds": 13.89890391600784,
+  "query_id": "c1446490-40be-406b-a290-86d655061796",
+  "lake": {
+    "counts": {
+      "accepted": 10000,
+      "normalized_snapshot": 10000,
+      "raw_snapshot": 10000,
+      "alert": 2500,
+      "config_diff": 9500
+    },
+    "parquet_bytes": 10719204,
+    "commits": 4
+  },
+  "analytics": {
+    "schema_version": "1.0",
+    "run_id": "ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+    "job_version": "batch-v1",
+    "input_commits": [
+      [
+        "c1446490-40be-406b-a290-86d655061796",
+        0
+      ],
+      [
+        "c1446490-40be-406b-a290-86d655061796",
+        1
+      ],
+      [
+        "c1446490-40be-406b-a290-86d655061796",
+        2
+      ],
+      [
+        "c1446490-40be-406b-a290-86d655061796",
+        3
+      ]
+    ],
+    "parameters": {
+      "window": "1 day",
+      "start": null,
+      "end": null,
+      "baseline_windows": 7,
+      "minimum_prior_windows": 3,
+      "minimum_count": 5,
+      "z_threshold": 3.0
+    },
+    "datasets": {
+      "change-frequency": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/change-frequency/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 10000,
+        "seconds": 1.5739984170068055,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-activity": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/fleet-activity/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 20,
+        "seconds": 1.050736292032525,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diff-magnitude": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/diff-magnitude/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 1,
+        "seconds": 0.6255820409860462,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "alert-trends": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/alert-trends/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 2500,
+        "seconds": 0.3092999999644235,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "severity",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rule_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diagnostic-trends": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/diagnostic-trends/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 0,
+        "seconds": 0.47141062503214926,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diagnostic_type",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "asset-summary": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/asset-summary/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 500,
+        "seconds": 1.0678080000216141,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "anomalies": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/anomalies/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 10000,
+        "seconds": 1.380879082949832,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-bursts": {
+        "path": "s3a://config-lake/benchmarks/final-smoke-500-r2/analytics/fleet-bursts/run_id=ab02da04f590a1b4a6ea8041b73eed3df2dacf606ee52315f162353fac9a9e94",
+        "rows": 20,
+        "seconds": 1.2431511669419706,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  "metrics": {
+    "batches": 4,
+    "spark_reported_input_rows": 30000,
+    "processed_rows_per_second_mean": 1066.2112925873073,
+    "input_rows_per_second_mean": 920.65082449674,
+    "batch_p50_ms": 7090,
+    "batch_p95_ms": 9810,
+    "max_state_rows": 5544,
+    "max_state_memory_bytes": 13158622,
+    "rows_dropped_by_watermark": 0,
+    "watermark": "2026-01-18T23:57:07.200Z",
+    "duplicate_rows_dropped": 0
+  },
+  "finished_at": "2026-10-11T06:50:15.755890+00:00",
+  "total_seconds": 48.16533474996686,
+  "sample_summary": {
+    "resource_samples": 7,
+    "lag_samples": 7,
+    "peak_lag": 7722,
+    "java_max_rss_bytes": 1495728128,
+    "java_max_ps_cpu_percent": 238.2,
+    "samples": 7,
+    "container_peaks": {
+      "configstream-kafka-1": {
+        "max_cpu_percent": 119.94,
+        "max_memory_bytes": 1048576000
+      },
+      "configstream-minio-1": {
+        "max_cpu_percent": 32.06,
+        "max_memory_bytes": 442603929
+      }
+    }
+  }
+}

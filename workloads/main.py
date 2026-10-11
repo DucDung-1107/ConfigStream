@@ -19,6 +19,14 @@ def main():
     parser.add_argument("--profile", choices=PROFILES, default="fleet-rollout")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
+        "--size-bucket",
+        choices=["small", "medium", "large", "corpus-distribution"],
+        default="corpus-distribution",
+    )
+    parser.add_argument("--duplicate-ratio", type=float, default=0)
+    parser.add_argument("--out-of-order-ratio", type=float, default=0)
+    parser.add_argument("--max-reordering-distance", type=int, default=16)
+    parser.add_argument(
         "--start-time",
         type=datetime.fromisoformat,
         default=datetime.fromisoformat("2026-01-01T00:00:00+00:00"),
@@ -37,6 +45,10 @@ def main():
             seed=args.seed,
             start_time=args.start_time,
             corpus=args.corpus,
+            size_bucket=args.size_bucket,
+            duplicate_ratio=args.duplicate_ratio,
+            out_of_order_ratio=args.out_of_order_ratio,
+            max_reordering_distance=args.max_reordering_distance,
         )
         history = History(config)
         args.output.parent.mkdir(parents=True, exist_ok=True)

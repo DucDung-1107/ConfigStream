@@ -3,6 +3,7 @@ from datetime import UTC, datetime
 import pytest
 
 from analytics.config import AnalyticsConfig, run_identity
+from spark.common.config import SparkConfig
 
 
 def test_identity_is_input_and_parameter_sensitive():
@@ -11,6 +12,9 @@ def test_identity_is_input_and_parameter_sensitive():
     assert run_identity(entries, config) == run_identity(list(reversed(entries)), config)
     assert run_identity(entries, config) != run_identity(entries[:1], config)
     assert run_identity(entries, config) != run_identity(entries, AnalyticsConfig(window="1 hour"))
+    assert run_identity(entries, AnalyticsConfig(z_threshold=3)) == run_identity(
+        entries, AnalyticsConfig(z_threshold=3.0)
+    )
 
 
 @pytest.mark.parametrize(
@@ -27,3 +31,13 @@ def test_identity_is_input_and_parameter_sensitive():
 def test_invalid_analytics_config(options):
     with pytest.raises(ValueError):
         AnalyticsConfig(**options)
+
+
+@pytest.mark.parametrize("value", ["0g", "32g", "8x", "1m", "-1g"])
+def test_driver_memory_bounds(value):
+    with pytest.raises(ValueError):
+        SparkConfig(driver_memory=value)
+
+
+def test_driver_memory_environment():
+    assert SparkConfig.from_env({"SPARK_DRIVER_MEMORY": "2g"}).driver_memory == "2g"

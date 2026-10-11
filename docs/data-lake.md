@@ -58,7 +58,7 @@ The default bucket is private `config-lake`; creation never enables public acces
 | `processed/diffs` | Existing ConfigDiff fields with structured line details and triggering event time |
 | `processed/alerts` | Existing Alert fields, deterministic ID and event-time created_at |
 | `processed/diagnostics` | Safe Phase 4/state diagnostics, without config bodies |
-| `analytics/` | Reserved logical zone; no analytics job or fabricated dataset |
+| `analytics/` | Phase 10 typed historical aggregates, with separate analytics completion manifests |
 
 Raw history preserves both versions even when masking intentionally suppresses a
 secret-value diff. It also preserves records dropped by business lateness/dedup
@@ -252,4 +252,6 @@ checkpoints, credentials and backups. There is no encryption-at-rest configurati
 production HA, lifecycle cleanup, compaction, table format, or performance claim.
 Phase 8 now supplies [safe Elasticsearch projections](elasticsearch.md). They can
 be deleted and rebuilt with `read_committed`; the lake remains authoritative.
-Historical batch analytics come later.
+Phase 10 [historical Spark analytics](historical-analytics.md) reads only committed
+manifests and writes typed, reproducible results under `analytics/`. Elasticsearch
+operational statistics are not a substitute for these historical jobs.

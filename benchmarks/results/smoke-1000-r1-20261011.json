@@ -1,0 +1,650 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "smoke-1000-r1-20261011",
+  "config": {
+    "benchmark_id": "smoke-1000-r1-20261011",
+    "assets": 500,
+    "versions_per_asset": 20,
+    "rate": 1000.0,
+    "profile": "stress-replay",
+    "seed": 42,
+    "master": "local[2]",
+    "corpus": ".cache/datasets/batfish",
+    "max_seconds": 1800,
+    "max_offsets": 10000,
+    "duplicate_ratio": 0,
+    "out_of_order_ratio": 0,
+    "watermark": "48 hours"
+  },
+  "machine": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "cpu_model": "Apple M3 Pro",
+    "ram_bytes": 19327352832,
+    "python": "3.12.14",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)",
+    "spark": "4.0.2",
+    "kafka": "4.1.2",
+    "docker": "Docker version 29.8.1, build 4a63305",
+    "docker_engine": "2 CPUs; 6189654016 RAM bytes; overlayfs",
+    "storage": "local single-machine storage; physical device not probed"
+  },
+  "started_at": "2026-10-11T05:47:23.306486+00:00",
+  "status": "success",
+  "progress_capture": "recent-progress-history-v1",
+  "corpus": {
+    "schema_version": "1.0",
+    "source": {
+      "name": "batfish-curated-config-tests",
+      "repository": "batfish/batfish",
+      "revision": "540a4644e0245adffc5d51ec911411a5cd09aa0d",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "archive_sha256": "791ce74605602dde03d4f44b52b2106bced8ff8e43dd1b605f3759436e123ed7"
+    },
+    "retrieved_at": "2026-10-11",
+    "archive_bytes": 9386252,
+    "raw_files": 748,
+    "raw_bytes": 824149,
+    "usable_files": 324,
+    "usable_bytes": 361177,
+    "skipped_files": 424,
+    "skip_reasons": {
+      "potential_credentials": 58,
+      "unsupported_syntax": 366
+    },
+    "types": {
+      "cisco_ios": 324
+    },
+    "size_bytes": {
+      "min": 108,
+      "median": 557.5,
+      "p90": 3302.0,
+      "p95": 3837.0,
+      "max": 8015,
+      "mean": 1114.7438271604938
+    },
+    "corpus_sha256": "a46694c94f684cdc6811a14f3cd1f209543c71bf0279da769813a0dc8990894b"
+  },
+  "startup_seconds": 5.753293249988928,
+  "runtime": {
+    "checkpoint": ".cache/benchmarks/smoke-1000-r1-20261011/checkpoint",
+    "lake_prefix": "benchmarks/smoke-1000-r1-20261011",
+    "starting_offsets": {
+      "0": 3753,
+      "1": 3176,
+      "2": 3055,
+      "3": 3756,
+      "4": 3510,
+      "5": 3289
+    },
+    "partitions": 6,
+    "watermark": "48 hours",
+    "state_timeout": "87600 hours",
+    "max_versions_per_asset": 32,
+    "max_offsets_per_trigger": 10000,
+    "search_enabled": false,
+    "trigger_seconds": 2,
+    "logical_history_days": 20,
+    "starting_event_time": "2026-01-01T00:00:00+00:00"
+  },
+  "publisher": {
+    "snapshots": 10000,
+    "logical_raw_config_bytes": 12091451,
+    "kafka_value_bytes": 16881087,
+    "seconds": 10.000541042070836,
+    "achieved_snapshots_per_second": 999.9457612367828,
+    "end_offsets": {
+      "0": 5513,
+      "1": 4736,
+      "2": 4555,
+      "3": 5616,
+      "4": 5210,
+      "5": 4909
+    }
+  },
+  "streaming_seconds": 24.48962158395443,
+  "final_lag": 0,
+  "drain_seconds": 14.489080541883595,
+  "query_id": "b9743da3-a0fe-46c7-a260-db9282fe2f46",
+  "lake": {
+    "counts": {
+      "accepted": 10000,
+      "normalized_snapshot": 10000,
+      "raw_snapshot": 10000,
+      "alert": 2500,
+      "config_diff": 9500
+    },
+    "parquet_bytes": 10696695,
+    "commits": 2
+  },
+  "analytics": {
+    "schema_version": "1.0",
+    "run_id": "2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+    "job_version": "batch-v1",
+    "input_commits": [
+      [
+        "b9743da3-a0fe-46c7-a260-db9282fe2f46",
+        0
+      ],
+      [
+        "b9743da3-a0fe-46c7-a260-db9282fe2f46",
+        1
+      ]
+    ],
+    "parameters": {
+      "window": "1 day",
+      "start": null,
+      "end": null,
+      "baseline_windows": 7,
+      "minimum_prior_windows": 3,
+      "minimum_count": 5,
+      "z_threshold": 3.0
+    },
+    "datasets": {
+      "change-frequency": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/change-frequency/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 10000,
+        "seconds": 1.2246885829372332,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-activity": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/fleet-activity/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 20,
+        "seconds": 1.1122728339396417,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diff-magnitude": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/diff-magnitude/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 1,
+        "seconds": 0.627457833965309,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "alert-trends": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/alert-trends/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 2500,
+        "seconds": 0.31312900001648813,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "severity",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rule_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diagnostic-trends": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/diagnostic-trends/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 0,
+        "seconds": 0.3026800829684362,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diagnostic_type",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "asset-summary": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/asset-summary/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 500,
+        "seconds": 0.919889000011608,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "anomalies": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/anomalies/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 10000,
+        "seconds": 1.329295124975033,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "fleet-bursts": {
+        "path": "s3a://config-lake/benchmarks/smoke-1000-r1-20261011/analytics/fleet-bursts/run_id=2ef69d6facb899658c10850bec557a1e77e483e786ad14a8a775bb821cbce9e6",
+        "rows": 20,
+        "seconds": 1.1469232920790091,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  "metrics": {
+    "batches": 2,
+    "spark_reported_input_rows": 30000,
+    "processed_rows_per_second_mean": 1086.4807822069413,
+    "input_rows_per_second_mean": 1414.3809155881786,
+    "batch_p50_ms": 10346,
+    "batch_p95_ms": 13919,
+    "max_state_rows": 10000,
+    "max_state_memory_bytes": 471853,
+    "rows_dropped_by_watermark": 0,
+    "watermark": "2025-12-30T11:22:33.600Z"
+  },
+  "finished_at": "2026-10-11T05:48:01.672977+00:00",
+  "total_seconds": 38.3659057499608,
+  "sample_summary": {
+    "resource_samples": 5,
+    "lag_samples": 5,
+    "peak_lag": 10000,
+    "java_max_rss_bytes": 1252065280,
+    "java_max_ps_cpu_percent": 234.2,
+    "samples": 5,
+    "container_peaks": {
+      "configstream-kafka-1": {
+        "max_cpu_percent": 8.13,
+        "max_memory_bytes": 803523788
+      },
+      "configstream-minio-1": {
+        "max_cpu_percent": 34.98,
+        "max_memory_bytes": 420269260
+      }
+    }
+  }
+}
