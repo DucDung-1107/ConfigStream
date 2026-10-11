@@ -7,6 +7,66 @@ TIME_FIELDS = {
     "alerts": "created_at",
     "diagnostics": "event_time",
 }
+ID_FIELDS = {
+    "snapshots": "snapshot_id",
+    "diffs": "diff_id",
+    "alerts": "alert_id",
+    "diagnostics": "diagnostic_id",
+}
+
+
+def document_filters(kind: str, **values) -> list[dict]:
+    if kind not in TIME_FIELDS:
+        raise ValueError("Unknown search document kind")
+    if (values.get("severity") or values.get("rule_id")) and kind != "alerts":
+        raise ValueError("Severity and rule filters apply only to alerts")
+    if values.get("diagnostic_type") and kind != "diagnostics":
+        raise ValueError("Diagnostic type filter applies only to diagnostics")
+    filters = [
+        {"term": {name: values[name]}}
+        for name in ("asset_id", "severity", "rule_id", "diagnostic_type")
+        if values.get(name) is not None
+    ]
+    bounds = {
+        name: utc_timestamp(values[field])
+        for name, field in (("gte", "start"), ("lte", "end"))
+        if values.get(field) is not None
+    }
+    if "gte" in bounds and "lte" in bounds and bounds["gte"] > bounds["lte"]:
+        raise ValueError("Query start must precede end")
+    if bounds:
+        filters.append({"range": {TIME_FIELDS[kind]: bounds}})
+    return filters
+
+
+def page_documents(client, config: SearchConfig, kind: str, *, limit=50, after=None, **filters):
+    if not 1 <= limit <= 200:
+        raise ValueError("Page limit must be between 1 and 200")
+    response = client.search(
+        index=config.alias(kind),
+        query={"bool": {"filter": document_filters(kind, **filters)}},
+        size=limit + 1,
+        sort=[{TIME_FIELDS[kind]: "desc"}, {ID_FIELDS[kind]: "asc"}],
+        search_after=after,
+        track_total_hits=False,
+    )
+    hits = response["hits"]["hits"]
+    return {
+        "items": [hit["_source"] for hit in hits[:limit]],
+        "has_more": len(hits) > limit,
+        "next_sort_values": hits[limit - 1]["sort"] if len(hits) > limit else None,
+    }
+
+
+def get_document(client, config: SearchConfig, kind: str, identity: str):
+    from elasticsearch import NotFoundError
+
+    try:
+        return client.get(index=config.alias(kind), id=identity)["_source"]
+    except NotFoundError as error:
+        if error.body.get("found") is False:
+            return None
+        raise
 
 
 def query_documents(
@@ -28,29 +88,15 @@ def query_documents(
         raise ValueError("Query size must be between 1 and 1000")
     if latest and (kind != "snapshots" or not asset_id):
         raise ValueError("Latest lookup requires a snapshot asset_id")
-    if (severity or rule_id) and kind != "alerts":
-        raise ValueError("Severity and rule filters apply only to alerts")
-    if diagnostic_type and kind != "diagnostics":
-        raise ValueError("Diagnostic type filter applies only to diagnostics")
-    filters = [
-        {"term": {name: value}}
-        for name, value in {
-            "asset_id": asset_id,
-            "severity": severity,
-            "rule_id": rule_id,
-            "diagnostic_type": diagnostic_type,
-        }.items()
-        if value is not None
-    ]
-    bounds = {
-        name: utc_timestamp(value)
-        for name, value in {"gte": start, "lte": end}.items()
-        if value is not None
-    }
-    if start and end and utc_timestamp(start) > utc_timestamp(end):
-        raise ValueError("Query start must precede end")
-    if bounds:
-        filters.append({"range": {TIME_FIELDS[kind]: bounds}})
+    filters = document_filters(
+        kind,
+        asset_id=asset_id,
+        severity=severity,
+        rule_id=rule_id,
+        diagnostic_type=diagnostic_type,
+        start=start,
+        end=end,
+    )
     return dict(
         client.search(
             index=alias,
@@ -64,7 +110,7 @@ def query_documents(
     )
 
 
-def aggregate(client, config: SearchConfig, group: str) -> dict:
+def aggregate(client, config: SearchConfig, group: str, **filters) -> dict:
     if group in {"severity", "rule_id", "asset_id"}:
         kind = "alerts"
         specification = {"terms": {"field": group, "size": 100}}
@@ -76,5 +122,10 @@ def aggregate(client, config: SearchConfig, group: str) -> dict:
     else:
         raise ValueError("Unknown search aggregation")
     return dict(
-        client.search(index=config.alias(kind), size=0, aggregations={"counts": specification})
+        client.search(
+            index=config.alias(kind),
+            size=0,
+            query={"bool": {"filter": document_filters(kind, **filters)}},
+            aggregations={"counts": specification},
+        )
     )["aggregations"]

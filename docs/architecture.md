@@ -3,13 +3,14 @@
 ## Scope and status
 
 ConfigStream focuses on distributed configuration-change storage and processing.
-Phases 0–8 supply a Python project, tested versioned schemas, a stateful generator,
+Phases 0–9 supply a Python project, tested versioned schemas, a stateful generator,
 JSONL output, Kafka ingestion with an asset registry, and direct Spark Structured
 Streaming parsing/validation, native version buffers, normalization/diff, and YAML
 rules publishing Kafka alerts, plus optional MinIO/Parquet history and a rebuildable
 Elasticsearch metadata projection.
 The generator and pure processing package can run without external services.
-APIs, Kubernetes, and monitoring systems remain future work.
+A thin read-only FastAPI boundary now serves the Elasticsearch projection.
+Kubernetes and monitoring systems remain future work.
 
 ## Implemented synthetic source
 
@@ -175,6 +176,22 @@ the lake independently of the serving layer,
 calculating changes by asset/hour/day/type, severity counts, frequently changing
 assets, and later rolling mean/standard-deviation/z-score anomalies.
 
+## Read-only serving API
+
+`api.app:create_app` owns one Elasticsearch client per lifespan. Synchronous
+backend-facing handlers run in FastAPI's threadpool and call `search.queries`,
+not Spark, Kafka or the lake. The service validates safe `_source` projections
+through response models and maps backend failures to sanitized HTTP errors.
+Business endpoints are under `/api/v1`; cursor pagination uses time plus stable
+domain ID tie-breakers and bounded `search_after` requests. Lightweight serving
+aggregations are not historical Spark analytics.
+
+Liveness is independent of the backend. Readiness requires Elasticsearch and the
+four search aliases, not ingestion services. There is no authoritative API cache;
+rebuilding Elasticsearch from committed history restores HTTP-visible records
+without changing API state. Default exposure is unauthenticated loopback-only,
+with no CORS or config-body retrieval. See [API contracts and acceptance](api.md).
+
 ## Boundaries and security
 
 - Asset metadata is extensible; a network device is one asset type, not the schema.
@@ -200,4 +217,6 @@ assets, and later rolling mean/standard-deviation/z-score anomalies.
 
 The MVP scenario changes `logging enabled` to `logging disabled`, preserves both
 versions in the lake, and exposes a diff plus a high-severity `logging-disabled`
-alert. That scenario is a future integration acceptance test, not implemented now.
+alert. Phase 9 tests this through the real Kafka/Spark/lake/search path and the
+HTTP serving boundary, including out-of-order v1, v3, v2, same-checkpoint restart
+and two lake-to-search rebuilds with the API alive.

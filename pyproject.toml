@@ -15,12 +15,13 @@ kafka = ["confluent-kafka>=2.6,<3"]
 spark = ["pyspark==4.0.2", "pandas==2.2.3", "pyarrow==19.0.1", "protobuf==5.29.5"]
 lake = ["boto3==1.40.45"]
 search = ["elasticsearch==9.5.1"]
+api = ["fastapi==0.143.0", "uvicorn==0.54.0", "httpx==0.28.1"]
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["schemas", "generator", "messaging", "spark", "processing", "lake", "search"]
+packages = ["schemas", "generator", "messaging", "spark", "processing", "lake", "search", "api"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -30,6 +31,7 @@ markers = [
     "spark_integration: requires local Spark, Java 21, Kafka, and the Kafka connector",
     "lake_integration: requires local Spark, Kafka, MinIO, and the S3A connector",
     "search_integration: requires local Elasticsearch; full pipeline also needs Kafka and MinIO",
+    "api_integration: requires local Elasticsearch; end-to-end also needs Kafka and MinIO",
 ]
 
 [tool.ruff]

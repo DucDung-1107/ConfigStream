@@ -31,6 +31,14 @@ jobs:
         run: make setup
       - name: Run lint, formatting checks, and unit tests
         run: make check
+      - name: Install optional API and search dependencies (no Spark)
+        run: .tools/uv/bin/uv sync --locked --extra kafka --extra search --extra api
+        env:
+          UV_CACHE_DIR: .cache/uv
+          UV_PYTHON_INSTALL_DIR: .tools/python
+          TMPDIR: .cache/tmp
+      - name: Run service-free API tests
+        run: make api-test
 
   spark:
     name: Spark transformation tests

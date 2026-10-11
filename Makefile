@@ -13,6 +13,7 @@ export TMPDIR := $(CURDIR)/.cache/tmp
 .PHONY: spark-setup spark-test spark-stream spark-integration-test
 .PHONY: lake-setup lake-env lake-up lake-down lake-init lake-stream lake-inspect lake-integration-test
 .PHONY: search-setup search-up search-down search-init search-stream search-inspect search-query search-reindex search-integration-test
+.PHONY: api-setup api-run api-test api-integration-test
 SPARK_ARGS ?=
 PHASE6_ARGS ?=
 
@@ -20,6 +21,18 @@ setup:
 	mkdir -p .cache/tmp .tools
 	test -x "$(UV)" || ($(PYTHON) -m venv .tools/uv && .tools/uv/bin/python -m pip install --no-cache-dir 'uv==0.12.21')
 	"$(UV)" sync --locked --extra kafka
+
+api-setup: setup
+	"$(UV)" sync --locked --extra kafka --extra spark --extra lake --extra search --extra api
+
+api-run:
+	.venv/bin/python -m api.main
+
+api-test:
+	.venv/bin/python -m pytest tests/api
+
+api-integration-test:
+	.venv/bin/python -m pytest -m api_integration tests/api_integration
 
 test:
 	.venv/bin/python -m pytest tests/unit

@@ -13,7 +13,7 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0, 1, 2, 3, 4, 5, 6, 7, and 8 complete.** Pydantic contracts,
+**Phases 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
 Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
@@ -21,8 +21,9 @@ and uses checkpointed native per-asset version buffers. It reuses pure Python
 normalization/diff logic and YAML rules to publish deterministic Alerts to Kafka.
 Pairing uses **asset_id + adjacent versions**, not previous-row arrival order.
 Optional **MinIO/Parquet history is authoritative**. Phase 8 adds Elasticsearch
-as a rebuildable metadata-only search projection. API, dashboard, and Kubernetes
-remain planned. Invalid input produces safe diagnostics, not a DLQ.
+as a rebuildable metadata-only search projection. Phase 9 adds a thin read-only
+FastAPI metadata API. Dashboard and Kubernetes remain planned. Invalid input
+produces safe diagnostics, not a DLQ.
 
 Implemented Kafka path (all keys are `asset_id`):
 
@@ -40,12 +41,50 @@ With optional storage/search enabled, the same stateful output boundary writes:
 ```text
 Spark state / normalize / diff / rules
   ├─> MinIO / committed Parquet     (authoritative history, written first)
-  ├─> Elasticsearch                (safe derived search projection)
+  ├─> Elasticsearch ─> FastAPI      (safe derived metadata, read-only HTTP)
   └─> Kafka config.alerts           (Alert envelopes)
 ```
 
 Elasticsearch is **not the source of truth**; raw configuration, full normalized
 content and diff lines are excluded from search. No atomic multi-sink transaction.
+
+## Read-only API / end-to-end MVP
+
+FastAPI **0.143.0** and Uvicorn **0.54.0** run on the host at
+**127.0.0.1:8000**, unauthenticated for local development only. Do not expose
+publicly. The API needs only Elasticsearch at runtime, not Java/Kafka/MinIO.
+It uses the existing search abstraction, validates safe Pydantic response models,
+and never returns config bodies or scans Parquet for normal requests.
+
+```sh
+make api-setup
+# With the Phase 8 search stack initialized and populated:
+make api-run
+```
+
+In another terminal:
+
+```sh
+curl -s http://127.0.0.1:8000/healthz
+curl -s http://127.0.0.1:8000/readyz
+curl -s 'http://127.0.0.1:8000/api/v1/assets/phase9-router/latest-snapshot'
+curl -s 'http://127.0.0.1:8000/api/v1/diffs?asset_id=phase9-router'
+curl -s 'http://127.0.0.1:8000/api/v1/alerts?asset_id=phase9-router&severity=critical'
+```
+
+Business routes use `/api/v1`: snapshots, diffs, alerts, diagnostics, latest
+snapshot and bounded alert/hourly-diff statistics. Lists use `search_after`
+cursors (default 50, max 200), timestamp plus stable ID sorting, and no exact
+global count. Latest snapshot uses version, not arrival order. `/healthz` checks
+liveness; `/readyz` requires Elasticsearch and its aliases. OpenAPI is at `/docs`.
+Set `CONFIGSTREAM_API_DOCS=false` to disable docs, redoc and OpenAPI. CORS is off.
+
+The real out-of-order demo **v1, v3, v2** returned latest version **3**, only
+**v1→v2 / v2→v3** diffs, and **logging-disabled / telnet-enabled** alerts. Stopping
+Elasticsearch kept healthz=200 while readiness/business queries returned 503.
+Restoring it and rebuilding twice from committed Parquet recovered the same
+HTTP-visible records without restarting the API. See [API setup, full demo,
+contracts and recorded acceptance](docs/api.md). No exactly-once or throughput claim.
 
 ## Architecture overview (long-term target)
 
@@ -115,11 +154,15 @@ library's base dependencies remain sufficient for JSONL; Kafka imports are lazy.
 | `make search-inspect` / `make search-query` | Count and query safe derived documents |
 | `make search-reindex` | Rebuild from committed Parquet using distributed bulk writes |
 | `make search-integration-test` / `make search-down` | Run real recovery/rebuild tests / stop all services, preserving volumes |
+| `make api-setup` / `make api-run` | Install locked full-demo extras / serve metadata on loopback |
+| `make api-test` | Run service-free API/model/pagination/error tests |
+| `make api-integration-test` | Verify real API→ES and Kafka→Spark→lake→ES→HTTP recovery |
 | `make clean` | Remove test/build outputs, not datasets or environments |
 
 [GitHub Actions CI](https://github.com/kongwoang/ConfigStream/actions/workflows/ci.yml)
 runs on pushes to `main` and pull requests, using Python 3.12 on Ubuntu, locked
-dependencies, and `make check`. A separate Java 21 job runs `make spark-test`.
+dependencies, `make check`, and optional service-free `make api-test` (no Spark).
+A separate Java 21 job runs `make spark-test`.
 Neither job starts Docker or runs Kafka/Spark integration tests. Dependency
 downloads are cached. Run service-dependent tests separately as documented below.
 
@@ -466,12 +509,12 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 6 — complete | Native Spark version state, watermark/dedup, YAML rules, Kafka alerts, safe progress metrics |
 | 7 — complete | MinIO/Parquet raw and processed history, committed reads, retry/restart acceptance |
 | 8 — complete | Safe Elasticsearch projections/aliases, distributed bulk indexing, committed-lake rebuild |
-| 9 | Thin FastAPI over Elasticsearch: end-to-end MVP |
+| 9 — complete | Read-only metadata FastAPI, bounded cursors, safe errors, HTTP end-to-end/rebuild acceptance |
 | 10 | Historical Spark analytics and simple frequency anomalies |
 | 11–13 | Optional dashboard, SSH/FRR adapters, then Kubernetes deployment |
 
 Python 3.12, Pydantic, pytest, Ruff, Kafka, optional confluent-kafka, and PySpark 4.0.2
 form the current stack alongside optional MinIO/Parquet history and Elasticsearch
-search. FastAPI remains planned.
+search and a thin read-only FastAPI serving layer.
 Each phase is tested, committed, and pushed before the next begins. No throughput,
 latency, fault-tolerance, or exactly-once claims are made before experiments.

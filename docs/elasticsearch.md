@@ -231,9 +231,11 @@ unchanged committed Parquet, keyed Kafka alerts, queries/aggregations, and delet
 only test-owned indices before two lake rebuilds. Ordinary CI does not run Docker.
 
 No HA, lifecycle/rollover, compaction, atomic multi-service transaction, cross-query
-source-conflict resolution, or final performance benchmark. Phase 9 should keep
-FastAPI thin: query these aliases/helpers, bound requests, and design authorized
-configuration retrieval separately from this metadata-only search projection.
+source-conflict resolution, or final performance benchmark. Phase 9's
+[read-only FastAPI boundary](api.md) queries these aliases through reusable search
+helpers, with bounded search_after pagination, ID lookups and filtered serving
+aggregations. It never returns configuration bodies or scans Parquet for requests.
+Authorized configuration retrieval remains separate future work.
 
 ## Recorded local acceptance: 2026-10-11
 
