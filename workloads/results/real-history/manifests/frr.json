@@ -1,0 +1,1236 @@
+{
+  "schema_version": "1.0",
+  "policy": "observed-git-v1",
+  "source": {
+    "name": "frr",
+    "repository": "FRRouting/frr",
+    "default_branch": "master",
+    "start_revision": "01dbc4b3843b836b7be90d22d0276f55c4001f42",
+    "end_revision": "c4e94c4aaa4f4562313b4a168f91211afc3bcba2",
+    "shallow_since": "2022-12-30T00:00:00Z",
+    "license": "ISC (topotest configurations; repository has mixed licenses)",
+    "license_path": "doc/developer/topotests.rst",
+    "license_sha256": "3a1058901200f6d851e20569f0d6f8a5735dc4434f40898830d475dc08fa926d",
+    "scope": "tests/topotests",
+    "allowed_patterns": [
+      "tests/topotests/bgp*/*.conf",
+      "tests/topotests/ospf*/*.conf"
+    ],
+    "excluded_patterns": [],
+    "asset_type": "network_device"
+  },
+  "source_manifest_id": "d9b2aea4d4eca94a300f5eb3f5848ea82d8dc9bec788d564e11b15b8f0c1b48b",
+  "repository_url": "https://github.com/FRRouting/frr",
+  "retrieval_date": "2026-10-11",
+  "source_commit_count": 4553,
+  "relevant_scope_commits": 1358,
+  "candidate_file_count": 2115,
+  "selected_file_count": 1876,
+  "selected_asset_count": 1900,
+  "extracted_revision_count": 2516,
+  "excluded_file_count": 239,
+  "rejection_categories": {
+    "potential_credentials": 200,
+    "empty_or_oversized": 39
+  },
+  "rejections": [
+    {
+      "source": "frr",
+      "path_sha256": "4b38dd93af1e094397ac967f2fa81a6521b567f73a57a2f15d7edb3194092b4b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "93354f92e67725f823050e00746a07e8dc43f82f69fe1034fcae5ffa31d29099",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e11209590d8c311c24a8e68622e3860f30a6e6a5fc19e9043c9750a4c1c5b2a2",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "941bff40433c749fc52bdc0e404a493cd64bf42a3eeccd0339a1df9926209977",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "571e67108dfabc2297112cb22840f577d0c35672f28760504b7ef28d57c70791",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "83fcade613ae4b518c8d254a356ffe88e6c0c6c61180045d95b28c95c1932621",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "aa3a84b06f7be7c0ebf37d54830e39a01a1728d001e37ab160a16ea427779004",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "3a974a0715663de04d7b1308965779b961c2a2e370d32865f579bd3b99d17e2d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f9bf113db78382011e0800288db175c7b868bac0e35aaaaf4e5d8d09e4dae1a8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d8f008a3c4fe3efe095007503a549326919b70b469c96ec350a1992314c2e2a0",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "df856535f3ccfd5379b0e32b243b4dc0d471bd86c21fcc5f90b81ee12e984b04",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b8cc5c0f506bf9434ed9bcc76905bdc2c927eb250190b293b27dabe8709c1d69",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "dbee99f107ac49808755fbc2122706963f1ac7e76924ee830ef88a777b8cc045",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "61533c50c5fb166769b8f844381a19c0fde047fb8f277cc779dddfef6b22c056",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ae066a20d938565402618865a6c3aebb013381b4c6107dd973a61b6f993411cd",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ff107f281e391bcfc8633a5e12f8dfebf438f506f2055aa35fa59485df0a6eaf",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "538af2cd3686249be3a9148ad44957d03713d789ffb89894711cc519453ebf3c",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e0040eb71bd5fe7e196f4dd246332097f8c4fe47d38a52ad3f59facf9e2b6774",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c95b44ca4205be0eb63e1b4d5684a0bf2b2b4bd58836cbd25f564cf71ae82a07",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "37a51752b520639059ee8ba230442503ec4765cd22c04c2dadf67cb2f51f2e62",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0542e09ae7be302ba3b43e8bb3e8f5efffe405e92f4602e60ce9e3bc0581aa54",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "68121d2f327a98552fbded8cc94448893eca5393d37faea217ab4f9ebf81a17a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "982c8a6d01461f1cdbfcb9527b30ab69c832c8b3d9fc80e313d12db64af8d5d1",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "522fc0bfa4dcc1c63f76e55c380c4716a583fe4cefcdc15c7bcc8103a665fee5",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "542aca71811e2a0f8d386686c9c0b7205486d54dae2e3d3d99928c810a8a0c08",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "699478618daa715dd140d44924c977ecdc39dccccc72c2296227540553463678",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7b996dfd40bd6522f9fdf1a89e664d681464230aef582edc57a2c55e383955c3",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d4b1b1f29065f13badc82fbe0443dbbce967d6099ac888a075cbfe29a085f010",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8b33c03043a51b3aca984adb230785dc93c59ec43edf6b875c2c22a3d721152b",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6885b157f6be2c29a9aeeb8242a955697c24a67b046d6e2f15f7c752d10ef39d",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "70fba179110424a1f8999214107ef19962e0392dbd2a9a2d17824527465c0227",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f5e712962d8a5d1db283bfae987e5cca576c8e2b78e81dee31b7dc7dd8d4a544",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d649f01886316a638463f7c705e6c86c7fd9cbac1cab964bac54b9aeff4ce9c2",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "39736d95bc62a2a1d8f485c28fd9ed8e0d038303b323ed2e28d376786a42f2b4",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "9029be8c5c455bef54ad5f914e0f37099d96ed98a92ec547b570a663bc9854e1",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7e4e2b024ece2d1e198e9178050decf321f98f0284eac54ce40bfd80893e62f2",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e18fbe6f422edee8bad0629e86535092ff9feb144b2fae9124da42e936f25456",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "a877103c019d8ac2888bee8e1576bef8e46bb4504af650b238ce0ee3d449bcd9",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0109b7f36fc2e8ae220d0842843f4ab28df83aeb8d2e4f5e4d8fbd463dc60640",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "eb758e787ebae4fcc3ad65007aa8a54ca1fcd2d883bec00f00c8aa171760cf24",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "46536d83608683ec54671b4a6daf8666401f782f1cef8e4e8a263294bc15009b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "cc8ef8747065b86442cc2801593f522b314dc97db77ba3395432d9b0e6afb4d1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7dca92106d86014c7cb956a91799fdd87b9b7d6b72741f29fd4e0991b0bf5556",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "485e2331bb016f968424ea421105fd7b056362f55c8eae8bf8eb1042642480a1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "643086188082d7b259600ae19c6c430f93fd7e5f926125169c73567ea77f5d6c",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8234db922e9c9e3fc702b6754a76f833218cb52a861b74f3c50d06947e93af59",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4a9ce73fbafaa813c4578855c9d734633e2e0dc93069b1795e383292565d85df",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0b8619c352288f6ec41d1944fc73378ab1047c0b51daeca90ffd6ebc238527ea",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4adfbc3a077db45553ffb0d88c09b26f06d2bbe1cbde593f3d5c0485701580b1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ccd9a98f188ec42ed04f1476aea589b76ead0fee97e696888e77702f738b46cc",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b0aa38868b61879c49f839118b10d035b85409527d1b63d4f86d7c6ad33d538b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "42bbc766192f04e66bbcbee205b0a31832607f3d10ccf5946c39647a6fce715a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "cbc431a263bb386aad9033fc3e4adaec92628f5bcbf8162f527cdff4de5b766a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b909275ac99d32fa1a82512616a64234f0189619ae516e7f08848f281f190143",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "923876b334c85e1de1490f6d5b8264120b368695e88e7bac15945ebb5ddf7630",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e678ecc56667186c33b36c4e81a948bc9c06fe50aa7d3f93238c4f4607168d97",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c4b5ab3c63fdaec2ce4e4baeee35b4ae7fb17098201fd875f88190a09a8fd5b1",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "45d5ce78ffb5bdd18f1df848949be0af3c0ea438023e982552c640166ecb2f51",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "29c797097a388a146930eb768873dd5a77cb0aa75e774436db4fe32421e8fab3",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "69fe0e5bbbb91ed2058e23839532c07a75a3c3f34997d2307a724b409a665001",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c0a150c80565526889312fdbda74e2d80f40ca22c4508a8f19e856c47cd1cf51",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "52f3d516c047b415ab8d5a7faf03795723e8616c453009c5c772ba63be04cbed",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e4faacfba5e2652788aa867b409eae88f9ac04d90c8bc970f6abcb33d08c5bac",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4159780af181485844e1db0e9f1c2d7064f5b871d08b9a35a5f39db00182d53a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "fe5361a4fc8c8c7a103fe075cbee141ca858597c8d3394ac39a5fb313032ccda",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c4a9b01b2da544487f14e695189b492fe1a1dea0a29eacf41198225ec330a88f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f03145ffc2646216e1840ee86381de1b3c30823b5f792f929cb5b289f702b13f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b0b3e769658dd3fd8235153d1748dbd5e633f54b0d41c7cc1db569612d2f40b7",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "37d698858dbaaf24c964ed3ce9e15da56dc4aa4e750d5550089fea855844d2d8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "237c6ffc7c8a3920b272030064671db79f6e9822e06de5c677da3b4c8ddcadbc",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4c66925e743e503020ea2f5ad8a4b9d48c1abf332048d46ef7e3690c5bbb08e1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "42d3394b868a6edc21bf0b65f2be6ffce7b3f3f69c1fdade41fb954bd297ac6e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "99652431b998b534deb691adbf37afda899cc200cae3afcb8bfba7a32ea3b8ee",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d10e91792a10c5ef5839cdfe843be94f11d7905104317c2e158bd33a64a093c5",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "bc97c1045053ca9f3a890b1c953572a4503ad4c5e966031559022c8f6fe60b95",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "fcba2cf1919d8dca0fff0668fb4f1e92e69b65cc5af5d4edd3baf9cf32601878",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "a6269ed40b58c5b872dfc7a0de9621d2c6299f1dc69c814885e5a6e91465fe15",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "411e6ed8b9a53e5412024b2f792ad51cdb5f7563836987eb886eec9e662fd0da",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "06cd470927ff1006ee1c622b814dbffb05e4b15cba59346a91fc986fa6c05785",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e3427f57bfcd1d609fd7bc0bbee2e881961c197e69abe4b7b631948c71cd6217",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "502351fbb6d42fba273fd64fd6fc8dd5c8c028809ff9df62e2ae1cbbda56cfe1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ead9a2a03dfdf255db87c576d0c302105d84bf4a1d1aab4c30c5e2a8dbd4cf60",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6915cc20e3dbe975a7456fe1a7f9827cdaea710eabbb33ae567e22ea7bbab646",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c54bab3108a4bede35aeaf814610a66284b2c26a9f01df098be276bc8138b6e6",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "340524ff9d67f72622d2232bf2b92acebce3547b5c61af34d77a109811c3209a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "627e3a2cf1e981e5dfbb86f8b93341dc4f75fd51848252418de602f65387406f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "429173d821251647b49d12f16a4b1aff37475bc246b1aba2722c5a9996a69c9e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4510bfd6343d92a0744b95b308f5e6db400146f71d6822b00174bb4ac6823474",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6470a6f98ff1006850d42db554b234c45b84a8ae94ca3684e630e687ec38973f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c88690c7bb98f9710c6d17621af0f13969afe89b80c68c9ea77af4f15fbbaeef",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "9307385c6b85abea9bf1dd2e2d4c2648658244d740114bd243ed26bce9fe3396",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "900de4fa97fb68c5150c464079cfa0e84934510d97fd8fe78590d39cbe354329",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "277dbf5fc4e8eebe3450a6ac4e87e592716d0890aa89a5251b83697cb8d160af",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "57fa6fe79294a20748c942d65d0d9c19a7410b6afbc29a7bd8f80d2ae7d0cf41",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "190b4885bc452e934d157a618e114d82574f88ee8e2575cddecac3d583046022",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "5692724f4dda1783967c87d74c454744121654f644ef4c85227d2d16b3aa23d6",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7de73fede3575d5b7486c7d5a9a7536163295065d2e8466e078dc36b00036e52",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "94354d720cd2169a4d709d813431e820422e672cb10efe8877a87e72770817b9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6db066ce31e0404e6ca1c0548cbfeeaa7649a5bff99a6f9c7c6092ac3af796c3",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "22fe7f14da2cabcab36618d02904fe2f48e968c270a931a406d395c9606044b8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "45db1afc30af083dedba07db64f2761ad05a94fce6a43767bcc41a0a0746cd53",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8c565bd59e97632453261332e9da1b546e077df8e58f3775dd3a0dd423828467",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "46b972af211132e183758345e61ea08fd26e1a92f5368375a96ac878dd9f51fc",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "83a03c7c66ea0f537f59b6cb1998df94cb846b57d98c8d71ff9c6d8a5a2aa422",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ca29419148425cf430eb7e58df32a3ac243ce7da0b6cbd87d4cf99a9362c5a8a",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6b4cadd14caadc48339463a58496d99c03ed3841834af2d78b94bb5775f0c8a6",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8047d32f088346f32eeeb32c94b477cc66f0df02aeb3f1fae1370276074dad37",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "454958d02fcc947915f127d6159b9be6dd2f2f0d0384bd5f2b120f1df1d093ac",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "3b8437b127bdb2109f20ba5e0cb749d86c1b54e1b213bca50906bcb60fea7de1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d17066d422f091d123b7a5ebf47953ca5c037e91d69f62734f5f20c8a68b162b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ac2ed3b8f406681ed47271adc6c0108fc9033e780ee03066f970fcfafdd093ce",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "258ec16d703e21390c09caaca2cf2ef815e9a973a5fb8026afb164365780f822",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "276202b7c80da1db8ba879283d1d59863574c8f318e743ce1426f2eb4ac05e80",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "64017090790bbaad133eff36b9c3354fe887bf8f8180a8ea29582e5d6921df64",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "af983d3550c103d714c54f354bc030144bb64ecb77b99541cd558708d6dd1e67",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7bfb03fef796275e4f11d6086476c2bf6a271dcb2dddba44cc49bdf071deecc6",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "367d881abc3db5e34f50c2d1f65be84a9bb6a5709c5496068e5c3107cf08127a",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e5e81a15a8e50ebf3330c4bcba0962d555fa615b94f57fd6e9116ec0d69b3218",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "a29e734b9e7d233a86c42bee294df2ef6cde050452a0c6744fb0413c27092215",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "5587d9843a43ff370deb5e15434ec5c8f171a7116d33d0a69334323d294f4c89",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4a4386298931bacea9e051b070bc180bd21d1fe8b2e389879dd444d4d535a1ae",
+      "category": "empty_or_oversized"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "888aacf27b42eaf7b606622e57152040c6cba6602fc0944e9529954ff5cc3786",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "5e80456182ceef2b4e1e70bf7efcbf40f41231bdff9ef9e37f5aaec09d742a3d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "1f6d96961552aa1b5eac8d68e78008361418cc8b151b179321e133b8fc19a5ca",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "145422ef6773c653219ee1aecf18067e44f2c164a71dc55b2bc4211a79a3890c",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b5c8ce11265353be9f82556ff52c49d80bda2a45ba1f33b7981dd501dcb613e1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4b86ad8300031f78a2abd2e1d41a870f0c804ea9eb3ec7076079647e0f728900",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "71b1ba922a9b82bcc99896326d2d53ee0590a54e7fa95d33b6d1e186358838c4",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "9fdaae916e6948a0081826fb02f9c9f7c5be507cb9ca350c6febdf4e5f5330e9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c2095ba6fa5d3c4441f15c050f285643e4c096fdafcde61e3b7b5bca6e01e59f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f211faf046152a036d665f94ebc60ba12757de7417a6ae4d6dc9099f67ac02d8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "cdfb6d378ab0d0acbc870781563546bbf1876668b38658e06ec64343c4460bf7",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "31d536fcdc02e2ba9e38e3c57d794f044af77dd41679b10c97974cc0805fe665",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "560b31ab2b76b1736688e9388101339ce730babe3eebe4e8d121322f37f3aedc",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "86da5494a8fe6cdf8a8973092d878b0da895b36b867891b85fac25530ad75182",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "662189e715adaa37b2be8c2bebb4169ce7edbd95340d0a497651f9946fc43519",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "665aaa11295a26aab75b585c95bbf6a91fdb54f6ea9c17c7937eba81219e6695",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "94ceea41d53cf16ed304fb44761bf66f5bdb7603f0b19e427cfff60f2d81ac48",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "cf21fd62d72326d7547b44dd00b9adf819c1ebaf10a71135b892425c99cc98a2",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "2f89c857b7a96c1ba7b059f30291ea00f8337f77a4357f247e12468e6d2035bf",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "af31789106bc42fa748f7eae94b43c3fb7e376e60b91ca7ca4ab2a80f12aa5d9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8829db0a3c6e917e6d5bd42dd46e74c342bf7b10f5164c05c5f4e172e7087022",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "860f63c32a61e9a2f6f90a5abb0084b318e60ad2a73d2b29b4e848d317ed122b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6da9ff8dec463d794d6d3eaddd11a19debc81ad85397b4dd07cacb7a2de87689",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c43566d7a142a7b7f65bd1446f505cb314d6b8d43ed93025766fbcee32de5178",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0ca63df3ff3db0e20743fbe454266c6adc0a748aa8ad8c3f61446f9e05510b3d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "60b21e7a98d7df21a1ca1b698bc9799b1f03bc951dfc89ff0e6b6dfb44b255a1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "1c713209bd05e03100f297f36da1821b54099fb21955620205c0c59611ecc75b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "24d6e34ccf9b211c7fa5dc24a65db32157357d86ee4def3a98848c465cdd0aa9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d4b7ad3f1c9c31ae85415b1f76cf0b1afb068dc23e9575cfb9d41c6fdefb82e6",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "9b978596fc83d74b46e424c6ab12ac2aee6143f268545bffb54706ec94086725",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f38b3cf83becedf2a02c0c18cf8c2a9f64a79874b50ef63ebeb86e5b14307479",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e7a0468a5939940669429255226d1ef2aec9bf9a38a17ca8ec9b2217ef6b1549",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "dacc63ef20d4e91ae6f6562704647e33f17c9f35648bb14e61bd456314ac0d48",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c4e59e78f3b70d26d0bd7c067af2b4085ec006379d641fa09266c4d5f446f43d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e08c5d133bc0d207bf135ed5e63441d2ef17fbaff2d141a28fb9c92225accced",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4f1a5df118c687989d488231f0b260b0d7a9ad220afd1c617a6c77915a22ff5d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "467804fa41240ff05cb5866f586cc57fb0c94d3e52a59a5eb66e14e419730656",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0b2583f200e8e3c33d4ee8154c74e0b0a5f607f91ec6f634c9ff35f3144feb00",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "987291a31d1ff7c605deaff1292b4b38157432ecb2bafcd5a1da82a72ecfa622",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "de16eef2b08a46e9d0079b989587c9e8180ace9c12f5bd48a607e107ea50c648",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d946bcfdb0be5b64f397b7e4edcc51c08b0f43f0246d5d1157191cbe3a73e786",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "96d5025a500c998e74c454564a737645d84f3fdb2a88c088466e7261608aa7fe",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b05127208da42f4b38c7c6fcc39209552305962ccd88e77c094e166bde2cc8d2",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "20eee29e7130c0902d58e4351769438786ea1f2195a7195ee443eee71284a07b",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "bdfe945349cfee62c2ce184ff6149cbd01a9bb2b8164789651170a0a8d31f2d2",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "de233b71bc3f1942f931cd50249e4c93c3975cc0121620fdaca6e1b9597d7ada",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "2f7726b790b4c02c87130942011c254777d7885f1bbb64196c314442281a3c90",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "2cb2c556b80da8c3910e253090e939140910fc8a9214a761e30cdeb56896767f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d54ec756ed667ee68e3418bdf5fdcedf4478ced4cf1c21e38ef1fb3bfd69d5a5",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "2c19916bdaf0c404b9d7f7fe67277d7aec30153e0913bc6224d12d7ec2049ddc",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e6a8870da30e50fb6e89b8bc50330fe2218efd12a0898569c39e365cd0ebaf55",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "30900b2e9ad8edb3033de53e0428ac07b17f8d4bbfeecdd1578bcd272ae32000",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "34acf736a68a4dea5cb88268adb05de969f82b3c0526ca1373ef3332d30a60f7",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c89374148e58bdd43dc971729d07e9d2480f914fa0f67112a98af205ffa380a3",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4cd5246d683a04163a0f456e1305e9870101ceaa575f94b64df6c3180e9f0c3c",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7cb05c9c02d6ff516ba59d10f3fb63722ff9b875737174f427d03054a8da3ba4",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f47467895a2f541e838cb940bba2bc4019dcf315425a4e9da2758ed13b328041",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "a0bfffb2f3d3a214c60c3f4256c7ae1afa252dea4ad5eb0e0f95821de819cb45",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "2b803b9ae693521376bb35fe78c634d7bc64f5033eddd73e75cef50aeb6b32dd",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "b2e32472230fa1249e89d0a4076df85cc978376b8dec82cb902e36397ca3a082",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "a7fee61c46ee59a2f9c3f7da43094fd5818b29e20e6dffc8e4b9ce9c62c7cbd0",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6d5f0f2cb5a7c7d89aa4fb5e1576596612d8151f00320f0d0dc1ad0e4bf923db",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "4c90e359440ceb2a8232b93ba9977d48aa93ade06a4a30ce04394180967ac7c8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0de83e2e2cf7d4adf8d915f61299048bbc68b1e5d573ba8bb3536a62b68aa969",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "424d7561afb994a2fcfd03cb9f790a936d054c294e17a250ab95c42369f565ff",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "bf55722fe2959d77185e2b0197afd201b328d1cab4cb85361d5dfdce1bfaf83e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "dbd8d915d1b9331d531251352f4bfa6d533537fedd8e9342c03e9f145284548c",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7d4d901e07301ccb6fc8f80673a22e99da77a056cd33021cc64def7e82eaaac1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "25d2c6611c23f32f68a1d40a2703e7318de95426ca85fe456f97b38eb4160099",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "3752562badf7e41f784aad403949fd81da02acc6277e58f50f3189e4203c5826",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ca3238cb4f28e83be9f388bbbfec5f49eb18f16909da36e6399fe00d9bc9683e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "826bfdaeb39c660908fd70462cca27e600bdc12a638b997a649cdd201b2d1215",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "fb16e66d135a2056b471de7724c9c28dfec4f64d7c8de69fb4a48a2a8cab24f1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "a06aea1a64cce176e9813e5e936d27cd937df3e0733063f7c17a378d281bf41d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7957534f67253b401e0c7fb905a0a0d81e13e2731c6bf7a420330928f4ab876d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "3f1a4bf5f73fcd1bf184424fd35b2e1a52c3cd4ed7606cb0f3076b547f1ea3c5",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "aa8d59ef441e912fef54dc0a478facde09a63ed131ae8181cdd8933c7a63b3b0",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "aecd756c0c247b27d37c9525945edb17986e28b5f2e039d30320ef2c12c346ec",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "5ded69cd3f5f6284e1ca4be7e3d9a6bd6a949abc9f5af5e402caadef34bf144e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "eca736b6e10014bb294d8c622e2c85655dc0ce4e5530b9dfa7dde31291961bd8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "52f48276dd81e0b3c7f5624427ecd3bb0d1062ccca50a048c309f97a954d940e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0d23f67d5322fa23f0928d6040f2b0bef954974859e97be5a656a40f2211cee8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6b405e2d8b99b1289fb4a08dbe3fc7ceba8985d3f686b18f0a250f8192dac4e0",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "812eb2342ee34d75fd0207e416171a067709e3eff14438e620e379e91ac08b92",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f74261f9e8f98579059c47c2ff502bfe70798c78e5257615efdfceb20c0b4fbf",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "e3218b3d56f1c77f98a990857bdc32a4c3542c732f4cbee227b8ff61763f9d41",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f680fc6c5b00fff364393b385e42a3e9ca6374cf609e4c5d7f51abb2af97949e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "3789a1d4b9e8f02c71434cdf20e9929c3f2b78fe48f7573a87928516f19a18e4",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "fa82e2006cdbc62a386bbf64c579c5893b3a6352ccea66cb7a198dcd61ca9ffe",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "ee319111cd0ac0a8396df2d31bd86ec37a0bb69393bd7fe17e42e44192b65e99",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8c06de7f86547201e33abbb948f2d9ad20a1600480478c533776bd923b659acf",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "f078b00969a221e703e91a2bb29a672f07f4efc0de2b8bf843fb4a6b49c9acb4",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c1dbf1af10995f232043c2cbef6a2fa35530c226a9362f37c1055a14f36c4338",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "792e47f45341403190790a77fed96e24a4a6fe7c6b2cd6de7bc4565bd9e712e6",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6d461c19ca5318fe6633864729ccaf2283c85a3e53d1323ad0d57015ea62f614",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8382d45bb257e532115fccc298a24d4d66a25292dcf6187cd9bb53686780cab3",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "0e654a988597892d7e9bb3aa25757d447893e7b90a0dcba9deb489b0f676c92a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "63346350dbdf483b4b043dd9b9b392259078f210d0a07ef0fbf3f8a4803b2a61",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "eb001287f2d04fffc3c73011beee8963f1819c978d21ad33484fce181fa3d1ab",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "6c5bf8f27d9dd84b7c146a254bbd25aa1a66d5dc143339e74d09d7af4defeb47",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7f6b6e00515764bb8afc2a704fd7bf3d5426492186d9e829c29ba18328bc2050",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "8153808adbbfc5f95d71e35e6f8f8f276c7e8f68fd66a01e830c7014a8fd9d3e",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "682369a4a39502e8c4a818507dfc77734b9baf6bc8d8a7b5f0c57c509f7cf948",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "befadbebc7d8809794daee35edfc0c6b2afb998e6df03a2c8dd76f3eac67a6e6",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "d1aa72351060924ad85f9e3ac29e27895798f199f7ce1f68f5715bafd09490f9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "5212f18310ea9f7e5082df624e5c0b90ae6648b9e02da6cbcd378ff9955728bf",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "374b3b6c970ad25cb9b7ee3d3eca38fe766122b959a7272860f25e3b316a524d",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "c09e7eb9d046e3f159a6e63a1d78f317b4c569bedfe9ab66a59fc385d7257507",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "7f12eaff1074eb8191d82a71ba40bb6452f166be39f1c5610904f03376811ff9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "77d9f8882acc55585f723770d16e9c5de9bd478dac5945377d76852af4355f9a",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "dc7b4d4f821c910c597e734abea7868c24f765413bc1b23d04c155eb23e0cc03",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "5e5c31518775480a47b6cc7dcbe8e7484ae4e9bd1d1a79ecb662c9099127272c",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "412cb3f2c9c1824fff688b5a5fe50268e0d31238c2824a6c67725ca5cedf4cc9",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "54503d89deb310d3bcbc43bb6c296d2204782c41da6db54312d805c4fc5d30b1",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "1db0caef3f67bad008ca2886b80125050c4c96d4ea87febab43854b7de36c674",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "96541847b131bff6a92219bfe3c3079ed6370fff8bd015ca5475fe0fa663da0f",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "1ada68430d38515a9cba4a36677adf03b8cb260bcb79ceb315b341c4f47915d8",
+      "category": "potential_credentials"
+    },
+    {
+      "source": "frr",
+      "path_sha256": "47ed3e19d520e67f1314057b7f493cbaa707d81c0d762334a0711fa320e311f4",
+      "category": "potential_credentials"
+    }
+  ],
+  "aggregate_sha256": "6b81b8b3ac902a181d684467725170221a02d04445609bfd27d60f47de33104b",
+  "observation_start": "2023-01-11T14:20:16+02:00",
+  "observation_end": "2026-10-10T00:18:33+02:00"
+}

@@ -1,0 +1,22 @@
+{
+  "profile": "observed-calibrated",
+  "source_manifest_ids": [
+    "d9b2aea4d4eca94a300f5eb3f5848ea82d8dc9bec788d564e11b15b8f0c1b48b",
+    "f40da224398c47d79d7d655a85c408b4749e960830645ef7e5b3c9111880e89c"
+  ],
+  "source_checksums": [
+    "6b81b8b3ac902a181d684467725170221a02d04445609bfd27d60f47de33104b",
+    "7fd792c002716d959b7c666ce5c916c7224d539a0b3e631249d7990fca099de0"
+  ],
+  "empirical_stat_version": "empirical-v1",
+  "seed": 42,
+  "scale_multiplier": 40,
+  "sampling": "whole-history bootstrap with replacement",
+  "preserves": [
+    "content",
+    "versions",
+    "original inter-change times"
+  ],
+  "assets": 76240,
+  "snapshots": 100518
+}

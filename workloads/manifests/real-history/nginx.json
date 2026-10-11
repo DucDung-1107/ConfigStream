@@ -1,0 +1,15 @@
+{
+  "name": "nginx",
+  "repository": "nginx/nginx",
+  "default_branch": "master",
+  "start_revision": "dc1b14126e0a7a45018d95b149ebdb29985f18f1",
+  "end_revision": "2b5c2b605b5df669da5dec6749dcc76c07d1315d",
+  "shallow_since": "2019-12-26T00:00:00Z",
+  "license": "BSD-2-Clause",
+  "license_path": "LICENSE",
+  "license_sha256": "08845fe39e06b51dad7685c28140ab49577a86e947523e16b536a46caf89ad5c",
+  "scope": "conf",
+  "allowed_patterns": ["conf/*.conf", "conf/*_params", "conf/mime.types"],
+  "excluded_patterns": [],
+  "asset_type": "nginx_server"
+}

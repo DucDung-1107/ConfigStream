@@ -1,0 +1,4 @@
+run,status,assets,master,driver_memory,max_offsets,workload_policy,snapshots,accepted_snapshots,logical_config_bytes,target_rate,producer_rate,logical_processed_rate,spark_reported_processed_rate,batch_p95_ms,streaming_seconds,parquet_bytes,max_state_rows,max_state_memory_bytes,peak_lag,rows_dropped_by_watermark,analytics_seconds
+phase11-calibrated-40,success,76240,local[2],2g,10000,observed-calibrated-v1,100518,100518,45002724,1000.0,999.994441742632,432.6339623064808,1339.221942572629,27039,232.33959595800843,43656587,152480,18315846,66317,0,
+phase11-calibrated-40-isolated,success,76240,local[2],2g,10000,observed-calibrated-v1,100518,100518,45002724,1000.0,999.9951808167158,444.59328805077934,1365.41581987371,21980,226.08978295803536,43651708,152480,18272210,62910,0,
+phase11-observed,success,1906,local[2],2g,10000,observed-git-v1,2525,2525,1133998,500.0,500.01471161346007,75.56471390379735,326.66350424770366,23189,33.41506729205139,5361869,3812,42551,2525,0,

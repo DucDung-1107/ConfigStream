@@ -13,7 +13,7 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
-**Phases 0–10 complete.** Pydantic contracts,
+**Phases 0–11 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.
 Spark reads `config.snapshots`, parses/validates, applies event-time deduplication,
@@ -30,6 +30,30 @@ semi-synthetic histories, [historical Spark analytics](docs/historical-analytics
 and a [measured replay harness](docs/benchmark.md). The
 [acceptance record](docs/phase10-acceptance.md) includes the completed one-million
 snapshot local run; do not interpret generated histories as observed production data.
+
+Phase 11 adds [observed public Git history](docs/real-history-sources.md),
+[empirical workload calibration](docs/workload-calibration.md) and an
+[external-validity assessment](docs/external-validity.md). ConfigStream now uses
+three evidence layers: observed public file histories, calibrated/semi-synthetic
+controlled histories, and stress workloads. **Git history is a public proxy for
+configuration evolution, not device deployment frequency.**
+
+The [Phase 11 acceptance record](docs/phase11-acceptance.md) includes real-history
+replay, a 100518-snapshot calibrated run, committed-history analytics and regression.
+
+| Dataset | Observed? | Assets | Versions | Content bytes | Purpose |
+| --- | --- | ---: | ---: | ---: | --- |
+| Batfish public baseline | Real files, baseline only | 324 | Baseline only | 361177 | Syntax |
+| FRRouting selected Git history | Yes, test-file history | 1900 incarnations | 2516 | 1109458 | Observed evolution |
+| NGINX selected Git history | Yes, shipped templates | 6 | 9 | 24540 | Cross-domain |
+| observed-calibrated ×40 | No, cloned histories | 76240 | 100518 | 45002724 | Controlled scaling |
+| Phase 10 stress-replay | No, semi-synthetic | 10000 | 1000000 | 1144675896 | Capacity |
+
+Observed public history is sparse/small; the project is best framed as a scalable
+data-pipeline evaluation with empirically characterized configuration workloads,
+not proof of naturally massive per-device configuration telemetry. Use
+`make observed-fetch`, `make observed-inspect`, `make empirical-report`,
+`make observed-replay`, `make calibration-generate` and `make phase11-integration-test`.
 
 **The high input rates represent accelerated replay/stress testing of accumulated
 fleet configuration history, not expected per-device configuration frequency.**
@@ -532,7 +556,8 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 8 — complete | Safe Elasticsearch projections/aliases, distributed bulk indexing, committed-lake rebuild |
 | 9 — complete | Read-only metadata FastAPI, bounded cursors, safe errors, HTTP end-to-end/rebuild acceptance |
 | 10 — complete | Public configuration baselines, controlled histories, historical Spark analytics, measured local replay |
-| 11–13 | Optional dashboard, SSH/FRR adapters, then Kubernetes deployment |
+| 11 — complete | Observed public Git histories, empirical calibration, external-validity assessment |
+| Future / optional | Additional corpus validation, dashboard, collectors or deployment; not implemented |
 
 Python 3.12, Pydantic, pytest, Ruff, Kafka, optional confluent-kafka, and PySpark 4.0.2
 form the current stack alongside optional MinIO/Parquet history and Elasticsearch

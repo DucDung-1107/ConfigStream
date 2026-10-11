@@ -33,6 +33,7 @@ markers = [
     "search_integration: requires local Elasticsearch; full pipeline also needs Kafka and MinIO",
     "api_integration: requires local Elasticsearch; end-to-end also needs Kafka and MinIO",
     "phase10_integration: requires local Kafka, MinIO, Spark and the pinned fixture baseline",
+    "phase11_integration: requires local Kafka, MinIO and Spark; Git fixture is offline",
 ]
 
 [tool.ruff]

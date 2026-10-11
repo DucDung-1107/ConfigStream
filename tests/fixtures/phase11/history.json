@@ -1,0 +1,7 @@
+[
+  {"time": "2024-01-01T10:00:00+07:00", "files": {"conf/nginx.conf": "logging enabled\n", "conf/site.conf": "timeout 30\n", "conf/unsafe.conf": "logging enabled\n"}},
+  {"time": "2024-01-02T10:00:00+07:00", "files": {"conf/nginx.conf": "logging enabled\n", "conf/site.conf": "timeout 30\n", "conf/unsafe.conf": "logging enabled\n", "README": "unchanged configurations\n"}},
+  {"time": "2024-01-03T10:00:00+07:00", "files": {"conf/nginx.conf": "logging disabled\n", "conf/site.conf": "timeout 60\n", "conf/unsafe.conf": "password SENSITIVE_TEST_MARKER\n"}},
+  {"time": "2024-01-04T10:00:00+07:00", "files": {"conf/nginx.conf": "logging enabled\n", "conf/new.conf": "timeout 60\n"}},
+  {"time": "2024-01-05T10:00:00+07:00", "files": {"conf/nginx.conf": "logging enabled\n", "conf/new.conf": "timeout 90\n"}}
+]

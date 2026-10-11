@@ -81,7 +81,8 @@ time plus 5 ms. Optional bounded delivery-window shuffling and exact snapshot-ID
 duplicates do not modify canonical histories. Source manifest and workload config
 must be retained for replay. No wall-clock time enters workload identity.
 
-Limitations: one curated repository, no observed Git history, small lab baselines,
+Phase 10 limitations (retained for interpretation): one curated repository,
+no observed Git history in that phase, small lab baselines,
 syntax heuristics and two IOS-style mutation intents. Semi-synthetic results must
 always be labelled as such. Broader vendor/large real corpora are future work.
 
@@ -99,3 +100,31 @@ not 1 GB of distinct public originals. All 324 paths/268 unique hashes were samp
 with replacement. Main raw/processed committed Parquet totals 876,030,173 bytes.
 See [actual rates, failures and limitations](benchmark.md). Both JSONL demo runs,
 ground-truth sidecars and manifests were byte-identical; they are ignored locally.
+
+## Phase 11 observed and calibrated evidence
+
+Git history is an observable public proxy for configuration evolution, not deployment
+frequency. Pinned FRRouting BGP/OSPF test configurations and official NGINX shipped
+templates provide a second evidence layer without changing the pipeline. See
+[source/license/boundary decisions](real-history-sources.md),
+[measured calibration](workload-calibration.md) and [external validity](external-validity.md).
+
+| Dataset | Observed? | Config files / assets | Revisions | Content bytes | Purpose |
+| --- | --- | ---: | ---: | ---: | --- |
+| Batfish Phase 10 baseline | Real public files, not history | 324 / 324 | Baseline only | 361177 | Syntax/size fixtures |
+| FRRouting selected Git history | Yes, public test file history | 1876 paths / 1900 incarnations | 2516 | 1109458 | Network-oriented observed evolution |
+| NGINX selected Git history | Yes, public template history | 6 / 6 | 9 | 24540 | Application-domain counterexample |
+| observed-calibrated, multiplier 40 | No, seeded whole-history clones | 76240 generated assets | 100518 | 45002724 | Empirically characterized scaling |
+| Phase 10 million stress-replay | No, controlled Batfish-derived history | 10000 generated assets | 1000000 | 1144675896 | Capacity experiment |
+
+The observed selection remains small: 2525 snapshots across 1906 file-incarnation
+assets and 1882 distinct paths. Median revision size is 298 B, p95 1267 B and maximum
+12241 B. NGINX revisions have median 2630 B, but there are only nine. Config diversity
+expanded; production-sized fleet evidence did not. Many FRRouting files have only
+one observed revision, and small/comment-only test configs remain represented.
+
+Observed history, calibrated clones and generated stress records are never relabelled
+as production data. Source repositories/raw histories stay ignored; only compact
+measurements, checksums and generated plots are committed. The original Phase 10
+limitations/results remain valid. The empirical evidence supports a **pipeline
+architecture evaluation**, not a natural high-frequency configuration-volume claim.

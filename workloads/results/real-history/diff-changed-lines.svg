@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380">
+<rect width="100%" height="100%" fill="white"/>
+<text x="60" y="25">diff-changed-lines: empirical CDF (log1p x)</text>
+<path d="M60 50 V300 H720" fill="none" stroke="black"/>
+<text x="5" y="300">0</text>
+<text x="60" y="325" text-anchor="middle">0.0</text>
+<text x="5" y="237.5">0.25</text>
+<text x="225.0" y="325" text-anchor="middle">1.4</text>
+<text x="5" y="175.0">0.5</text>
+<text x="390.0" y="325" text-anchor="middle">4.7</text>
+<text x="5" y="112.5">0.75</text>
+<text x="555.0" y="325" text-anchor="middle">12.8</text>
+<text x="5" y="50">1</text>
+<text x="720" y="325" text-anchor="middle">32.0</text>
+<polyline points="60.000,300.000 60.000,300.000 60.000,151.461 190.838,151.461 190.838,82.062 267.374,82.062 267.374,69.886 321.677,69.886 321.677,62.987 363.797,62.987 363.797,56.899 398.212,56.899 398.212,55.276 427.310,55.276 427.310,54.058 452.515,54.058 452.515,53.247 474.748,53.247 474.748,52.435 494.635,52.435 494.635,51.623 529.050,51.623 529.050,51.218 594.797,51.218 594.797,50.812 651.855,50.812 651.855,50.406 720.000,50.406 720.000,50.000" fill="none" stroke="#125cb3"/>
+<text x="60" y="365" fill="#125cb3">frr (n=616)</text>
+<polyline points="60.000,300.000 60.000,300.000 60.000,50.000" fill="none" stroke="#b83b20"/>
+<text x="280" y="365" fill="#b83b20">nginx (n=3)</text>
+</svg>

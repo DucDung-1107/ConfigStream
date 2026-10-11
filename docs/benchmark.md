@@ -1,5 +1,10 @@
 # Controlled local replay experiments
 
+This page preserves the Phase 10 measurements. Phase 11 adds separate
+[observed and empirically calibrated replay experiments](workload-calibration.md)
+and [external-validity assessment](external-validity.md); the million run remains
+semi-synthetic, not newly relabelled observed history.
+
 ## What the experiment means
 
 **The high input rates represent accelerated replay/stress testing of accumulated

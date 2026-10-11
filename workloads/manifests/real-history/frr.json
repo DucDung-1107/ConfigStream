@@ -1,0 +1,15 @@
+{
+  "name": "frr",
+  "repository": "FRRouting/frr",
+  "default_branch": "master",
+  "start_revision": "01dbc4b3843b836b7be90d22d0276f55c4001f42",
+  "end_revision": "c4e94c4aaa4f4562313b4a168f91211afc3bcba2",
+  "shallow_since": "2022-12-30T00:00:00Z",
+  "license": "ISC (topotest configurations; repository has mixed licenses)",
+  "license_path": "doc/developer/topotests.rst",
+  "license_sha256": "3a1058901200f6d851e20569f0d6f8a5735dc4434f40898830d475dc08fa926d",
+  "scope": "tests/topotests",
+  "allowed_patterns": ["tests/topotests/bgp*/*.conf", "tests/topotests/ospf*/*.conf"],
+  "excluded_patterns": [],
+  "asset_type": "network_device"
+}

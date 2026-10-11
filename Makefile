@@ -23,6 +23,25 @@ setup:
 	"$(UV)" sync --locked --extra kafka
 
 .PHONY: dataset-fetch dataset-inspect workload-generate
+.PHONY: observed-fetch observed-inspect observed-replay empirical-report calibration-generate phase11-integration-test
+observed-fetch:
+	.venv/bin/python -m workloads.observed_main fetch $(OBSERVED_ARGS)
+
+observed-inspect:
+	.venv/bin/python -m workloads.observed_main inspect $(OBSERVED_ARGS)
+
+observed-replay:
+	.venv/bin/python -m workloads.observed_main replay $(OBSERVED_ARGS)
+
+empirical-report:
+	.venv/bin/python -m workloads.observed_main report $(OBSERVED_ARGS)
+
+calibration-generate:
+	.venv/bin/python -m workloads.observed_main generate --profile observed-calibrated $(OBSERVED_ARGS)
+
+phase11-integration-test:
+	.venv/bin/python -m pytest -m phase11_integration tests/phase11_integration
+
 dataset-fetch:
 	.venv/bin/python -m workloads.main fetch $(DATASET_ARGS)
 

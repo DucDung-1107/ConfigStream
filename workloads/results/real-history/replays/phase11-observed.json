@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "phase11-observed",
+  "config": {
+    "benchmark_id": "phase11-observed",
+    "assets": 1906,
+    "versions_per_asset": 1,
+    "rate": 500.0,
+    "profile": "observed-replay",
+    "seed": 42,
+    "master": "local[2]",
+    "corpus": ".cache/datasets/observed-history",
+    "max_seconds": 1800,
+    "max_offsets": 10000,
+    "duplicate_ratio": 0,
+    "out_of_order_ratio": 0,
+    "watermark": "1000000 hours",
+    "driver_memory": "2g",
+    "max_reordering_distance": 16,
+    "start_time": "2020-09-09 16:26:27+00:00",
+    "state_timeout": "1000000 hours",
+    "max_versions_per_asset": 32
+  },
+  "machine": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "cpu_cores": 12,
+    "cpu_model": "Apple M3 Pro",
+    "ram_bytes": 19327352832,
+    "python": "3.12.14",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)",
+    "spark": "4.0.2",
+    "kafka": "4.1.2",
+    "docker": "Docker version 29.8.1, build 4a63305",
+    "docker_engine": "2 CPUs; 6189649920 RAM bytes; overlayfs",
+    "storage": "local single-machine storage; physical device not probed"
+  },
+  "started_at": "2026-10-11T09:19:18.422025+00:00",
+  "status": "success",
+  "progress_capture": "recent-progress-history-v1",
+  "workload_manifest": {
+    "profile": "observed-replay",
+    "source_manifest_ids": [
+      "d9b2aea4d4eca94a300f5eb3f5848ea82d8dc9bec788d564e11b15b8f0c1b48b",
+      "f40da224398c47d79d7d655a85c408b4749e960830645ef7e5b3c9111880e89c"
+    ],
+    "source_checksums": [
+      "6b81b8b3ac902a181d684467725170221a02d04445609bfd27d60f47de33104b",
+      "7fd792c002716d959b7c666ce5c916c7224d539a0b3e631249d7990fca099de0"
+    ],
+    "empirical_stat_version": "empirical-v1",
+    "seed": 42,
+    "scale_multiplier": 1,
+    "sampling": "no sampling",
+    "preserves": [
+      "content",
+      "versions",
+      "original inter-change times"
+    ],
+    "assets": 1906,
+    "snapshots": 2525,
+    "physical_replay_target_snapshots_per_second": 500.0
+  },
+  "corpus": {
+    "sources": [
+      {
+        "schema_version": "1.0",
+        "policy": "observed-git-v1",
+        "source": {
+          "name": "frr",
+          "repository": "FRRouting/frr",
+          "default_branch": "master",
+          "start_revision": "01dbc4b3843b836b7be90d22d0276f55c4001f42",
+          "end_revision": "c4e94c4aaa4f4562313b4a168f91211afc3bcba2",
+          "shallow_since": "2022-12-30T00:00:00Z",
+          "license": "ISC (topotest configurations; repository has mixed licenses)",
+          "license_path": "doc/developer/topotests.rst",
+          "license_sha256": "3a1058901200f6d851e20569f0d6f8a5735dc4434f40898830d475dc08fa926d",
+          "scope": "tests/topotests",
+          "allowed_patterns": [
+            "tests/topotests/bgp*/*.conf",
+            "tests/topotests/ospf*/*.conf"
+          ],
+          "excluded_patterns": [],
+          "asset_type": "network_device"
+        },
+        "source_manifest_id": "d9b2aea4d4eca94a300f5eb3f5848ea82d8dc9bec788d564e11b15b8f0c1b48b",
+        "repository_url": "https://github.com/FRRouting/frr",
+        "retrieval_date": "2026-10-11",
+        "source_commit_count": 4553,
+        "relevant_scope_commits": 1358,
+        "candidate_file_count": 2115,
+        "selected_file_count": 1876,
+        "extracted_revision_count": 2516,
+        "excluded_file_count": 239,
+        "rejection_categories": {
+          "potential_credentials": 200,
+          "empty_or_oversized": 39
+        },
+        "aggregate_sha256": "6b81b8b3ac902a181d684467725170221a02d04445609bfd27d60f47de33104b",
+        "observation_start": "2023-01-11T14:20:16+02:00",
+        "observation_end": "2026-10-10T00:18:33+02:00",
+        "selected_asset_count": 1900
+      },
+      {
+        "schema_version": "1.0",
+        "policy": "observed-git-v1",
+        "source": {
+          "name": "nginx",
+          "repository": "nginx/nginx",
+          "default_branch": "master",
+          "start_revision": "dc1b14126e0a7a45018d95b149ebdb29985f18f1",
+          "end_revision": "2b5c2b605b5df669da5dec6749dcc76c07d1315d",
+          "shallow_since": "2019-12-26T00:00:00Z",
+          "license": "BSD-2-Clause",
+          "license_path": "LICENSE",
+          "license_sha256": "08845fe39e06b51dad7685c28140ab49577a86e947523e16b536a46caf89ad5c",
+          "scope": "conf",
+          "allowed_patterns": [
+            "conf/*.conf",
+            "conf/*_params",
+            "conf/mime.types"
+          ],
+          "excluded_patterns": [],
+          "asset_type": "nginx_server"
+        },
+        "source_manifest_id": "f40da224398c47d79d7d655a85c408b4749e960830645ef7e5b3c9111880e89c",
+        "repository_url": "https://github.com/nginx/nginx",
+        "retrieval_date": "2026-10-11",
+        "source_commit_count": 1049,
+        "relevant_scope_commits": 4,
+        "candidate_file_count": 6,
+        "selected_file_count": 6,
+        "extracted_revision_count": 9,
+        "excluded_file_count": 0,
+        "rejection_categories": {},
+        "aggregate_sha256": "7fd792c002716d959b7c666ce5c916c7224d539a0b3e631249d7990fca099de0",
+        "observation_start": "2020-09-09T19:26:27+03:00",
+        "observation_end": "2026-09-30T20:17:54+04:00"
+      }
+    ],
+    "profile": "observed-replay",
+    "source_manifest_ids": [
+      "d9b2aea4d4eca94a300f5eb3f5848ea82d8dc9bec788d564e11b15b8f0c1b48b",
+      "f40da224398c47d79d7d655a85c408b4749e960830645ef7e5b3c9111880e89c"
+    ],
+    "source_checksums": [
+      "6b81b8b3ac902a181d684467725170221a02d04445609bfd27d60f47de33104b",
+      "7fd792c002716d959b7c666ce5c916c7224d539a0b3e631249d7990fca099de0"
+    ],
+    "empirical_stat_version": "empirical-v1",
+    "seed": 42,
+    "scale_multiplier": 1,
+    "sampling": "no sampling",
+    "preserves": [
+      "content",
+      "versions",
+      "original inter-change times"
+    ],
+    "assets": 1906,
+    "snapshots": 2525
+  },
+  "startup_seconds": 7.208526082918979,
+  "runtime": {
+    "checkpoint": ".cache/benchmarks/phase11-observed/checkpoint",
+    "lake_prefix": "benchmarks/phase11-observed",
+    "starting_offsets": {
+      "0": 299455,
+      "1": 296893,
+      "2": 296276,
+      "3": 312709,
+      "4": 318259,
+      "5": 301078
+    },
+    "partitions": 6,
+    "watermark": "1000000 hours",
+    "state_timeout": "1000000 hours",
+    "max_versions_per_asset": 32,
+    "max_offsets_per_trigger": 10000,
+    "search_enabled": false,
+    "trigger_seconds": 2,
+    "logical_history_days": 2219.8278819444445,
+    "starting_event_time": "2020-09-09T16:26:27+00:00",
+    "driver_memory": "2g",
+    "driver_max_heap_bytes": 2147483648,
+    "workload_policy": "observed-git-v1"
+  },
+  "publisher": {
+    "snapshots": 2525,
+    "logical_raw_config_bytes": 1133998,
+    "kafka_value_bytes": 2226220,
+    "seconds": 5.049850417068228,
+    "achieved_snapshots_per_second": 500.01471161346007,
+    "end_offsets": {
+      "0": 299904,
+      "1": 297317,
+      "2": 296705,
+      "3": 313118,
+      "4": 318656,
+      "5": 301495
+    }
+  },
+  "streaming_seconds": 33.41506729205139,
+  "final_lag": 0,
+  "drain_seconds": 28.36521687498316,
+  "query_id": "7689aef4-23cc-43a7-85a4-0b8da6d8c5e5",
+  "lake": {
+    "counts": {
+      "accepted": 2525,
+      "config_diff": 619,
+      "normalized_snapshot": 2525,
+      "raw_snapshot": 2525
+    },
+    "parquet_bytes": 5361869,
+    "commits": 1
+  },
+  "metrics": {
+    "batches": 1,
+    "spark_reported_input_rows": 7575,
+    "processed_rows_per_second_mean": 326.66350424770366,
+    "input_rows_per_second_mean": 947.2302113292485,
+    "batch_p50_ms": 23189,
+    "batch_p95_ms": 23189,
+    "max_state_rows": 3812,
+    "max_state_memory_bytes": 42551,
+    "rows_dropped_by_watermark": 0,
+    "watermark": "1970-01-01T00:00:00.000Z",
+    "duplicate_rows_dropped": 0
+  },
+  "finished_at": "2026-10-11T09:19:59.805093+00:00",
+  "total_seconds": 41.38242599996738,
+  "metadata_corrections": [
+    "Corrected path count versus file-incarnation asset count using measured provenance; performance/count/byte metrics unchanged"
+  ],
+  "sample_summary": {
+    "resource_samples": 7,
+    "lag_samples": 7,
+    "peak_lag": 2525,
+    "java_max_rss_bytes": 1173995520,
+    "java_max_ps_cpu_percent": 177.4,
+    "samples": 7,
+    "container_peaks": {
+      "configstream-kafka-1": {
+        "max_cpu_percent": 69.32,
+        "max_memory_bytes": 652423987
+      },
+      "configstream-minio-1": {
+        "max_cpu_percent": 48.04,
+        "max_memory_bytes": 397934592
+      }
+    }
+  }
+}

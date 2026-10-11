@@ -1,0 +1,1090 @@
+{
+  "phase11-observed": {
+    "snapshots": 2525,
+    "assets": 1906,
+    "unique_raw_hashes": 2220,
+    "invalid_pairs": 0,
+    "analytics": {
+      "change-frequency": {
+        "rows": 2520,
+        "seconds": 4.105273291002959,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "totals": {
+          "sum(snapshot_count)": 2525,
+          "sum(diff_count)": 619,
+          "sum(alert_count)": 0
+        }
+      },
+      "fleet-activity": {
+        "rows": 283,
+        "seconds": 3.1193601669510826,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        },
+        "max_changed_assets_day": 136
+      },
+      "diff-magnitude": {
+        "rows": 1,
+        "seconds": 1.2183212080271915,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "summary": {
+          "diff_count": 619,
+          "added_mean": 2.7867528271405493,
+          "added_p50": 1,
+          "added_p90": 7,
+          "added_p95": 12,
+          "added_max": 33,
+          "removed_mean": 1.495961227786753,
+          "removed_p50": 1,
+          "removed_p90": 4,
+          "removed_p95": 6,
+          "removed_max": 33,
+          "changed_mean": 0.8222940226171244,
+          "changed_p50": 0,
+          "changed_p90": 2,
+          "changed_p95": 4,
+          "changed_max": 32
+        }
+      },
+      "alert-trends": {
+        "rows": 0,
+        "seconds": 0.3401777090039104,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "severity",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "rule_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "diagnostic-trends": {
+        "rows": 0,
+        "seconds": 0.4656842080876231,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diagnostic_type",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "asset-summary": {
+        "rows": 1906,
+        "seconds": 2.974182749981992,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "anomalies": {
+        "rows": 296126,
+        "seconds": 4.506294708931819,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        },
+        "statistical_outlier_windows": 0
+      },
+      "fleet-bursts": {
+        "rows": 2221,
+        "seconds": 3.0882249999558553,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "prior_windows",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_stddev",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "z_score",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "is_anomaly",
+              "type": "boolean",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "baseline_policy",
+              "type": "string",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        },
+        "statistical_outlier_windows": 25
+      }
+    }
+  },
+  "phase11-calibrated-40-isolated": {
+    "snapshots": 100518,
+    "assets": 76240,
+    "unique_raw_hashes": 2220,
+    "invalid_pairs": 0,
+    "analytics": {
+      "change-frequency": {
+        "rows": 100346,
+        "seconds": 4.630075875087641,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "totals": {
+          "sum(snapshot_count)": 100518,
+          "sum(diff_count)": 24278,
+          "sum(alert_count)": 0
+        }
+      },
+      "fleet-activity": {
+        "rows": 283,
+        "seconds": 4.382543582934886,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        },
+        "max_changed_assets_day": 5410
+      },
+      "diff-magnitude": {
+        "rows": 1,
+        "seconds": 1.4577759589301422,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "summary": {
+          "diff_count": 24278,
+          "added_mean": 2.7600296564791167,
+          "added_p50": 1,
+          "added_p90": 6,
+          "added_p95": 12,
+          "added_max": 33,
+          "removed_mean": 1.4871488590493451,
+          "removed_p50": 1,
+          "removed_p90": 4,
+          "removed_p95": 6,
+          "removed_max": 33,
+          "changed_mean": 0.802907982535629,
+          "changed_p50": 0,
+          "changed_p90": 2,
+          "changed_p95": 3,
+          "changed_max": 32
+        }
+      },
+      "asset-summary": {
+        "rows": 76240,
+        "seconds": 4.282258333056234,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  "main-1m-2g-50k-20261011": {
+    "snapshots": 1000000,
+    "assets": 10000,
+    "unique_raw_hashes": 26800,
+    "invalid_pairs": 0,
+    "analytics": {
+      "change-frequency": {
+        "rows": 1000000,
+        "seconds": 13.342306375037879,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "totals": {
+          "sum(snapshot_count)": 1000000,
+          "sum(diff_count)": 990000,
+          "sum(alert_count)": 250000
+        }
+      },
+      "fleet-activity": {
+        "rows": 100,
+        "seconds": 13.10070824995637,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "window_start",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "window_end",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "assets_changed",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            }
+          ]
+        },
+        "max_changed_assets_day": 10000
+      },
+      "diff-magnitude": {
+        "rows": 1,
+        "seconds": 4.356268042000011,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "added_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "added_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "removed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_mean",
+              "type": "double",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p50",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p90",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_p95",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "changed_max",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        },
+        "summary": {
+          "diff_count": 990000,
+          "added_mean": 1.0065434343434343,
+          "added_p50": 1,
+          "added_p90": 1,
+          "added_p95": 1,
+          "added_max": 2,
+          "removed_mean": 0.9797979797979798,
+          "removed_p50": 1,
+          "removed_p90": 1,
+          "removed_p95": 1,
+          "removed_max": 1,
+          "changed_mean": 0.0,
+          "changed_p50": 0,
+          "changed_p90": 0,
+          "changed_p95": 0,
+          "changed_max": 0
+        }
+      },
+      "asset-summary": {
+        "rows": 10000,
+        "seconds": 10.73899437498767,
+        "schema": {
+          "type": "struct",
+          "fields": [
+            {
+              "name": "asset_id",
+              "type": "string",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "first_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "last_event_time",
+              "type": "timestamp",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "snapshot_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "diff_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "mean_diff_changed",
+              "type": "double",
+              "nullable": false,
+              "metadata": {}
+            },
+            {
+              "name": "max_diff_changed",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "high_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            },
+            {
+              "name": "critical_alert_count",
+              "type": "long",
+              "nullable": true,
+              "metadata": {}
+            }
+          ]
+        }
+      }
+    }
+  }
+}

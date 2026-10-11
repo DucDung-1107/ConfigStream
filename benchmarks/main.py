@@ -57,10 +57,12 @@ class BenchmarkConfig:
             raise ValueError("Positive counts and finite bounded replay rate required")
         if self.max_seconds < 1 or self.max_offsets < 1:
             raise ValueError("Positive timeout and offset batch cap required")
+        if self.profile not in {*PROFILES, "observed-replay", "observed-calibrated"}:
+            raise ValueError("Unsupported benchmark workload profile")
         WorkloadConfig(
             assets=self.assets,
             versions_per_asset=self.versions_per_asset,
-            profile=self.profile,
+            profile=self.profile if self.profile in PROFILES else "stress-replay",
             duplicate_ratio=self.duplicate_ratio,
             out_of_order_ratio=self.out_of_order_ratio,
             max_reordering_distance=self.max_reordering_distance,
@@ -115,7 +117,7 @@ def committed_metrics(lake, query_id):
     return {"counts": dict(counts), "parquet_bytes": physical, "commits": len(manifests)}
 
 
-def execute(config: BenchmarkConfig, *, analytics: bool = True) -> dict:
+def execute(config: BenchmarkConfig, *, analytics: bool = True, history=None) -> dict:
     directory = Path(".cache/benchmarks")
     directory.mkdir(parents=True, exist_ok=True)
     with (directory / ".publisher.lock").open("a+") as lock:
@@ -125,10 +127,10 @@ def execute(config: BenchmarkConfig, *, analytics: bool = True) -> dict:
             raise ValueError(
                 "Another benchmark is running; shared Kafka input must be isolated"
             ) from error
-        return _execute(config, analytics=analytics)
+        return _execute(config, analytics=analytics, history=history)
 
 
-def _execute(config: BenchmarkConfig, *, analytics: bool = True) -> dict:
+def _execute(config: BenchmarkConfig, *, analytics: bool = True, history=None) -> dict:
     directory = Path(".cache/benchmarks") / config.benchmark_id
     if directory.exists():
         raise ValueError("Benchmark ID already exists; choose a new ID (old evidence is preserved)")
@@ -183,22 +185,28 @@ def _execute(config: BenchmarkConfig, *, analytics: bool = True) -> dict:
             max_versions_per_asset=config.max_versions_per_asset,
             watermark_delay=config.watermark,
             console_rows=1,
-            rules_file=Path("workloads/rules.yaml"),
+            rules_file=Path(
+                "rules/default.yaml" if history is not None else "workloads/rules.yaml"
+            ),
         )
         ensure_bucket(lake)
+        if history is None and config.profile not in PROFILES:
+            raise ValueError("Observed profiles require the observed-history replay command")
         history_config = WorkloadConfig(
             assets=config.assets,
             versions_per_asset=config.versions_per_asset,
             seed=config.seed,
             corpus=config.corpus,
-            profile=config.profile,
+            profile=config.profile if config.profile in PROFILES else "stress-replay",
             duplicate_ratio=config.duplicate_ratio,
             out_of_order_ratio=config.out_of_order_ratio,
             max_reordering_distance=config.max_reordering_distance,
             start_time=config.start_time,
         )
-        history = History(history_config)
-        result["corpus"] = {
+        history = History(history_config) if history is None else history
+        if hasattr(history, "manifest"):
+            result["workload_manifest"] = history.manifest
+        result["corpus"] = getattr(history, "provenance_manifest", None) or {
             key: value
             for key, value in json.loads((config.corpus / "manifest.json").read_text()).items()
             if key != "files"
@@ -223,8 +231,10 @@ def _execute(config: BenchmarkConfig, *, analytics: bool = True) -> dict:
             "max_offsets_per_trigger": runtime.max_offsets_per_trigger,
             "search_enabled": False,
             "trigger_seconds": runtime.trigger_seconds,
-            "logical_history_days": config.versions_per_asset,
-            "starting_event_time": history_config.start_time.isoformat(),
+            "logical_history_days": getattr(history, "logical_days", config.versions_per_asset),
+            "starting_event_time": getattr(
+                history, "start_time", history_config.start_time
+            ).isoformat(),
             "driver_memory": runtime.driver_memory,
             "driver_max_heap_bytes": session._jvm.java.lang.Runtime.getRuntime().maxMemory(),
             "workload_policy": history.identity.split(":")[0],
@@ -339,12 +349,13 @@ def _execute(config: BenchmarkConfig, *, analytics: bool = True) -> dict:
         query_id = json.loads((checkpoint / "metadata").read_text())["id"]
         result["query_id"] = query_id
         result["lake"] = committed_metrics(lake, query_id)
-        expected = config.assets * config.versions_per_asset
+        expected = getattr(history, "expected_snapshots", config.assets * config.versions_per_asset)
         if result["lake"]["counts"].get("normalized_snapshot", 0) != expected:
             raise RuntimeError("Accepted snapshot count differs from canonical ground truth")
-        if result["lake"]["counts"].get("config_diff", 0) != config.assets * (
-            config.versions_per_asset - 1
-        ):
+        expected_diffs = getattr(
+            history, "expected_diffs", config.assets * (config.versions_per_asset - 1)
+        )
+        if result["lake"]["counts"].get("config_diff", 0) != expected_diffs:
             raise RuntimeError("Adjacent diff count differs from canonical ground truth")
         if analytics:
             from analytics.config import AnalyticsConfig
