@@ -235,8 +235,10 @@ def measure(snapshots, provenance, label="combined", *, weights=None, bundle_by_
 
 def write_distribution_plot(curves, destination: Path, name):
     maximum = max((stats["max"] or 0 for _, stats in curves), default=1) or 1
+    wrapped_legend = len(curves) > 3
+    height = 380 if not wrapped_legend else 380 + ((len(curves) - 1) // 2) * 24
     svg = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="760" height="380">',
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="760" height="{height}">',
         '<rect width="100%" height="100%" fill="white"/>',
         f'<text x="60" y="25">{html.escape(name)}: empirical CDF (log1p x)</text>',
         '<path d="M60 50 V300 H720" fill="none" stroke="black"/>',
@@ -248,7 +250,9 @@ def write_distribution_plot(curves, destination: Path, name):
             f'<text x="{60 + fraction * 660}" y="325" text-anchor="middle">{value:.1f}</text>'
         )
     for index, (label, stats) in enumerate(curves):
-        color = ["#125cb3", "#b83b20", "#268443", "#743db0"][index % 4]
+        color = ["#125cb3", "#b83b20", "#268443", "#743db0", "#9a6500", "#17696a"][index % 6]
+        legend_x = 60 + (index % 2) * 350 if wrapped_legend else 60 + index * 220
+        legend_y = 365 + (index // 2) * 24 if wrapped_legend else 365
         cumulative = 0
         points = ["60.000,300.000"]
         for value, count in stats["histogram"]:
@@ -259,7 +263,7 @@ def write_distribution_plot(curves, destination: Path, name):
         svg.extend(
             [
                 f'<polyline points="{" ".join(points)}" fill="none" stroke="{color}"/>',
-                f'<text x="{60 + index * 220}" y="365" fill="{color}">'
+                f'<text x="{legend_x}" y="{legend_y}" fill="{color}">'
                 f"{html.escape(label)} (n={stats['count']})</text>",
             ]
         )

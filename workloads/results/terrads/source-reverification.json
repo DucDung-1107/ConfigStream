@@ -1,0 +1,22 @@
+{
+  "artifact_license": "cc-by-4.0",
+  "doi": "10.5281/zenodo.20339474",
+  "download_metrics_preserved": true,
+  "files": [
+    {
+      "bytes": 613322752,
+      "name": "TerraDS.sqlite",
+      "published_checksum": "md5:faa52a357eefb8729d042f09bd236881",
+      "sha256": "728477a499dd949e4dd74ca6230318544839ac465d317ef743da093f3c2e96aa"
+    },
+    {
+      "bytes": 523682960,
+      "name": "TerraDS.tar.gz",
+      "published_checksum": "md5:f3cc4d3e1c3b6328111ff6284711dc6b",
+      "sha256": "e3e14764a5a1205f38ed4790d840773ca8c6fccb06adf0e5c5c3c1bf45ae0b79"
+    }
+  ],
+  "free_disk_bytes": 673503461376,
+  "publication_date": "2026-05-26",
+  "verified_at": "2026-10-11T16:44:46.057987+00:00"
+}

@@ -51,6 +51,11 @@ architecture-evaluation framing, not naturally high-frequency telemetry.
 77.48% of accepted files have one version. Population estimates are inferred,
 not additional observed data. See [reproduction](docs/phase12-methodology.md).
 
+The expanded acceptance audit preserves the original sample and replay, adds
+full static repository measurements, persisted adjacency ground truth and funnel
+plots, and verifies a fresh real-history replay with state-cap headroom. It does
+not multiply observed history or change the architecture-evaluation conclusion.
+
 | Dataset | Observed? | Assets | Versions | Content bytes | Purpose |
 | --- | --- | ---: | ---: | ---: | --- |
 | Batfish public baseline | Real files, baseline only | 324 | Baseline only | 361177 | Syntax |

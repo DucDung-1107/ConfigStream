@@ -11,7 +11,7 @@
     "/healthz": 200,
     "/readyz": 200
   },
-  "id": "phase12-terrads-serving",
+  "id": "phase12-terrads-headroom-serving",
   "lake": {
     "commits": 1,
     "counts": {
@@ -23,30 +23,6 @@
     "parquet_bytes": 90090
   },
   "latest_version": 6,
-  "live_http": {
-    "/api/v1/alerts": {
-      "count": 0,
-      "status": 200
-    },
-    "/api/v1/assets/observed-001c37e1-7ab0-5efc-9d77-0d2536dd8d4c/latest-snapshot": {
-      "status": 200,
-      "version": 6
-    },
-    "/api/v1/diffs": {
-      "count": 5,
-      "status": 200
-    },
-    "/api/v1/snapshots": {
-      "count": 6,
-      "status": 200
-    },
-    "/healthz": {
-      "status": 200
-    },
-    "/readyz": {
-      "status": 200
-    }
-  },
   "pairs": [
     [
       1,
@@ -69,5 +45,5 @@
       6
     ]
   ],
-  "query_id": "0c173466-55f9-4d1a-b3ce-ecbdcf67e9f9"
+  "query_id": "1f937153-f1b7-4096-afae-ef3acdcc9b9e"
 }

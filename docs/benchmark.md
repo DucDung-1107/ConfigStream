@@ -10,6 +10,14 @@ cloning: 10188 snapshots, 3683 adjacent diffs, 12278085 logical config bytes,
 are not interchangeable with logical records. [Acceptance](phase12-acceptance.md)
 records exact pairs, lag/state/resources and analytics output validation.
 
+A fresh supplemental correctness replay, `phase12-terrads-headroom`, retains the
+same actual cohort with state cap 91 (maximum observed 75 plus 16). It produced
+the same exact 10188 snapshots / 3683 pairs and 29346912 Parquet bytes, with zero
+alerts/diagnostics. Publisher achieved 499.981/s; stream completion including drain
+72.998 s (139.565 accepted snapshots/s). It overlapped archive/audit work and is
+**not a matched throughput comparison**. Original run data remains separately
+preserved; no additional temporal population or natural frequency is claimed.
+
 Original history covers about 10.83 years; physical replay takes about a minute.
 The high input rates represent **accelerated replay/stress testing of accumulated
 configuration history, not expected per-device configuration frequency** or

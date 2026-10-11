@@ -43,7 +43,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 0.2946185830514878
+      "seconds": 0.317149042035453
     },
     "anomalies": {
       "rows": 278158,
@@ -106,7 +106,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 13.935498916078359,
+      "seconds": 13.885371583979577,
       "statistical_outlier_windows": 5
     },
     "asset-summary": {
@@ -176,7 +176,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 12.612677708035335
+      "seconds": 12.623652999987826
     },
     "change-frequency": {
       "rows": 9229,
@@ -221,7 +221,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 12.82679391594138,
+      "seconds": 14.6249586250633,
       "totals": {
         "sum(alert_count)": 0,
         "sum(diff_count)": 3683,
@@ -259,7 +259,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 0.4678240839857608
+      "seconds": 0.4390988750383258
     },
     "diff-magnitude": {
       "rows": 1,
@@ -364,7 +364,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 5.403305957908742,
+      "seconds": 5.117792499950156,
       "summary": {
         "added_max": 539,
         "added_mean": 6.980450719522128,
@@ -428,7 +428,7 @@
         ],
         "type": "struct"
       },
-      "seconds": 13.21425449999515
+      "seconds": 13.376515916083008
     },
     "fleet-bursts": {
       "rows": 3958,
@@ -485,13 +485,18 @@
         ],
         "type": "struct"
       },
-      "seconds": 12.74942212505266,
+      "seconds": 12.931525542051531,
       "statistical_outlier_windows": 102
     }
   },
   "diffs": 3683,
   "duplicate_pairs": 0,
   "duplicate_snapshot_ids": 0,
+  "ground_truth": {
+    "assets": 6505,
+    "edges": 3683,
+    "sha256": "b9766c608a837fff354e8c38ce1ddab6226ec7024530cec328dcd9349c82d28a"
+  },
   "missing_pairs": 0,
   "missing_snapshots": 0,
   "snapshots": 10188,

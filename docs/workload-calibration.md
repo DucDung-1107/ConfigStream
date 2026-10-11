@@ -15,6 +15,12 @@ Storage/throughput comparisons must disclose reuse and differing output sets.
 No Terraform-calibrated synthetic run or artificial Terraform alerts were added;
 Phase 12 replays all 10188 accepted **actual** states without scaling.
 
+`temporal-comparison.csv` additionally separates FRR and NGINX and compares their
+distributions with Terraform and the controlled reference. The supplemental
+headroom replay is another validation of the identical cohort, not a larger or
+more naturally active workload. Introduction-inclusive and existing-file edit
+correlations remain distinct; five-minute repository windows are now measured too.
+
 Observed data, calibrated clones and capacity stress are **separate evidence**.
 Git history is an observable public proxy for configuration evolution, not router
 deployment frequency. See [source decisions](real-history-sources.md) and

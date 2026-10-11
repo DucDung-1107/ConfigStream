@@ -12,6 +12,7 @@ from lake.config import LakeConfig
 from spark.common.config import SparkConfig
 from workloads.observed import load_dataset
 from workloads.terrads import write_json
+from workloads.terrads_evidence import save_edges
 
 
 def validate_replay(root, results, identifier):
@@ -28,7 +29,7 @@ def validate_replay(root, results, identifier):
     for snapshot in snapshots:
         grouped.setdefault(snapshot.asset_id, []).append(snapshot)
     expected_pairs = [
-        (previous.snapshot_id, current.snapshot_id)
+        (current.asset_id, previous.snapshot_id, current.snapshot_id)
         for history in grouped.values()
         for previous, current in zip(
             sorted(history, key=lambda item: item.version),
@@ -36,6 +37,7 @@ def validate_replay(root, results, identifier):
             strict=False,
         )
     ]
+    edge_summary = save_edges(snapshots, results)
     lake = replace(LakeConfig.from_env(), prefix=replay["runtime"]["lake_prefix"])
     session = create_session(
         SparkConfig(master="local[2]", driver_memory="2g", lake=lake), kafka=False
@@ -53,10 +55,10 @@ def validate_replay(root, results, identifier):
             ],
             stored.schema,
         )
-        pair_schema = "old_snapshot_id STRING, new_snapshot_id STRING"
+        pair_schema = "asset_id STRING, old_snapshot_id STRING, new_snapshot_id STRING"
         pairs = (
             read_committed(session, lake, "processed/diffs", replay["query_id"])
-            .select("old_snapshot_id", "new_snapshot_id")
+            .select("asset_id", "old_snapshot_id", "new_snapshot_id")
             .persist()
         )
         expected_frame = session.createDataFrame(expected_pairs, pair_schema)
@@ -78,6 +80,7 @@ def validate_replay(root, results, identifier):
         }
         if any(value for key, value in validation.items() if key not in {"snapshots", "diffs"}):
             raise ValueError("Exact logical observed-history ground truth mismatch")
+        validation["ground_truth"] = edge_summary
         manifest = run_analytics(
             session, lake, AnalyticsConfig(window="1 day"), replay["query_id"], "all"
         )

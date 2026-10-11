@@ -247,6 +247,47 @@ def database(root=ROOT):
     return connection
 
 
+def verify_cached(root=ROOT, results=RESULTS):
+    previous = json.loads((results / "source-manifest.json").read_text())
+    with urllib.request.urlopen(f"https://zenodo.org/api/records/{RECORD}", timeout=60) as response:
+        record = json.load(response)
+    metadata = record["metadata"]
+    if (
+        metadata["doi"] != previous["doi"]
+        or metadata["publication_date"] != previous["publication_date"]
+        or metadata["license"]["id"] != previous["artifact_license"]
+    ):
+        raise ValueError("Pinned primary-source metadata changed")
+    available = {entry["key"]: entry for entry in record["files"]}
+    verified = []
+    for artifact in previous["files"]:
+        name = artifact["name"]
+        current = available[name]
+        path = root / name
+        if (
+            current["size"] != artifact["bytes"]
+            or current["checksum"] != artifact["published_checksum"]
+            or path.stat().st_size != current["size"]
+            or "md5:" + file_hash(path, "md5") != current["checksum"]
+            or file_hash(path) != artifact["sha256"]
+        ):
+            raise ValueError("Cached artifact no longer matches pinned primary source")
+        verified.append(
+            {key: artifact[key] for key in ("name", "bytes", "sha256", "published_checksum")}
+        )
+    summary = {
+        "verified_at": datetime.now(UTC).isoformat(),
+        "doi": metadata["doi"],
+        "publication_date": metadata["publication_date"],
+        "artifact_license": metadata["license"]["id"],
+        "files": verified,
+        "download_metrics_preserved": True,
+        "free_disk_bytes": disk_guard(root),
+    }
+    write_json(results / "source-reverification.json", summary)
+    return summary
+
+
 def inspect_static(root=ROOT, results=RESULTS):
     manifest = json.loads((results / "source-manifest.json").read_text())
     artifact = next(entry for entry in manifest["files"] if entry["name"] == "TerraDS.tar.gz")
@@ -256,6 +297,7 @@ def inspect_static(root=ROOT, results=RESULTS):
     hashes = set()
     repositories = set()
     per_repository = Counter()
+    repository_files = Counter()
     skipped = Counter()
 
     def scan(archive, repository_id=None):
@@ -285,6 +327,7 @@ def inspect_static(root=ROOT, results=RESULTS):
             else:
                 repositories.add(identity)
                 per_repository[identity] += member.size
+                repository_files[identity] += 1
             sizes[member.size] += 1
             hashes.add(digest.hexdigest())
 
@@ -303,6 +346,24 @@ def inspect_static(root=ROOT, results=RESULTS):
             table: connection.execute(f'SELECT COUNT(*) FROM "{table}"').fetchone()[0]
             for table in ("Repositories", "Modules", "Resources")
         }
+        repository_metadata = connection.execute("""
+            SELECT r.Id, COALESCE(m.modules, 0), COALESCE(m.resources, 0)
+            FROM Repositories r LEFT JOIN
+            (SELECT m.RepositoryId, COUNT(DISTINCT m.Id) AS modules,
+              COUNT(rr.Id) AS resources FROM Modules m
+              LEFT JOIN Resources rr ON rr.ModuleId=m.Id GROUP BY m.RepositoryId) m
+            ON m.RepositoryId=r.Id ORDER BY r.Id
+        """).fetchall()
+    repository_rows = [
+        {
+            "repository_id": row[0],
+            "terraform_files": repository_files[str(row[0])],
+            "logical_bytes": per_repository[str(row[0])],
+            "modules": row[1],
+            "resources": row[2],
+        }
+        for row in repository_metadata
+    ]
     summary = {
         "artifact_sha256": artifact["sha256"],
         "database_counts": counts,
@@ -311,13 +372,31 @@ def inspect_static(root=ROOT, results=RESULTS):
         "logical_terraform_bytes": sum(size * count for size, count in sizes.items()),
         "compressed_archive_bytes": artifact["bytes"],
         "unique_contents": len(hashes),
+        "duplicate_contents": sum(sizes.values()) - len(hashes),
         "unique_content_ratio": len(hashes) / sum(sizes.values()),
         "file_size_bytes": distribution(sizes),
         "unresolved": dict(skipped),
+        "repository_distributions": {
+            field: distribution([row[field] for row in repository_rows])
+            for field in ("terraform_files", "logical_bytes", "modules", "resources")
+        },
     }
+    with (results / "static-repositories.csv").open("w", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=list(repository_rows[0]), lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(repository_rows)
     write_json(root / "repository-source-bytes.json", dict(per_repository))
     write_json(root / "database-schema.json", schema)
     write_json(results / "static-summary.json", summary)
+    (results / "static-summary.md").write_text(
+        "# Measured TerraDS static corpus\n\n"
+        "Evidence type: real static source; not observed temporal history.\n\n"
+        + "\n".join(
+            f"- {key}: {value}" for key, value in summary.items() if not isinstance(value, dict)
+        )
+        + "\n\nRepository counts/bytes/modules/resources: `static-repositories.csv`.\n"
+        "File and repository percentile distributions: `static-summary.json`.\n"
+    )
     with (results / "static-summary.csv").open("w", newline="") as stream:
         flat = {
             **counts,

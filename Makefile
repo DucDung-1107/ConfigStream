@@ -27,8 +27,8 @@ setup:
 observed-fetch:
 	.venv/bin/python -m workloads.observed_main fetch $(OBSERVED_ARGS)
 
-.PHONY: terrads-fetch terrads-inspect terrads-sample terrads-history terrads-replay terrads-report terrads-validate terrads-smoke phase12-integration-test
-terrads-fetch terrads-inspect terrads-sample terrads-history terrads-replay terrads-report terrads-validate terrads-smoke:
+.PHONY: terrads-fetch terrads-verify terrads-inspect terrads-sample terrads-history terrads-replay terrads-report terrads-audit terrads-validate terrads-smoke phase12-integration-test
+terrads-fetch terrads-verify terrads-inspect terrads-sample terrads-history terrads-replay terrads-report terrads-audit terrads-validate terrads-smoke:
 	.venv/bin/python -m workloads.terrads_main $(patsubst terrads-%,%,$@) $(TERRADS_ARGS)
 
 phase12-integration-test:

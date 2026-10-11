@@ -195,9 +195,12 @@ def test_streaming_static_measurement_without_extracting_config(tmp_path):
             member.size = len(content)
             bundle.addfile(member, io.BytesIO(content))
     with sqlite3.connect(tmp_path / "TerraDS.sqlite") as connection:
-        for table in ["Repositories", "Modules", "Resources"]:
-            connection.execute(f"CREATE TABLE {table} (Id INTEGER)")
-            connection.execute(f"INSERT INTO {table} VALUES (1)")
+        connection.execute("CREATE TABLE Repositories (Id INTEGER)")
+        connection.execute("CREATE TABLE Modules (Id INTEGER, RepositoryId INTEGER)")
+        connection.execute("CREATE TABLE Resources (Id INTEGER, ModuleId INTEGER)")
+        connection.executemany("INSERT INTO Repositories VALUES (?)", [(1,), (2,)])
+        connection.execute("INSERT INTO Modules VALUES (1, 2)")
+        connection.execute("INSERT INTO Resources VALUES (1, 1)")
     artifact = tmp_path / "TerraDS.tar.gz"
     results = tmp_path / "results"
     write_json(
@@ -216,6 +219,10 @@ def test_streaming_static_measurement_without_extracting_config(tmp_path):
     assert summary["terraform_files"] == 3
     assert summary["logical_terraform_bytes"] == 8
     assert summary["unique_contents"] == 2
+    assert summary["duplicate_contents"] == 1
+    assert summary["repository_distributions"]["terraform_files"]["max"] == 2
+    assert summary["repository_distributions"]["resources"]["mean"] == 0.5
+    assert (results / "static-summary.md").exists()
     assert summary["archive_repositories"] == 2
     assert summary["file_size_bytes"]["p50"] == 2
     assert not list(tmp_path.glob("**/*.tf"))
@@ -239,8 +246,10 @@ def test_nested_repository_archives_are_measured(tmp_path):
         member.size = len(inner.getvalue())
         bundle.addfile(member, io.BytesIO(inner.getvalue()))
     with sqlite3.connect(tmp_path / "TerraDS.sqlite") as connection:
-        for table in ["Repositories", "Modules", "Resources"]:
-            connection.execute(f"CREATE TABLE {table} (Id INTEGER)")
+        connection.execute("CREATE TABLE Repositories (Id INTEGER)")
+        connection.execute("CREATE TABLE Modules (Id INTEGER, RepositoryId INTEGER)")
+        connection.execute("CREATE TABLE Resources (Id INTEGER, ModuleId INTEGER)")
+        connection.execute("INSERT INTO Repositories VALUES (1234)")
     archive = tmp_path / "TerraDS.tar.gz"
     results = tmp_path / "results"
     write_json(
@@ -278,6 +287,120 @@ def test_resume_identity_and_incomplete_retry(tmp_path):
     first["status"] = "incomplete"
     write_json(tmp_path / "statuses/1.json", first)
     assert extract_repository(entry, tmp_path, 42)["status"] == "missing_pinned_commit"
+
+
+def test_ground_truth_edges_are_safe_deterministic_and_adjacent(terraform_fixture, tmp_path):
+    from workloads.terrads_evidence import save_edges
+
+    snapshots, _, _ = load_dataset(terraform_fixture[0])
+    first = save_edges(snapshots, tmp_path)
+    assert first == save_edges(list(reversed(snapshots)), tmp_path)
+    assert first["assets"] == 5
+    assert first["edges"] == 3
+    text = (tmp_path / "ground-truth-edges.csv").read_text()
+    assert "SENSITIVE_TEST_MARKER" not in text
+    assert "resource" not in text
+
+
+def test_ground_truth_rejects_missing_version(terraform_fixture, tmp_path):
+    from workloads.terrads_evidence import save_edges
+
+    snapshots, _, _ = load_dataset(terraform_fixture[0])
+    with pytest.raises(ValueError, match="contiguous"):
+        save_edges([item for item in snapshots if item.version != 1], tmp_path)
+
+
+def test_offline_unchanged_audit_only_counts_relevant_commits(terraform_fixture):
+    from workloads.terrads_evidence import unchanged_observations
+
+    root, source, _ = terraform_fixture
+    repository = root.parents[1] / "terraform" / ".git"
+    result = unchanged_observations(repository, source.start_revision, source.end_revision)
+    assert result == {
+        "selected_tree_observations": 6,
+        "unchanged_path_blob_observations": 5,
+    }
+
+
+def test_funnel_preserves_failed_denominator_and_units(tmp_path):
+    from workloads.terrads_evidence import save_funnel
+
+    manifest = {"strata": {"a": {"population": 20}}}
+    rows = [
+        {"reachable": 1, "license_accepted": 1, "accepted": 1, "assets": 4, "revisions": 7},
+        {"reachable": 0, "license_accepted": 0, "accepted": 0, "assets": 0, "revisions": 0},
+    ]
+    values = save_funnel(manifest, rows, tmp_path)
+    assert [row["count"] for row in values] == [20, 2, 1, 1, 1, 4, 7]
+    assert "units change" in (tmp_path / "plots/funnel.svg").read_text()
+
+
+def test_comparison_plot_keeps_all_source_legends_on_canvas(tmp_path):
+    from xml.etree import ElementTree
+
+    from workloads.empirical import distribution, write_distribution_plot
+
+    plot = tmp_path / "comparison.svg"
+    write_distribution_plot(
+        [(f"source-{index}", distribution([1, 2])) for index in range(5)], plot, "bytes"
+    )
+    document = ElementTree.parse(plot).getroot()
+    legends = [item for item in document if item.text and item.text.startswith("source-")]
+    assert len(legends) == 5
+    assert len({item.attrib["fill"] for item in legends}) == 5
+    assert all(float(item.attrib["x"]) < float(document.attrib["width"]) for item in legends)
+    assert all(float(item.attrib["y"]) < float(document.attrib["height"]) for item in legends)
+
+
+@pytest.mark.parametrize("corrupt", [False, True])
+def test_primary_reverification_preserves_download_evidence(tmp_path, monkeypatch, corrupt):
+    from workloads import terrads
+
+    artifact = tmp_path / "TerraDS.sqlite"
+    artifact.write_bytes(b"owned fixture database")
+    metadata = {
+        "doi": "10.5281/zenodo.20339474",
+        "publication_date": "2026-05-26",
+        "license": {"id": "cc-by-4.0"},
+    }
+    entry = {
+        "key": artifact.name,
+        "size": artifact.stat().st_size,
+        "checksum": "md5:" + file_hash(artifact, "md5"),
+    }
+    results = tmp_path / "results"
+    write_json(
+        results / "source-manifest.json",
+        {
+            "doi": metadata["doi"],
+            "publication_date": metadata["publication_date"],
+            "artifact_license": "cc-by-4.0",
+            "files": [
+                {
+                    "name": artifact.name,
+                    "bytes": entry["size"],
+                    "published_checksum": entry["checksum"],
+                    "sha256": file_hash(artifact),
+                }
+            ],
+            "network_bytes": 999,
+        },
+    )
+    original = (results / "source-manifest.json").read_bytes()
+    monkeypatch.setattr(
+        terrads.urllib.request,
+        "urlopen",
+        lambda *args, **kwargs: io.BytesIO(
+            json.dumps({"metadata": metadata, "files": [entry]}).encode()
+        ),
+    )
+    if corrupt:
+        artifact.write_bytes(b"corrupted cache")
+        with pytest.raises(ValueError, match="Cached artifact"):
+            terrads.verify_cached(tmp_path, results)
+    else:
+        assert terrads.verify_cached(tmp_path, results)["download_metrics_preserved"]
+    assert (results / "source-manifest.json").read_bytes() == original
 
 
 def test_unclear_repository_license_blocks_history_without_network(tmp_path, monkeypatch):

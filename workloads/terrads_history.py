@@ -7,6 +7,7 @@ import subprocess
 import time
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import UTC, datetime
 from pathlib import Path
 
 from pydantic import BaseModel, Field
@@ -142,6 +143,8 @@ def extract_repository(entry, root, seed, max_commits=2000, max_file_bytes=1024*
         "bytes": 0,
         "status": "incomplete",
         "attempts": 0,
+        "started_at": datetime.now(UTC).isoformat(),
+        "local_cache_path": str(repository),
     }
     try:
         disk_guard(root)
@@ -293,6 +296,7 @@ def extract_repository(entry, root, seed, max_commits=2000, max_file_bytes=1024*
         row["status"] = "extraction_failed"
         row["failure_category"] = type(error).__name__
     finally:
+        row["finished_at"] = datetime.now(UTC).isoformat()
         row["seconds"] = time.monotonic() - started
         row["git_cache_bytes"] = directory_bytes(repository) if repository.exists() else 0
         row["network_bytes"] = None

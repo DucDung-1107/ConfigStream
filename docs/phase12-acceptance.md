@@ -157,12 +157,14 @@ Estimated filtered historical bytes can be less than unrestricted static bytes:
 licensing and whole-history filtering change the estimand. Descriptive file-level
 percentiles are sample descriptions, not weighted population quantile estimates.
 
-## Real replay and exact ground truth
+## Original real replay and exact ground truth
 
 Run `phase12-terrads-observed`, local[2], six Kafka partitions, target 500/s,
 2 GiB Spark driver, max 10000 offsets/batch, isolated checkpoint and
 `benchmarks/phase12-terrads-observed` lake prefix. Watermark and timeout 1000000
 hours; version cap **75** (observed maximum). Normal defaults are unchanged.
+Original results remain in `replay-prior-summary.json` / `replay-prior-validation.json`;
+the supplemental headroom repeat below does not replace this evidence.
 
 | Metric | Measured |
 | --- | ---: |
@@ -235,6 +237,7 @@ lake stores 90090 Parquet bytes. The temporary Uvicorn process is stopped.
 
 | Evidence | Repositories/assets | States/files | Logical bytes | Observed? |
 | --- | ---: | ---: | ---: | --- |
+| Batfish baseline | 324 usable files / 268 contents | Baselines only | 361177 | Real static, not history |
 | FRR/NGINX | 2 repos / 1906 incarnations | 2525 | 1133998 | Yes |
 | TerraDS static | 82749 repos | 1513378 current files | 2601501820 | Real static, no temporal mining |
 | TerraDS Git sample | 375 accepted repos / 6505 incarnations | 10188 | 12278085 | Yes |
@@ -381,3 +384,150 @@ nhân dữ liệu hoặc săn corpus chỉ để có con số đẹp.
 Recommendation: stop further data-search phases, obtain instructor agreement on
 this framing, then focus on report/defense and reproducible evidence. No Phase 13
 or deployment is implemented.
+
+## Supplemental expanded-requirements audit
+
+This continuation started from clean `main` at
+`3320141b7a6019eb3eaa28a809c55c5072c505e5`, not assumed Phase 11 HEAD. That commit
+already contained the 100→500 real experiment and successful
+[CI run 38138117145](https://github.com/kongwoang/ConfigStream/actions/runs/38138117145)
+(782 unit, 80 API, 60 Spark). This audit preserves the cohort, failures, denominator,
+original timings and prior actual Uvicorn/TCP smoke; it is not a new selected sample.
+
+The primary API and cached artifact byte sizes, MD5 and SHA-256 were reverified
+(`source-reverification.json`), preserving original resumed-download measurements.
+Re-streaming the complete nested archive reproduced all original counts/bytes/hashes.
+There are **645254 duplicate-content files** (files minus distinct content hashes).
+
+`static-repositories.csv` stores all 82749 repository IDs and numeric file/byte/module/
+resource measurements, 1871881 bytes, no raw source. Repository distributions:
+
+| Per repository | Min | Median | Mean | p95 | Max |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Current `.tf` files | 1 | 7 | 18.2888 | 54 | 11077 |
+| Current source bytes | 27 | 8127 | 31438.4684 | 98519.8 | 38013842 |
+| Modules | 1 | 2 | 4.7614 | 14 | 2131 |
+| Resource declarations | 1 | 11 | 30.1832 | 99 | 26800 |
+
+An offline tree/blob-identity audit of 397 license-verified repositories counted
+**114943 byte-identical path/blob observations** across selected Terraform-relevant
+first-parent commits. These do not become snapshots. `unchanged-audit.json` counts
+unchanged tree observations before security filtering, not accepted revisions;
+unrelated commits are excluded. No configuration bodies were read or fetched.
+
+All 500 terminal statuses were reused by explicit `--resume`, without new network
+attempts or replacement. New attempts additionally record UTC start/end and cache
+paths; missing original timestamps were not fabricated. An initial alternate-results
+resume lacked a copied manifest and failed before extraction; the corrected repeat
+passed. Both logs remain ignored, and neither is an additional sampled repository.
+
+Persisted `ground-truth-edges.csv`: **3683 metadata-only adjacent edges**, SHA-256
+`b9766c608a837fff354e8c38ce1ddab6226ec7024530cec328dcd9349c82d28a`.
+Validation compares diff `asset_id` plus both snapshot IDs, and snapshot ID/version/
+hash/UTC time. Wrong-asset diffs therefore cannot pass. Edges are evaluation only;
+Spark still receives snapshots, never precomputed diff records/text.
+
+Repository-level five-minute correlations: 2296 introduction-inclusive windows,
+median 2 / p95 12 / max 484 files; 1657 existing-file edit windows, median 1 / p95 6 /
+max 39. Added artifacts include funnel JSON/CSV/Markdown/SVG, commit-bundle CDF,
+per-source FRR/NGINX comparisons and full evidence/temporal CSVs. The funnel's last
+two rows use incarnation/revision units, not repository attrition.
+
+### Fresh headroom replay
+
+Fresh isolated ID `phase12-terrads-headroom`, same 10188 observed snapshots without
+resampling or duplication. State cap **91 = observed max 75 + 16**; other settings
+remain local[2], 2 GiB driver, six partitions, 500/s target, 10000 offsets/trigger,
+1000000-hour watermark/timeout. Normal defaults are unchanged. Current
+`replay-summary.json` / `replay-validation.json` refer to this repeat.
+
+| Metric | Repeat observation |
+| --- | ---: |
+| Accepted/raw/normalized snapshots | 10188 each |
+| Adjacent diffs / alerts / diagnostics | 3683 / 0 / 0 |
+| Logical content / Kafka value bytes | 12278085 / 17264648 |
+| Committed raw+processed Parquet | 29346912 bytes, 2 commits |
+| Publisher duration / achieved snapshots/s | 20.377 s / 499.981 |
+| Streaming incl. drain / logical accepted snapshots/s | 72.998 s / 139.565 |
+| Startup / drain / total duration | 7.177 / 52.621 / 80.744 s |
+| Active batches / native branch input rows | 2 / 30564 |
+| Native mean processedRowsPerSecond | 469.384 branch rows/s |
+| Micro-batch p50 / p95 | 27015 / 37564 ms |
+| Measured peak / final Kafka lag | 10188 / 0 |
+| Peak operator rows / exposed state memory | 13010 / 1669841 bytes |
+| Watermark / duplicate drops | 0 / 0 |
+| Java sampled peak RSS / CPU | 1989148672 bytes / 319.5% |
+| Resource samples | 14 |
+| Missing/extra snapshots/pairs or duplicate identities | 0 |
+
+The repeat ran alongside static/audit work: a **correctness verification**, not a
+matched performance experiment. Stored/config ratio 2.390 includes multiple
+datasets, schemas and file overhead, not universal production compression.
+
+All eight committed-history batch jobs ran again: frequency 9229 rows and exact
+10188/3683 totals; fleet activity 1185; diff magnitude 1; asset summary 6505;
+anomalies 278158 with 5 statistical outlier windows; fleet bursts 3958 with 102;
+alert/diagnostic trends 0. Nonempty job seconds in that order:
+14.625 / 13.377 / 5.118 / 12.624 / 13.885 / 12.932. These are verification timings,
+and neither outliers nor zero-filled windows are newly observed incidents/data.
+
+Fresh actual-history serving ID `phase12-terrads-headroom-serving` passed
+Kafka→Spark→MinIO→Elasticsearch→FastAPI: healthz/readyz 200, six snapshots, five
+adjacent diffs, latest 6, no alerts/diagnostics, metadata-only responses. The prior
+actual Uvicorn/TCP smoke remains in `serving-prior-smoke.json`.
+
+### Final temporal comparison
+
+| Metric | FRR/NGINX | Terraform sample | Phase 10 controlled reference |
+| --- | ---: | ---: | ---: |
+| Median config bytes | 298 | 645 | 632 |
+| Median / p95 versions per incarnation | 1 / 2.75 | 1 / 4 | 100 / 100 |
+| Median uncensored inter-change days | 125.986 | 6.713 | 1 |
+| p95 normalized changed lines | 4 | 7 | 0 |
+| Multi-version files | 25.3935% | 22.5211% | 100% |
+| Max files/commit, introductions included | 136 | 484 | 1 |
+| Unique contents/states | 87.9208% | 82.5383% | 77% |
+
+`temporal-comparison.csv` also separates FRR (1900 incarnations/2516 states,
+median size 297 B) and NGINX (6/9, 2630 B). The single NGINX uncensored interval
+is not a robust frequency estimate. Calendar zero-count statistics include
+intersecting partial first/last periods, not complete periods only; rates can be
+diluted. Repository clustering, public-source selection, forks and template reuse
+limit inference; bootstrap does not correct these biases.
+
+**Final decision remains exactly B.** The 2.60 GB static source and 12.28 MB actually
+observed sample strengthen realism/variety, but do not turn a conditional ~1.68M-state /
+~2.03 GB population estimate into a mined temporal dataset. Sparse file history and
+policy uncertainty prevent a defensible high-velocity/naturally massive temporal
+claim. Keep the explicit architecture-evaluation framing, contingent on instructor
+acceptance; no further data-search phase is recommended.
+
+### Supplemental local regression
+
+| Executed command | Passing cases |
+| --- | ---: |
+| make check | 789 |
+| make api-test | 80 |
+| make spark-test | 60 |
+| make integration-test | 3 |
+| make spark-integration-test | 3 |
+| make lake-integration-test | 1 |
+| make search-integration-test | 2 |
+| make api-integration-test | 2 |
+| make phase10-integration-test | 1 |
+| make phase11-integration-test | 1 |
+| make phase12-integration-test | 1 |
+
+**943 distinct cases**, including seven additional offline unit cases over the
+original Phase 12 commit; focused 45-case TerraDS reruns are not added again.
+Lint, formatting, `uv lock --check`, full static CSV totals, metadata-secret marker
+checks, and rendered comparison/funnel plot inspection passed. Normal CI does not
+download external corpora or start integration services. Existing Starlette warning
+remains unrelated to these changes.
+
+Supplemental entire TerraDS cache: 1208403771 bytes; Git cache remains 35307220
+bytes. About 627 GiB host disk remains free. Git transport bytes were not measured;
+neither object-cache size nor host disk consumption is logical configuration volume.
+No Terraform or other external configuration command was executed. Project-owned
+Kafka/MinIO/Elasticsearch services were used only for replay/regression; volumes are
+preserved, and temporary services are stopped after validation.

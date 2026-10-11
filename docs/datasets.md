@@ -15,6 +15,11 @@ stays ignored. [Acceptance](phase12-acceptance.md) distinguishes actual observat
 recoverable-population inference, calibrated clones and stress inputs, and selects
 **B: architecture-evaluation only**. Previous Phase 10/11 limitations remain valid.
 
+The supplemental audit remeasured the entire static archive and now records all
+82749 repository-level file/byte/module/resource counts, 645254 duplicate-content
+files, an unchanged tree-observation counter and metadata-only adjacent edges.
+It reuses the same frozen sample; these additions are not newly sampled histories.
+
 ## Categories and source
 
 | Category | Role | What is real? |

@@ -2,6 +2,13 @@
 
 ## Phase 12 decision: B
 
+The expanded audit independently reverified artifacts, static measurements and a
+fresh headroom replay, retaining previous evidence. It does not alter the sampling
+population or convert population estimates into observed records. Calendar rates
+include partial endpoint periods; repository dependence/shared templates, license
+and scanner selection, and first-parent/rename splitting remain threats. The
+bootstrap CI quantifies sampling variation, not all of these systematic biases.
+
 [TerraDS](terrads.md) is materially larger static evidence: 1.51 million public
 Terraform files and 2.60 GB source. The fixed 500-origin sample actually observed
 10188 accepted revisions across 6505 incarnations in 375 repos. The weighted

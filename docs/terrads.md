@@ -64,3 +64,12 @@ See [methodology](phase12-methodology.md) for reproducible commands, first-paren
 gate, whole-incarnation security rejection, bootstrap estimator and limitations.
 Compact machine-readable evidence is under `workloads/results/terrads/`.
 External artifacts/clones/raw histories are ignored; they are never executed.
+
+The expanded audit reverified both artifacts against the primary API and streamed
+the entire source again. Full repository-level counts/bytes/modules/resources are
+in `static-repositories.csv`; static summary Markdown and numeric distributions,
+metadata-only adjacency ground truth, funnel, unchanged-observation audit and
+individual FRR/NGINX comparisons are now reproducible outputs. A fresh headroom
+replay (cap 91) independently verified the same 10188 states and 3683 pairs.
+See the supplemental section of the acceptance record for both runs; no original
+cohort, failure, measurement or prior serving smoke was discarded.

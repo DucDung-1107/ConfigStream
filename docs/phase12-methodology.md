@@ -155,3 +155,34 @@ make phase12-integration-test
 Do not overwrite a completed benchmark identity or delete user/demo history. A
 failed run is retained and a fresh repeat uses a new ID. TerraDS source data is
 always treated as data, never infrastructure to deploy.
+
+## Supplemental verification commands
+
+For an already completed frozen sample, do not call `fetch` just to replace the
+original download metrics with a cache-hit measurement. Reverify in place:
+
+```sh
+make terrads-verify
+make terrads-inspect
+make terrads-history TERRADS_ARGS='--sample-size 500 --seed 42 --resume'
+make terrads-audit
+make terrads-report
+make terrads-replay TERRADS_ARGS='--benchmark-id phase12-terrads-headroom --rate 500'
+make terrads-validate TERRADS_ARGS='--benchmark-id phase12-terrads-headroom'
+make terrads-smoke TERRADS_ARGS='--benchmark-id phase12-terrads-headroom-serving'
+```
+
+Those replay identities have now been used; use fresh identities for future runs.
+The replay cap is `max(32, max_observed_versions + 16)`; this cohort uses 91.
+The 1000000-hour replay watermark/timeout trades retained state for historical
+correctness and is not a normal production recommendation. `--resume` explicitly
+acknowledges the existing safe default: terminal statuses are reused, incomplete
+units retried, changed identities rejected. No failed/sparse member is replaced.
+
+`terrads-audit` uses offline Git tree/blob identity only across Terraform-relevant
+commits, including otherwise rejected file incarnations; it does not fetch/read
+bodies. Persisted adjacent-edge ground truth is metadata-only and never processing
+input. The supplemental validator includes the diff asset ID in its exact comparison.
+Per-repository 5-minute/hour/day counts separate introductions from existing edits.
+Calendar frequencies include partial first/last intersecting periods; repository
+clustering and shared modules/forks remain threats not removed by bootstrap.

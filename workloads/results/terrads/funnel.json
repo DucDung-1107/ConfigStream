@@ -1,0 +1,30 @@
+[
+  {
+    "count": 82749,
+    "stage": "Static repository population"
+  },
+  {
+    "count": 500,
+    "stage": "Sampled repositories"
+  },
+  {
+    "count": 482,
+    "stage": "Reachable repositories"
+  },
+  {
+    "count": 397,
+    "stage": "License verified repositories"
+  },
+  {
+    "count": 375,
+    "stage": "Repositories with safe histories"
+  },
+  {
+    "count": 6505,
+    "stage": "Accepted file incarnations"
+  },
+  {
+    "count": 10188,
+    "stage": "Observed revisions"
+  }
+]
