@@ -27,6 +27,10 @@ members, dates and actions. Owned fixtures include duplicate memberships and IPv
 Both implementations use Python's `ipaddress` library: correlated library errors
 remain a limitation, mitigated by explicit IPv4/IPv6 boundary fixtures. They are
 not two independent cryptographic RPKI validators. No certificates are revalidated.
+Oracle summaries attach observation/provenance IDs using the previously tested
+Phase 16 reference contracts. That binding helper is reused, not claimed as an
+independent second implementation of every identity function. The source sets,
+row maps, member preimages and SQL differences remain independent of Spark.
 
 ## Identity, counting and checksum policies
 

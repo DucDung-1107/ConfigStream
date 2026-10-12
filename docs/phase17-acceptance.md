@@ -83,7 +83,7 @@ prove complete worldwide RPKI state or cryptographic validator correctness.
 ## Tests actually run
 
 - Before implementation: `make check`, **909 passed**, 14.28 s.
-- Final audited `make check`: Ruff lint/format pass, **941 passed**, 12.66 s.
+- Final resource-audited `make check`: Ruff lint/format pass, **941 passed**, 12.96 s.
   **32** new unit cases; original unit baseline unchanged.
 - `make api-test`: **80 passed**, 0.57 s; one existing dependency warning.
 - Final audited `make spark-test`: **68 passed**, 67.00 s; **5** new cases beyond baseline 63.
@@ -106,6 +106,9 @@ peak: 2,461,007,872 bytes; total experiment peak sampled ~1.55 GiB. No new sourc
 download, service installation, paid query, source execution or volume deletion.
 [Experiments](phase17-rpki-experiments.md) gives complete costs, safety limits,
 failed initial whole-day callback and reproduction commands.
+The audit also hardened resource sampling: transient deleted files do not crash
+the sampler, but other filesystem sampling errors cancel jobs and fail validation.
+Owned unit fixtures exercise both cases; this does not change source counts.
 
 The independent all-fourteen-day batch path worked with much smaller parent RSS
 than the local Spark path, but projections, caching and tasks differ. This is not

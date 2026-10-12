@@ -30,7 +30,14 @@ def tree_rss(table: str, root: int):
 
 
 def directory_bytes(root: Path):
-    return sum(path.stat().st_size for path in root.rglob("*") if path.is_file())
+    total = 0
+    for path in root.rglob("*"):
+        try:
+            if path.is_file():
+                total += path.stat().st_size
+        except FileNotFoundError:
+            continue
+    return total
 
 
 class ResourceSampler:
@@ -48,8 +55,13 @@ class ResourceSampler:
         while not self.stop.is_set():
             rss = command(["ps", "-axo", "pid=,ppid=,rss="])
             usage = tree_rss(rss, os.getpid()) if rss is not None else None
-            free = shutil.disk_usage(self.output).free
-            size = directory_bytes(self.output)
+            try:
+                free = shutil.disk_usage(self.output).free
+                size = directory_bytes(self.output)
+            except OSError:
+                self.failure = "resource_sampling_failed"
+                self.session.sparkContext.cancelAllJobs()
+                return
             self.samples.append(
                 dict(
                     seconds=monotonic() - self.started,
@@ -71,7 +83,7 @@ class ResourceSampler:
     def check(self):
         if self.failure:
             raise RuntimeError(
-                "RPKI resource safety guard exceeded; incomplete work remains unpublished"
+                "RPKI resource safety validation failed; incomplete work remains unpublished"
             )
 
     def __enter__(self):

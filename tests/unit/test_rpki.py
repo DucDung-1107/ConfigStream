@@ -242,11 +242,35 @@ def test_source_row_identity_independent_vector(rpki_fixture):
     assert row_identity(reference, 1) == expected
 
 
-def test_resource_tree_accounting_is_bounded_to_run():
-    from workloads.rpki_resources import tree_rss
+def test_resource_tree_accounting_is_bounded_to_run(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from workloads import rpki_resources
+    from workloads.rpki_resources import ResourceSampler, directory_bytes, tree_rss
 
     assert tree_rss("1 0 10\n2 1 20\n3 2 30\n4 0 99", 1) == 60 * 1024
     assert tree_rss("1 0 10\n2 1 20", 99) is None
+
+    def removed_file():
+        raise FileNotFoundError("owned transient deletion")
+
+    gone = SimpleNamespace(is_file=lambda: True, stat=removed_file)
+    assert directory_bytes(SimpleNamespace(rglob=lambda pattern: [gone])) == 0
+    cancelled = []
+    sampler = ResourceSampler(
+        tmp_path,
+        SimpleNamespace(sparkContext=SimpleNamespace(cancelAllJobs=lambda: cancelled.append(True))),
+    )
+
+    def denied(root):
+        raise PermissionError("owned sampling failure")
+
+    monkeypatch.setattr(rpki_resources, "directory_bytes", denied)
+    monkeypatch.setattr(rpki_resources, "command", lambda arguments: None)
+    sampler.sample()
+    assert sampler.failure == "resource_sampling_failed" and cancelled == [True]
+    with pytest.raises(RuntimeError, match="safety validation"):
+        sampler.check()
 
 
 @pytest.mark.parametrize(
