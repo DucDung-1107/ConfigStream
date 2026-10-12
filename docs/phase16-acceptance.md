@@ -117,4 +117,14 @@ implementation; unresolved common publication correctness stops all source work.
 Rollback is reverting unwired additive modules/targets: no old history migration,
 schema rewrite or checkpoint deletion is necessary. Do not delete user volumes.
 
-CI/commit are recorded after push verification; do not infer success from local tests.
+## GitHub verification
+
+Implementation commit: `3bb951963e064965eac54abf435e3d9c27b6c6d8`, pushed normally
+to `main`. [CI run 38219981860](https://github.com/kongwoang/ConfigStream/actions/runs/38219981860)
+completed **SUCCESS**: Python quality and Spark jobs both succeeded. Logs verify
+909 unit (6.18 s), 80 API (1.88 s, existing warning), 63 Spark (80.61 s).
+CI is service-free; it does not close MinIO/Kafka integration gates.
+
+This validation-only follow-up records that implementation run. Its own final
+commit/check is available through GitHub Actions and reported in the handoff;
+the recorded run must not be misrepresented as covering a different SHA.

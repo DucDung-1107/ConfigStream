@@ -78,8 +78,13 @@
     "optional_probe_parser": "mrtparse==2.2.0 in ignored cache only; not normal CI"
   },
   "ci": {
-    "status": "not yet pushed",
-    "sha": null,
-    "url": null
+    "status": "completed",
+    "conclusion": "success",
+    "sha": "3bb951963e064965eac54abf435e3d9c27b6c6d8",
+    "run_id": 38219981860,
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38219981860",
+    "jobs": {"Python 3.12 quality": "success", "Spark transformation tests": "success"},
+    "tests": {"unit": 909, "api": 80, "spark": 63},
+    "scope": "Verified implementation commit; subsequent validation-only commit has its own GitHub check"
   }
 }

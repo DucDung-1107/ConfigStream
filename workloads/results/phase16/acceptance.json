@@ -6,6 +6,8 @@
   "phase17_started": false,
   "ris_identity_decision": "RIS_OFFSET_IDENTITY_PROVEN",
   "starting_commit": "362fb7cbee02258456ca7ed3e9042b6d720ae8bd",
+  "implementation_commit": "3bb951963e064965eac54abf435e3d9c27b6c6d8",
+  "verified_implementation_ci_run": 38219981860,
   "gates": [
     {
       "id": "P16-A",
