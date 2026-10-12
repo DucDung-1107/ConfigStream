@@ -1,0 +1,109 @@
+{
+  "independent_sql_all_days": [
+    {
+      "date": "2026-09-01",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0"
+    },
+    {
+      "date": "2026-09-02",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91"
+    },
+    {
+      "date": "2026-09-03",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7"
+    },
+    {
+      "date": "2026-09-04",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf"
+    },
+    {
+      "date": "2026-09-05",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422"
+    },
+    {
+      "date": "2026-09-06",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4"
+    },
+    {
+      "date": "2026-09-07",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec"
+    },
+    {
+      "date": "2026-09-08",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494"
+    },
+    {
+      "date": "2026-09-09",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119"
+    },
+    {
+      "date": "2026-09-10",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336"
+    },
+    {
+      "date": "2026-09-11",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398"
+    },
+    {
+      "date": "2026-09-12",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60"
+    },
+    {
+      "date": "2026-09-13",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe"
+    },
+    {
+      "date": "2026-09-14",
+      "missing": 0,
+      "unexpected": 0,
+      "digest": "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+    }
+  ],
+  "local_spark_full_and_delta": [
+    {
+      "date": "2026-09-01",
+      "full_members": 360226,
+      "reconstructed_members": 360226,
+      "digest": "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0"
+    },
+    {
+      "date": "2026-09-02",
+      "full_members": 360506,
+      "reconstructed_members": 360506,
+      "digest": "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91"
+    }
+  ],
+  "local_spark_reference_window": [
+    "2026-09-01",
+    "2026-09-02"
+  ],
+  "all_fourteen_spark_states": "NOT_RUN",
+  "minio_reconstruction": "NOT_RUN",
+  "authoritative_roa_truth_claim": false
+}

@@ -10,6 +10,33 @@ from workloads.observed import GitSource, extract
 
 
 @pytest.fixture
+def rpki_fixture(tmp_path):
+    import lzma
+
+    from workloads.rpki_main import catalog
+    from workloads.rpki_oracle import run_oracle
+
+    cache = tmp_path / "rpki-input"
+    cache.mkdir()
+    selection = {"scope": "owned.tal", "artifacts": []}
+    for path in sorted(Path("tests/fixtures/phase17").glob("*.csv")):
+        filename = f"rpki-owned.tal-{path.stem}.xz"
+        compressed = lzma.compress(path.read_bytes())
+        (cache / filename).write_bytes(compressed)
+        selection["artifacts"].append(
+            dict(
+                file=filename,
+                sha256=sha256(compressed).hexdigest(),
+                artifact_bytes=len(compressed),
+                url=f"fixture:phase17/{path.name}",
+            )
+        )
+    output = tmp_path / "oracle"
+    summary = run_oracle(selection, cache, output, columnar=False)
+    return cache, selection, output, summary, catalog(selection, summary, 2)
+
+
+@pytest.fixture
 def observed_fixture(tmp_path):
     repository = tmp_path / "repository"
     repository.mkdir()

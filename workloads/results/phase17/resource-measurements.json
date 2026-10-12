@@ -1,0 +1,114 @@
+{
+  "host": {
+    "os": "macOS 27.0",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Pro",
+    "logical_cores": 12,
+    "physical_ram_bytes": 19327352832,
+    "initial_free_disk_bytes": 675971788800,
+    "python": "3.12.14",
+    "java_major": 21,
+    "spark": "4.0.2"
+  },
+  "services": {
+    "docker": "UNAVAILABLE",
+    "container_limits": "UNKNOWN",
+    "kafka_9092": "CONNECTION_REFUSED",
+    "minio_9000": "CONNECTION_REFUSED"
+  },
+  "limits": {
+    "minimum_free_disk_bytes": 21474836480,
+    "per_run_growth_bytes": 16106127360,
+    "total_experiment_bytes": 53687091200,
+    "sampled_tree_rss_bytes": 12884901888
+  },
+  "local_two_day": {
+    "sample_count": 232,
+    "peak_sampled_tree_rss_bytes": 2461007872,
+    "minimum_free_disk_bytes": 675411996672,
+    "peak_sampled_experiment_bytes": 1661054190,
+    "guard_failure": null,
+    "rss_limitations": "sampled process-tree sum; shared pages may be counted twice",
+    "sampling_excludes_session_startup": true,
+    "external_wall_seconds": 499.49,
+    "parent_only_max_rss_bytes": 119488512
+  },
+  "processing_costs": {
+    "serialized_transport_projection_bytes": 134412108,
+    "source_rows": 720732,
+    "actual_kafka_bytes": null,
+    "partial": false,
+    "source_prepare_seconds": 89.57068441691808,
+    "local_batch_costs": [
+      {
+        "batch_id": 0,
+        "source_chunks": 256,
+        "seconds": 25.40689929202199
+      },
+      {
+        "batch_id": 1,
+        "source_chunks": 256,
+        "seconds": 26.56738362496253
+      },
+      {
+        "batch_id": 2,
+        "source_chunks": 256,
+        "seconds": 30.21611845807638
+      },
+      {
+        "batch_id": 3,
+        "source_chunks": 256,
+        "seconds": 35.76139366696589
+      },
+      {
+        "batch_id": 4,
+        "source_chunks": 256,
+        "seconds": 38.794736250070855
+      },
+      {
+        "batch_id": 5,
+        "source_chunks": 129,
+        "seconds": 44.270824292092584
+      },
+      {
+        "batch_id": 6,
+        "source_chunks": 256,
+        "seconds": 21.917979457997717
+      },
+      {
+        "batch_id": 7,
+        "source_chunks": 256,
+        "seconds": 27.554202542058192
+      },
+      {
+        "batch_id": 8,
+        "source_chunks": 256,
+        "seconds": 30.553982750047
+      },
+      {
+        "batch_id": 9,
+        "source_chunks": 256,
+        "seconds": 34.40768475004006
+      },
+      {
+        "batch_id": 10,
+        "source_chunks": 256,
+        "seconds": 38.11542158294469
+      },
+      {
+        "batch_id": 11,
+        "source_chunks": 128,
+        "seconds": 39.02127812500112
+      }
+    ],
+    "spark_local_processing_seconds": 394.7633051669691,
+    "elapsed_seconds": 487.2666145419935,
+    "service_integration": "NOT_RUN",
+    "complete_days": 2
+  },
+  "accepted_source_rows_per_local_processing_second": 1825.7320033713854,
+  "actual_kafka_bytes": null,
+  "actual_minio_bytes": null,
+  "natural_event_rate": null,
+  "rate_note": "RPKI daily observations; no measured native event velocity"
+}

@@ -1,0 +1,149 @@
+{
+  "independent_oracle_days": 14,
+  "source_rows": 5062923,
+  "accepted_rows": 5062923,
+  "excluded_rows": 0,
+  "duplicate_membership_rows": 0,
+  "local_spark_source_rows": 720732,
+  "local_complete_days": 2,
+  "final_raw_policy": "full-source-row-v1",
+  "raw_commit_count": 12,
+  "raw_commits": [
+    {
+      "dataset": "source_rows",
+      "digest": "98c74bfda376ca5f0a3fba17b5a0d350ff69c72eca36946c950161fea3bf1630",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000000",
+      "observation_ids": [
+        "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "da305be499d58d74b081844501628c8c9ae93c4ae6473e7c7ff9d1db7b4df91a",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000001",
+      "observation_ids": [
+        "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "13bd16e608f15600d22123aad42f168f41f63821749808cd925bb79e67374308",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000002",
+      "observation_ids": [
+        "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "acb6bda57b47e1eeaa19f0a4e06d60075e393aab67403b9278869163d095295f",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000003",
+      "observation_ids": [
+        "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "95ed15e774c284a15985734e1577a56f1bad47363d3eac4174da52acb46aa676",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000004",
+      "observation_ids": [
+        "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "bbed7236cb291314352cd2ac44d44cefe865a36b1a22b2a2695d751337a5e197",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000005",
+      "observation_ids": [
+        "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907"
+      ],
+      "rows": 32826
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "96737d02f1d9e3c18a7051ddc78945827ee68206677da0d42a87d7b79f9b01b5",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000006",
+      "observation_ids": [
+        "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "f5c66453cd49dff6040852213f8395e6428a5b706e029d5b516e47d1b7c7226c",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000007",
+      "observation_ids": [
+        "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "3faab939de811e7ee6bce059ecd782e0e3c4ae98a7cff261047844194f90ead3",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000008",
+      "observation_ids": [
+        "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "3d264d05cd026b5baca55f104ba6d9e193f5b7f2c1ed84f2d571525eb2786eb0",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000009",
+      "observation_ids": [
+        "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "d905df336e5459892699519386b97da99c6b1682a6b9bc705a3db1738f1e804d",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000010",
+      "observation_ids": [
+        "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246"
+      ],
+      "rows": 65536
+    },
+    {
+      "dataset": "source_rows",
+      "digest": "7885c63dca7f93410ea8371228ca92e28fe9be8051abe91f9dbd6c14be039ff4",
+      "digest_policy": "full-source-row-v1",
+      "format_version": "rpki-1.0",
+      "identity": "00000000-0000-4000-8000-000000000031/00000000000000000011",
+      "observation_ids": [
+        "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246"
+      ],
+      "rows": 32546
+    }
+  ],
+  "missing_source_coordinates_local": 0,
+  "unexpected_source_coordinates_local": 0,
+  "validation": "exact bidirectional source-coordinate/member-map anti-joins before completion",
+  "physical_delivery_duplicates": "owned fixture tested; real Kafka NOT_RUN"
+}

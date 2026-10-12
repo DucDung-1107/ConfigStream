@@ -1,0 +1,51 @@
+{
+  "decision": "PARTIAL — BOUNDED REAL-DATA STAGES VALIDATED",
+  "starting_commit": "2d5772db73feba03376572f7dc6d9ef000112697",
+  "code_commit": null,
+  "maximum_validated_pipeline_stage": "D_LOCAL_SPARK_PARQUET_ONLY",
+  "independent_oracle_days": 14,
+  "committed_local_days": 2,
+  "service_pipeline_days": 0,
+  "matrix": {
+    "source_integrity": "PASS",
+    "independent_raw_accounting": "PASS",
+    "independent_membership_sets_14d": "PASS",
+    "local_pipeline_membership_2d": "PASS",
+    "owned_completeness_tests": "PASS",
+    "pipeline_complete_14d": "NOT_RUN",
+    "oracle_boundaries_13_actions_12016": "PASS",
+    "local_boundary_1_actions_1154": "PASS",
+    "local_reconstruction_2d": "PASS",
+    "kafka_live": "NOT_RUN",
+    "spark_bounded_local": "PASS",
+    "minio_live": "NOT_RUN",
+    "live_recovery": "NOT_RUN",
+    "resource_safety": "PASS",
+    "service_free_compatibility": "PASS",
+    "academic_integrity": "PASS"
+  },
+  "validation": {
+    "baseline_unit": 909,
+    "final_unit": 941,
+    "new_unit": 32,
+    "api": 80,
+    "baseline_spark": 63,
+    "final_spark": 68,
+    "new_spark": 5,
+    "total_service_free_passed": 1089,
+    "live_service_passed": 0,
+    "live_service_skipped": 1,
+    "lint": "PASS",
+    "format": "PASS",
+    "ci": "PENDING_PUSH"
+  },
+  "open_gates": [
+    "actual owned Kafka/MinIO conditional-write and checkpoint interruption smoke",
+    "one, two then fourteen complete service days and exact identity/reconstruction oracles",
+    "measured container memory/disk and Kafka retention",
+    "archive-specific redistribution permission; raw publication prohibited meanwhile",
+    "instructor approval not evidenced"
+  ],
+  "phase18_started": false,
+  "phase18_readiness": "NOT_READY_FULL_PHASE17_ACCEPTANCE_PENDING"
+}

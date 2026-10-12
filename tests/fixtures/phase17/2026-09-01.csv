@@ -1,0 +1,5 @@
+URI,ASN,IP Prefix,Max Length,Not Before,Not After
+fixture:a,AS64500,192.0.2.0/24,24,owned,owned
+fixture:b,AS64501,198.51.100.0/24,24,owned,owned
+fixture:c,AS64500,192.0.2.0/24,24,owned,owned
+fixture:d,AS64502,2001:db8::/32,48,owned,owned

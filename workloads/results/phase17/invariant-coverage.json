@@ -1,0 +1,77 @@
+{
+  "invariants": [
+    {
+      "id": "I1",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_ORACLE_14D_LOCAL_2D",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "remote provenance publication pending"
+    },
+    {
+      "id": "I2",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_LOCAL_SOURCE_RECONCILIATION_2D",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "real Kafka redelivery pending"
+    },
+    {
+      "id": "I3",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_OBSERVATIONS_ORACLE_14D",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "live raw occurrence retries pending"
+    },
+    {
+      "id": "I4",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_LOCAL_COMPLETE_2D",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "fourteen-day service completion and upstream coverage not established"
+    },
+    {
+      "id": "I5",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_DAILY_DATE_SEMANTICS",
+      "services": "NOT_RUN",
+      "status": "PASS_OFFLINE",
+      "limitation": "dates are not action timestamps"
+    },
+    {
+      "id": "I6",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_LOCAL_COMMITTED_READS_2D",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "MinIO conditional publication pending"
+    },
+    {
+      "id": "I7",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_SQL_14D_SPARK_2D",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "fourteen-day committed service reconstruction pending"
+    },
+    {
+      "id": "I8",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_ORACLE_NO_EXCLUSIONS",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "live malformed-input fault ledger pending"
+    },
+    {
+      "id": "I9",
+      "offline": "PASS_OFFLINE",
+      "real_data": "PASS_941_UNIT_80_API_68_SPARK",
+      "services": "NOT_RUN",
+      "status": "PARTIAL",
+      "limitation": "legacy live service regressions pending"
+    }
+  ],
+  "claims": "bounded evidence only; no global exactly-once or full multi-dataset validation"
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS_INDEPENDENT_ORACLE",
+  "window_days": 14,
+  "rows": 5062923,
+  "canonical_state_observations": 5062923,
+  "actions": 12016,
+  "reconstruction_days": 14,
+  "fresh_first_pass": {
+    "external_wall_seconds": 66.06,
+    "parent_max_rss_bytes": 142458880,
+    "includes_raw_source_coordinate_exports": false
+  },
+  "resumed_export_pass": {
+    "external_wall_seconds": 67.23,
+    "parent_max_rss_bytes": 145604608,
+    "includes_raw_source_coordinate_exports": true,
+    "brief_fixture_test_overlap": true
+  },
+  "member_parquet": {
+    "parquet_files": 14,
+    "parquet_bytes": 443213860
+  },
+  "source_map_parquet": {
+    "parquet_files": 14,
+    "parquet_bytes": 81907245
+  },
+  "sqlite_bytes": 358998016,
+  "matched_performance_comparison": false,
+  "limitations": [
+    "different output projections and recovery/transport work",
+    "first/resumed runs are not summed into a fresh end-to-end runtime",
+    "shared ipaddress library",
+    "no RPKI cryptographic revalidation"
+  ]
+}

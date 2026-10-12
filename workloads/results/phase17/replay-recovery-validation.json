@@ -1,0 +1,114 @@
+{
+  "owned_offline": "PASS",
+  "actual_local_file_stream_commit_before_checkpoint_restart": "PASS_OFFLINE",
+  "real_source_two_day_exactness": "PASS_LOCAL_SPARK",
+  "actual_kafka_minio_fault_injection": "NOT_RUN",
+  "service_smoke_tests_passed": 0,
+  "service_smoke_tests_skipped": 1,
+  "cases": [
+    {
+      "scenario": "missing source file",
+      "offline": "PASS",
+      "live_services": "N/A"
+    },
+    {
+      "scenario": "wrong source SHA256",
+      "offline": "PASS",
+      "live_services": "N/A"
+    },
+    {
+      "scenario": "corrupt verified CSV row",
+      "offline": "PASS",
+      "live_services": "N/A"
+    },
+    {
+      "scenario": "duplicate source delivery",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "duplicate canonical member same day",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "same member different days",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "missing final chunk",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "wrong completion count",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "wrong state digest",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "nonconsecutive days",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "scope mismatch",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "validation regime mismatch",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "same-day revised source",
+      "offline": "PASS",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "Spark restart mid-source",
+      "offline": "PASS_LOCAL_FILE_SOURCE",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "retry committed batch",
+      "offline": "PASS_LOCAL_STORE",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "partial output without manifest",
+      "offline": "PASS_LOCAL_STORE",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "commit before checkpoint acknowledgment",
+      "offline": "PASS_LOCAL_FILE_SOURCE",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "query incomplete day",
+      "offline": "PASS_LOCAL_STORE",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "missing reconstruction boundary",
+      "offline": "PASS_LOCAL_STORE",
+      "live_services": "NOT_RUN"
+    },
+    {
+      "scenario": "configuration regression",
+      "offline": "PASS_SERVICE_FREE",
+      "live_services": "NOT_RUN"
+    }
+  ],
+  "retained_failures": [
+    "initial local full-day callback exceeded 512 chunks; fixed bounded caller without changing guard",
+    "pre-release private raw ledgers lack final digest policy and remain unaccepted by final reader"
+  ]
+}

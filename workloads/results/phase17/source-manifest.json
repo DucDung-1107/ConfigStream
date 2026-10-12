@@ -1,0 +1,136 @@
+{
+  "version": "phase17-source-v1",
+  "selection": "workloads/results/dataset-feasibility/rpki.json",
+  "selection_sha256": "531af9f6f69193cec55f702f86a141ec7de8194ca4c45d4792fe51b3906fbbb3",
+  "scope": "ripencc.tal",
+  "window": [
+    "2026-09-01",
+    "2026-09-14"
+  ],
+  "artifacts": [
+    {
+      "artifact_bytes": 4539704,
+      "elapsed_seconds": 2.79508837510366,
+      "file": "rpki-ripencc.tal-2026-09-01.xz",
+      "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4542816,
+      "elapsed_seconds": 3.194571000058204,
+      "file": "rpki-ripencc.tal-2026-09-02.xz",
+      "sha256": "00d18cf59171b0cfb2162f731671fa933bc38db9bce73406fc26ef12482b7f4b",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/02/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4547932,
+      "elapsed_seconds": 3.746136875008233,
+      "file": "rpki-ripencc.tal-2026-09-03.xz",
+      "sha256": "f7387c8ef336baa5e1c423ae8b4502c1292bdd0e01cc691959c40c6229f12617",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/03/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4550592,
+      "elapsed_seconds": 3.148233790998347,
+      "file": "rpki-ripencc.tal-2026-09-04.xz",
+      "sha256": "1cdabfcbdfec0b5f089f8ddeb792cb8de8179b001e10dcbeb450acac9954d4fa",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/04/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4554096,
+      "elapsed_seconds": 3.6368534170323983,
+      "file": "rpki-ripencc.tal-2026-09-05.xz",
+      "sha256": "89a54df84b61e67a48ad989d687bcb83a0ff69917d174fe78599db0b7b1d3175",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/05/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4554080,
+      "elapsed_seconds": 3.509863582905382,
+      "file": "rpki-ripencc.tal-2026-09-06.xz",
+      "sha256": "d3500f62a1265cd77b851841275c309116eb6c050527ad6ea65ff58cfd4773ce",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/06/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4554012,
+      "elapsed_seconds": 2.9561110410140827,
+      "file": "rpki-ripencc.tal-2026-09-07.xz",
+      "sha256": "e9a06b939e1acfe43ec647713f3e04000279fe29f684502206da9b4109ea29ce",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/07/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4556572,
+      "elapsed_seconds": 5.013290749979205,
+      "file": "rpki-ripencc.tal-2026-09-08.xz",
+      "sha256": "1c6f6879fbe324b63c4f5d2154d0b429056ca4f25be46a8149ea59cc977ae91d",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/08/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4561892,
+      "elapsed_seconds": 4.022418125066906,
+      "file": "rpki-ripencc.tal-2026-09-09.xz",
+      "sha256": "cdda33fa68468d321d1f6fbdcb70615f3dfef2917a7e08fe7aeab6ffacc1363d",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/09/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4567992,
+      "elapsed_seconds": 2.973265041015111,
+      "file": "rpki-ripencc.tal-2026-09-10.xz",
+      "sha256": "e4202bc034e1a80a76b063c3e0fcf37afc9bc1a5e2e23fb92f6259ac8a1a41ea",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/10/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4569604,
+      "elapsed_seconds": 3.7950768340379,
+      "file": "rpki-ripencc.tal-2026-09-11.xz",
+      "sha256": "ffbfea657639b6a8881e74adb340375a4a57f677411509930d166c9f0fc7c270",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/11/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4572800,
+      "elapsed_seconds": 5.840470999944955,
+      "file": "rpki-ripencc.tal-2026-09-12.xz",
+      "sha256": "ab1a52bad5fd38cd45e209bb6bbe465a31daac942d7846e9d46f0d01ea51e987",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/12/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4574016,
+      "elapsed_seconds": 3.1835537500446662,
+      "file": "rpki-ripencc.tal-2026-09-13.xz",
+      "sha256": "7ed8e0aa02d728a2e8c9133b5dbb3170688fcaaaab50a6f0a8c01ed683d2d829",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/13/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    },
+    {
+      "artifact_bytes": 4570880,
+      "elapsed_seconds": 8.313062083092518,
+      "file": "rpki-ripencc.tal-2026-09-14.xz",
+      "sha256": "8a68c6da20ab45b62188e5f66f1cfa33e5c3c3569706a672c1f6f8ab08bbfabd",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/14/roas.csv.xz",
+      "verification": "SHA256_AND_SIZE_PASS"
+    }
+  ],
+  "integrity": "PASS_INDEPENDENT_ORACLE",
+  "compressed_bytes": 63816988,
+  "logical_csv_bytes": 909372097,
+  "new_download_bytes": 0,
+  "publisher_documentation": "https://github.com/RIPE-NCC/internet-dataset-descriptions/blob/main/rpki-repo-archive.md",
+  "terms": "https://www.ripe.net/about-us/legal/copyright-statement/",
+  "use": "private bounded research with attribution; no raw redistribution",
+  "archive_specific_redistribution_permission": "UNRESOLVED",
+  "validator_build_for_window": "UNKNOWN",
+  "parser": "rpki-csv-v1",
+  "canonicalization": "membership-v1",
+  "counting_policy": "csv-data-rows-v1"
+}

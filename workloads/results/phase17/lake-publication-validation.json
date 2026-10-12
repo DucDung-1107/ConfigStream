@@ -1,0 +1,48 @@
+{
+  "physical_registry_version": "rpki-1.0",
+  "controlled_amendments": [
+    "P17-2026-10-12-RPKI-MEMBERS",
+    "P17-ID-v1"
+  ],
+  "legacy_paths_modified": false,
+  "local_committed_visibility": "PASS_OFFLINE",
+  "actual_minio_conditional_writes": "NOT_RUN",
+  "actual_kafka_checkpoint_failure": "NOT_RUN",
+  "daily_completion_separate_from_batch_commit": true,
+  "single_writer": true,
+  "global_exactly_once_claim": false,
+  "local_parquet": {
+    "final_raw_ledger": {
+      "parquet_files": 96,
+      "parquet_bytes": 164369346
+    },
+    "canonical_members": {
+      "parquet_files": 16,
+      "parquet_bytes": 69888316
+    },
+    "transitions": {
+      "parquet_files": 4,
+      "parquet_bytes": 205191
+    }
+  },
+  "local_commit_descriptors": [
+    {
+      "dataset": "members",
+      "digest": "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+      "format_version": "rpki-1.0",
+      "identity": "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246",
+      "rows": 360226,
+      "source_map_digest": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "source_rows": 360226
+    },
+    {
+      "dataset": "members",
+      "digest": "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+      "format_version": "rpki-1.0",
+      "identity": "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907",
+      "rows": 360506,
+      "source_map_digest": "b948bcc0d340c7d846975f63097767f0394a88194136a78887b72684a222e6b9",
+      "source_rows": 360506
+    }
+  ]
+}
