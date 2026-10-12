@@ -1,0 +1,357 @@
+{
+  "actions": {
+    "announcement": 4462391,
+    "withdrawal": 262765
+  },
+  "artifacts": [
+    {
+      "artifact_bytes": 6043608,
+      "elapsed_seconds": 0.004745875019580126,
+      "file": "updates.20260901.0000.gz",
+      "sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0000.gz"
+    },
+    {
+      "artifact_bytes": 6232506,
+      "elapsed_seconds": 0.003736541955731809,
+      "file": "updates.20260901.0005.gz",
+      "sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0005.gz"
+    },
+    {
+      "artifact_bytes": 8120390,
+      "elapsed_seconds": 0.005178124993108213,
+      "file": "updates.20260901.0010.gz",
+      "sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0010.gz"
+    },
+    {
+      "artifact_bytes": 5659629,
+      "elapsed_seconds": 0.004538917099125683,
+      "file": "updates.20260901.0015.gz",
+      "sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0015.gz"
+    },
+    {
+      "artifact_bytes": 5608308,
+      "elapsed_seconds": 0.004275041981600225,
+      "file": "updates.20260901.0020.gz",
+      "sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0020.gz"
+    },
+    {
+      "artifact_bytes": 5775548,
+      "elapsed_seconds": 0.004510833998210728,
+      "file": "updates.20260901.0025.gz",
+      "sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0025.gz"
+    },
+    {
+      "artifact_bytes": 5665617,
+      "elapsed_seconds": 0.0040903749177232385,
+      "file": "updates.20260901.0030.gz",
+      "sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0030.gz"
+    },
+    {
+      "artifact_bytes": 5735161,
+      "elapsed_seconds": 0.004219374968670309,
+      "file": "updates.20260901.0035.gz",
+      "sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0035.gz"
+    },
+    {
+      "artifact_bytes": 6060591,
+      "elapsed_seconds": 0.003900208044797182,
+      "file": "updates.20260901.0040.gz",
+      "sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0040.gz"
+    },
+    {
+      "artifact_bytes": 7101041,
+      "elapsed_seconds": 0.0046348749892786145,
+      "file": "updates.20260901.0045.gz",
+      "sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0045.gz"
+    },
+    {
+      "artifact_bytes": 5882329,
+      "elapsed_seconds": 0.003827792010270059,
+      "file": "updates.20260901.0050.gz",
+      "sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0050.gz"
+    },
+    {
+      "artifact_bytes": 5886568,
+      "elapsed_seconds": 0.004756083013489842,
+      "file": "updates.20260901.0055.gz",
+      "sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0055.gz"
+    }
+  ],
+  "bgp_update_messages": 2291545,
+  "candidate": "D1",
+  "collector": "rrc00",
+  "duplicate_fingerprints": 118172,
+  "elapsed_seconds": 98.72533120808657,
+  "events_per_minute": [
+    [
+      1788220800,
+      131108
+    ],
+    [
+      1788220860,
+      53630
+    ],
+    [
+      1788220920,
+      63090
+    ],
+    [
+      1788220980,
+      69888
+    ],
+    [
+      1788221040,
+      52425
+    ],
+    [
+      1788221100,
+      123592
+    ],
+    [
+      1788221160,
+      68062
+    ],
+    [
+      1788221220,
+      88890
+    ],
+    [
+      1788221280,
+      58892
+    ],
+    [
+      1788221340,
+      91607
+    ],
+    [
+      1788221400,
+      129374
+    ],
+    [
+      1788221460,
+      126543
+    ],
+    [
+      1788221520,
+      60497
+    ],
+    [
+      1788221580,
+      127969
+    ],
+    [
+      1788221640,
+      58280
+    ],
+    [
+      1788221700,
+      55166
+    ],
+    [
+      1788221760,
+      51033
+    ],
+    [
+      1788221820,
+      125875
+    ],
+    [
+      1788221880,
+      49153
+    ],
+    [
+      1788221940,
+      42262
+    ],
+    [
+      1788222000,
+      46628
+    ],
+    [
+      1788222060,
+      91278
+    ],
+    [
+      1788222120,
+      83723
+    ],
+    [
+      1788222180,
+      47123
+    ],
+    [
+      1788222240,
+      64434
+    ],
+    [
+      1788222300,
+      56251
+    ],
+    [
+      1788222360,
+      163475
+    ],
+    [
+      1788222420,
+      50309
+    ],
+    [
+      1788222480,
+      52503
+    ],
+    [
+      1788222540,
+      46283
+    ],
+    [
+      1788222600,
+      64711
+    ],
+    [
+      1788222660,
+      133713
+    ],
+    [
+      1788222720,
+      66392
+    ],
+    [
+      1788222780,
+      47980
+    ],
+    [
+      1788222840,
+      43119
+    ],
+    [
+      1788222900,
+      137023
+    ],
+    [
+      1788222960,
+      44399
+    ],
+    [
+      1788223020,
+      41605
+    ],
+    [
+      1788223080,
+      58414
+    ],
+    [
+      1788223140,
+      59077
+    ],
+    [
+      1788223200,
+      145791
+    ],
+    [
+      1788223260,
+      46305
+    ],
+    [
+      1788223320,
+      87022
+    ],
+    [
+      1788223380,
+      65887
+    ],
+    [
+      1788223440,
+      67726
+    ],
+    [
+      1788223500,
+      132474
+    ],
+    [
+      1788223560,
+      60521
+    ],
+    [
+      1788223620,
+      57767
+    ],
+    [
+      1788223680,
+      72204
+    ],
+    [
+      1788223740,
+      139495
+    ],
+    [
+      1788223800,
+      49753
+    ],
+    [
+      1788223860,
+      66942
+    ],
+    [
+      1788223920,
+      69822
+    ],
+    [
+      1788223980,
+      69717
+    ],
+    [
+      1788224040,
+      181868
+    ],
+    [
+      1788224100,
+      89083
+    ],
+    [
+      1788224160,
+      70648
+    ],
+    [
+      1788224220,
+      56816
+    ],
+    [
+      1788224280,
+      120953
+    ],
+    [
+      1788224340,
+      48586
+    ]
+  ],
+  "events_per_second_fixed_hour": 1312.5433333333333,
+  "failures": [],
+  "first_epoch": 1788220800,
+  "last_epoch": 1788224399,
+  "logical_mrt_bytes": 427068595,
+  "mrt_records": 2300578,
+  "out_of_order_messages": 0,
+  "parse_error_categories": {
+    "Insufficient buffer 0 < 1 byte": 57
+  },
+  "parse_errors": 57,
+  "parser": "mrtparse==2.2.0/feasibility-v1",
+  "peak_events_minute": 181868,
+  "prefix_events": 4725156,
+  "unique_peers": 98,
+  "unique_prefixes": 211670,
+  "unit": "peer-specific unicast NLRI announcement/withdrawal; not config edits",
+  "window": "2026-09-01T00:00:00Z/2026-09-01T01:00:00Z"
+}

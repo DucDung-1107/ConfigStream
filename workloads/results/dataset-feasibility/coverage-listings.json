@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://archive.routeviews.org/bgpdata/",
+    "http_status": 200,
+    "first_directory": "2001.10/",
+    "last_directory": "2026.11/",
+    "entries": 302
+  },
+  {
+    "url": "https://archive.routeviews.org/route-views2/bgpdata/",
+    "http_status": 200,
+    "first_directory": "2001.10/",
+    "last_directory": "2026.11/",
+    "entries": 302
+  },
+  {
+    "url": "https://ftp.ripe.net/rpki/ripencc.tal/2011/01/",
+    "http_status": 200,
+    "first_directory": "21/",
+    "last_directory": "31/",
+    "entries": 11
+  },
+  {
+    "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/10/",
+    "http_status": 200,
+    "first_directory": "01/",
+    "last_directory": "11/",
+    "entries": 11
+  }
+]

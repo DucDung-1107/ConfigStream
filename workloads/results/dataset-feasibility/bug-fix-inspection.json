@@ -1,0 +1,83 @@
+{
+  "records": [
+    {
+      "after_sha": "05a2cd9e34ac56fb9a2299e2be13fa2ffb39fcee",
+      "before_sha": "b4b32063edbfff57ca712e2395a644382eb72e4b",
+      "changed_files": 5,
+      "content_recovered": 0,
+      "extensions": [
+        ".py"
+      ],
+      "fix_url": "https://github.com/theforeman/foreman-ansible-modules/pull/42",
+      "iac_extension_candidates": 0,
+      "license": "GPL-3.0",
+      "note": "Extension candidates include tests and CI; not automatically deployment IaC.",
+      "ordinal": 0,
+      "repository": "theforeman/foreman-ansible-modules"
+    },
+    {
+      "after_sha": "04b6e3b08988c0750f875521b3eda87f40972bc5",
+      "before_sha": "5baf4a4495aebda69d1b2e74d2ff6700b1b70c83",
+      "changed_files": 3,
+      "content_recovered": 0,
+      "extensions": [
+        ".py",
+        ".yaml"
+      ],
+      "fix_url": "https://github.com/ansible-collections/vyos.vyos/pull/258",
+      "iac_extension_candidates": 1,
+      "license": "GPL-3.0",
+      "note": "Extension candidates include tests and CI; not automatically deployment IaC.",
+      "ordinal": 1,
+      "repository": "ansible-collections/vyos.vyos"
+    },
+    {
+      "after_sha": "6747f8cbdb9083d3cba46c2d0942bf96530e919e",
+      "before_sha": "ec6d00dfb1907c87b6d287d5af45660d0ca17b43",
+      "changed_files": 3,
+      "content_recovered": 0,
+      "extensions": [
+        ".ps1",
+        ".yml"
+      ],
+      "fix_url": "https://github.com/ansible-collections/ansible.windows/pull/373",
+      "iac_extension_candidates": 2,
+      "license": "GPL-3.0",
+      "note": "Extension candidates include tests and CI; not automatically deployment IaC.",
+      "ordinal": 2,
+      "repository": "ansible-collections/ansible.windows"
+    },
+    {
+      "after_sha": "123d83867f2ac482acb6f98b82c0f03b07e0aeea",
+      "before_sha": "dd24c98fe53e902165aeffd86e94b6c97364dcc9",
+      "changed_files": 3,
+      "content_recovered": 0,
+      "extensions": [
+        ".py",
+        ".yaml"
+      ],
+      "fix_url": "https://github.com/ansible-collections/community.general/pull/4813",
+      "iac_extension_candidates": 1,
+      "license": "GPL-3.0",
+      "note": "Extension candidates include tests and CI; not automatically deployment IaC.",
+      "ordinal": 3,
+      "repository": "ansible-collections/community.general"
+    },
+    {
+      "after_sha": "0118bf0cb9256637684db3f18cbd012d3851065e",
+      "before_sha": "a994a58b23f22269e91e3611772105296538fe09",
+      "changed_files": 1,
+      "content_recovered": 0,
+      "extensions": [
+        ".py"
+      ],
+      "fix_url": "https://github.com/ansible-collections/ansible.posix/commit/0118bf0cb9256637684db3f18cbd012d3851065e",
+      "iac_extension_candidates": 0,
+      "license": "NOASSERTION",
+      "note": "Extension candidates include tests and CI; not automatically deployment IaC.",
+      "ordinal": 4,
+      "repository": "ansible-collections/ansible.posix"
+    }
+  ],
+  "selection": "first five rows at pinned artifact revision; no replacement"
+}

@@ -1,0 +1,41 @@
+{
+  "candidate": "A5",
+  "policy": "First five CSV fixes; first extension candidate each; no replacement; both bodies filtered; no raw content redistribution or execution",
+  "records": [
+    {
+      "ordinal": 0,
+      "status": "no_iac_extension"
+    },
+    {
+      "artifacts": [],
+      "categories": [],
+      "license": "GPL-3.0",
+      "note": "Extension does not prove deployment IaC; tests/changelogs included.",
+      "ordinal": 1,
+      "path_hash": "795c7c0fd92cea26dcde536ba6c0d6b9d9450ef1485218edd446115a2427aae4",
+      "status": "retrieval_failed"
+    },
+    {
+      "artifacts": [],
+      "categories": [],
+      "license": "GPL-3.0",
+      "note": "Extension does not prove deployment IaC; tests/changelogs included.",
+      "ordinal": 2,
+      "path_hash": "10006952c8df11d08ab037f1edff538d265fcc29180ac28585ea96f30208b26e",
+      "status": "retrieval_failed"
+    },
+    {
+      "artifacts": [],
+      "categories": [],
+      "license": "GPL-3.0",
+      "note": "Extension does not prove deployment IaC; tests/changelogs included.",
+      "ordinal": 3,
+      "path_hash": "ffaf38f47839e8c7c2378dc14b812a1cf1d4992b324db549c15ac521eb77cda2",
+      "status": "retrieval_failed"
+    },
+    {
+      "ordinal": 4,
+      "status": "license_unknown"
+    }
+  ]
+}

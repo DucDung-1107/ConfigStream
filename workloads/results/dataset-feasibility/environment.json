@@ -1,0 +1,13 @@
+{
+  "architecture": "arm64",
+  "cache_bytes": 623756307,
+  "cpu_model": "Apple M3 Pro",
+  "final_disk_free_bytes": 676387565568,
+  "initial_disk_free_approx_gib": 632,
+  "logical_cores": 12,
+  "network_limit": "No measured bandwidth cap; exact transferred bytes unknown due to retries/duplicate Helm download",
+  "os": "macOS-27.0-arm64-arm-64bit",
+  "policy": "20 GiB reserve; new unique data ~0.6GB; no paid service or project services started",
+  "python": "3.12.14",
+  "ram_bytes": 19327352832
+}

@@ -1,0 +1,1155 @@
+{
+  "candidates": [
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high measured static",
+      "coverage": "Public Terraform repositories; advertised January 2026 cutoff",
+      "decision": "BASELINE_ONLY",
+      "effort": "reuse",
+      "entity": "repository + .tf path at pinned SHA",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "nested tar.gz + SQLite",
+      "historical_content_type": [
+        "T0"
+      ],
+      "id": "A1",
+      "license": "CC-BY-4.0 artifact; individual repository licenses differ",
+      "measured": {
+        "changes": null,
+        "entities": 1513378,
+        "logical_bytes": 2601501820,
+        "unit": "current .tf files"
+      },
+      "name": "TerraDS v2 static corpus",
+      "publication_date": "2026-05-26",
+      "publisher": "B\u00fchler, Spielmann, Meier, Salvaneschi / Zenodo",
+      "raw_artifact_bytes": [],
+      "reason": "Full corpus already measured in Phase 12; no static-to-temporal inference",
+      "role": "Large real static population and syntax/size baseline",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        6,
+        16,
+        14,
+        15,
+        10,
+        5,
+        7
+      ],
+      "sources": [
+        "https://zenodo.org/api/records/20339474",
+        "docs/phase12-acceptance.md",
+        "workloads/results/terrads/static-summary.json"
+      ],
+      "temporal": [
+        "T0"
+      ],
+      "timestamp": "pinned Git end revision metadata; static archive is not a change stream",
+      "total_score": 73,
+      "url": "https://zenodo.org/records/20339474",
+      "version": "v2 / 20339474"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high observed; estimates conditional",
+      "coverage": "Deterministic stratified 500-repository sample; failures retained",
+      "decision": "PRIMARY_CANDIDATE",
+      "effort": "reuse",
+      "entity": "repository + .tf path incarnation",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "ConfigSnapshot JSONL cache + safe summaries / provenance",
+      "historical_content_type": [
+        "T2"
+      ],
+      "id": "A2",
+      "license": "Permissive source licenses filtered at pinned end SHA",
+      "measured": {
+        "changes": 3683,
+        "end": "2026-02-12T04:15:32+00:00",
+        "entities": 6505,
+        "logical_bytes": 12278085,
+        "records": 10188,
+        "start": "2015-04-14T22:45:51+00:00",
+        "unit": "file incarnations / Git adjacent pairs"
+      },
+      "name": "TerraDS observed Git sample",
+      "publication_date": "2026-10-11",
+      "publisher": "ConfigStream Phase 12 / sampled repository owners",
+      "raw_artifact_bytes": [],
+      "reason": "Already replayed and adjacency-validated; complements new policy/state/events rather than claiming natural high frequency",
+      "role": "Direct configuration-history control and sparse temporal baseline",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        19,
+        7,
+        15,
+        15,
+        10,
+        9,
+        8
+      ],
+      "sources": [
+        "docs/phase12-acceptance.md",
+        "workloads/results/terrads/history-summary.json",
+        "workloads/results/terrads/sample-manifest.json"
+      ],
+      "temporal": [
+        "T2"
+      ],
+      "timestamp": "Git committer UTC; extraction ordinal is not Terraform version",
+      "total_score": 83,
+      "url": "https://github.com/kongwoang/ConfigStream",
+      "version": "e5cb3601c73d37feae384bd9eb6303e8e319a4d4"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high observed",
+      "coverage": "Curated parser/test and application configuration scope, not deployed devices",
+      "decision": "BASELINE_ONLY",
+      "effort": "reuse",
+      "entity": "repository + path incarnation",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "Git objects / compatible snapshots / sidecars",
+      "historical_content_type": [
+        "T2"
+      ],
+      "id": "A3",
+      "license": "Pinned scope-specific FRR license evidence; NGINX BSD-2-Clause",
+      "measured": {
+        "changes": 619,
+        "end": "2026-10-08T12:18:36+00:00",
+        "entities": 1906,
+        "logical_bytes": 1133998,
+        "records": 2525,
+        "start": "2020-09-09T16:26:27+00:00",
+        "unit": "file incarnations / Git adjacent pairs"
+      },
+      "name": "FRRouting and NGINX observed histories",
+      "publication_date": "2026-10-11",
+      "publisher": "FRRouting / NGINX / ConfigStream Phase 11",
+      "raw_artifact_bytes": [],
+      "reason": "Small sparse public history; retain negative evidence",
+      "role": "Historical cross-domain reference",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        18,
+        4,
+        14,
+        15,
+        10,
+        4,
+        8
+      ],
+      "sources": [
+        "https://github.com/nginx/nginx",
+        "workloads/manifests/real-history/frr.json",
+        "workloads/manifests/real-history/nginx.json",
+        "workloads/results/real-history/observed-summary.json"
+      ],
+      "temporal": [
+        "T2"
+      ],
+      "timestamp": "Git committer UTC",
+      "total_score": 73,
+      "url": "https://github.com/FRRouting/frr",
+      "version": "FRR c4e94c4aaa4f4562313b4a168f91211afc3bcba2; NGINX 2b5c2b605b5df669da5dec6749dcc76c07d1315d"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high measured selected corpus",
+      "coverage": "Cisco IOS-style selected public parser/lab fixtures",
+      "decision": "BASELINE_ONLY",
+      "effort": "reuse",
+      "entity": "selected original path / baseline hash",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "configuration text in Git archive",
+      "historical_content_type": [
+        "T0"
+      ],
+      "id": "A4",
+      "license": "Apache-2.0",
+      "measured": null,
+      "name": "Batfish curated configuration baselines",
+      "publication_date": null,
+      "publisher": "Batfish",
+      "raw_artifact_bytes": [],
+      "reason": "Static educational fixtures, not natural production histories",
+      "role": "Network syntax correctness and controlled mutation baseline",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        5,
+        2,
+        15,
+        14,
+        10,
+        3,
+        9
+      ],
+      "sources": [
+        "workloads/manifests/batfish-measured.json",
+        "https://github.com/batfish/batfish/blob/540a4644e0245adffc5d51ec911411a5cd09aa0d/LICENSE"
+      ],
+      "temporal": [
+        "T0"
+      ],
+      "timestamp": "retrieval is not change time",
+      "total_score": 58,
+      "url": "https://github.com/batfish/batfish",
+      "version": "540a4644e0245adffc5d51ec911411a5cd09aa0d"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high artifact; conditional content",
+      "coverage": "Ecosystem repository lists and bug-selected issue/fix links",
+      "decision": "SECONDARY_CANDIDATE",
+      "effort": "small bounded recovery",
+      "entity": "repository + changed IaC path",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "CSV links and classified bug rows; upstream PR/commit API",
+      "historical_content_type": [
+        "T1"
+      ],
+      "id": "A5",
+      "license": "MIT artifact; upstream content licenses require separate checks",
+      "measured": null,
+      "name": "IaC Bug Study (Ansible, Puppet, Chef)",
+      "publication_date": "2024-10-15",
+      "publisher": "Drosos et al. / OOPSLA 2024",
+      "raw_artifact_bytes": [
+        92799,
+        1683290,
+        136466,
+        163437,
+        481981
+      ],
+      "reason": "Bug-selected, not unbiased frequency; content must be recovered and checked separately",
+      "role": "Real fix taxonomy; conditional before/after retrieval",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        12,
+        6,
+        12,
+        15,
+        9,
+        7,
+        7
+      ],
+      "sources": [
+        "https://github.com/gdrosos/iac-bug-study-artifact/blob/994c6efd581f1802b578a61feb5c774d93aed44d/README.md"
+      ],
+      "temporal": [
+        "T1"
+      ],
+      "timestamp": "issue/PR metadata does not itself establish file-version time",
+      "total_score": 68,
+      "url": "https://github.com/gdrosos/iac-bug-study-artifact",
+      "version": "994c6efd581f1802b578a61feb5c774d93aed44d"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high CSV; conditional history",
+      "coverage": "Published repository cohort and feature/commit evolution CSV",
+      "decision": "SECONDARY_CANDIDATE",
+      "effort": "bounded upstream recovery",
+      "entity": "repository + compose path",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "CSV commit hashes / change categories; no bundled Git mirror verified",
+      "historical_content_type": [
+        "T1"
+      ],
+      "id": "A6",
+      "license": "No root license found at pinned revision; original source licenses separate",
+      "measured": null,
+      "name": "Docker Compose evolution replication",
+      "publication_date": "2021-07-18",
+      "publisher": "SAILResearch / Ibrahim et al.",
+      "raw_artifact_bytes": [
+        6263643,
+        2107369,
+        776020
+      ],
+      "reason": "Useful evolution metadata but licensing and upstream recovery limit readiness",
+      "role": "Longitudinal application configuration methodology",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        12,
+        7,
+        10,
+        15,
+        9,
+        5,
+        3
+      ],
+      "sources": [
+        "https://github.com/SAILResearch/replication-21-ibrahim-dockercompose/tree/589c1f44f277e9400ec8083a2ae8250dd6176142"
+      ],
+      "temporal": [
+        "T1"
+      ],
+      "timestamp": "CSV commit reference; Git timestamp/content require recovery",
+      "total_score": 61,
+      "url": "https://github.com/SAILResearch/replication-21-ibrahim-dockercompose",
+      "version": "589c1f44f277e9400ec8083a2ae8250dd6176142"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high artifact size; mirror contents metadata-only",
+      "coverage": "218 bare repository folders described in artifact README",
+      "decision": "SECONDARY_CANDIDATE",
+      "effort": "high download; no mirror probe",
+      "entity": "archived repository + compose path incarnation",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "repos.7z + small extraction scripts/metadata",
+      "historical_content_type": [
+        "T2"
+      ],
+      "id": "A7",
+      "license": "CC-BY-4.0 artifact; mirrored repository licenses not uniform",
+      "measured": null,
+      "name": "Docker Compose EMSE archived repositories",
+      "publication_date": "2024-02-12",
+      "publisher": "EMSE replication authors / Zenodo",
+      "raw_artifact_bytes": [
+        90734
+      ],
+      "reason": "39,003,853,032-byte mirror exceeds probe budget; random extraction from solid archive not established",
+      "role": "Recoverable archived VCS alternative",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        17,
+        10,
+        7,
+        15,
+        9,
+        5,
+        5
+      ],
+      "sources": [
+        "https://zenodo.org/api/records/10648448",
+        "https://zenodo.org/api/records/10648448/files/README.md/content"
+      ],
+      "temporal": [
+        "T2"
+      ],
+      "timestamp": "Git committer in archived objects",
+      "total_score": 68,
+      "url": "https://zenodo.org/records/10648448",
+      "version": "10648448"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high measured lists; no content inference",
+      "coverage": "Compose-containing repository list and orchestration outcome metadata",
+      "decision": "LOW_PRIORITY",
+      "effort": "metadata cheap; history mining new work",
+      "entity": "repository / orchestration path",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "repository list + execution CSV",
+      "historical_content_type": [
+        "T1"
+      ],
+      "id": "A8",
+      "license": "CC-BY-4.0 artifact; listed source licenses separate",
+      "measured": null,
+      "name": "ETH automatically orchestrable GitHub project population",
+      "publication_date": "2022-10-13",
+      "publisher": "Tobias B\u00fchler, Roland Schmid, Sandro Lutz, Laurent Vanbever / ETH",
+      "raw_artifact_bytes": [
+        11388978,
+        216350364
+      ],
+      "reason": "Larger population list alone adds no temporal contents beyond TerraDS methodology",
+      "role": "Reproducible population discovery, not archived Compose contents",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        6,
+        12,
+        13,
+        13,
+        8,
+        3,
+        6
+      ],
+      "sources": [
+        "https://zenodo.org/api/records/7194189"
+      ],
+      "temporal": [
+        "T1"
+      ],
+      "timestamp": "experiment metadata is not file history",
+      "total_score": 61,
+      "url": "https://zenodo.org/records/7194189",
+      "version": "v1 / 7194189"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high identity correction; history unverified",
+      "coverage": "Paper: 2,039 manifests, 92 repositories; security study, not an evolution archive",
+      "decision": "LOW_PRIORITY",
+      "effort": "small static artifact",
+      "entity": "repository + manifest path",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "PDF; small Figshare ZIP of analysis/source artifacts",
+      "historical_content_type": [
+        "T0",
+        "T1"
+      ],
+      "id": "A9",
+      "license": "MIT Figshare artifact; paper ACM; manifests' licenses separate",
+      "measured": null,
+      "name": "Kubernetes security-manifest study (corrected identity)",
+      "publication_date": "2023",
+      "publisher": "Rahman, Shamim, Bose, Pandita / TOSEM",
+      "raw_artifact_bytes": [],
+      "reason": "Starting URL is not the claimed manifest-evolution study; no verified longitudinal raw corpus",
+      "role": "Misconfiguration realism and corrected source attribution",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        7,
+        4,
+        11,
+        15,
+        9,
+        4,
+        6
+      ],
+      "sources": [
+        "https://figshare.com/articles/dataset/Empirical_Study_of_Security_Misconfigurations_in_Kubernetes_Manifests/17425478",
+        "https://api.figshare.com/v2/articles/17425478"
+      ],
+      "temporal": [
+        "T0",
+        "T1"
+      ],
+      "timestamp": "collection / issue-report metadata; historical content not established",
+      "total_score": 56,
+      "url": "https://vtechworks.lib.vt.edu/bitstreams/3567356d-63d6-4165-8f1d-f4ce6c5104a1/download",
+      "version": "DOI 10.1145/3579639; Figshare 17425478 v3"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high archive/schema; licensing ambiguous",
+      "coverage": "Artifact Hub chart metadata, release-version rows and content URLs",
+      "decision": "SECONDARY_CANDIDATE",
+      "effort": "medium external recovery",
+      "entity": "repository + chart name + published version",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "ZIP with gzip CSVs and nested JSON ZIP",
+      "historical_content_type": [
+        "T1"
+      ],
+      "id": "A10",
+      "license": "Zenodo CC-BY-4.0; description says data CC-BY-SA-4.0 / code GPL; resolve conflict before redistribution",
+      "measured": null,
+      "name": "Helm charts empirical replication",
+      "publication_date": "2023-01-19",
+      "publisher": "Helm empirical study authors / MSR",
+      "raw_artifact_bytes": [
+        124957819
+      ],
+      "reason": "Release metadata is richer than a static corpus but full historical chart contents not established",
+      "role": "Release evolution; content availability must be verified per version",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        11,
+        8,
+        11,
+        15,
+        8,
+        5,
+        3
+      ],
+      "sources": [
+        "https://zenodo.org/api/records/7552697"
+      ],
+      "temporal": [
+        "T1"
+      ],
+      "timestamp": "published chart release dates, not deployment times",
+      "total_score": 61,
+      "url": "https://zenodo.org/records/7552697",
+      "version": "7552697"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high provenance / TX",
+      "coverage": "Helm installations/uninstallations scripted in a research cluster",
+      "decision": "REJECTED",
+      "effort": "small parse",
+      "entity": "Kubernetes resource UID/path if present; API auditID for event",
+      "event_identity": "source timestamp/peer/resource identity and payload hash; retain multiplicity",
+      "fit": "F3",
+      "format": "raw audit log + processed headerless CSV + event-name sequence",
+      "historical_content_type": [
+        "TX"
+      ],
+      "id": "A11",
+      "license": "CC-BY-4.0",
+      "measured": null,
+      "name": "PerfSPEC Kubernetes audit/event dataset",
+      "publication_date": "2024-08-17",
+      "publisher": "hkerma / PerfSPEC IEEE TDSC",
+      "raw_artifact_bytes": [
+        4030464,
+        460086
+      ],
+      "reason": "Fails natural operational-data objective; processed events not full resource-state history",
+      "role": "Real system instrumentation, not natural production velocity",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        5,
+        4,
+        14,
+        12,
+        5,
+        3,
+        8
+      ],
+      "sources": [
+        "https://github.com/hkerma/kubernetes-event-dataset/blob/e39cc98e8b27b6862a3f32a85a17565265db36d5/README.md"
+      ],
+      "temporal": [
+        "TX"
+      ],
+      "timestamp": "API audit-stage timestamps generated by controlled actions",
+      "total_score": 51,
+      "url": "https://github.com/hkerma/kubernetes-event-dataset",
+      "version": "e39cc98e8b27b6862a3f32a85a17565265db36d5"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high tree/README; raw usage blocked pending review",
+      "coverage": "User forums/mailing lists; selected httpd 2.2.x and mysqld 5.x raw samples",
+      "decision": "LOW_PRIORITY",
+      "effort": "small with security review",
+      "entity": "sample content hash / safe original source identifier",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "text configs / metadata CSV / issue excerpts",
+      "historical_content_type": [
+        "T0"
+      ],
+      "id": "A12",
+      "license": "No root license identified; original forum/mail reuse terms vary",
+      "measured": null,
+      "name": "Apache/MySQL user configuration corpus",
+      "publication_date": "2014 collection",
+      "publisher": "Tianyin Xu and collaborators",
+      "raw_artifact_bytes": [],
+      "reason": "Small static samples, possible credentials/PII and unclear redistribution terms",
+      "role": "Real configuration-value realism",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        5,
+        2,
+        11,
+        15,
+        10,
+        3,
+        2
+      ],
+      "sources": [
+        "https://github.com/tianyin/configuration_datasets/tree/7418412ca297158690732268b39231e9c1e325b6"
+      ],
+      "temporal": [
+        "T0"
+      ],
+      "timestamp": "forum/collection timestamps not consecutive config versions",
+      "total_score": 48,
+      "url": "https://github.com/tianyin/configuration_datasets",
+      "version": "7418412ca297158690732268b39231e9c1e325b6"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high inspected README; selected not unbiased",
+      "coverage": "TerraDS-derived modules, critical-commit mining methodology, adapted/synthetic plans",
+      "decision": "ACADEMIC_REFERENCE_ONLY",
+      "effort": "small read-only inspection",
+      "entity": "selected module and cited commit",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "ZIP scripts, HCL, SQLite, generated/adapted JSON plans",
+      "historical_content_type": [
+        "T0",
+        "T1",
+        "TX"
+      ],
+      "id": "A13",
+      "license": "Apache-2.0 artifact; source-module licensing separate",
+      "measured": null,
+      "name": "BPlan formal-verification artifact",
+      "publication_date": "2026-09-16",
+      "publisher": "SEFM 2026 BPlan authors",
+      "raw_artifact_bytes": [
+        13545725
+      ],
+      "reason": "Not independent TerraDS population; documented five-module plans include manual modifications",
+      "role": "Auxiliary methodology / selected case evidence",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        8,
+        3,
+        13,
+        14,
+        8,
+        2,
+        7
+      ],
+      "sources": [
+        "https://zenodo.org/api/records/22747162"
+      ],
+      "temporal": [
+        "T0",
+        "T1",
+        "TX"
+      ],
+      "timestamp": "commit metadata where retained; manually changed plans are not observed history",
+      "total_score": 55,
+      "url": "https://zenodo.org/records/22747162",
+      "version": "22747162"
+    },
+    {
+      "access": "VERIFIED_METADATA_ONLY",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "medium published docs; current content access unverified",
+      "coverage": "Global archived public software; not a configuration-specific population",
+      "decision": "ACADEMIC_REFERENCE_ONLY",
+      "effort": "high bounded content recovery; no global query",
+      "entity": "SWHID content + directory path + revision + origin",
+      "event_identity": "No native ConfigStream event identity proposed; discovery/archive service only",
+      "fit": "F4",
+      "format": "origin/snapshot/revision/directory/content API; graph ORC/compressed edges",
+      "historical_content_type": [
+        "T2"
+      ],
+      "id": "A14",
+      "license": "API terms and original software licenses; graph access does not relicence blobs",
+      "measured": null,
+      "name": "Software Heritage archive and graph services",
+      "publication_date": null,
+      "publisher": "Software Heritage",
+      "raw_artifact_bytes": [],
+      "reason": "Documentation access challenged by Anubis; anonymous API index reachable, historical content recovery unverified; graph RPC on request and Athena cost; no graph download",
+      "role": "Fallback archival recovery and research-scale discovery",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        17,
+        17,
+        5,
+        6,
+        3,
+        4,
+        5
+      ],
+      "sources": [
+        "https://docs.softwareheritage.org/user/using_data/index.html",
+        "https://docs.softwareheritage.org/devel/swh-dataset/graph/dataset.html",
+        "https://www.softwareheritage.org/legal/api-terms-of-use/"
+      ],
+      "temporal": [
+        "T2"
+      ],
+      "timestamp": "revision dates / archive visit dates are different",
+      "total_score": 57,
+      "url": "https://docs.softwareheritage.org/",
+      "version": "graph releases separately versioned; 2025-10-08 documented by index"
+    },
+    {
+      "access": "VERIFIED_METADATA_ONLY",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "medium documented; no live query",
+      "coverage": "Public GitHub content snapshot and commit metadata; not all historical blobs",
+      "decision": "LOW_PRIORITY",
+      "effort": "account setup and query budget",
+      "entity": "repo_name + ref/path + blob id",
+      "event_identity": "No native ConfigStream event identity proposed; discovery/archive service only",
+      "fit": "F4",
+      "format": "BigQuery files/contents/commits/licenses and sample tables documented; current inventory unconfirmed",
+      "historical_content_type": [
+        "T0",
+        "T1"
+      ],
+      "id": "A15",
+      "license": "Cloud terms; source repository licenses still apply",
+      "measured": null,
+      "name": "BigQuery GitHub public dataset",
+      "publication_date": "2016-06-29 original content announcement",
+      "publisher": "Google / GitHub",
+      "raw_artifact_bytes": [],
+      "reason": "No paid query authorized; current full table sizes/coverage not verified; not historical blob source",
+      "role": "Population discovery / size estimates with dry-run and bytes cap",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        7,
+        15,
+        5,
+        7,
+        3,
+        3,
+        5
+      ],
+      "sources": [
+        "https://cloud.google.com/blog/topics/public-datasets/github-on-bigquery-analyze-all-the-open-source-code",
+        "https://cloud.google.com/bigquery/pricing?authuser=1",
+        "https://docs.cloud.google.com/bigquery/docs/best-practices-costs"
+      ],
+      "temporal": [
+        "T0",
+        "T1"
+      ],
+      "timestamp": "commit metadata distinct from sampled current file contents",
+      "total_score": 45,
+      "url": "https://codelabs.developers.google.com/codelabs/bigquery-github",
+      "version": "current row counts/table inventory not queried"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high measured window; multiyear completeness not proven",
+      "coverage": "Per trust-anchor validated outputs; probe RIPE NCC only, not all five anchors",
+      "decision": "PRIMARY_CANDIDATE",
+      "effort": "small state adapter in Round 2 only",
+      "entity": "trust anchor + ASN + canonical IP prefix + maxLength",
+      "event_identity": "source/scope + observation date + canonical entity state hash",
+      "fit": "F2",
+      "format": "roas.csv.xz / output.json.xz / raw repo.tar.xz + checksum sidecars",
+      "historical_content_type": [
+        "T4"
+      ],
+      "id": "B1",
+      "license": "RIPE public research/noncommercial materials terms; no blanket CC license asserted",
+      "measured": {
+        "artifact_bytes": 63816988,
+        "changes": 12016,
+        "end": "2026-09-14",
+        "entities": 367204,
+        "logical_bytes": 909372097,
+        "natural_event_rate": null,
+        "records": 5062923,
+        "start": "2026-09-01",
+        "unit": "canonical authorization tuples / added+removed transitions"
+      },
+      "name": "RIPE NCC RPKI historical VRP archive",
+      "publication_date": null,
+      "publisher": "RIPE NCC",
+      "raw_artifact_bytes": [],
+      "reason": "Actual contiguous policy-state probe; deduplicated tuples and validator-artifact caveat required",
+      "role": "Real authorization policy-state additions/removals over long retention",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        18,
+        15,
+        14,
+        15,
+        8,
+        10,
+        7
+      ],
+      "sources": [
+        "https://github.com/RIPE-NCC/internet-dataset-descriptions/blob/main/rpki-repo-archive.md",
+        "https://ftp.ripe.net/rpki/ripencc.tal/",
+        "https://www.ripe.net/about-us/legal/copyright-statement/"
+      ],
+      "temporal": [
+        "T4"
+      ],
+      "timestamp": "daily validator observation; not ROA administrator edit time",
+      "total_score": 87,
+      "url": "https://ftp.ripe.net/rpki/",
+      "version": "ripencc.tal / 2026-09-01 through 2026-09-14 probe"
+    },
+    {
+      "access": "ACCESS_REQUIRES_REGISTRATION",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high documented formats; no raw probe",
+      "coverage": "2010-07-29 onward; format/gap boundaries explicitly documented",
+      "decision": "ACCESS_BLOCKED",
+      "effort": "access approval then 7\u201314-day harmonization",
+      "entity": "table/type + stable numeric id (net/ix/fac), excluding contacts",
+      "event_identity": "source/scope + observation date + canonical entity state hash",
+      "fit": "F2",
+      "format": "SQL / SQLite / JSON with nonuniform schemas",
+      "historical_content_type": [
+        "T3",
+        "T4"
+      ],
+      "id": "B2",
+      "license": "CAIDA public AUA: attribution and publication notification; no implied unrestricted redistribution",
+      "measured": null,
+      "name": "CAIDA PeeringDB daily historical snapshots",
+      "publication_date": null,
+      "publisher": "CAIDA UCSD / PeeringDB",
+      "raw_artifact_bytes": [],
+      "reason": "Official historical download endpoint returns HTTP 401; form exists; no credentials supplied or bypassed",
+      "role": "Long-term peering/infrastructure metadata evolution",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        16,
+        12,
+        3,
+        14,
+        8,
+        9,
+        5
+      ],
+      "sources": [
+        "https://www.caida.org/catalog/datasets/request_user_info_forms/peeringdb/",
+        "https://data.caida.org/datasets/peeringdb/",
+        "https://www.caida.org/about/legal/aua/caida_pub_aua.html"
+      ],
+      "temporal": [
+        "T3",
+        "T4"
+      ],
+      "timestamp": "daily database observation; updated field not substantive change",
+      "total_score": 67,
+      "url": "https://www.caida.org/catalog/datasets/peeringdb/",
+      "version": "v1 SQL/SQLite; v2 SQL then JSON"
+    },
+    {
+      "access": "RAW_DATA_UNAVAILABLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high paper; raw unavailable",
+      "coverage": "Five-year RANCID/CVS study; GT 1,097 and UW 1,624 devices described",
+      "decision": "ACADEMIC_REFERENCE_ONLY",
+      "effort": "permission-dependent, no probe",
+      "entity": "operational device config revision (paper only)",
+      "event_identity": "asset incarnation + pinned revision/blob hash; extraction ordinal",
+      "fit": "F1",
+      "format": "Paper describing RCS/CVS histories; no verified public raw archive",
+      "historical_content_type": [
+        "T4"
+      ],
+      "id": "B3",
+      "license": "ACM paper; no raw-data release/redistribution grant found",
+      "measured": null,
+      "name": "Two Campuses operational configuration evolution study",
+      "publication_date": "2011",
+      "publisher": "Kim, Benson, Akella, Feamster / Georgia Tech and UW Madison",
+      "raw_artifact_bytes": [],
+      "reason": "Paper is downloadable, raw histories are not established accessible; permission/author contact not attempted",
+      "role": "Direct operational-config academic motivation",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        17,
+        8,
+        0,
+        15,
+        10,
+        7,
+        1
+      ],
+      "sources": [
+        "https://pages.cs.wisc.edu/~akella/papers/uw-gatech-config.pdf"
+      ],
+      "temporal": [
+        "T4"
+      ],
+      "timestamp": "RANCID poll/change checkpoint or manual CVS commit",
+      "total_score": 58,
+      "url": "https://pages.cs.wisc.edu/~akella/papers/uw-gatech-config.pdf",
+      "version": "IMC 2011 paper"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high measured small zone; not global edits",
+      "coverage": "Open/closed TLD and top-list measurements; selected open .li scope",
+      "decision": "PRIMARY_CANDIDATE",
+      "effort": "moderate canonical state adapter in Round 2",
+      "entity": "query name/type + response name/type + canonical observed RDATA set",
+      "event_identity": "source/scope + observation date + canonical entity state hash",
+      "fit": "F2",
+      "format": "date/source partitioned gzip-compressed Parquet",
+      "historical_content_type": [
+        "T3"
+      ],
+      "id": "C1",
+      "license": "CC-BY-NC-SA-4.0; attribution, terms copy on raw redistribution; closed zones separate",
+      "measured": {
+        "artifact_bytes": 98828670,
+        "canonical_address_json_bytes": 20140457,
+        "changes": 4091,
+        "end": "2026-09-02",
+        "entities": 172474,
+        "logical_byte_definition": "uncompressed Parquet column bytes, not DNS wire bytes",
+        "logical_bytes": 252307526,
+        "natural_event_rate": null,
+        "records": 2234863,
+        "start": "2026-09-01",
+        "unit": "query names/day; changed A/AAAA groups among common groups"
+      },
+      "name": "OpenINTEL daily DNS observations",
+      "publication_date": null,
+      "publisher": "University of Twente, SIDN, NLnet Labs, SURF",
+      "raw_artifact_bytes": [],
+      "reason": "Consecutive public partitions available; compare address sets only, not TTL/signatures/measurement metadata",
+      "role": "Natural observed DNS-state scale; measurement ambiguity explicit",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        17,
+        19,
+        13,
+        12,
+        7,
+        9,
+        6
+      ],
+      "sources": [
+        "https://openintel.nl/data/forward-dns/zone-based/",
+        "https://openintel.nl/data/dictionary/",
+        "https://openintel.nl/download/terms/"
+      ],
+      "temporal": [
+        "T3"
+      ],
+      "timestamp": "worker measurement epoch milliseconds, seconds precision",
+      "total_score": 83,
+      "url": "https://openintel.nl/",
+      "version": ".li complete 2026-09-01/02 published partitions"
+    },
+    {
+      "access": "VERIFIED_METADATA_ONLY",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "provisional until actual messages / archive verified",
+      "coverage": "Specified open ccTLDs; CT-derived domain topics have different semantics",
+      "decision": "SECONDARY_CANDIDATE",
+      "effort": "bounded service test; history not established",
+      "entity": "zone + record-set event identity; CT cert index is not zone edit id",
+      "event_identity": "source timestamp/peer/resource identity and payload hash; retain multiplicity",
+      "fit": "F3",
+      "format": "JSON WebSocket / Kafka; zone_diff follows fDNS schema",
+      "historical_content_type": [
+        "T5"
+      ],
+      "id": "C2",
+      "license": "OpenINTEL CC-BY-NC-SA-4.0 terms; no continuous capture",
+      "measured": null,
+      "name": "OpenINTEL ZoneStream zone_diff",
+      "publication_date": null,
+      "publisher": "OpenINTEL / University of Twente",
+      "raw_artifact_bytes": [],
+      "reason": "Two bounded 30-second WebSocket sessions connected without credentials but received zero messages; payload and historical replay remain unverified",
+      "role": "Near-real-time DNS zone events, distinct from daily observations",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        13,
+        10,
+        7,
+        12,
+        6,
+        6,
+        6
+      ],
+      "sources": [
+        "https://openintel.nl/data/zonestream/",
+        "https://openintel.nl/download/terms/"
+      ],
+      "temporal": [
+        "T5"
+      ],
+      "timestamp": "stream payload timestamp versus local arrival time",
+      "total_score": 60,
+      "url": "https://openintel.nl/data/zonestream/",
+      "version": "documented Kafka 9091 / websocket zone_diff; bounded connection test"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "measured one collector-hour; parser exclusions explicit",
+      "coverage": "Per collector/peer Internet routing view, rrc00 archive listed since 1999-09",
+      "decision": "PRIMARY_CANDIDATE",
+      "effort": "native event adapter/analytics in Round 2; snapshot state must not be forced",
+      "entity": "collector + peer ASN/IP + AFI + prefix + optional path id",
+      "event_identity": "source timestamp/peer/resource identity and payload hash; retain multiplicity",
+      "fit": "F3",
+      "format": "gzip MRT RIB and five-minute UPDATE files",
+      "historical_content_type": [
+        "T3",
+        "T5"
+      ],
+      "id": "D1",
+      "license": "RIPE public research terms; separate commercial RIS terms; raw not redistributed",
+      "measured": {
+        "artifact_bytes": 73771296,
+        "changes": null,
+        "end": "2026-09-01T01:00:00Z",
+        "entities": 211670,
+        "logical_bytes": 427068595,
+        "natural_event_rate": 1312.5433333333333,
+        "records": 4725156,
+        "start": "2026-09-01T00:00:00Z",
+        "unit": "unique prefixes / peer-specific NLRI events"
+      },
+      "name": "RIPE RIS MRT routing events",
+      "publication_date": null,
+      "publisher": "RIPE NCC / volunteer peers",
+      "raw_artifact_bytes": [],
+      "reason": "Measured real archive events; strong streaming evidence but not direct config changes",
+      "role": "Natural high-velocity operational routing event workload",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        19,
+        20,
+        14,
+        9,
+        5,
+        10,
+        7
+      ],
+      "sources": [
+        "https://www.ris.ripe.net/docs/mrt/",
+        "https://data.ris.ripe.net/rrc00/",
+        "https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/commercial-use/"
+      ],
+      "temporal": [
+        "T3",
+        "T5"
+      ],
+      "timestamp": "collector MRT event epoch, not ingestion or configuration edit time",
+      "total_score": 84,
+      "url": "https://data.ris.ripe.net/",
+      "version": "rrc00 / 2026-09-01 UTC hour 00"
+    },
+    {
+      "access": "VERIFIED_ACCESSIBLE",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high archive metadata; no event-count probe",
+      "coverage": "Independent collector/peer views; archive span varies by collector",
+      "decision": "SECONDARY_CANDIDATE",
+      "effort": "same parser family, optional bounded second collector",
+      "entity": "collector + peer + AFI + prefix/path id",
+      "event_identity": "source timestamp/peer/resource identity and payload hash; retain multiplicity",
+      "fit": "F3",
+      "format": "MRT bz2 RIB/UPDATE; collector-specific periods",
+      "historical_content_type": [
+        "T3",
+        "T5"
+      ],
+      "id": "D2",
+      "license": "Public research access; no explicit blanket dataset license verified; retain attribution/no raw redistribution",
+      "measured": null,
+      "name": "RouteViews MRT routing archives",
+      "publication_date": null,
+      "publisher": "University of Oregon RouteViews",
+      "raw_artifact_bytes": [],
+      "reason": "Operationally different views but redundant workload semantics with RIS; do not select both merely for size",
+      "role": "Independent vantage-point robustness check",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        18,
+        19,
+        13,
+        9,
+        5,
+        5,
+        5
+      ],
+      "sources": [
+        "https://api.routeviews.org/docs/",
+        "https://archive.routeviews.org/route-views2/bgpdata/"
+      ],
+      "temporal": [
+        "T3",
+        "T5"
+      ],
+      "timestamp": "collector event time",
+      "total_score": 74,
+      "url": "https://archive.routeviews.org/",
+      "version": "archive and official collector metadata verified 2026-10-12"
+    },
+    {
+      "access": "VERIFIED_METADATA_ONLY",
+      "causal_limit": "No deployment, operator command, incident or production-rate inference",
+      "collection_date": "2026-10-12",
+      "confidence": "high framework role; no independent corpus",
+      "coverage": "Access framework over RIS, RouteViews and their live services",
+      "decision": "LOW_PRIORITY",
+      "effort": "native library installation may be nontrivial on macOS ARM",
+      "entity": "inherits selected provider collector/peer identity",
+      "event_identity": "source timestamp/peer/resource identity and payload hash; retain multiplicity",
+      "fit": "F3",
+      "format": "broker metadata, MRT processing APIs / bgpreader / Python",
+      "historical_content_type": [
+        "T3",
+        "T5"
+      ],
+      "id": "D3",
+      "license": "Framework open-source; underlying data-provider terms unchanged",
+      "measured": null,
+      "name": "CAIDA BGPStream framework and broker",
+      "publication_date": null,
+      "publisher": "CAIDA UCSD",
+      "raw_artifact_bytes": [],
+      "reason": "Double-counting underlying RIS/RouteViews events prohibited; optional parser/access tool only",
+      "role": "Tooling option, not independent evidence population",
+      "score_uncertainty": "Judgmental rubric, +/- 5 total points; not a statistical CI",
+      "scores": [
+        17,
+        16,
+        12,
+        8,
+        5,
+        1,
+        7
+      ],
+      "sources": [
+        "https://bgpstream.caida.org/data"
+      ],
+      "temporal": [
+        "T3",
+        "T5"
+      ],
+      "timestamp": "inherits provider event times",
+      "total_score": 66,
+      "url": "https://bgpstream.caida.org/",
+      "version": "v2.2.0 documented"
+    }
+  ],
+  "schema_version": 1
+}

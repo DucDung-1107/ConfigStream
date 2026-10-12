@@ -1,0 +1,103 @@
+{
+  "candidate": "C1",
+  "days": [
+    {
+      "address_groups": 145559,
+      "address_rows": 176790,
+      "artifact": {
+        "artifact_bytes": 49445610,
+        "date": "2026-09-01",
+        "elapsed_seconds": 58.786016416037455,
+        "file": "dns-li-2026-09-01.parquet",
+        "sha256": "e65a143bd5ce981cf2d3881bf38fa0af186a1ab524bb40ec75e44b13dc848c97",
+        "url": "https://object.openintel.nl/openintel-public/fdns/basis=zonefile/source=li/year=2026/month=09/day=01/part-00004-76329cb5-c6f0-4ed2-b723-c44f277b9286.c000.gz.parquet"
+      },
+      "canonical_address_json_bytes": 10075579,
+      "date": "2026-09-01",
+      "duplicate_address_values": 0,
+      "first_timestamp_ms": 1788220960000,
+      "last_timestamp_ms": 1788265872000,
+      "parquet_uncompressed_column_bytes": 126089599,
+      "query_names": 172474,
+      "record_types": {
+        "A": 132356,
+        "AAAA": 44434,
+        "CAA": 8535,
+        "CDNSKEY": 5907,
+        "CDS": 10953,
+        "CNAME": 69491,
+        "DNAME": 19,
+        "DNSKEY": 35770,
+        "DS": 33018,
+        "MX": 71243,
+        "NO_RESPONSE": 5422,
+        "NS": 169303,
+        "NSEC": 12905,
+        "NSEC3": 28035,
+        "NSEC3PARAM": 11049,
+        "RRSIG": 314593,
+        "SOA": 90203,
+        "TXT": 74424
+      },
+      "rows": 1117660,
+      "schema": "query_type: string\nquery_name: string\nresponse_type: string\nresponse_name: string\nresponse_ttl: int32\ntimestamp: int64\nrtt: double\nworker_id: int32\nstatus_code: int32\nad_flag: int32\nextended_error: string\nsection: string\nip4_address: string\nip6_address: string\ncountry: string\nas: string\nas_full: string\nip_prefix: string\ncname_name: string\ndname_name: string\nmx_address: string\nmx_preference: int32\nns_address: string\ntxt_text: string\nds_key_tag: int32\nds_algorithm: int32\nds_digest_type: int32\nds_digest: string\ndnskey_flags: int32\ndnskey_protocol: int32\ndnskey_algorithm: int32\ndnskey_pk_rsa_n: string\ndnskey_pk_rsa_e: string\ndnskey_pk_rsa_bitsize: int32\ndnskey_pk_eccgost_x: string\ndnskey_pk_eccgost_y: string\ndnskey_pk_dsa_t: string\ndnskey_pk_dsa_q: string\ndnskey_pk_dsa_p: string\ndnskey_pk_dsa_g: string\ndnskey_pk_dsa_y: string\ndnskey_pk_eddsa_a: string\ndnskey_pk_wire: string\nnsec_next_domain_name: string\nnsec_owner_rrset_types: string\nnsec3_hash_algorithm: int32\nnsec3_flags: int32\nnsec3_iterations: int32\nnsec3_salt: string\nnsec3_next_domain_name_hash: string\nnsec3_owner_rrset_types: string\nnsec3param_hash_algorithm: int32\nnsec3param_flags: int32\nnsec3param_iterations: int32\nnsec3param_salt: string\nspf_text: string\nsoa_mname: string\nsoa_rname: string\nsoa_serial: int64\nsoa_refresh: int64\nsoa_retry: int64\nsoa_expire: int64\nsoa_minimum: int64\nrrsig_type_covered: string\nrrsig_algorithm: int32\nrrsig_labels: int32\nrrsig_original_ttl: int64\nrrsig_signature_inception: int64\nrrsig_signature_expiration: int64\nrrsig_key_tag: int32\nrrsig_signer_name: string\nrrsig_signature: string\ncds_key_tag: int32\ncds_algorithm: int32\ncds_digest_type: int32\ncds_digest: string\ncdnskey_flags: int32\ncdnskey_protocol: int32\ncdnskey_algorithm: int32\ncdnskey_pk_rsa_n: string\ncdnskey_pk_rsa_e: string\ncdnskey_pk_rsa_bitsize: int32\ncdnskey_pk_eccgost_x: string\ncdnskey_pk_eccgost_y: string\ncdnskey_pk_dsa_t: string\ncdnskey_pk_dsa_q: string\ncdnskey_pk_dsa_p: string\ncdnskey_pk_dsa_g: string\ncdnskey_pk_dsa_y: string\ncdnskey_pk_eddsa_a: string\ncdnskey_pk_wire: string\ncaa_flags: int32\ncaa_tag: string\ncaa_value: string\ntlsa_usage: int32\ntlsa_selector: int32\ntlsa_matchtype: int32\ntlsa_certdata: string\nptr_name: string\n-- schema metadata --\norg.apache.spark.version: '3.5.3'\norg.apache.spark.sql.parquet.row.metadata: '{\"type\":\"struct\",\"fields\":[{\"' + 7112",
+      "selected_arrow_bytes": 86518147
+    },
+    {
+      "address_groups": 145368,
+      "address_rows": 176690,
+      "artifact": {
+        "artifact_bytes": 49383060,
+        "date": "2026-09-02",
+        "elapsed_seconds": 29.080347667098977,
+        "file": "dns-li-2026-09-02.parquet",
+        "sha256": "9f8dd9ba56b813ebd3d68583a7d22ae525c67a2b10201f1806fc85e6b80b8854",
+        "url": "https://object.openintel.nl/openintel-public/fdns/basis=zonefile/source=li/year=2026/month=09/day=02/part-00004-0e99c419-64ba-47ba-8300-a6bd40efcc0e.c000.gz.parquet"
+      },
+      "canonical_address_json_bytes": 10064878,
+      "comparison": {
+        "added_values": 7716,
+        "changed_groups": 4091,
+        "common_groups": 144883,
+        "new_observed_groups": 485,
+        "no_longer_observed_groups": 676,
+        "removed_values": 7612,
+        "unchanged_values": 168436
+      },
+      "date": "2026-09-02",
+      "duplicate_address_values": 0,
+      "first_timestamp_ms": 1788307684000,
+      "last_timestamp_ms": 1788356689000,
+      "parquet_uncompressed_column_bytes": 126217927,
+      "query_names": 172318,
+      "record_types": {
+        "A": 132279,
+        "AAAA": 44411,
+        "CAA": 8534,
+        "CDNSKEY": 5911,
+        "CDS": 10956,
+        "CNAME": 69444,
+        "DNAME": 19,
+        "DNSKEY": 35773,
+        "DS": 33036,
+        "MX": 71155,
+        "NO_RESPONSE": 5526,
+        "NS": 169182,
+        "NSEC": 12915,
+        "NSEC3": 28029,
+        "NSEC3PARAM": 11045,
+        "RRSIG": 314615,
+        "SOA": 90137,
+        "TXT": 74236
+      },
+      "rows": 1117203,
+      "schema": "query_type: string\nquery_name: string\nresponse_type: string\nresponse_name: string\nresponse_ttl: int32\ntimestamp: int64\nrtt: double\nworker_id: int32\nstatus_code: int32\nad_flag: int32\nextended_error: string\nsection: string\nip4_address: string\nip6_address: string\ncountry: string\nas: string\nas_full: string\nip_prefix: string\ncname_name: string\ndname_name: string\nmx_address: string\nmx_preference: int32\nns_address: string\ntxt_text: string\nds_key_tag: int32\nds_algorithm: int32\nds_digest_type: int32\nds_digest: string\ndnskey_flags: int32\ndnskey_protocol: int32\ndnskey_algorithm: int32\ndnskey_pk_rsa_n: string\ndnskey_pk_rsa_e: string\ndnskey_pk_rsa_bitsize: int32\ndnskey_pk_eccgost_x: string\ndnskey_pk_eccgost_y: string\ndnskey_pk_dsa_t: string\ndnskey_pk_dsa_q: string\ndnskey_pk_dsa_p: string\ndnskey_pk_dsa_g: string\ndnskey_pk_dsa_y: string\ndnskey_pk_eddsa_a: string\ndnskey_pk_wire: string\nnsec_next_domain_name: string\nnsec_owner_rrset_types: string\nnsec3_hash_algorithm: int32\nnsec3_flags: int32\nnsec3_iterations: int32\nnsec3_salt: string\nnsec3_next_domain_name_hash: string\nnsec3_owner_rrset_types: string\nnsec3param_hash_algorithm: int32\nnsec3param_flags: int32\nnsec3param_iterations: int32\nnsec3param_salt: string\nspf_text: string\nsoa_mname: string\nsoa_rname: string\nsoa_serial: int64\nsoa_refresh: int64\nsoa_retry: int64\nsoa_expire: int64\nsoa_minimum: int64\nrrsig_type_covered: string\nrrsig_algorithm: int32\nrrsig_labels: int32\nrrsig_original_ttl: int64\nrrsig_signature_inception: int64\nrrsig_signature_expiration: int64\nrrsig_key_tag: int32\nrrsig_signer_name: string\nrrsig_signature: string\ncds_key_tag: int32\ncds_algorithm: int32\ncds_digest_type: int32\ncds_digest: string\ncdnskey_flags: int32\ncdnskey_protocol: int32\ncdnskey_algorithm: int32\ncdnskey_pk_rsa_n: string\ncdnskey_pk_rsa_e: string\ncdnskey_pk_rsa_bitsize: int32\ncdnskey_pk_eccgost_x: string\ncdnskey_pk_eccgost_y: string\ncdnskey_pk_dsa_t: string\ncdnskey_pk_dsa_q: string\ncdnskey_pk_dsa_p: string\ncdnskey_pk_dsa_g: string\ncdnskey_pk_dsa_y: string\ncdnskey_pk_eddsa_a: string\ncdnskey_pk_wire: string\ncaa_flags: int32\ncaa_tag: string\ncaa_value: string\ntlsa_usage: int32\ntlsa_selector: int32\ntlsa_matchtype: int32\ntlsa_certdata: string\nptr_name: string\n-- schema metadata --\norg.apache.spark.version: '3.5.3'\norg.apache.spark.sql.parquet.row.metadata: '{\"type\":\"struct\",\"fields\":[{\"' + 7112",
+      "selected_arrow_bytes": 86488002
+    }
+  ],
+  "elapsed_seconds": 7.307092459057458,
+  "failures": [],
+  "limitation": "Observed address-set differences may reflect measurement or DNS balancing; not confirmed zone edits. TTL, signatures, geo fields, TXT and SOA email excluded.",
+  "parser": "pyarrow==19.0.1/feasibility-dns-v1",
+  "scope": ".li / whole published daily partitions / A+AAAA comparisons only"
+}

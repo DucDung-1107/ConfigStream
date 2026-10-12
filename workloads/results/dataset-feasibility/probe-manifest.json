@@ -1,0 +1,320 @@
+{
+  "artifacts": [
+    {
+      "artifact_bytes": 4539704,
+      "elapsed_seconds": 2.79508837510366,
+      "file": "rpki-ripencc.tal-2026-09-01.xz",
+      "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4542816,
+      "elapsed_seconds": 3.194571000058204,
+      "file": "rpki-ripencc.tal-2026-09-02.xz",
+      "sha256": "00d18cf59171b0cfb2162f731671fa933bc38db9bce73406fc26ef12482b7f4b",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/02/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4547932,
+      "elapsed_seconds": 3.746136875008233,
+      "file": "rpki-ripencc.tal-2026-09-03.xz",
+      "sha256": "f7387c8ef336baa5e1c423ae8b4502c1292bdd0e01cc691959c40c6229f12617",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/03/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4550592,
+      "elapsed_seconds": 3.148233790998347,
+      "file": "rpki-ripencc.tal-2026-09-04.xz",
+      "sha256": "1cdabfcbdfec0b5f089f8ddeb792cb8de8179b001e10dcbeb450acac9954d4fa",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/04/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4554096,
+      "elapsed_seconds": 3.6368534170323983,
+      "file": "rpki-ripencc.tal-2026-09-05.xz",
+      "sha256": "89a54df84b61e67a48ad989d687bcb83a0ff69917d174fe78599db0b7b1d3175",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/05/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4554080,
+      "elapsed_seconds": 3.509863582905382,
+      "file": "rpki-ripencc.tal-2026-09-06.xz",
+      "sha256": "d3500f62a1265cd77b851841275c309116eb6c050527ad6ea65ff58cfd4773ce",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/06/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4554012,
+      "elapsed_seconds": 2.9561110410140827,
+      "file": "rpki-ripencc.tal-2026-09-07.xz",
+      "sha256": "e9a06b939e1acfe43ec647713f3e04000279fe29f684502206da9b4109ea29ce",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/07/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4556572,
+      "elapsed_seconds": 5.013290749979205,
+      "file": "rpki-ripencc.tal-2026-09-08.xz",
+      "sha256": "1c6f6879fbe324b63c4f5d2154d0b429056ca4f25be46a8149ea59cc977ae91d",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/08/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4561892,
+      "elapsed_seconds": 4.022418125066906,
+      "file": "rpki-ripencc.tal-2026-09-09.xz",
+      "sha256": "cdda33fa68468d321d1f6fbdcb70615f3dfef2917a7e08fe7aeab6ffacc1363d",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/09/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4567992,
+      "elapsed_seconds": 2.973265041015111,
+      "file": "rpki-ripencc.tal-2026-09-10.xz",
+      "sha256": "e4202bc034e1a80a76b063c3e0fcf37afc9bc1a5e2e23fb92f6259ac8a1a41ea",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/10/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4569604,
+      "elapsed_seconds": 3.7950768340379,
+      "file": "rpki-ripencc.tal-2026-09-11.xz",
+      "sha256": "ffbfea657639b6a8881e74adb340375a4a57f677411509930d166c9f0fc7c270",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/11/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4572800,
+      "elapsed_seconds": 5.840470999944955,
+      "file": "rpki-ripencc.tal-2026-09-12.xz",
+      "sha256": "ab1a52bad5fd38cd45e209bb6bbe465a31daac942d7846e9d46f0d01ea51e987",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/12/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4574016,
+      "elapsed_seconds": 3.1835537500446662,
+      "file": "rpki-ripencc.tal-2026-09-13.xz",
+      "sha256": "7ed8e0aa02d728a2e8c9133b5dbb3170688fcaaaab50a6f0a8c01ed683d2d829",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/13/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4570880,
+      "elapsed_seconds": 8.313062083092518,
+      "file": "rpki-ripencc.tal-2026-09-14.xz",
+      "sha256": "8a68c6da20ab45b62188e5f66f1cfa33e5c3c3569706a672c1f6f8ab08bbfabd",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/14/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 6043608,
+      "elapsed_seconds": 0.004745875019580126,
+      "file": "updates.20260901.0000.gz",
+      "sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0000.gz"
+    },
+    {
+      "artifact_bytes": 6232506,
+      "elapsed_seconds": 0.003736541955731809,
+      "file": "updates.20260901.0005.gz",
+      "sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0005.gz"
+    },
+    {
+      "artifact_bytes": 8120390,
+      "elapsed_seconds": 0.005178124993108213,
+      "file": "updates.20260901.0010.gz",
+      "sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0010.gz"
+    },
+    {
+      "artifact_bytes": 5659629,
+      "elapsed_seconds": 0.004538917099125683,
+      "file": "updates.20260901.0015.gz",
+      "sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0015.gz"
+    },
+    {
+      "artifact_bytes": 5608308,
+      "elapsed_seconds": 0.004275041981600225,
+      "file": "updates.20260901.0020.gz",
+      "sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0020.gz"
+    },
+    {
+      "artifact_bytes": 5775548,
+      "elapsed_seconds": 0.004510833998210728,
+      "file": "updates.20260901.0025.gz",
+      "sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0025.gz"
+    },
+    {
+      "artifact_bytes": 5665617,
+      "elapsed_seconds": 0.0040903749177232385,
+      "file": "updates.20260901.0030.gz",
+      "sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0030.gz"
+    },
+    {
+      "artifact_bytes": 5735161,
+      "elapsed_seconds": 0.004219374968670309,
+      "file": "updates.20260901.0035.gz",
+      "sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0035.gz"
+    },
+    {
+      "artifact_bytes": 6060591,
+      "elapsed_seconds": 0.003900208044797182,
+      "file": "updates.20260901.0040.gz",
+      "sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0040.gz"
+    },
+    {
+      "artifact_bytes": 7101041,
+      "elapsed_seconds": 0.0046348749892786145,
+      "file": "updates.20260901.0045.gz",
+      "sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0045.gz"
+    },
+    {
+      "artifact_bytes": 5882329,
+      "elapsed_seconds": 0.003827792010270059,
+      "file": "updates.20260901.0050.gz",
+      "sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0050.gz"
+    },
+    {
+      "artifact_bytes": 5886568,
+      "elapsed_seconds": 0.004756083013489842,
+      "file": "updates.20260901.0055.gz",
+      "sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0055.gz"
+    },
+    {
+      "artifact_bytes": 49445610,
+      "date": "2026-09-01",
+      "elapsed_seconds": 58.786016416037455,
+      "file": "dns-li-2026-09-01.parquet",
+      "sha256": "e65a143bd5ce981cf2d3881bf38fa0af186a1ab524bb40ec75e44b13dc848c97",
+      "url": "https://object.openintel.nl/openintel-public/fdns/basis=zonefile/source=li/year=2026/month=09/day=01/part-00004-76329cb5-c6f0-4ed2-b723-c44f277b9286.c000.gz.parquet"
+    },
+    {
+      "artifact_bytes": 49383060,
+      "date": "2026-09-02",
+      "elapsed_seconds": 29.080347667098977,
+      "file": "dns-li-2026-09-02.parquet",
+      "sha256": "9f8dd9ba56b813ebd3d68583a7d22ae525c67a2b10201f1806fc85e6b80b8854",
+      "url": "https://object.openintel.nl/openintel-public/fdns/basis=zonefile/source=li/year=2026/month=09/day=02/part-00004-0e99c419-64ba-47ba-8300-a6bd40efcc0e.c000.gz.parquet"
+    },
+    {
+      "artifact_bytes": 92799,
+      "elapsed_seconds": 0.0006542910123243928,
+      "file": "A5-bugs.csv",
+      "sha256": "534b3f7f00df7174eea4dd80bf55a50c1cb41f156833308196dcd648405e1f70",
+      "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/bugs.csv"
+    },
+    {
+      "artifact_bytes": 1683290,
+      "elapsed_seconds": 0.0015163329662755132,
+      "file": "A5-ansible_roles_urls.csv",
+      "sha256": "f7e1e1c161787482d6ca682047226e699d419874c85ca500acb887788e29e373",
+      "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/ansible_roles_urls.csv"
+    },
+    {
+      "artifact_bytes": 136466,
+      "elapsed_seconds": 0.0004273749655112624,
+      "file": "A5-ansible_urls.csv",
+      "sha256": "e3f16c59659b1b41418e77110d48b61726e55c1af398c426c56350c58e07e590",
+      "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/ansible_urls.csv"
+    },
+    {
+      "artifact_bytes": 163437,
+      "elapsed_seconds": 0.00036687497049570084,
+      "file": "A5-chef_urls.csv",
+      "sha256": "4abd4d4ac94b8aaa7eb6b8693dcfc94f4bbc08ec038f21a3928b216f2157c661",
+      "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/chef_urls.csv"
+    },
+    {
+      "artifact_bytes": 481981,
+      "elapsed_seconds": 0.0006971670081838965,
+      "file": "A5-puppet_urls.csv",
+      "sha256": "a213af154b46d19898b11048aadd3739e29055e55af097681791a1258d6a22f5",
+      "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/puppet_urls.csv"
+    },
+    {
+      "artifact_bytes": 6263643,
+      "elapsed_seconds": 0.0036790419835597277,
+      "file": "A6-feature_changes_by_commit.csv",
+      "sha256": "f0affa4fa9e912cac020eb9edb7251edec56e1b0d4359ca4252002b1e3fc57ec",
+      "url": "https://raw.githubusercontent.com/SAILResearch/replication-21-ibrahim-dockercompose/589c1f44f277e9400ec8083a2ae8250dd6176142/Docker-Compose-Paper-R-project/rqs/data/feature_changes_by_commit.csv"
+    },
+    {
+      "artifact_bytes": 2107369,
+      "elapsed_seconds": 0.0025101250503212214,
+      "file": "A6-root_compose_projects.csv",
+      "sha256": "f6693134e200e36bdb2acea71a64627644f5b99b27770ae30094bcea944dcdd0",
+      "url": "https://raw.githubusercontent.com/SAILResearch/replication-21-ibrahim-dockercompose/589c1f44f277e9400ec8083a2ae8250dd6176142/Docker-Compose-Paper-R-project/rqs/data/root_compose_projects.csv"
+    },
+    {
+      "artifact_bytes": 776020,
+      "elapsed_seconds": 0.0009390829363837838,
+      "file": "A6-root_compose_projects_commit_count_100.csv",
+      "sha256": "c6ef9ec7f9bc6e8bf02c7614870e805a37874fa37ff3018dfcbf867632def11e",
+      "url": "https://raw.githubusercontent.com/SAILResearch/replication-21-ibrahim-dockercompose/589c1f44f277e9400ec8083a2ae8250dd6176142/Docker-Compose-Paper-R-project/rqs/data/root_compose_projects_commit_count_100.csv"
+    },
+    {
+      "artifact_bytes": 4030464,
+      "elapsed_seconds": 0.0028423749608919024,
+      "file": "A11-audit-logs.csv",
+      "sha256": "ed6b5a30eb8aac0f04a01004b44c0b59fa172b5726f6975d08e0775b3044a860",
+      "url": "https://raw.githubusercontent.com/hkerma/kubernetes-event-dataset/e39cc98e8b27b6862a3f32a85a17565265db36d5/audit-logs.csv"
+    },
+    {
+      "artifact_bytes": 460086,
+      "elapsed_seconds": 0.0008710830006748438,
+      "file": "A11-events-dataset.txt",
+      "sha256": "03040818e8b4b93f5bfecda77c982828fa6fd59ea5771a295296ddaced37fe64",
+      "url": "https://raw.githubusercontent.com/hkerma/kubernetes-event-dataset/e39cc98e8b27b6862a3f32a85a17565265db36d5/events-dataset.txt"
+    },
+    {
+      "artifact_bytes": 90734,
+      "elapsed_seconds": 0.0003037919523194432,
+      "file": "selfhosted_projects_extraction.zip",
+      "published_md5_verified": "e33c52f788facdb34a2bb0f066a17147",
+      "sha256": "9afb14e43dafca169c541c10d625dccbe5b838783af089e77aaf7971395da38e",
+      "url": "https://zenodo.org/api/records/10648448/files/selfhosted_projects_extraction.zip/content"
+    },
+    {
+      "artifact_bytes": 11388978,
+      "elapsed_seconds": 0.0070258749183267355,
+      "file": "list_of_github_repositories.txt",
+      "published_md5_verified": "33a6c0ef0e6b139caf679b69687916c7",
+      "sha256": "671315aaba1e4eace7185a8dd5d1f77c7bd9a7edb11b92d660e3a47eba4d958a",
+      "url": "https://zenodo.org/api/records/7194189/files/list_of_github_repositories.txt/content"
+    },
+    {
+      "artifact_bytes": 216350364,
+      "elapsed_seconds": 0.12287420907523483,
+      "file": "list_of_executed_repositories.csv",
+      "published_md5_verified": "4383ffa014ed6a17314482705bfcbb1a",
+      "sha256": "6d4769b591dfa853d23b94e9b87f6562f55a6d118b3b5d9cce2b64a07eede8f4",
+      "url": "https://zenodo.org/api/records/7194189/files/list_of_executed_repositories.csv/content"
+    },
+    {
+      "artifact_bytes": 124957819,
+      "elapsed_seconds": 0.05892199999652803,
+      "file": "Helm_Replication_Package.zip",
+      "published_md5_verified": "08850b5bcfd2de2066ee4e2948f8995c",
+      "sha256": "86336198b8c942626c626b5f71d5ceabf78a000e4c9a4b8afec0cf6289c93635",
+      "url": "https://zenodo.org/api/records/7552697/files/Helm_Replication_Package.zip/content"
+    },
+    {
+      "artifact_bytes": 13545725,
+      "elapsed_seconds": 0.007366665988229215,
+      "file": "BPlan-SEFM26.zip",
+      "published_md5_verified": "e1ed97b3c4524eda9b0921a9e2fd549d",
+      "sha256": "0562bb63759e0cb0ca0cad4500a4b9e48a1d0f8904d9b1976112caf5824a8cc2",
+      "url": "https://zenodo.org/api/records/22747162/files/BPlan-SEFM26.zip/content"
+    }
+  ],
+  "limits": {
+    "disk_reserve_bytes": 21474836480,
+    "new_download_target_bytes": 2000000000,
+    "per_artifact_bytes": 500000000
+  },
+  "schema_version": 1,
+  "scope": "Bounded inspection only; no source adapters or pipeline integration",
+  "unique_artifact_bytes": 618946129
+}

@@ -1,0 +1,431 @@
+{
+  "artifacts": [
+    {
+      "artifact_bytes": 4539704,
+      "elapsed_seconds": 2.79508837510366,
+      "file": "rpki-ripencc.tal-2026-09-01.xz",
+      "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4542816,
+      "elapsed_seconds": 3.194571000058204,
+      "file": "rpki-ripencc.tal-2026-09-02.xz",
+      "sha256": "00d18cf59171b0cfb2162f731671fa933bc38db9bce73406fc26ef12482b7f4b",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/02/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4547932,
+      "elapsed_seconds": 3.746136875008233,
+      "file": "rpki-ripencc.tal-2026-09-03.xz",
+      "sha256": "f7387c8ef336baa5e1c423ae8b4502c1292bdd0e01cc691959c40c6229f12617",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/03/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4550592,
+      "elapsed_seconds": 3.148233790998347,
+      "file": "rpki-ripencc.tal-2026-09-04.xz",
+      "sha256": "1cdabfcbdfec0b5f089f8ddeb792cb8de8179b001e10dcbeb450acac9954d4fa",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/04/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4554096,
+      "elapsed_seconds": 3.6368534170323983,
+      "file": "rpki-ripencc.tal-2026-09-05.xz",
+      "sha256": "89a54df84b61e67a48ad989d687bcb83a0ff69917d174fe78599db0b7b1d3175",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/05/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4554080,
+      "elapsed_seconds": 3.509863582905382,
+      "file": "rpki-ripencc.tal-2026-09-06.xz",
+      "sha256": "d3500f62a1265cd77b851841275c309116eb6c050527ad6ea65ff58cfd4773ce",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/06/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4554012,
+      "elapsed_seconds": 2.9561110410140827,
+      "file": "rpki-ripencc.tal-2026-09-07.xz",
+      "sha256": "e9a06b939e1acfe43ec647713f3e04000279fe29f684502206da9b4109ea29ce",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/07/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4556572,
+      "elapsed_seconds": 5.013290749979205,
+      "file": "rpki-ripencc.tal-2026-09-08.xz",
+      "sha256": "1c6f6879fbe324b63c4f5d2154d0b429056ca4f25be46a8149ea59cc977ae91d",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/08/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4561892,
+      "elapsed_seconds": 4.022418125066906,
+      "file": "rpki-ripencc.tal-2026-09-09.xz",
+      "sha256": "cdda33fa68468d321d1f6fbdcb70615f3dfef2917a7e08fe7aeab6ffacc1363d",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/09/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4567992,
+      "elapsed_seconds": 2.973265041015111,
+      "file": "rpki-ripencc.tal-2026-09-10.xz",
+      "sha256": "e4202bc034e1a80a76b063c3e0fcf37afc9bc1a5e2e23fb92f6259ac8a1a41ea",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/10/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4569604,
+      "elapsed_seconds": 3.7950768340379,
+      "file": "rpki-ripencc.tal-2026-09-11.xz",
+      "sha256": "ffbfea657639b6a8881e74adb340375a4a57f677411509930d166c9f0fc7c270",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/11/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4572800,
+      "elapsed_seconds": 5.840470999944955,
+      "file": "rpki-ripencc.tal-2026-09-12.xz",
+      "sha256": "ab1a52bad5fd38cd45e209bb6bbe465a31daac942d7846e9d46f0d01ea51e987",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/12/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4574016,
+      "elapsed_seconds": 3.1835537500446662,
+      "file": "rpki-ripencc.tal-2026-09-13.xz",
+      "sha256": "7ed8e0aa02d728a2e8c9133b5dbb3170688fcaaaab50a6f0a8c01ed683d2d829",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/13/roas.csv.xz"
+    },
+    {
+      "artifact_bytes": 4570880,
+      "elapsed_seconds": 8.313062083092518,
+      "file": "rpki-ripencc.tal-2026-09-14.xz",
+      "sha256": "8a68c6da20ab45b62188e5f66f1cfa33e5c3c3569706a672c1f6f8ab08bbfabd",
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/14/roas.csv.xz"
+    }
+  ],
+  "candidate": "B1",
+  "change_unit": "authorization tuple symmetric difference; not operator commands",
+  "days": [
+    {
+      "date": "2026-09-01",
+      "distinct_asns": 27307,
+      "distinct_prefixes": 318730,
+      "duplicates": 0,
+      "logical_csv_bytes": 64703198,
+      "rows": 360226,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unique_authorizations": 360226
+    },
+    {
+      "added": 717,
+      "change_ratio_union": 0.0031971807182851588,
+      "changed_asns": 259,
+      "date": "2026-09-02",
+      "distinct_asns": 27331,
+      "distinct_prefixes": 319003,
+      "duplicates": 0,
+      "logical_csv_bytes": 64752642,
+      "max_changes_one_asn": 185,
+      "removed": 437,
+      "rows": 360506,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 359789,
+      "unique_authorizations": 360506
+    },
+    {
+      "added": 825,
+      "change_ratio_union": 0.003107953649147181,
+      "changed_asns": 255,
+      "date": "2026-09-03",
+      "distinct_asns": 27342,
+      "distinct_prefixes": 319438,
+      "duplicates": 0,
+      "logical_csv_bytes": 64846318,
+      "max_changes_one_asn": 161,
+      "removed": 298,
+      "rows": 361033,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 360208,
+      "unique_authorizations": 361033
+    },
+    {
+      "added": 808,
+      "change_ratio_union": 0.0038912118858835786,
+      "changed_asns": 226,
+      "date": "2026-09-04",
+      "distinct_asns": 27354,
+      "distinct_prefixes": 319666,
+      "duplicates": 0,
+      "logical_csv_bytes": 64883750,
+      "max_changes_one_asn": 382,
+      "removed": 600,
+      "rows": 361241,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 360433,
+      "unique_authorizations": 361241
+    },
+    {
+      "added": 599,
+      "change_ratio_union": 0.002899071412779129,
+      "changed_asns": 215,
+      "date": "2026-09-05",
+      "distinct_asns": 27364,
+      "distinct_prefixes": 319801,
+      "duplicates": 0,
+      "logical_csv_bytes": 64910499,
+      "max_changes_one_asn": 255,
+      "removed": 450,
+      "rows": 361390,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 360791,
+      "unique_authorizations": 361390
+    },
+    {
+      "added": 222,
+      "change_ratio_union": 0.001169762065418183,
+      "changed_asns": 107,
+      "date": "2026-09-06",
+      "distinct_asns": 27366,
+      "distinct_prefixes": 319824,
+      "duplicates": 0,
+      "logical_csv_bytes": 64913880,
+      "max_changes_one_asn": 125,
+      "removed": 201,
+      "rows": 361411,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 361189,
+      "unique_authorizations": 361411
+    },
+    {
+      "added": 335,
+      "change_ratio_union": 0.0017387890951109342,
+      "changed_asns": 151,
+      "date": "2026-09-07",
+      "distinct_asns": 27361,
+      "distinct_prefixes": 319859,
+      "duplicates": 0,
+      "logical_csv_bytes": 64920371,
+      "max_changes_one_asn": 137,
+      "removed": 294,
+      "rows": 361452,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 361117,
+      "unique_authorizations": 361452
+    },
+    {
+      "added": 602,
+      "change_ratio_union": 0.0028642136255917624,
+      "changed_asns": 250,
+      "date": "2026-09-08",
+      "distinct_asns": 27384,
+      "distinct_prefixes": 320065,
+      "duplicates": 0,
+      "logical_csv_bytes": 64952429,
+      "max_changes_one_asn": 233,
+      "removed": 435,
+      "rows": 361619,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 361017,
+      "unique_authorizations": 361619
+    },
+    {
+      "added": 743,
+      "change_ratio_union": 0.003322644206622107,
+      "changed_asns": 232,
+      "date": "2026-09-09",
+      "distinct_asns": 27397,
+      "distinct_prefixes": 320331,
+      "duplicates": 0,
+      "logical_csv_bytes": 65003880,
+      "max_changes_one_asn": 316,
+      "removed": 461,
+      "rows": 361901,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 361158,
+      "unique_authorizations": 361901
+    },
+    {
+      "added": 734,
+      "change_ratio_union": 0.0030636866270492367,
+      "changed_asns": 220,
+      "date": "2026-09-10",
+      "distinct_asns": 27406,
+      "distinct_prefixes": 320701,
+      "duplicates": 0,
+      "logical_csv_bytes": 65070398,
+      "max_changes_one_asn": 260,
+      "removed": 377,
+      "rows": 362258,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 361524,
+      "unique_authorizations": 362258
+    },
+    {
+      "added": 560,
+      "change_ratio_union": 0.002803058282665138,
+      "changed_asns": 237,
+      "date": "2026-09-11",
+      "distinct_asns": 27423,
+      "distinct_prefixes": 320735,
+      "duplicates": 0,
+      "logical_csv_bytes": 65083678,
+      "max_changes_one_asn": 205,
+      "removed": 457,
+      "rows": 362361,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 361801,
+      "unique_authorizations": 362361
+    },
+    {
+      "added": 465,
+      "change_ratio_union": 0.0021139609620038254,
+      "changed_asns": 199,
+      "date": "2026-09-12",
+      "distinct_asns": 27438,
+      "distinct_prefixes": 320863,
+      "duplicates": 0,
+      "logical_csv_bytes": 65113592,
+      "max_changes_one_asn": 177,
+      "removed": 302,
+      "rows": 362524,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 362059,
+      "unique_authorizations": 362524
+    },
+    {
+      "added": 230,
+      "change_ratio_union": 0.0010613253058546564,
+      "changed_asns": 109,
+      "date": "2026-09-13",
+      "distinct_asns": 27443,
+      "distinct_prefixes": 320931,
+      "duplicates": 0,
+      "logical_csv_bytes": 65126854,
+      "max_changes_one_asn": 115,
+      "removed": 155,
+      "rows": 362599,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 362369,
+      "unique_authorizations": 362599
+    },
+    {
+      "added": 256,
+      "change_ratio_union": 0.001953948546940238,
+      "changed_asns": 213,
+      "date": "2026-09-14",
+      "distinct_asns": 27415,
+      "distinct_prefixes": 320764,
+      "duplicates": 0,
+      "logical_csv_bytes": 65090608,
+      "max_changes_one_asn": 117,
+      "removed": 453,
+      "rows": 362402,
+      "schema": [
+        "URI",
+        "ASN",
+        "IP Prefix",
+        "Max Length",
+        "Not Before",
+        "Not After"
+      ],
+      "unchanged": 362146,
+      "unique_authorizations": 362402
+    }
+  ],
+  "days_requested": 14,
+  "elapsed_seconds": 101.32131383300293,
+  "failures": [],
+  "logical_bytes": 909372097,
+  "missing_dates": [],
+  "parser": "feasibility-v1",
+  "scope": "ripencc.tal",
+  "start": "2026-09-01",
+  "unique_entities_union": 367204
+}

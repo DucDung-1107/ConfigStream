@@ -13,6 +13,13 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
+Phase 13 Round 1 adds a [23-source feasibility survey](docs/phase13-dataset-survey.md),
+[bounded real-data measurements](docs/phase13-feasibility-methodology.md), and a
+[conditional Terraform/RPKI/DNS/RIS shortlist](docs/phase13-shortlist-decision.md).
+Routing events and observed state are **not configuration-file edits**. No new
+source adapter or pipeline integration is implemented; the Phase 12 empirical
+conclusion remains unchanged.
+
 **Phases 0–12 complete.** Pydantic contracts,
 a deterministic stateful generator, JSONL output, and a local single-broker Kafka
 path with an explicit asset registry and automated CI are available.

@@ -1,0 +1,14 @@
+{
+  "bounded_seconds": 30,
+  "candidate": "C2",
+  "elapsed_seconds": 30.2881084169494,
+  "failure": null,
+  "historical_archive_verified": false,
+  "note": "No raw domain payload retained. Zero messages is not zero population event rate.",
+  "observed_messages": 0,
+  "parser": "websocket-client==1.9.0",
+  "schema_keys": [],
+  "source_timestamps_present": 0,
+  "finished_utc": "2026-10-12T00:32:45Z",
+  "url": "wss://zonestream.openintel.nl/ws/zone_diff"
+}

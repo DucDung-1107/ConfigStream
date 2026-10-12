@@ -8,6 +8,13 @@ export UV_PYTHON_INSTALL_DIR := $(CURDIR)/.tools/python
 export TMPDIR := $(CURDIR)/.cache/tmp
 
 .PHONY: setup test lint format check generator processing-demo clean
+.PHONY: feasibility-test feasibility-report
+
+feasibility-test:
+	.venv/bin/python -m pytest tests/unit/test_feasibility*.py
+
+feasibility-report:
+	.venv/bin/python -m workloads.feasibility_report
 .PHONY: kafka-up kafka-down kafka-topics kafka-status kafka-demo integration-test
 .PHONY: kafka-consume-assets kafka-consume-events kafka-consume-snapshots kafka-consume-alerts phase6-demo
 .PHONY: spark-setup spark-test spark-stream spark-integration-test

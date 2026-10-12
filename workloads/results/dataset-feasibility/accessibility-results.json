@@ -1,0 +1,53 @@
+{
+  "attempts": [
+    {
+      "error": "HTTPError",
+      "status": 401,
+      "url": "https://data.caida.org/datasets/peeringdb/"
+    },
+    {
+      "anubis": false,
+      "body_bytes": 200000,
+      "status": 200,
+      "url": "https://archive.routeviews.org/route-views2/bgpdata/2026.09/UPDATES/"
+    },
+    {
+      "bytes": 1331,
+      "directory_entries": [
+        "../",
+        "01/",
+        "02/",
+        "03/",
+        "04/",
+        "05/",
+        "06/",
+        "07/",
+        "08/",
+        "09/",
+        "10/",
+        "11/",
+        "12/"
+      ],
+      "http_status": 200,
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2011/"
+    },
+    {
+      "error": "HTTPError",
+      "http_status": 401,
+      "url": "https://bigquery.googleapis.com/bigquery/v2/projects/bigquery-public-data/datasets/github_repos/tables?maxResults=50"
+    },
+    {
+      "anubis": false,
+      "body_bytes": 18378,
+      "status": 200,
+      "url": "https://archive.softwareheritage.org/api/1/"
+    }
+  ],
+  "checked_at": "2026-10-12",
+  "notes": [
+    "HTTP 200 from Software Heritage API root is an index, not recovered historical content.",
+    "CAIDA historical endpoint 401: no form submitted or credentials used.",
+    "BigQuery table-list metadata call 401: no query run.",
+    "RouteViews archive reachable; main website TLS verification failed; certificate checks not disabled."
+  ]
+}

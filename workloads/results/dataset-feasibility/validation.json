@@ -1,0 +1,25 @@
+{
+  "ci": "Pending pushed workflow; not claimed successful yet",
+  "date": "2026-10-12",
+  "local": {
+    "feasibility_tests": {
+      "included_in_make_check": true,
+      "passed": 33
+    },
+    "make_api_test": {
+      "passed": 80,
+      "warnings": 1
+    },
+    "make_check": {
+      "format": "passed",
+      "lint": "passed",
+      "passed": 822
+    },
+    "make_spark_test": {
+      "passed": 60
+    }
+  },
+  "new_pipeline_integration": false,
+  "schema_version": 1,
+  "service_integration": "Not rerun; no pipeline changes. Previous results retained in Phase 12 acceptance."
+}

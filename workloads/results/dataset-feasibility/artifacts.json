@@ -1,0 +1,547 @@
+{
+  "elapsed_seconds": 7.783831040957011,
+  "failures": [],
+  "parser": "feasibility-artifacts-v1",
+  "records": [
+    {
+      "artifact": {
+        "artifact_bytes": 92799,
+        "elapsed_seconds": 0.0006542910123243928,
+        "file": "A5-bugs.csv",
+        "sha256": "534b3f7f00df7174eea4dd80bf55a50c1cb41f156833308196dcd648405e1f70",
+        "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/bugs.csv"
+      },
+      "candidate": "A5",
+      "columns": [
+        "Issue URL",
+        "Fix URL",
+        "Ecosystem",
+        "Symptom",
+        "Root cause",
+        "Operating System/Platform",
+        "OS Sensitivity",
+        "System state",
+        "System State Observations",
+        "Test Input",
+        "Component"
+      ],
+      "distinct_github_origins": 201,
+      "logical_bytes": 92799,
+      "rows": 360,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 1683290,
+        "elapsed_seconds": 0.0015163329662755132,
+        "file": "A5-ansible_roles_urls.csv",
+        "sha256": "f7e1e1c161787482d6ca682047226e699d419874c85ca500acb887788e29e373",
+        "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/ansible_roles_urls.csv"
+      },
+      "candidate": "A5",
+      "columns": [
+        "Name"
+      ],
+      "distinct_github_origins": 32846,
+      "logical_bytes": 1683290,
+      "rows": 33355,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 136466,
+        "elapsed_seconds": 0.0004273749655112624,
+        "file": "A5-ansible_urls.csv",
+        "sha256": "e3f16c59659b1b41418e77110d48b61726e55c1af398c426c56350c58e07e590",
+        "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/ansible_urls.csv"
+      },
+      "candidate": "A5",
+      "columns": [
+        "Name",
+        "Source URL"
+      ],
+      "distinct_github_origins": 1556,
+      "logical_bytes": 136466,
+      "rows": 1880,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 163437,
+        "elapsed_seconds": 0.00036687497049570084,
+        "file": "A5-chef_urls.csv",
+        "sha256": "4abd4d4ac94b8aaa7eb6b8693dcfc94f4bbc08ec038f21a3928b216f2157c661",
+        "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/chef_urls.csv"
+      },
+      "candidate": "A5",
+      "columns": [
+        "Name",
+        "Source URL"
+      ],
+      "distinct_github_origins": 2735,
+      "logical_bytes": 163437,
+      "rows": 2818,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 481981,
+        "elapsed_seconds": 0.0006971670081838965,
+        "file": "A5-puppet_urls.csv",
+        "sha256": "a213af154b46d19898b11048aadd3739e29055e55af097681791a1258d6a22f5",
+        "url": "https://raw.githubusercontent.com/gdrosos/iac-bug-study-artifact/994c6efd581f1802b578a61feb5c774d93aed44d/data/collection/repositories/puppet_urls.csv"
+      },
+      "candidate": "A5",
+      "columns": [
+        "Name",
+        "Source URL"
+      ],
+      "distinct_github_origins": 6319,
+      "logical_bytes": 481981,
+      "rows": 7471,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 6263643,
+        "elapsed_seconds": 0.0036790419835597277,
+        "file": "A6-feature_changes_by_commit.csv",
+        "sha256": "f0affa4fa9e912cac020eb9edb7251edec56e1b0d4359ca4252002b1e3fc57ec",
+        "url": "https://raw.githubusercontent.com/SAILResearch/replication-21-ibrahim-dockercompose/589c1f44f277e9400ec8083a2ae8250dd6176142/Docker-Compose-Paper-R-project/rqs/data/feature_changes_by_commit.csv"
+      },
+      "candidate": "A6",
+      "columns": [
+        "owner_id",
+        " project_name",
+        " commit_hash",
+        " changed_feature",
+        " status"
+      ],
+      "distinct_github_origins": 0,
+      "logical_bytes": 6263643,
+      "rows": 70002,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 2107369,
+        "elapsed_seconds": 0.0025101250503212214,
+        "file": "A6-root_compose_projects.csv",
+        "sha256": "f6693134e200e36bdb2acea71a64627644f5b99b27770ae30094bcea944dcdd0",
+        "url": "https://raw.githubusercontent.com/SAILResearch/replication-21-ibrahim-dockercompose/589c1f44f277e9400ec8083a2ae8250dd6176142/Docker-Compose-Paper-R-project/rqs/data/root_compose_projects.csv"
+      },
+      "candidate": "A6",
+      "columns": [
+        "url",
+        "owner_id",
+        "name",
+        "language",
+        "created_at",
+        "forked_from",
+        "deleted",
+        "updated_at",
+        "commit_count",
+        "contributor_count"
+      ],
+      "distinct_github_origins": 0,
+      "logical_bytes": 2107369,
+      "rows": 16283,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 776020,
+        "elapsed_seconds": 0.0009390829363837838,
+        "file": "A6-root_compose_projects_commit_count_100.csv",
+        "sha256": "c6ef9ec7f9bc6e8bf02c7614870e805a37874fa37ff3018dfcbf867632def11e",
+        "url": "https://raw.githubusercontent.com/SAILResearch/replication-21-ibrahim-dockercompose/589c1f44f277e9400ec8083a2ae8250dd6176142/Docker-Compose-Paper-R-project/rqs/data/root_compose_projects_commit_count_100.csv"
+      },
+      "candidate": "A6",
+      "columns": [
+        "url",
+        "owner_id",
+        "name",
+        "language",
+        "created_at",
+        "forked_from",
+        "deleted",
+        "updated_at",
+        "commit_count",
+        "contributor_count",
+        "owner_project"
+      ],
+      "distinct_github_origins": 0,
+      "logical_bytes": 776020,
+      "rows": 5139,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 4030464,
+        "elapsed_seconds": 0.0028423749608919024,
+        "file": "A11-audit-logs.csv",
+        "sha256": "ed6b5a30eb8aac0f04a01004b44c0b59fa172b5726f6975d08e0775b3044a860",
+        "url": "https://raw.githubusercontent.com/hkerma/kubernetes-event-dataset/e39cc98e8b27b6862a3f32a85a17565265db36d5/audit-logs.csv"
+      },
+      "candidate": "A11",
+      "columns": [
+        "column_0",
+        "column_1",
+        "column_2",
+        "column_3",
+        "column_4",
+        "column_5",
+        "column_6",
+        "column_7",
+        "column_8",
+        "column_9",
+        "column_10",
+        "column_11",
+        "column_12",
+        "column_13",
+        "column_14"
+      ],
+      "distinct_github_origins": 0,
+      "logical_bytes": 4030464,
+      "rows": 16564,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 460086,
+        "elapsed_seconds": 0.0008710830006748438,
+        "file": "A11-events-dataset.txt",
+        "sha256": "03040818e8b4b93f5bfecda77c982828fa6fd59ea5771a295296ddaced37fe64",
+        "url": "https://raw.githubusercontent.com/hkerma/kubernetes-event-dataset/e39cc98e8b27b6862a3f32a85a17565265db36d5/events-dataset.txt"
+      },
+      "candidate": "A11",
+      "logical_bytes": 460086,
+      "nonempty_lines": 21642
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 90734,
+        "elapsed_seconds": 0.0003037919523194432,
+        "file": "selfhosted_projects_extraction.zip",
+        "published_md5_verified": "e33c52f788facdb34a2bb0f066a17147",
+        "sha256": "9afb14e43dafca169c541c10d625dccbe5b838783af089e77aaf7971395da38e",
+        "url": "https://zenodo.org/api/records/10648448/files/selfhosted_projects_extraction.zip/content"
+      },
+      "candidate": "A7",
+      "config_members": 0,
+      "crc_verified": true,
+      "csv": {},
+      "logical_member_bytes": 320863,
+      "members": 10
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 11388978,
+        "elapsed_seconds": 0.0070258749183267355,
+        "file": "list_of_github_repositories.txt",
+        "published_md5_verified": "33a6c0ef0e6b139caf679b69687916c7",
+        "sha256": "671315aaba1e4eace7185a8dd5d1f77c7bd9a7edb11b92d660e3a47eba4d958a",
+        "url": "https://zenodo.org/api/records/7194189/files/list_of_github_repositories.txt/content"
+      },
+      "candidate": "A8",
+      "distinct_lines": 433769,
+      "logical_bytes": 11388978,
+      "repository_lines": 433769
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 216350364,
+        "elapsed_seconds": 0.12287420907523483,
+        "file": "list_of_executed_repositories.csv",
+        "published_md5_verified": "4383ffa014ed6a17314482705bfcbb1a",
+        "sha256": "6d4769b591dfa853d23b94e9b87f6562f55a6d118b3b5d9cce2b64a07eede8f4",
+        "url": "https://zenodo.org/api/records/7194189/files/list_of_executed_repositories.csv/content"
+      },
+      "candidate": "A8",
+      "columns": [
+        "provider",
+        "repository",
+        "version",
+        "compose-file",
+        "success",
+        "n_packets"
+      ],
+      "distinct_github_origins": 0,
+      "logical_bytes": 216350364,
+      "rows": 767622,
+      "unit": "CSV metadata rows, not recovered configuration versions"
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 124957819,
+        "elapsed_seconds": 0.05892199999652803,
+        "file": "Helm_Replication_Package.zip",
+        "published_md5_verified": "08850b5bcfd2de2066ee4e2948f8995c",
+        "sha256": "86336198b8c942626c626b5f71d5ceabf78a000e4c9a4b8afec0cf6289c93635",
+        "url": "https://zenodo.org/api/records/7552697/files/Helm_Replication_Package.zip/content"
+      },
+      "candidate": "A10",
+      "config_members": 0,
+      "crc_verified": true,
+      "csv": {
+        "Helm_Replication_Package/datasets/chart_containers.csv.gz": {
+          "columns": [
+            "package_id",
+            "repo",
+            "name",
+            "image"
+          ],
+          "rows": 12743
+        },
+        "Helm_Replication_Package/datasets/chart_dependencies.csv.gz": {
+          "columns": [
+            "package_id",
+            "repo",
+            "name",
+            "dep",
+            "dep_version",
+            "dep_repo",
+            "dep_repository"
+          ],
+          "rows": 4764
+        },
+        "Helm_Replication_Package/datasets/chart_versions.csv.gz": {
+          "columns": [
+            "package_id",
+            "repo",
+            "name",
+            "version",
+            "date"
+          ],
+          "rows": 166772
+        },
+        "Helm_Replication_Package/datasets/helm_chart.csv.gz": {
+          "columns": [
+            "package_id",
+            "repo",
+            "name",
+            "all_versions",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown",
+            "version",
+            "containers_images",
+            "security_date",
+            "sub",
+            "stars",
+            "productions",
+            "official",
+            "verified",
+            "scanner_disabled",
+            "ts",
+            "kind"
+          ],
+          "rows": 9485
+        },
+        "Helm_Replication_Package/datasets/helm_chart_content.csv.gz": {
+          "columns": [
+            "package_id",
+            "repo",
+            "name",
+            "all_versions",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown",
+            "version",
+            "containers_images",
+            "security_date",
+            "sub",
+            "stars",
+            "productions",
+            "official",
+            "verified",
+            "scanner_disabled",
+            "ts",
+            "kind",
+            "content_url"
+          ],
+          "rows": 9485
+        },
+        "Helm_Replication_Package/datasets/image_tags.csv.gz": {
+          "columns": [
+            "tag",
+            "date",
+            "digest",
+            "slug",
+            "link",
+            "image"
+          ],
+          "rows": 1307812
+        },
+        "Helm_Replication_Package/datasets/used_containers_date.csv.gz": {
+          "columns": [
+            "package_id",
+            "image",
+            "link",
+            "date",
+            "digest"
+          ],
+          "rows": 9758
+        },
+        "Helm_Replication_Package/datasets/vulns_charts.csv.gz": {
+          "columns": [
+            "package_id",
+            "image",
+            "cvss",
+            "cve",
+            "cwe",
+            "published",
+            "source",
+            "package",
+            "installed_version",
+            "fixed_version"
+          ],
+          "rows": 2532897
+        }
+      },
+      "logical_member_bytes": 127324226,
+      "members": 33
+    },
+    {
+      "artifact": {
+        "artifact_bytes": 13545725,
+        "elapsed_seconds": 0.007366665988229215,
+        "file": "BPlan-SEFM26.zip",
+        "published_md5_verified": "e1ed97b3c4524eda9b0921a9e2fd549d",
+        "sha256": "0562bb63759e0cb0ca0cad4500a4b9e48a1d0f8904d9b1976112caf5824a8cc2",
+        "url": "https://zenodo.org/api/records/22747162/files/BPlan-SEFM26.zip/content"
+      },
+      "candidate": "A13",
+      "config_members": 50,
+      "crc_verified": true,
+      "csv": {
+        "BPlan-SEFM26/bplan/synthetic-cases/results/results-n2.csv": {
+          "columns": [
+            "id",
+            "A change op",
+            "B change op",
+            "Target graph layers",
+            "State graph layers",
+            "Schedule stages",
+            "Schedule duration",
+            "Schedule trans. red. duration",
+            "Check NOT UNSTABLE result",
+            "Check NOT UNSTABLE duration",
+            "Check global STABLE result",
+            "Check global STABLE duration",
+            "Check deps STABLE result",
+            "Check deps STABLE duration",
+            "Check Static #Estables",
+            "Check Static duration",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "distinct_github_origins": 0,
+          "logical_bytes": 1732,
+          "rows": 15,
+          "unit": "CSV metadata rows, not recovered configuration versions"
+        },
+        "BPlan-SEFM26/bplan/synthetic-cases/results/results-n3.csv": {
+          "columns": [
+            "id",
+            "A change op",
+            "B change op",
+            "C change op",
+            "D change op",
+            "Target graph layers",
+            "State graph layers",
+            "Schedule stages",
+            "Schedule duration",
+            "Schedule trans. red. duration",
+            "Check NOT UNSTABLE result",
+            "Check NOT UNSTABLE duration",
+            "Check global STABLE result",
+            "Check global STABLE duration",
+            "Check deps STABLE result",
+            "Check deps STABLE duration",
+            "Check Static #Estables",
+            "Check Static duration"
+          ],
+          "distinct_github_origins": 0,
+          "logical_bytes": 27490,
+          "rows": 252,
+          "unit": "CSV metadata rows, not recovered configuration versions"
+        },
+        "BPlan-SEFM26/bplan/synthetic-cases/results/results-n4.csv": {
+          "columns": [
+            "id",
+            "A change op",
+            "B change op",
+            "C change op",
+            "D change op",
+            "Target graph layers",
+            "State graph layers",
+            "Schedule stages",
+            "Schedule duration",
+            "Schedule trans. red. duration",
+            "Check NOT UNSTABLE result",
+            "Check NOT UNSTABLE duration",
+            "Check global STABLE result",
+            "Check global STABLE duration",
+            "Check deps STABLE result",
+            "Check deps STABLE duration",
+            "Check Static #Estables",
+            "Check Static duration",
+            ""
+          ],
+          "distinct_github_origins": 0,
+          "logical_bytes": 1352206,
+          "rows": 10455,
+          "unit": "CSV metadata rows, not recovered configuration versions"
+        },
+        "BPlan-SEFM26/bplan/synthetic-cases/results/results-scalable.csv": {
+          "columns": [
+            "Topology",
+            "Number of resources",
+            "Principal op",
+            "Principal op percentage",
+            "Top changes percentage",
+            "Mid op",
+            "Top op",
+            "Bot op",
+            "Target graph layers",
+            "State graph layers",
+            "Schedule stages",
+            "Schedule duration",
+            "Schedule trans. red. duration",
+            "Check NOT UNSTABLE result",
+            "Check NOT UNSTABLE duration",
+            "Check global STABLE result",
+            "Check global STABLE duration",
+            "Check deps STABLE result",
+            "Check deps STABLE duration",
+            "Check Static #Estables",
+            "Check Static duration",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "distinct_github_origins": 0,
+          "logical_bytes": 481863,
+          "rows": 2176,
+          "unit": "CSV metadata rows, not recovered configuration versions"
+        }
+      },
+      "logical_member_bytes": 17289919,
+      "members": 185
+    }
+  ],
+  "security": "external scripts never executed; raw values never printed"
+}

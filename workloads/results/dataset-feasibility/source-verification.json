@@ -1,0 +1,359 @@
+{
+  "access_attempts": [
+    {
+      "error": "HTTPError",
+      "status": 401,
+      "url": "https://data.caida.org/datasets/peeringdb/"
+    },
+    {
+      "anubis": false,
+      "body_bytes": 200000,
+      "status": 200,
+      "url": "https://archive.routeviews.org/route-views2/bgpdata/2026.09/UPDATES/"
+    },
+    {
+      "bytes": 1331,
+      "directory_entries": [
+        "../",
+        "01/",
+        "02/",
+        "03/",
+        "04/",
+        "05/",
+        "06/",
+        "07/",
+        "08/",
+        "09/",
+        "10/",
+        "11/",
+        "12/"
+      ],
+      "http_status": 200,
+      "url": "https://ftp.ripe.net/rpki/ripencc.tal/2011/"
+    },
+    {
+      "error": "HTTPError",
+      "http_status": 401,
+      "url": "https://bigquery.googleapis.com/bigquery/v2/projects/bigquery-public-data/datasets/github_repos/tables?maxResults=50"
+    },
+    {
+      "anubis": false,
+      "body_bytes": 18378,
+      "status": 200,
+      "url": "https://archive.softwareheritage.org/api/1/"
+    }
+  ],
+  "existing_evidence": [
+    {
+      "path": "workloads/results/terrads/static-summary.json",
+      "reuse": "No redownload/re-extraction; immutable Phase 10\u201312 evidence",
+      "sha256": "79438bd5bf29328d2f823386d524226bd36f0f55417aff553df21b55757f3f76"
+    },
+    {
+      "path": "workloads/results/terrads/history-summary.json",
+      "reuse": "No redownload/re-extraction; immutable Phase 10\u201312 evidence",
+      "sha256": "ebabae65de94361e7aa3badc954f2dbc6cda101286edf30c625d4db14bd93f34"
+    },
+    {
+      "path": "workloads/results/real-history/observed-summary.json",
+      "reuse": "No redownload/re-extraction; immutable Phase 10\u201312 evidence",
+      "sha256": "99e658680187c0f557ef2458b3111db0efc9f347d99328015b43be306cc76dcc"
+    },
+    {
+      "path": "workloads/manifests/batfish-measured.json",
+      "reuse": "No redownload/re-extraction; immutable Phase 10\u201312 evidence",
+      "sha256": "c1c8ab348b8151f54326e4135f0acdfedad911235b9fc1c7c4cf914cb5999614"
+    }
+  ],
+  "github": [
+    {
+      "blob_entries": 30,
+      "date": "2024-10-15T08:35:10Z",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "node_id": "MDc6TGljZW5zZTEz",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit"
+      },
+      "repository": "gdrosos/iac-bug-study-artifact",
+      "revision": "994c6efd581f1802b578a61feb5c774d93aed44d",
+      "tree_truncated": false
+    },
+    {
+      "blob_entries": 247,
+      "date": "2021-07-18T01:03:32Z",
+      "license": null,
+      "repository": "SAILResearch/replication-21-ibrahim-dockercompose",
+      "revision": "589c1f44f277e9400ec8083a2ae8250dd6176142",
+      "tree_truncated": false
+    },
+    {
+      "blob_entries": 1705,
+      "date": "2020-04-27T21:06:28Z",
+      "license": null,
+      "repository": "tianyin/configuration_datasets",
+      "revision": "7418412ca297158690732268b39231e9c1e325b6",
+      "tree_truncated": false
+    },
+    {
+      "blob_entries": 12,
+      "date": "2024-08-17T03:11:46Z",
+      "license": {
+        "key": "cc-by-4.0",
+        "name": "Creative Commons Attribution 4.0 International",
+        "node_id": "MDc6TGljZW5zZTI1",
+        "spdx_id": "CC-BY-4.0",
+        "url": "https://api.github.com/licenses/cc-by-4.0"
+      },
+      "repository": "hkerma/kubernetes-event-dataset",
+      "revision": "e39cc98e8b27b6862a3f32a85a17565265db36d5",
+      "tree_truncated": false
+    }
+  ],
+  "verified_at": "2026-10-12",
+  "zenodo": [
+    {
+      "api_url": "https://zenodo.org/api/records/20339474",
+      "creators": [
+        {
+          "affiliation": "University of St.Gallen",
+          "name": "B\u00fchler, Christoph",
+          "orcid": "0000-0002-2224-1687"
+        },
+        {
+          "affiliation": "University of St.Gallen",
+          "name": "Spielmann, David",
+          "orcid": "0009-0004-1715-2059"
+        },
+        {
+          "affiliation": "armasuisse",
+          "name": "Meier, Roland",
+          "orcid": "0000-0002-8268-9037"
+        },
+        {
+          "affiliation": "University of St.Gallen",
+          "name": "Salvaneschi, Guido",
+          "orcid": "0000-0002-9324-8894"
+        }
+      ],
+      "files": [
+        {
+          "bytes": 66165,
+          "checksum": "md5:73bb51903d76149c6fbeafc3cf32d703",
+          "filename": "HCL Dataset Tools.zip",
+          "url": "https://zenodo.org/api/records/20339474/files/HCL%20Dataset%20Tools.zip/content"
+        },
+        {
+          "bytes": 613322752,
+          "checksum": "md5:faa52a357eefb8729d042f09bd236881",
+          "filename": "TerraDS.sqlite",
+          "url": "https://zenodo.org/api/records/20339474/files/TerraDS.sqlite/content"
+        },
+        {
+          "bytes": 523682960,
+          "checksum": "md5:f3cc4d3e1c3b6328111ff6284711dc6b",
+          "filename": "TerraDS.tar.gz",
+          "url": "https://zenodo.org/api/records/20339474/files/TerraDS.tar.gz/content"
+        }
+      ],
+      "id": "20339474",
+      "license": {
+        "id": "cc-by-4.0"
+      },
+      "publication_date": "2026-05-26",
+      "retrieved_metadata_sha256": "a9e36ce80f8b9ec9998dc5515d78467fdb1443555354252fc4fdec585b53a1c4",
+      "title": "TerraDS: A Dataset for Terraform HCL Programs",
+      "url": "https://zenodo.org/records/20339474"
+    },
+    {
+      "api_url": "https://zenodo.org/api/records/10648448",
+      "creators": [
+        {
+          "affiliation": "University of Alberta",
+          "name": "Eng, Kalvin"
+        },
+        {
+          "affiliation": "University of Alberta",
+          "name": "Hindle, Abram"
+        },
+        {
+          "affiliation": "University of Alberta",
+          "name": "Stroulia, Eleni"
+        }
+      ],
+      "files": [
+        {
+          "bytes": 1103,
+          "checksum": "md5:1cdbb00698b4ebf4a347666a8d61d940",
+          "filename": "README.md",
+          "url": "https://zenodo.org/api/records/10648448/files/README.md/content"
+        },
+        {
+          "bytes": 84193,
+          "checksum": "md5:7353755b5fd2bff80f1d6af6887669b7",
+          "filename": "Analysis.ipynb",
+          "url": "https://zenodo.org/api/records/10648448/files/Analysis.ipynb/content"
+        },
+        {
+          "bytes": 68370,
+          "checksum": "md5:55ab09d30f8f1865cc8b64e5d6179da1",
+          "filename": "open_coding.xlsx",
+          "url": "https://zenodo.org/api/records/10648448/files/open_coding.xlsx/content"
+        },
+        {
+          "bytes": 90734,
+          "checksum": "md5:e33c52f788facdb34a2bb0f066a17147",
+          "filename": "selfhosted_projects_extraction.zip",
+          "url": "https://zenodo.org/api/records/10648448/files/selfhosted_projects_extraction.zip/content"
+        },
+        {
+          "bytes": 479284,
+          "checksum": "md5:c09d761440ea4bf8f8d60b7263785108",
+          "filename": "stars_analysis_for_successful_projects.zip",
+          "url": "https://zenodo.org/api/records/10648448/files/stars_analysis_for_successful_projects.zip/content"
+        },
+        {
+          "bytes": 39003853032,
+          "checksum": "md5:8d2ece68b5c0680901a9bb9e1725be57",
+          "filename": "repos.7z",
+          "url": "https://zenodo.org/api/records/10648448/files/repos.7z/content"
+        }
+      ],
+      "id": "10648448",
+      "license": {
+        "id": "cc-by-4.0"
+      },
+      "publication_date": "2024-02-12",
+      "retrieved_metadata_sha256": "4ccb737a271d3f8780bd98ac18b06d4fb24bef9376b6e07edd249ef1ff5e2c32",
+      "title": "Replication Package of \"Patterns of Multi-Container Composition for Service Orchestration with Docker Compose\"",
+      "url": "https://zenodo.org/records/10648448"
+    },
+    {
+      "api_url": "https://zenodo.org/api/records/7194189",
+      "creators": [
+        {
+          "affiliation": "ETH Z\u00fcrich",
+          "name": "B\u00fchler, Tobias",
+          "orcid": "0000-0002-8876-1546"
+        },
+        {
+          "affiliation": "ETH Z\u00fcrich",
+          "name": "Schmid, Roland",
+          "orcid": "0000-0002-3278-4220"
+        },
+        {
+          "affiliation": "ETH Z\u00fcrich",
+          "name": "Lutz, Sandro",
+          "orcid": "0000-0003-2676-0991"
+        },
+        {
+          "affiliation": "ETH Z\u00fcrich",
+          "name": "Vanbever, Laurent",
+          "orcid": "0000-0003-1455-4381"
+        }
+      ],
+      "files": [
+        {
+          "bytes": 11388978,
+          "checksum": "md5:33a6c0ef0e6b139caf679b69687916c7",
+          "filename": "list_of_github_repositories.txt",
+          "url": "https://zenodo.org/api/records/7194189/files/list_of_github_repositories.txt/content"
+        },
+        {
+          "bytes": 216350364,
+          "checksum": "md5:4383ffa014ed6a17314482705bfcbb1a",
+          "filename": "list_of_executed_repositories.csv",
+          "url": "https://zenodo.org/api/records/7194189/files/list_of_executed_repositories.csv/content"
+        }
+      ],
+      "id": "7194189",
+      "license": {
+        "id": "cc-by-4.0"
+      },
+      "publication_date": "2022-10-13",
+      "retrieved_metadata_sha256": "75b25dd928f643417566a02755399c1942fcaef6985e2cacd2e5ae7da2158bfa",
+      "title": "Dataset of Automatically Orchestrable GitHub Projects",
+      "url": "https://zenodo.org/records/7194189"
+    },
+    {
+      "api_url": "https://zenodo.org/api/records/7552697",
+      "creators": [
+        {
+          "affiliation": "Vrije Universiteit Brussel",
+          "name": "Ahmed Zerouali"
+        },
+        {
+          "affiliation": "Vrije Universiteit Brussel",
+          "name": "Ruben Opdebeeck"
+        },
+        {
+          "affiliation": "Vrije Universiteit Brussel",
+          "name": "Coen De Roover"
+        }
+      ],
+      "files": [
+        {
+          "bytes": 124957819,
+          "checksum": "md5:08850b5bcfd2de2066ee4e2948f8995c",
+          "filename": "Helm_Replication_Package.zip",
+          "url": "https://zenodo.org/api/records/7552697/files/Helm_Replication_Package.zip/content"
+        }
+      ],
+      "id": "7552697",
+      "license": {
+        "id": "cc-by-4.0"
+      },
+      "publication_date": "2023-01-19",
+      "retrieved_metadata_sha256": "cd30f9d164a21aad320a572f9078801d8692ce9206942030251c430f9ed53231",
+      "title": "Replication package for the Helm charts empirical study",
+      "url": "https://zenodo.org/records/7552697"
+    },
+    {
+      "api_url": "https://zenodo.org/api/records/22747162",
+      "creators": [
+        {
+          "affiliation": "Laboratoire d'Informatique Fondamentale d'Orl\u00e9ans",
+          "name": "Perdereau, Eloi",
+          "orcid": "0009-0005-9257-5374"
+        },
+        {
+          "affiliation": null,
+          "name": "Sokolowski, Daniel",
+          "orcid": "0000-0003-2911-8304"
+        },
+        {
+          "affiliation": "Laboratoire d'Informatique Fondamentale d'Orl\u00e9ans",
+          "name": "Philippe, Jolan",
+          "orcid": "0000-0001-8759-4566"
+        },
+        {
+          "affiliation": "IMT Atlantique",
+          "name": "Coullon, Helene",
+          "orcid": "0000-0003-2573-2147"
+        },
+        {
+          "affiliation": "University of St.Gallen",
+          "name": "Salvaneschi, Guido",
+          "orcid": "0000-0002-9324-8894"
+        }
+      ],
+      "files": [
+        {
+          "bytes": 13545725,
+          "checksum": "md5:e1ed97b3c4524eda9b0921a9e2fd549d",
+          "filename": "BPlan-SEFM26.zip",
+          "url": "https://zenodo.org/api/records/22747162/files/BPlan-SEFM26.zip/content"
+        }
+      ],
+      "id": "22747162",
+      "license": {
+        "id": "apache2.0"
+      },
+      "publication_date": "2026-09-16",
+      "retrieved_metadata_sha256": "6f07ca5194858a8d4404604dc308278217244d0ec0e6410f3c92559b3ef6da16",
+      "title": "BPlan: Formal Verification of Stability in Terraform Changes",
+      "url": "https://zenodo.org/records/22747162"
+    }
+  ]
+}
