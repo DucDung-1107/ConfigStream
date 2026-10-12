@@ -1,16 +1,64 @@
 {
-  "schema_version": 1,
-  "scope": "Failures, corrections and non-probes retained, not resampled",
   "entries": [
-    {"candidate": "D1", "status": "invalid_parser_run_discarded", "reason": "mrtparse Reader.err persists between records. Initial result incorrectly classified later valid records as errors; fixed reset and added offline regression test. Final published counts use corrected parser."},
-    {"candidate": "D1", "status": "partial_parse", "errors": 57, "reason": "Insufficient buffer 0 < 1 byte. Excluded records; archive CRC passed. Cannot distinguish parser limitation from malformed source records."},
-    {"candidate": "C1", "status": "serialization_failure_fixed", "reason": "JSON sorted dictionary could not order null and string record-type keys. NO_RESPONSE category added; successful rerun retained."},
-    {"candidate": "A10", "status": "duplicate_download_attempt_failed", "reason": "Concurrent downloads to same cache path raced at partial-file rename. Final ZIP size, published MD5 and CRC verified; duplicate transfer means exact network bytes unknown. Run fetch commands serially."},
-    {"candidate": "A5", "status": "no_pairs_recovered", "reason": "First five artifact fixes retained: one lacked candidate IaC extension; three selected YAML changelog creations had no parent blob (HTTP 404); one license unknown. Extensions alone do not establish deployment configuration."},
-    {"candidate": "B2", "status": "access_blocked", "http_status": 401, "reason": "Historical data requires legitimate CAIDA request; no form or credentials submitted, no bypass, no snapshot experiment."},
-    {"candidate": "A15", "status": "metadata_auth_required", "http_status": 401, "reason": "Anonymous table-list request failed. No BigQuery query, billing or inferred current corpus count."},
-    {"candidate": "A14", "status": "metadata_only", "reason": "Documentation challenged by Anubis; API index HTTP 200 is not recovered content. No graph or archival blob downloaded."},
-    {"candidate": "D2", "status": "archive_metadata_only", "reason": "Archive HTTP 200. Main website TLS verification failed; no insecure bypass. No second BGP event corpus parsed."},
-    {"candidate": "C2", "status": "no_messages_in_bounded_sessions", "reason": "Two 30-second sessions connected with no messages. Population event rate and historical replay remain unmeasured."}
-  ]
+    {
+      "candidate": "D1",
+      "reason": "mrtparse Reader.err persists between records. Initial result incorrectly classified later valid records as errors; fixed reset and added offline regression test. Final published counts use corrected parser.",
+      "status": "invalid_parser_run_discarded"
+    },
+    {
+      "candidate": "D1",
+      "errors": 57,
+      "reason": "Insufficient buffer 0 < 1 byte. Excluded records; archive CRC passed. Cannot distinguish parser limitation from malformed source records.",
+      "status": "partial_parse"
+    },
+    {
+      "candidate": "C1",
+      "reason": "JSON sorted dictionary could not order null and string record-type keys. NO_RESPONSE category added; successful rerun retained.",
+      "status": "serialization_failure_fixed"
+    },
+    {
+      "candidate": "A10",
+      "reason": "Concurrent downloads to same cache path raced at partial-file rename. Final ZIP size, published MD5 and CRC verified; duplicate transfer means exact network bytes unknown. Run fetch commands serially.",
+      "status": "duplicate_download_attempt_failed"
+    },
+    {
+      "candidate": "A5",
+      "reason": "First five artifact fixes retained: one lacked candidate IaC extension; three selected YAML changelog creations had no parent blob (HTTP 404); one license unknown. Extensions alone do not establish deployment configuration.",
+      "status": "no_pairs_recovered"
+    },
+    {
+      "candidate": "B2",
+      "http_status": 401,
+      "reason": "Historical data requires legitimate CAIDA request; no form or credentials submitted, no bypass, no snapshot experiment.",
+      "status": "access_blocked"
+    },
+    {
+      "candidate": "A15",
+      "http_status": 401,
+      "reason": "Anonymous table-list request failed. No BigQuery query, billing or inferred current corpus count.",
+      "status": "metadata_auth_required"
+    },
+    {
+      "candidate": "A14",
+      "reason": "Documentation challenged by Anubis; API index HTTP 200 is not recovered content. No graph or archival blob downloaded.",
+      "status": "metadata_only"
+    },
+    {
+      "candidate": "D2",
+      "reason": "Archive HTTP 200. Main website TLS verification failed; no insecure bypass. No second BGP event corpus parsed.",
+      "status": "archive_metadata_only"
+    },
+    {
+      "candidate": "C2",
+      "reason": "Two 30-second sessions connected with no messages. Population event rate and historical replay remain unmeasured.",
+      "status": "no_messages_in_bounded_sessions"
+    },
+    {
+      "candidate": "C1",
+      "reason": "Pinned-download helper originally omitted daily partition date; parsing failed with KeyError date. Date now derived and validated from exact artifact URL, offline regression added; original measured dataset unchanged.",
+      "status": "reproduction_metadata_failure_fixed"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Failures, corrections and non-probes retained, not resampled"
 }

@@ -10,13 +10,19 @@ On 2026-10-12:
 
 | Command | Result | Scope |
 |---|---:|---|
-| `make feasibility-test` / matching pytest files | 33 passed | New offline fixture tests |
-| `make check` | 822 passed, lint/format passed | Existing 789 plus 33 new unit cases |
+| `make feasibility-test` / matching pytest files | 34 passed | New offline fixture tests |
+| `make check` | 823 passed, lint/format passed | Existing 789 plus 34 new unit cases |
 | `make api-test` | 80 passed | Service-free API; one dependency deprecation warning |
 | `make spark-test` | 60 passed | Existing service-free Spark transformations |
 
-Spark results and latest pushed CI are recorded in
-`workloads/results/dataset-feasibility/validation.json` after completion.
+The initial implementation's [CI run 38190403738](https://github.com/kongwoang/ConfigStream/actions/runs/38190403738)
+passed both jobs (822 unit, 80 API, 60 Spark). A subsequent command-reproduction
+check found and corrected a missing DNS partition-date field; an additional
+offline regression test increases local unit coverage to 823. This record
+distinguishes the verified initial CI from the follow-up local correction;
+consult the latest pushed workflow for the follow-up commit's status.
+Machine-readable validation is in
+`workloads/results/dataset-feasibility/validation.json`.
 Service integration suites were **not rerun**: no pipeline/service code
 changed and Round 1 explicitly prohibits new integration. Prior Phase 12
 service results remain in its immutable acceptance record; they are not

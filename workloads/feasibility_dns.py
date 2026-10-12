@@ -1,11 +1,20 @@
 import argparse
 import ipaddress
 import json
+import re
 import time
 from collections import Counter, defaultdict
+from datetime import date
 from pathlib import Path
 
 from workloads.feasibility import digest, state_diff, write_json
+
+
+def dns_partition_date(url):
+    match = re.search(r"/year=(\d{4})/month=(\d{2})/day=(\d{2})/", url)
+    if match is None:
+        raise ValueError("DNS artifact must carry an explicit daily partition")
+    return date(*(int(value) for value in match.groups())).isoformat()
 
 
 def address_observation(row):
@@ -195,14 +204,14 @@ def main():
         artifacts = []
         for artifact in manifest["artifacts"]:
             if artifact["url"].startswith("https://object.openintel.nl/"):
-                artifacts.append(
-                    fetch(
-                        artifact["url"],
-                        args.cache_dir / artifact["file"],
-                        expected_sha256=artifact["sha256"],
-                        headers={"Cookie": "openintel-data-agreement-accepted=true"},
-                    )
+                downloaded = fetch(
+                    artifact["url"],
+                    args.cache_dir / artifact["file"],
+                    expected_sha256=artifact["sha256"],
+                    headers={"Cookie": "openintel-data-agreement-accepted=true"},
                 )
+                downloaded["date"] = dns_partition_date(artifact["url"])
+                artifacts.append(downloaded)
         if len(artifacts) != 2:
             parser.error("Expected exactly two pinned DNS artifacts")
         write_json(args.cache_dir / "dns-artifacts.json", artifacts)

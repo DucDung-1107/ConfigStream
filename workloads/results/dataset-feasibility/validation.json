@@ -1,10 +1,21 @@
 {
-  "ci": "Pending pushed workflow; not claimed successful yet",
+  "ci": {
+    "api_passed": 80,
+    "conclusion": "success",
+    "head_sha": "6e36326b8e826d70a8b0471a677d0fc89eab5912",
+    "initial_verified_run_id": 38190403738,
+    "note": "Initial implementation; subsequent DNS reproduction correction has one additional offline test. Follow-up CI checked in final handoff.",
+    "quality": "success",
+    "spark": "success",
+    "spark_passed": 60,
+    "unit_passed": 822,
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38190403738"
+  },
   "date": "2026-10-12",
   "local": {
     "feasibility_tests": {
       "included_in_make_check": true,
-      "passed": 33
+      "passed": 34
     },
     "make_api_test": {
       "passed": 80,
@@ -13,7 +24,7 @@
     "make_check": {
       "format": "passed",
       "lint": "passed",
-      "passed": 822
+      "passed": 823
     },
     "make_spark_test": {
       "passed": 60

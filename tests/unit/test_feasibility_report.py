@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from workloads.feasibility_artifacts import inspect_csv
-from workloads.feasibility_dns import address_observation
+from workloads.feasibility_dns import address_observation, dns_partition_date
 from workloads.feasibility_report import SPECIFICATION, complementarity, report, validate_registry
 
 
@@ -52,6 +52,19 @@ def test_ipv6_address_representation_is_canonical():
         "ip6_address": "2001:0db8:0000:0000:0000:0000:0000:0001",
     }
     assert address_observation(row)[1] == "2001:db8::1"
+
+
+def test_dns_download_recovers_pinned_partition_date():
+    assert (
+        dns_partition_date(
+            "https://object.openintel.nl/data/year=2026/month=09/day=01/part.parquet"
+        )
+        == "2026-09-01"
+    )
+    with pytest.raises(ValueError):
+        dns_partition_date("https://object.openintel.nl/undated.parquet")
+    with pytest.raises(ValueError):
+        dns_partition_date("https://object.openintel.nl/year=2026/month=02/day=30/file")
 
 
 def test_generated_report_is_deterministic(tmp_path):
