@@ -17,10 +17,13 @@ On 2026-10-12:
 
 The initial implementation's [CI run 38190403738](https://github.com/kongwoang/ConfigStream/actions/runs/38190403738)
 passed both jobs (822 unit, 80 API, 60 Spark). A subsequent command-reproduction
-check found and corrected a missing DNS partition-date field; an additional
-offline regression test increases local unit coverage to 823. This record
-distinguishes the verified initial CI from the follow-up local correction;
-consult the latest pushed workflow for the follow-up commit's status.
+check found and corrected a missing DNS partition-date field. The corrected
+implementation's [CI run 38190875301](https://github.com/kongwoang/ConfigStream/actions/runs/38190875301)
+at `3df624c16a235a66aa631144cfa59ceb21f3bd9d` also passed both jobs: **823 unit,
+80 API and 60 Spark**. The pinned DNS download/hash/parse reproduction matches
+the original row counts and address-state differences. No empirical counts
+were changed by the correction. Later documentation commits trigger CI again;
+these links record the completed implementation validation, not future status.
 Machine-readable validation is in
 `workloads/results/dataset-feasibility/validation.json`.
 Service integration suites were **not rerun**: no pipeline/service code

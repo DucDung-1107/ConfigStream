@@ -2,16 +2,17 @@
   "ci": {
     "api_passed": 80,
     "conclusion": "success",
-    "head_sha": "6e36326b8e826d70a8b0471a677d0fc89eab5912",
-    "initial_verified_run_id": 38190403738,
-    "note": "Initial implementation; subsequent DNS reproduction correction has one additional offline test. Follow-up CI checked in final handoff.",
+    "head_sha": "3df624c16a235a66aa631144cfa59ceb21f3bd9d",
+    "note": "Corrected implementation verified; later documentation commits retrigger CI.",
     "quality": "success",
     "spark": "success",
     "spark_passed": 60,
-    "unit_passed": 822,
-    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38190403738"
+    "unit_passed": 823,
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38190875301",
+    "verified_run_id": 38190875301
   },
   "date": "2026-10-12",
+  "dns_command_reproduction": "Pinned download with date reconstruction, SHA-256 checks and parsing matches original two-day observations",
   "local": {
     "feasibility_tests": {
       "included_in_make_check": true,

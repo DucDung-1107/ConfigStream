@@ -224,9 +224,10 @@ Headline global daily figures are publisher statements, not our measured
 population. Consecutive observations can differ from measurement variability,
 load balancing and resolver behavior, so **no authoritative-zone edit count**
 was inferred. Noncommercial CC-BY-NC-SA-4 conditions and explicit terms apply.
-The research leading to these results was made possible by OpenINTEL
-(https://www.openintel.nl/), a joint project of the University of Twente,
-SIDN, NLnet Labs and SURF. Related measurement work:
+We acknowledge OpenINTEL's measurement contribution. Its institutional partners
+are the University of Twente, SIDN, NLnet Labs and SURF. Publications and raw
+redistribution must follow the [prescribed attribution notice](https://openintel.nl/download/terms/).
+Related measurement work:
 [2016 DNS study](https://doi.org/10.1109/JSAC.2016.2558918).
 
 ### ZoneStream
