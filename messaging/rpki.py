@@ -30,6 +30,7 @@ def publish_source(
     chunk_size: int = 256,
     client=None,
     topic=TOPIC,
+    resource_check=None,
 ):
     validate_topic(topic)
     if client is None:
@@ -54,6 +55,8 @@ def publish_source(
             errors.append("delivery_failed")
 
     for chunk in source_chunks(path, reference, chunk_size=chunk_size, start_row=start):
+        if resource_check is not None:
+            resource_check()
         chunk.validate_source(reference)
         encoded = chunk.model_dump_json().encode("utf-8")
         if len(encoded) > 1024**2:
@@ -74,6 +77,8 @@ def publish_source(
                 client.poll(0.1)
         if client.flush(config.flush_timeout_seconds) or errors:
             raise RuntimeError("RPKI chunk delivery unconfirmed; progress not advanced")
+        if resource_check is not None:
+            resource_check()
         acknowledged += len(chunk.rows)
         total_bytes += len(encoded)
         progress.parent.mkdir(parents=True, exist_ok=True)

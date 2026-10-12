@@ -14,7 +14,17 @@ from spark.rpki import (
 
 
 class RpkiProcessor:
-    def __init__(self, session, store, query_id, references, oracle_dir, boundaries):
+    def __init__(
+        self,
+        session,
+        store,
+        query_id,
+        references,
+        oracle_dir,
+        boundaries,
+        *,
+        reuse_verified_rows=True,
+    ):
         UUID(query_id)
         self.session = session
         self.store = store
@@ -22,6 +32,7 @@ class RpkiProcessor:
         self.references = references
         self.oracle_dir = oracle_dir
         self.boundaries = boundaries
+        self.reuse_verified_rows = reuse_verified_rows
 
     def __call__(self, batch, batch_id):
         input_chunks = batch.count()
@@ -44,6 +55,7 @@ class RpkiProcessor:
 
     def process(self, batch, batch_id):
         rows = decode_chunks(batch, self.references).persist()
+        accumulated = None
         try:
             from pyspark.sql import functions as functions
 
@@ -71,19 +83,43 @@ class RpkiProcessor:
             previous = committed_rows(
                 self.session, self.store, self.query_id, observation_ids=active_ids
             )
-            reconcile_rows(previous.unionByName(rows)).count()
+            merged = reconcile_rows(previous.unionByName(rows))
+            if self.reuse_verified_rows:
+                accumulated = merged.persist()
+                accumulated.count()
+            else:
+                merged.count()
             publish_raw(rows, self.store, self.query_id, batch_id)
+        except Exception:
+            if accumulated is not None:
+                accumulated.unpersist()
+            raise
         finally:
             rows.unpersist()
-        accumulated = committed_rows(
-            self.session, self.store, self.query_id, observation_ids=active_ids
-        ).persist()
+        if accumulated is None:
+            accumulated = committed_rows(
+                self.session, self.store, self.query_id, observation_ids=active_ids
+            ).persist()
+        verified = None
         try:
+            ready_ids = active_ids
+            if self.reuse_verified_rows:
+                counts = accumulated.groupBy("observation_id").count().limit(33).collect()
+                ready_ids = [
+                    item.observation_id
+                    for item in counts
+                    if item["count"]
+                    >= self.references[item.observation_id].manifest.expected_records
+                ]
+                if ready_ids:
+                    verified = committed_rows(
+                        self.session, self.store, self.query_id, observation_ids=ready_ids
+                    ).persist()
             complete = {}
             for reference in self.references.values():
                 day = reference.observation.payload.observation_date.isoformat()
                 committed = self.store.get(f"state/{reference.manifest.source_scope}/{day}")
-                if reference.observation_id in active_ids:
+                if reference.observation_id in ready_ids:
                     expected = self.session.read.parquet(
                         str(self.oracle_dir / "members" / f"{day}.parquet")
                     )
@@ -91,7 +127,11 @@ class RpkiProcessor:
                         str(self.oracle_dir / "source_maps" / f"{day}.parquet")
                     )
                     committed = finalize_day(
-                        accumulated, reference, expected, self.store, expected_rows=source_map
+                        verified if verified is not None else accumulated,
+                        reference,
+                        expected,
+                        self.store,
+                        expected_rows=source_map,
                     )
                 if committed:
                     complete[day] = reference
@@ -106,6 +146,8 @@ class RpkiProcessor:
                 ):
                     publish_boundary(self.session, self.store, old, new, boundary)
         finally:
+            if verified is not None:
+                verified.unpersist()
             accumulated.unpersist()
 
 

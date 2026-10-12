@@ -155,6 +155,32 @@ def test_publisher_resume_and_failed_ack(rpki_fixture, tmp_path):
         publish_source(path, reference, progress, KafkaConfig(), client=producer)
 
 
+@pytest.mark.parametrize("fail_at", [1, 2])
+def test_publisher_resource_failure_cannot_advance_progress(rpki_fixture, tmp_path, fail_at):
+    cache, selection, _, _, references = rpki_fixture
+    reference = next(iter(references.values()))
+    producer = AcknowledgingProducer()
+    progress = tmp_path / "guarded-progress.json"
+    checks = 0
+
+    def check():
+        nonlocal checks
+        checks += 1
+        if checks == fail_at:
+            raise RuntimeError("owned resource failure")
+
+    with pytest.raises(RuntimeError, match="resource failure"):
+        publish_source(
+            cache / selection["artifacts"][0]["file"],
+            reference,
+            progress,
+            KafkaConfig(),
+            client=producer,
+            resource_check=check,
+        )
+    assert len(producer.values) == fail_at - 1 and not progress.exists()
+
+
 def test_publication_retry_conflict_and_partial_visibility(tmp_path):
     store = LocalStore(tmp_path)
     path = store.path("members", "a" * 64)

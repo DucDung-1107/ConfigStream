@@ -50,6 +50,119 @@ def owned_inputs(session, fixture):
     return frame, references, output, summary
 
 
+@pytest.mark.parametrize("reuse", [False, True])
+def test_callback_reuse_old_retry_conflict_completion_and_restart(
+    rpki_session, rpki_fixture, tmp_path, monkeypatch, reuse
+):
+    from spark.rpki_stream import RpkiProcessor
+
+    session = rpki_session
+    cache, selection, oracle, _, references = rpki_fixture
+    summary = run_oracle(selection, cache, oracle)
+    first, second = references.values()
+    chunks = list(source_chunks(cache / selection["artifacts"][0]["file"], first, chunk_size=2))
+    store = LocalStore(tmp_path / "lake")
+    query = "00000000-0000-4000-8000-000000000071"
+
+    def processor():
+        return RpkiProcessor(
+            session,
+            store,
+            query,
+            references,
+            oracle,
+            summary["boundaries"],
+            reuse_verified_rows=reuse,
+        )
+
+    def batch(chunk):
+        return session.createDataFrame([(chunk.model_dump_json(),)], "value STRING")
+
+    processor()(batch(chunks[1]), 0)
+    assert store.get("state/owned.tal/2026-09-01") is None
+    processor()(batch(chunks[1]), 1)
+    assert committed_rows(session, store, query).count() == 2
+    assert store.get("state/owned.tal/2026-09-01") is None
+    put = store.put
+
+    def fail_after_raw(key, value):
+        put(key, value)
+        if value.get("dataset") == "source_rows":
+            raise RuntimeError("owned crash after raw commit")
+
+    monkeypatch.setattr(store, "put", fail_after_raw)
+    with pytest.raises(RuntimeError, match="after raw commit"):
+        processor()(batch(chunks[0]), 2)
+    assert store.get("state/owned.tal/2026-09-01") is None
+    before = {path: path.read_bytes() for path in (tmp_path / "lake").rglob("*.parquet")}
+    monkeypatch.setattr(store, "put", put)
+    processor()(batch(chunks[0]), 2)
+    assert all(path.read_bytes() == content for path, content in before.items())
+    assert committed_rows(session, store, query).count() == 4
+    assert read_state(session, store, first).count() == 3
+    processor()(batch(chunks[1]), 3)
+    assert committed_rows(session, store, query).count() == 4
+    from schemas.rpki import chunk_identity
+
+    bad_row = chunks[0].rows[0].model_copy(update={"member": chunks[1].rows[1].member})
+    bad_rows = (bad_row, chunks[0].rows[1])
+    bad = chunks[0].model_copy(
+        update={
+            "rows": bad_rows,
+            "chunk_id": chunk_identity(first, chunks[0].first_row, bad_rows),
+        }
+    )
+    with pytest.raises(ValueError, match="coordinate oracle"):
+        processor()(batch(bad), 4)
+    assert store.get(f"raw/{query}/00000000000000000004") is None
+    other = list(source_chunks(cache / selection["artifacts"][1]["file"], second, chunk_size=2))
+    processor()(
+        session.createDataFrame(
+            [(chunk.model_dump_json(),) for chunk in reversed(other)], "value STRING"
+        ),
+        5,
+    )
+    assert committed_rows(session, store, query).count() == 7
+    assert reconstruct(session, store, [first, second]).count() == 3
+    assert store.get(f"boundary/{first.observation_id}/{second.observation_id}")["rows"] == 2
+
+
+def test_reuse_completion_rechecks_written_physical_ledger(
+    rpki_session, rpki_fixture, tmp_path, monkeypatch
+):
+    from pyspark.sql import functions as functions
+
+    import spark.rpki_stream as stream
+
+    session = rpki_session
+    cache, selection, oracle, _, references = rpki_fixture
+    run_oracle(selection, cache, oracle)
+    first = next(iter(references.values()))
+    chunks = list(source_chunks(cache / selection["artifacts"][0]["file"], first, chunk_size=2))
+    store = LocalStore(tmp_path / "lake")
+    original = stream.publish_raw
+
+    def corrupt_after_publication(frame, *args):
+        commit = original(frame, *args)
+        frame.withColumn("provenance_id", functions.lit("f" * 64)).write.mode("overwrite").parquet(
+            commit["path"]
+        )
+        return commit
+
+    monkeypatch.setattr(stream, "publish_raw", corrupt_after_publication)
+    processor = stream.RpkiProcessor(
+        session, store, "00000000-0000-4000-8000-000000000072", references, oracle, []
+    )
+    with pytest.raises(ValueError, match="ledger checksum"):
+        processor(
+            session.createDataFrame(
+                [(chunk.model_dump_json(),) for chunk in chunks], "value STRING"
+            ),
+            0,
+        )
+    assert store.get("state/owned.tal/2026-09-01") is None
+
+
 def test_complete_states_exact_transition_reconstruction_and_negative_barriers(
     rpki_session, rpki_fixture, tmp_path, monkeypatch
 ):

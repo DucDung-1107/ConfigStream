@@ -65,6 +65,7 @@ def main():
     parser.add_argument("--days", type=int, choices=range(1, 15), default=1)
     parser.add_argument("--limit-rows", type=int)
     parser.add_argument("--minio", action="store_true")
+    parser.add_argument("--processing-mode", choices=["baseline", "reuse"], default="reuse")
     parser.add_argument("--query-id", default="00000000-0000-4000-8000-000000000017")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
@@ -134,7 +135,13 @@ def main():
     resources.__enter__()
     try:
         processor = RpkiProcessor(
-            session, store, args.query_id, references, oracle_dir, summary["boundaries"]
+            session,
+            store,
+            args.query_id,
+            references,
+            oracle_dir,
+            summary["boundaries"],
+            reuse_verified_rows=args.processing_mode == "reuse",
         )
         if args.command == "stream":
             checkpoint = args.output / "rpki-checkpoints-v1" / args.query_id
@@ -200,6 +207,7 @@ def main():
             measurements["spark_local_processing_seconds"] = monotonic() - processing_started
             measurements["elapsed_seconds"] = monotonic() - started
             measurements["service_integration"] = "NOT_RUN"
+            measurements["processing_mode"] = args.processing_mode
             measurements["complete_days"] = len(store.list("state"))
             (args.output / "local-measurements.json").write_text(
                 json.dumps(measurements, indent=2) + "\n"
