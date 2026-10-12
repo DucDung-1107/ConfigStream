@@ -9,6 +9,13 @@ export TMPDIR := $(CURDIR)/.cache/tmp
 
 .PHONY: setup test lint format check generator processing-demo clean
 .PHONY: feasibility-test feasibility-report
+.PHONY: phase16-test phase16-coordinate-proof
+
+phase16-test:
+	.venv/bin/python -m pytest tests/unit/test_temporal_contracts.py
+
+phase16-coordinate-proof:
+	.venv/bin/python -m scripts.phase16_coordinate_probe --parser-dir .cache/phase16/parser --output .cache/phase16/coordinate-proof.json
 
 feasibility-test:
 	.venv/bin/python -m pytest tests/unit/test_feasibility*.py

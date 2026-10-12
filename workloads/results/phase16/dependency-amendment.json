@@ -1,0 +1,139 @@
+{
+  "decision_id": "P16-2026-10-12-DNS-OPTIONAL",
+  "date": "2026-10-12",
+  "baseline_commit": "362fb7cbee02258456ca7ed3e9042b6d720ae8bd",
+  "reason": "Phase15 W10/W11 and P20 mandatory DNS dependencies contradict DNS postponement; original frozen artifacts remain unchanged.",
+  "old_rule": "W10/W11 require W9; P20 requires P19.",
+  "new_rule": "Recovery, publication, baselines and evaluation require every implemented/accepted kind; DNS acceptance E4 mandatory only in Track F.",
+  "tracks": {
+    "F": {
+      "roles": [
+        "terraform",
+        "rpki",
+        "ris",
+        "dns"
+      ],
+      "required_experiments": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "four_role_K3_allowed": true
+    },
+    "R": {
+      "roles": [
+        "terraform",
+        "rpki",
+        "ris"
+      ],
+      "required_experiments": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "four_role_K3_allowed": false
+    }
+  },
+  "base_dependencies": {
+    "W0": [],
+    "W1": [
+      "W0"
+    ],
+    "W2": [
+      "W1"
+    ],
+    "W3": [
+      "W1"
+    ],
+    "W4": [
+      "W1"
+    ],
+    "W5": [
+      "W3",
+      "W4"
+    ],
+    "W6": [
+      "W1"
+    ],
+    "W7": [
+      "W3",
+      "W6"
+    ],
+    "W10": [
+      "W2",
+      "W3",
+      "W5",
+      "W7"
+    ],
+    "W11": [
+      "W2",
+      "W3",
+      "W5",
+      "W7"
+    ],
+    "W12": [
+      "W7"
+    ],
+    "W13": [
+      "W10",
+      "W11",
+      "W12"
+    ],
+    "W14": [
+      "W13"
+    ],
+    "W15": [
+      "W14"
+    ]
+  },
+  "full_only_dependencies": {
+    "W8": [
+      "W1"
+    ],
+    "W9": [
+      "W3",
+      "W5",
+      "W8"
+    ]
+  },
+  "full_extra_dependencies": {
+    "W10": [
+      "W9"
+    ],
+    "W11": [
+      "W9"
+    ]
+  },
+  "phase20_dependencies": {
+    "F": [
+      "P16",
+      "P17",
+      "P18",
+      "P19"
+    ],
+    "R": [
+      "P16",
+      "P17",
+      "P18"
+    ]
+  },
+  "mandatory_shared_tests": [
+    "publication recovery",
+    "old configuration compatibility"
+  ],
+  "domain_tests": "Each retained kind must pass its oracle/recovery/baselines. No constructor-only acceptance.",
+  "authorization": "Owner authorizes Phase16 reversible service-free foundations; instructor approval, labor commitment and raw external publication rights unverified. No expensive dependent milestone approved.",
+  "historical_results_modified": false,
+  "identity_binding_refinement": {
+    "decision_id": "P16-ID-v1",
+    "date": "2026-10-12",
+    "old_rule": "Policy-versioned identity; illustrative RIS preimage named counting policy only",
+    "new_rule": "Bind parser, canonicalization and counting-policy versions in v1 policy namespace; coordinates unchanged",
+    "reason": "Policy changes must not silently change payload under an old identity",
+    "affected_test": "test_provenance_binding_and_artifact_revisions",
+    "original_configuration_ids_changed": false,
+    "old_empirical_counts_changed": false,
+    "index_fallback": false
+  }
+}

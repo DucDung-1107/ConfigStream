@@ -1,0 +1,70 @@
+{
+  "decision": "CONDITIONAL PASS — OPEN GATES REMAIN",
+  "phase": "16",
+  "rq_scope": "RQ1 foundations only; RQ2/RQ3 not experimentally answered",
+  "production_domain_adapters": false,
+  "phase17_started": false,
+  "ris_identity_decision": "RIS_OFFSET_IDENTITY_PROVEN",
+  "starting_commit": "362fb7cbee02258456ca7ed3e9042b6d720ae8bd",
+  "gates": [
+    {
+      "id": "P16-A",
+      "status": "PASS",
+      "evidence": "Phase15 artifacts unchanged; dated dependency/identity clarification"
+    },
+    {
+      "id": "P16-B",
+      "status": "PASS_OFFLINE",
+      "evidence": "Four new closed kinds, legacy reference unchanged"
+    },
+    {
+      "id": "P16-C",
+      "status": "PASS_OFFLINE",
+      "evidence": "Independent vectors, conflict/multiplicity/replay tests"
+    },
+    {
+      "id": "P16-D",
+      "status": "PASS_OFFLINE",
+      "evidence": "Owned offsets/MP/ADD-PATH and cached 1000-frame prefix; full-hour oracle pending"
+    },
+    {
+      "id": "P16-E",
+      "status": "PASS_OFFLINE",
+      "evidence": "RPKI complete-state barrier; DNS missing != empty/deletion"
+    },
+    {
+      "id": "P16-F",
+      "status": "CONDITIONAL",
+      "evidence": "Local Parquet/metadata simulations pass; actual MinIO/checkpoint recovery pending"
+    },
+    {
+      "id": "P16-G",
+      "status": "PASS_OFFLINE",
+      "evidence": "Original file hashes, unit/API/local Spark regression; external service regressions pending"
+    },
+    {
+      "id": "P16-H",
+      "status": "PASS",
+      "evidence": "Full/reduced static graphs tested; R track has no W9/P19 dangling dependencies"
+    },
+    {
+      "id": "P16-I",
+      "status": "CONDITIONAL",
+      "evidence": "Owned fixtures/private cached prefix safe; instructor/labor budget/external redistribution not established"
+    }
+  ],
+  "phase17_prerequisites": [
+    "Separate owner authorization; instructor acceptance and labor/resource budget evidence",
+    "Actual bounded MinIO conditional commit/recovery test and relevant legacy service regression",
+    "Research-use/attribution and publication rights check for exact RPKI inputs",
+    "Independent source/day oracle plus scalable member accounting plan; do not lift 10000-fixture bounds blindly",
+    "Recheck host/container limits; maintain disk/RAM guards"
+  ],
+  "reduced_track_trigger": "DNS legal/oracle/resource/comparability failure -> Track R; no four-role K3 claim",
+  "rollback": "Unwired new modules/targets can be reverted; no old layouts/checkpoints migrated or production data written",
+  "future_claims_not_proven": [
+    "K1 end-to-end historical preservation",
+    "K2 storage/performance tradeoffs",
+    "K3 DNS/four-role generalization"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "starting_commit": "362fb7cbee02258456ca7ed3e9042b6d720ae8bd",
+  "baseline": {
+    "unit": 823,
+    "api": 80,
+    "spark": 60,
+    "unit_verified_locally": true,
+    "unit_seconds": 13.55
+  },
+  "local": {
+    "quality_unit": {
+        "passed": 909,
+        "new_cases": 86,
+        "seconds": 13.44
+    },
+      "api": {
+        "passed": 80,
+        "seconds": 0.59,
+      "warnings": 1,
+      "warning": "Existing Starlette/httpx deprecation"
+    },
+    "spark": {
+      "status": "passed service-free local transformations",
+      "passed": 63,
+      "new_cases": 3,
+        "seconds": 51.06
+    },
+    "targeted_local_parquet": {
+      "passed": 3,
+      "seconds": 9.92,
+      "external_services": false
+    }
+  },
+  "integration": {
+    "status": "PENDING",
+    "reason": "No Docker executable at PATH or checked standard installation paths; no MinIO/Kafka services launched",
+    "conditional_put": "Request flag tested offline, actual service behavior pending",
+    "checkpoint_failure": "Fault-placement simulations, not actual Spark checkpoint kill"
+  },
+  "ris": {
+    "decision": "RIS_OFFSET_IDENTITY_PROVEN",
+    "source_records_tested": 1000,
+    "decompressed_bytes_tested": 160268,
+    "real_prefix_parser_exclusions": 0,
+    "source_download_bytes": 0,
+    "reference_exclusions_unchanged": 57
+  },
+  "resources": {
+    "cpu": "Apple M3 Pro, 12 cores",
+    "ram_bytes": 19327352832,
+    "disk_free_before_bytes": 676092854272,
+    "disk_free_after_observed_bytes": 675412697088,
+    "coordinate_probe_max_rss_bytes": 37191680,
+    "coordinate_probe_wall_seconds": 0.25,
+    "coordinate_probe_scope": "One bounded process; not aggregate Spark/JVM RSS",
+    "spark_test_driver_memory": "1g",
+    "docker_allocation": "unavailable",
+    "new_cache_allocated_kib_observed": 216,
+    "source_download_bytes": 0,
+    "limits": {
+      "minimum_free_gib": 20,
+      "per_run_reserve_gib": 15,
+      "new_experiment_cap_gib": 50
+    }
+  },
+  "corrected_attempts": [
+    {
+      "description": "Initial new targeted Spark tests accidentally enabled S3 connector resolution through lake config; interrupted before any tests ran (155.57s), corrected to pure local session config.",
+      "result": "Corrected targeted test run 3 passed; no data source download or services started"
+    },
+    {
+      "description": "Owned unsupported MRT type causes pinned parser KeyError before body consumption.",
+      "result": "Independent framer isolates frames; exception retained as explicit excluded category, no drift"
+    }
+  ],
+  "dependencies": {
+    "production_dependencies_changed": false,
+    "optional_probe_parser": "mrtparse==2.2.0 in ignored cache only; not normal CI"
+  },
+  "ci": {
+    "status": "not yet pushed",
+    "sha": null,
+    "url": null
+  }
+}

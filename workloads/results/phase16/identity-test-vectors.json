@@ -1,0 +1,45 @@
+{
+  "policy": "configstream-temporal-v1",
+  "independently_specified": true,
+  "oracle": "literal typed preimages + separately authored standard-library SHA256; test does not compute expected values with production helper",
+  "vectors": [
+    {
+      "kind": "ris_occurrence",
+      "policy": "owned-v1",
+      "components": [
+        "rrc00",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        0,
+        0
+      ],
+      "expected": "97e8414f4a1c735b225ed56cc75b90b2863f3f99086dc8d81c85a45994f7d2b2"
+    },
+    {
+      "kind": "dns_measurement",
+      "policy": "owned-v1",
+      "components": [
+        "é",
+        0,
+        null
+      ],
+      "expected": "6756a0abad4774fa297c26175fbef0c1b435a9be4ac02b81430c25ea9fd1bb25"
+    },
+    {
+      "kind": "rpki_membership",
+      "policy": "membership-v1",
+      "components": [
+        "ripencc",
+        64500,
+        "192.0.2.0/24",
+        24
+      ],
+      "expected": "0887446457d90ad235fc7fd0f20971d6abf380db1e1ef21a95304de22d4011b2"
+    }
+  ],
+  "rpki_set": {
+    "preimage_element": "[\"ripencc\",64500,\"192.0.2.0/24\",24]",
+    "framing": "rpki-set-v1\\n then uint32BE byte length then UTF8 element; sorted unique encodings",
+    "expected": "7199a2661b3e44755b5dd9117e0438684a3e2f8b80088b5e0cf3320a403f94f8"
+  },
+  "limitation": "Owned fixtures and bounded proof do not validate full real occurrence ledger"
+}

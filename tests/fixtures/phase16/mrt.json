@@ -1,0 +1,15 @@
+{
+  "policy": "RFC6396-framing-v1",
+  "one_update_hex": "0000000100100004000000330000fbf40000fbf500000001c0000201c0000202ffffffffffffffffffffffffffffffff001f020000000018c0000218c63364",
+  "expected_offsets_two_identical_updates": [0, 63],
+  "expected_next_offsets": [63, 126],
+  "expected_all_record_indices": [0, 1],
+  "expected_announcement_prefixes": ["192.0.2.0/24", "198.51.100.0/24"],
+  "unsupported_hex": "000000010063000000000002aabb",
+  "unsupported_then_update_offsets": [0, 14],
+  "malformed_bgp_body_hex": "000000010010000400000001ff",
+  "malformed_then_update_offsets": [0, 13],
+  "extended_timestamp_hex": "0000000100110004000000050007a120ff",
+  "expected_extended_microseconds": 500000,
+  "independently_specified": true
+}

@@ -1,0 +1,43 @@
+{
+  "starting_commit": "362fb7cbee02258456ca7ed3e9042b6d720ae8bd",
+  "old_file_sha256": {
+    "schemas/base.py": "24a62634a8082b8ef958180ad975c6bd37f79359e193f9f3dffe34d8180ca8d4",
+    "schemas/asset.py": "e9773168880363026dc8897fc79437e67913342a07d15da5f2874d42b395eee9",
+    "schemas/snapshot.py": "5fafcf6aac2caba4702522bf2c6365933e10680a520ca85ca6e3b95d4996a07c",
+    "schemas/event.py": "60742dfd405c5a8ccbbbbf41db4679fdfd3293f8eb1eaf3f8745e0c471b69ebc",
+    "schemas/diff.py": "db82ab9e8730a9734d60a3886cee28f7549acd3251f0efa25820c643e85e4964",
+    "schemas/alert.py": "e143257946c55918c697bfd55d62d5713c2e3a2e088247ab76d2098742172b7e",
+    "messaging/serialization.py": "42e4aaca1d3416df827ab94548f2b7794d0bcb94443da55f27a57af090534b5e",
+    "messaging/kafka_producer.py": "fb933591fdccf1132e941671bdee8992074b7ed94639c677aeef8a99837ecab5",
+    "processing/state.py": "6be0acc8a4d4ab689c1565b3771c57c64046216eb6712c096782a1b6d97908b5",
+    "processing/normalization.py": "45cb7656802271de30539742e6bd4c2e873a40f3e520833e4d66f085c37fda4f",
+    "processing/diff.py": "a967717e84572f8e5a6cbb3aa178acae9b41248936093134392a63c0c28fc971",
+    "spark/common/schemas.py": "b78b2d1e9200df3d936da5f92e88742a57d24ecdf1b00d2e7155e370bdeaeb20",
+    "spark/common/lake_schemas.py": "0474bd032a5a39a16fa79a1c88ef1e732543b576eb6fb945ed6d24db4523b41c",
+    "spark/streaming/parser.py": "69fc6bffa18998d2dc99a0cbb658b2503f8456adede74da68820304953498776",
+    "spark/streaming/stateful.py": "e1f245c4459d5b1471e5e6b826cae12ced4e6d3962e07c246191217993b6d060",
+    "spark/streaming/sinks/lake.py": "01179b45c4cefac19a4bf75e002b3fb59579ab930f28b5fb54e8609da6de83da",
+    "lake/client.py": "6628417bcb1a05c9af7861846447136c103e2c0bf9de49aa2373f25c16bae0db",
+    "analytics/jobs.py": "16cba5b1847a3d23023f45d0ec42749533ef54fbe6daff13bfc8a81e2899e812",
+    "workloads/observed.py": "6960bb1a45ab9aa8e5313d178be40911fb450612e848e6374aa12ee018e0bc4f",
+    "workloads/terrads_history.py": "adae2fd4d9d33b4d238f47de9b0fb2530e429bc0bc74792715c4956272a9980f",
+    "workloads/results/terrads/history-summary.json": "ebabae65de94361e7aa3badc954f2dbc6cda101286edf30c625d4db14bd93f34",
+    "workloads/results/dataset-feasibility/bgp.json": "04e3e8b4176190b857d7d4a405835a940bfa2780a5a38659471b1286a6b557cf",
+    "workloads/results/dataset-feasibility/rpki.json": "7e93f3626078a3590841dc633a6c937b454d690fc9714569a156acc67b35c83d",
+    "workloads/results/dataset-feasibility/dns.json": "e401e526f145115592ff371d154ac08b52115eb06540f2eb91affc039c686a64",
+    "workloads/results/phase15/implementation-roadmap.json": "6dbd72eb98fa061b7505c8fe0415369e91cad9f82554be1e59c92d37bf1c7ea2"
+  },
+  "legacy_allowlist": [
+    "raw/snapshots",
+    "processed/snapshots",
+    "processed/diffs",
+    "processed/alerts",
+    "processed/diagnostics"
+  ],
+  "configuration_manifest_format": "1.0",
+  "new_manifest_format": "temporal-1.0",
+  "configuration_transport_modified": false,
+  "new_commit_prefix": "_temporal_commits/v1",
+  "old_commit_prefix": "_commits",
+  "service_validation": "PENDING: Docker executable unavailable; no services started"
+}

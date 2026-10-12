@@ -1,0 +1,79 @@
+{
+  "registry_version": "1.0",
+  "common_contract": "schemas.temporal.records.Envelope",
+  "envelope_fields": [
+    "envelope_version",
+    "record_kind",
+    "payload_schema_version",
+    "source_id",
+    "dataset_id",
+    "source_scope",
+    "logical_record_id",
+    "provenance_manifest_id",
+    "source_coordinate",
+    "tagged_time_descriptor",
+    "quality_status"
+  ],
+  "registrations": [
+    {
+      "kind": "rpki_observation",
+      "payload": "RpkiObservation",
+      "coordinate": "state",
+      "dataset": "temporal/rpki/observations",
+      "schema_version": "1.0",
+      "barrier": "Verified complete descriptor + matching member proof required"
+    },
+    {
+      "kind": "rpki_transition",
+      "payload": "RpkiTransition",
+      "coordinate": "derived",
+      "dataset": "temporal/rpki/transitions",
+      "schema_version": "1.0",
+      "barrier": "Both complete consecutive comparable state proofs; exact member difference"
+    },
+    {
+      "kind": "dns_measurement",
+      "payload": "DnsMeasurement",
+      "coordinate": "parquet",
+      "dataset": "temporal/dns/measurements",
+      "schema_version": "1.0",
+      "barrier": "Observed row only; absence cannot fabricate coordinate; partition != entity completeness"
+    },
+    {
+      "kind": "ris_occurrence",
+      "payload": "RisOccurrence",
+      "coordinate": "mrt",
+      "dataset": "temporal/ris/occurrences",
+      "schema_version": "1.0",
+      "barrier": "Occurrence coordinates; payload equality is not occurrence identity"
+    }
+  ],
+  "configuration_reference": {
+    "type": "schemas.ConfigSnapshot",
+    "version": "1.0",
+    "transport": "messaging.serialization unchanged",
+    "migrated": false
+  },
+  "record_schema_versions": [
+    "1.0"
+  ],
+  "unknown_kind_version_policy": "reject",
+  "automatic_pipeline_dispatch": false,
+  "identities": {
+    "namespace": "configstream-temporal-v1",
+    "algorithm": "SHA256 over UTF8 canonical tagged JSON array",
+    "normalization": "NFC; sorted object keys; strict scalar type tags; no floats; network strict host bits; canonical integer ASN; ISO calendar dates",
+    "policy_namespace": "identity(policy_bindings,v1,[parser_version,canonicalization_version,counting_policy_version])",
+    "conflict": "same ID with unequal validated evidence is fatal; no payload-only dedup"
+  },
+  "publication": {
+    "format": "temporal-1.0",
+    "prefix": "_temporal_commits/v1",
+    "legacy_format": "1.0",
+    "legacy_prefix": "_commits",
+    "separate_namespace": true,
+    "single_writer": true,
+    "global_transaction": false,
+    "fixture_record_limit": 10000
+  }
+}

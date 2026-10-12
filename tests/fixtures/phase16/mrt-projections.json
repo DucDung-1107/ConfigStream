@@ -1,0 +1,9 @@
+{
+  "ownership": "Project-authored byte sequences; manual expected NLRI, no external records",
+  "mp_hex": "0000000100100004000000610000fbf40000fbf500000001c0000201c0000202ffffffffffffffffffffffffffffffff004d02000418cb0071002a800e1a0002011020010db8000000000000000000000001002020010db8800f0a0002013020010db8000118c0000218c63364",
+  "mp_length": 109,
+  "mp_expected": [["withdrawal", "203.0.113.0/24", null], ["announcement", "192.0.2.0/24", null], ["announcement", "198.51.100.0/24", null], ["announcement", "2001:db8::/32", null], ["withdrawal", "2001:db8:1::/48", null]],
+  "addpath_hex": "00000001001000090000003b0000fbf40000fbf500000001c0000201c0000202ffffffffffffffffffffffffffffffff002702000000000000000718c000020000000818c63364",
+  "addpath_length": 71,
+  "addpath_expected": [["announcement", "192.0.2.0/24", 7], ["announcement", "198.51.100.0/24", 8]]
+}

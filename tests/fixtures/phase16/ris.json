@@ -1,0 +1,75 @@
+{
+  "fixture_role": "project-owned publication fixture, not independent identity oracle",
+  "manifest": {
+    "manifest_version": "1.0",
+    "source_id": "owned",
+    "dataset_id": "owned-window",
+    "source_scope": "rrc00",
+    "artifacts": [
+      {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "safe_reference": "fixture:phase16/source",
+        "revision": "v1",
+        "bytes": 12
+      }
+    ],
+    "parser_version": "owned-v1",
+    "canonicalization_version": "owned-v1",
+    "counting_policy_version": "owned-v1",
+    "selection_manifest_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "source_time_coverage": {
+      "kind": "unknown",
+      "role": "source",
+      "reason": "fixture"
+    },
+    "declared_observation_coverage": "owned fixture only",
+    "license_terms_reference": "project-owned",
+    "expected_records": 1,
+    "accepted_records": 1,
+    "excluded_records": 0,
+    "integrity_verified": true,
+    "accounting_complete": true,
+    "input_observation_ids": []
+  },
+  "record": {
+    "envelope": {
+      "envelope_version": "1.0",
+      "record_kind": "ris_occurrence",
+      "payload_schema_version": "1.0",
+      "source_id": "owned",
+      "dataset_id": "owned-window",
+      "source_scope": "rrc00",
+      "logical_record_id": "f867f84360b5bc27e6c5df1a89120710ae196c621f10fa87296ee449405f481d",
+      "provenance_manifest_id": "33ef3d600f1b13935ce0b89043a8442610cecf3952a3185e91c0e882711ba67d",
+      "source_coordinate": {
+        "kind": "mrt",
+        "artifact_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "byte_offset": 0,
+        "all_record_index": 0,
+        "expansion_ordinal": 0
+      },
+      "tagged_time_descriptor": {
+        "kind": "point",
+        "role": "source",
+        "original": "2026-09-01T00:00:00Z",
+        "value": "2026-09-01T00:00:00Z",
+        "precision": "second",
+        "encoding": "iso8601"
+      },
+      "quality_status": "accepted"
+    },
+    "payload": {
+      "kind": "ris_occurrence",
+      "collector": "rrc00",
+      "peer_asn": 64500,
+      "peer_ip": "192.0.2.1",
+      "action": "announcement",
+      "prefix": "198.51.100.0/24",
+      "afi": 1,
+      "safi": 1,
+      "path_id": null,
+      "attribute_digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "acceptance": "accepted"
+    }
+  }
+}

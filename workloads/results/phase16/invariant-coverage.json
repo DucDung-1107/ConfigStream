@@ -1,0 +1,98 @@
+{
+  "version": "phase16-v1",
+  "status_scope": "Offline fixtures/local Parquet only; not full source or service acceptance",
+  "invariants": [
+    {
+      "id": "I1",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_provenance_binding_and_artifact_revisions",
+        "test_artifact_checksum_size_and_budget_oracle"
+      ],
+      "pending": "Future source acquisition/oracle binding, full dataset validation"
+    },
+    {
+      "id": "I2",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_replay_conflicts_and_multiplicity",
+        "test_committed_before_checkpoint_retry_and_conflict"
+      ],
+      "pending": "Persistent multi-batch replay under actual services"
+    },
+    {
+      "id": "I3",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_replay_conflicts_and_multiplicity",
+        "test_dns_equal_values_distinct_coordinates",
+        "test_expansion_wire_order_mp_addpath_and_multiplicity"
+      ],
+      "pending": "Full-hour RIS occurrence ledger"
+    },
+    {
+      "id": "I4",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_rpki_completeness_barrier",
+        "test_publication_state_barrier_and_descriptor_accounting",
+        "test_dns_missing_failed_not_empty_or_deleted"
+      ],
+      "pending": "Real completion orchestration with source oracles"
+    },
+    {
+      "id": "I5",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_time_precision_offsets_unknown_and_arrival",
+        "test_invalid_timestamp_units_or_invented_time",
+        "test_interval_unknown_and_out_of_order_are_not_repaired"
+      ],
+      "pending": "Full raw timestamp/projection ledger"
+    },
+    {
+      "id": "I6",
+      "status": "PARTIAL",
+      "offline_tests": [
+        "test_publication_failure_invisible_then_retry",
+        "test_conditional_commit_metadata_uses_new_namespace",
+        "test_committed_projection_checks_actual_output_and_reconciles_runs"
+      ],
+      "local_parquet_tests": [
+        "test_additive_typed_parquet_publication_recovery_and_old_reader",
+        "test_legacy_publication_failure_boundaries_unchanged"
+      ],
+      "pending": "Actual MinIO conditional-put and actual Spark checkpoint interruption; Docker unavailable"
+    },
+    {
+      "id": "I7",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_independent_rpki_checksum_duplicates_and_exact_reconstruction",
+        "test_dns_proven_empty_changes_workers_and_partition_barrier"
+      ],
+      "pending": "Real-day/state/occurrence independent oracles and recovery"
+    },
+    {
+      "id": "I8",
+      "status": "PASS_OFFLINE",
+      "tests": [
+        "test_mrt_truncation_and_invalid_length_fail_without_resync",
+        "test_frame_error_ledger_not_an_event_occurrence",
+        "test_probe_crosscheck_offline_parser_failure_no_coordinate_drift"
+      ],
+      "pending": "Full archive EOF/integrity/exclusion accounting, original 57 preserved"
+    },
+    {
+      "id": "I9",
+      "status": "PARTIAL",
+      "tests": [
+        "test_kind_coordinate_and_old_transport_isolation",
+        "test_registry_closed_and_legacy_allowlist_untouched",
+        "test_terraform_existing_fixture_reference_unchanged",
+        "test_legacy_publication_failure_boundaries_unchanged"
+      ],
+      "pending": "Existing external-service suites not rerun; unchanged original sources plus unit/API/Spark regression checked"
+    }
+  ]
+}
