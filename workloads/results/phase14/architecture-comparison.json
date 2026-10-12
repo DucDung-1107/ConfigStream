@@ -1,0 +1,18 @@
+{
+  "selected_design": 2,
+  "implemented": false,
+  "designs": [
+    {"id": 1, "name": "adapters into current config snapshot path", "semantic_integrity": "fails for native events and typed policy transitions", "reuse": "high apparent, low valid reuse", "decision": "reject universal use"},
+    {"id": 2, "name": "shared source/provenance/time envelope with typed processing", "semantic_integrity": "sound design subject to independent oracles", "reuse": "publication/recovery/provenance/metrics, additive typed registration", "decision": "recommended; separate checkpointed queries allowed"},
+    {"id": 3, "name": "independent pipelines sharing lake", "semantic_integrity": "sound domain semantics", "reuse": "limited unless common publication/test contracts factored", "decision": "physical organization possible; not sufficient unifying contribution alone"}
+  ],
+  "domain_contracts": {
+    "terraform": {"category": "VersionedConfiguration", "identity": "repository/path incarnation + extracted ordinal", "reuse_existing_snapshot_processor": true},
+    "rpki": {"category": "StateObservation/StateTransition", "identity": "scope + ASN + canonical prefix + maxLength; complete observation ID separate", "comparison": "complete comparable consecutive daily sets only", "reuse_existing_snapshot_processor": false},
+    "dns": {"category": "StateObservation", "identity": "measurement scope + canonical query/response name/type", "comparison": "qualified observed value sets, ambiguous cause", "postponed": true},
+    "ris": {"category": "NetworkEvent", "identity": "scope + artifact SHA256 + decompressed MRT record offset + expansion ordinal + counting policy", "comparison": "preserve distinct occurrence multiplicity; no text diff", "reuse_existing_snapshot_processor": false}
+  },
+  "shared": ["source manifest/provenance", "transport/backpressure patterns", "committed publication/recovery", "frozen input reads", "safe diagnostics", "metrics/failure test matrix"],
+  "not_shared": ["configuration version buffers", "text normalization/diffs", "router YAML rules", "state canonicalization/completeness", "event interpretation", "typed analytics", "current search/API projections"],
+  "important_limits": ["no full route state without RIB and complete update/session coverage", "watermark dedup is not eternal", "lake schemas/reader/serializer are currently configuration allowlists", "no cross-sink global transaction", "aggregate counts do not prove identity equality"]
+}

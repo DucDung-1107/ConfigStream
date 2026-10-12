@@ -1,0 +1,20 @@
+{
+  "specification": "docs/phase14-risks-and-premortem.md",
+  "probability_unit": "qualitative judgment, not measured probability",
+  "risks": [
+    {"id": "scope", "probability": "high", "impact": "very high", "mitigation": "two new domains; no ROV/RIB/DNS/API", "residual": "medium"},
+    {"id": "multiplicity", "probability": "medium", "impact": "very high", "mitigation": "coordinate multiset oracle, not payload dedup", "residual": "low after validation"},
+    {"id": "completeness", "probability": "medium", "impact": "very high", "mitigation": "complete-state descriptors and gap barriers", "residual": "low-medium"},
+    {"id": "lake-regression", "probability": "medium", "impact": "high", "mitigation": "additive registry and existing recovery tests", "residual": "medium"},
+    {"id": "parser", "probability": "medium", "impact": "high", "mitigation": "preserve 57 exclusions, coordinates and policy versions", "residual": "medium"},
+    {"id": "disk-memory", "probability": "medium", "impact": "high", "mitigation": "small pilot and explicit resource guards", "residual": "medium"},
+    {"id": "academic", "probability": "medium-high", "impact": "very high", "mitigation": "instructor approval and fair simple baselines", "residual": "medium"},
+    {"id": "legal", "probability": "medium", "impact": "high", "mitigation": "private raw inputs, aggregate results, owned fixtures; distribution gate", "residual": "medium"},
+    {"id": "access-change", "probability": "medium", "impact": "medium", "mitigation": "pinned hashes/private cache and visible failure", "residual": "medium"},
+    {"id": "effort", "probability": "medium-high", "impact": "high", "mitigation": "110/194/346 person-hours and kill criteria", "residual": "medium-high"},
+    {"id": "coverage-bias", "probability": "high", "impact": "high for generality", "mitigation": "scope every result to anchor/collector/window", "residual": "high for global claims"},
+    {"id": "no-speedup", "probability": "medium", "impact": "medium", "mitigation": "negative cost findings are acceptable", "residual": "low if evaluation accepted"}
+  ],
+  "premortem_causes": ["scope overrun", "incoherent framing", "wrong identity/completeness", "counts-only evaluation", "resource/legal reproduction failure"],
+  "raw_normalized_publication": "blocked pending explicit applicable permission evidence; public URL alone is insufficient"
+}

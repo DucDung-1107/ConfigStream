@@ -1,0 +1,35 @@
+{
+  "decision": "GO — REDUCED SCOPE",
+  "approval_state": "recommendation only; instructor/time/legal gates unresolved",
+  "primary_reason": "Two temporal information types answer one preservation/cost problem; DNS/four-domain marginal value does not justify scope cost",
+  "gates": [
+    {"id": 1, "name": "academic coherence", "result": "CONDITIONAL", "action": "instructor accepts systems evaluation and negative results"},
+    {"id": 2, "name": "semantic integrity", "result": "PASS", "qualification": "design only; exact offline oracle required"},
+    {"id": 3, "name": "Big Data substance", "result": "PASS", "qualification": "bounded observed source-time routing velocity; not cluster necessity or broad generality"},
+    {"id": 4, "name": "architectural feasibility", "result": "CONDITIONAL", "action": "typed native event path and additive lake registration validated"},
+    {"id": 5, "name": "resource feasibility", "result": "CONDITIONAL", "action": "confirm actual available effort/container limits and small pilot"},
+    {"id": 6, "name": "evaluation feasibility", "result": "PASS", "qualification": "design; build coordinate/digest oracle, not aggregate count-only validation"},
+    {"id": 7, "name": "legal reproducibility", "result": "CONDITIONAL", "action": "private inputs/owned fixtures/aggregate publication; explicit approval before raw or normalized redistribution"},
+    {"id": 8, "name": "scope risk", "result": "PASS", "qualification": "two-new-domain scope only; full four-domain design not recommended"}
+  ],
+  "roadmap": [
+    {"id": "M1", "expected_hours": 22, "purpose": "approval/contracts/offline identity", "kill": "no approval, unresolved identity or universal schema needed"},
+    {"id": "M2", "expected_hours": 40, "purpose": "complete RPKI source end-to-end", "kill": "unexplained set/transition mismatch or old lake breakage"},
+    {"id": "M3", "expected_hours": 50, "purpose": "RIS occurrence path and fault recovery", "kill": "lost multiplicity, hidden parser errors, resource guard"},
+    {"id": "M4", "expected_hours": 56, "purpose": "bounded real experiments and fair baselines", "kill": "incorrect output/resource breach; capacity failure stops expansion, not negative-result reporting"},
+    {"id": "M5", "expected_hours": 26, "purpose": "report/regression/CI", "kill": "unsupported superiority/generality claims or no meaningful evaluation"}
+  ],
+  "fallback": "Retain Phases0-13 if scope/time approval fails; state-only fallback needs explicit narrower RQs; reconsider topic only if instructor rejects existing/reduced evaluation",
+  "no_implementation_in_review": true,
+  "validation": {
+    "date": "2026-10-12",
+    "make_check": {"passed": 823, "seconds": 13.24, "ruff_lint_format": "passed"},
+    "make_api_test": {"passed": 80, "seconds": 0.57, "warnings": 1},
+    "make_spark_test": {"passed": 60, "seconds": 48.62, "scope": "service-free transformations"},
+    "offline_review_checks": ["six JSON records parse", "source SHA256 matches", "measured totals", "scenario formulas", "package and milestone sums", "dependency critical path", "local document links"],
+    "new_code_or_test_cases": 0,
+    "new_end_to_end_experiments": 0,
+    "baseline_ci": {"run_id": 38191154356, "conclusion": "success", "head_sha": "8026ae1cd1a0d7df1b2b6927000cfa8a776b022a", "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38191154356"},
+    "review_commit_ci": "reported in final handoff after completed workflow; not assumed in advance"
+  }
+}

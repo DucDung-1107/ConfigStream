@@ -1,0 +1,70 @@
+{
+  "review_version": "phase14-review-v1",
+  "baseline_commit": "8026ae1cd1a0d7df1b2b6927000cfa8a776b022a",
+  "units": {"bytes": "decimal bytes, not GiB", "effort": "judgmental person-hours, not measured runtime or confidence interval"},
+  "sources": {
+    "rpki": {"path": "workloads/results/dataset-feasibility/rpki.json", "sha256": "7e93f3626078a3590841dc633a6c937b454d690fc9714569a156acc67b35c83d"},
+    "ris": {"path": "workloads/results/dataset-feasibility/bgp.json", "sha256": "04e3e8b4176190b857d7d4a405835a940bfa2780a5a38659471b1286a6b557cf"},
+    "dns": {"path": "workloads/results/dataset-feasibility/dns.json", "sha256": "e401e526f145115592ff371d154ac08b52115eb06540f2eb91affc039c686a64"},
+    "terraform": {"path": "workloads/results/terrads/history-summary.json", "acceptance": "docs/phase12-acceptance.md"}
+  },
+  "measured_inputs": {
+    "ris_hour": {"compressed_bytes": 73771296, "logical_mrt_bytes": 427068595, "prefix_occurrences": 4725156, "parse_seconds_cached": 98.72533120808657, "parse_errors": 57, "repeated_fingerprints_preserved": 118172},
+    "rpki_14_days": {"compressed_bytes": 63816988, "logical_csv_bytes": 909372097, "observations": 5062923, "transitions": 12016, "initial_tuples": 360226, "elapsed_fetch_and_parse_seconds": 101.32131383300293},
+    "dns_two_days": {"physical_parquet_bytes": 98828670, "uncompressed_column_bytes": 252307526, "observations": 2234863, "changed_common_groups": 4091, "parse_seconds": 7.307092459057458},
+    "terraform": {"accepted_repositories": 375, "file_incarnations": 6505, "revisions": 10188, "adjacent_pairs": 3683, "logical_content_bytes": 12278085}
+  },
+  "nominal_scenarios": [
+    {"id": "ris_24_hours", "classification": "extrapolated scenario, NOT forecast", "formula": "measured ris_hour values * 24", "compressed_bytes": 1770511104, "logical_mrt_bytes": 10249646280, "prefix_occurrences": 113403744, "parse_seconds_same_cost": 2369.4079489940777, "derived_state_transitions": null},
+    {"id": "rpki_30_days", "classification": "extrapolated scenario, NOT forecast", "volume_formula": "measured rpki_14_days volume * 30 / 14", "transition_formula": "12016 * 29 / 13", "compressed_bytes": 136750688.57142857, "logical_csv_bytes": 1948654493.5714285, "observations": 10849120.714285715, "transitions": 26804.923076923078},
+    {"id": "dns_7_days", "classification": "extrapolated scenario, NOT forecast", "formula": "measured dns_two_days volume * 7 / 2", "physical_parquet_bytes": 345900345, "uncompressed_column_bytes": 883076341, "observations": 7822020.5, "changed_common_groups": null, "parse_seconds_same_cost": 25.574823606701103}
+  ],
+  "sensitivity_assumptions": {
+    "future_window_volume_multiplier": [0.5, 3],
+    "interpretation": "arbitrary planning stress factors around nominal scenario, not empirical uncertainty bounds; stop before capacity is consumed",
+    "ris_encoded_bytes_per_occurrence": [200, 800],
+    "ris_normalized_parquet_bytes_per_occurrence": [60, 160],
+    "ris_peak_disk_formula": "compressed archive + decompressed MRT staging + 2 * occurrences * encoded_bytes_per_occurrence + occurrences * parquet_bytes_per_occurrence + scratch_bytes",
+    "ris_hour_scratch_bytes": 2147483648,
+    "ris_day_scratch_bytes": 8589934592,
+    "rpki_dns_kafka_encoded_bytes": null,
+    "spark_runtime_seconds": null,
+    "reason_unknown": "No new-domain transport, sink, encoding, state memory or throughput has been measured"
+  },
+  "resource_policy": {
+    "initial_free_disk_review_bytes": 676323348480,
+    "source": "df -k . on review date; 660472020 available KiB * 1024",
+    "ram_bytes_phase13": 19327352832,
+    "logical_cores_phase13": 12,
+    "minimum_free_disk_bytes": 21474836480,
+    "initial_total_new_experiment_budget_gib": 50,
+    "initial_per_run_reserved_gib": 15,
+    "maximum_initial_free_disk_consumption_fraction": 0.5,
+    "download_concurrency_max": 2,
+    "services_started_in_review": false
+  },
+  "packages": [
+    {"id": "P0", "name": "scope and legal approval", "dependencies": [], "hours": [4, 8, 16], "priority": "gate", "postpone": false},
+    {"id": "P1", "name": "typed contracts and offline identity fixtures", "dependencies": ["P0"], "hours": [6, 10, 18], "priority": "essential", "postpone": false},
+    {"id": "P2", "name": "additive typed lake publication and reader registration", "dependencies": ["P1"], "hours": [8, 14, 24], "priority": "essential", "postpone": false},
+    {"id": "P3", "name": "RPKI source import and completeness metadata", "dependencies": ["P1"], "hours": [6, 10, 18], "priority": "essential", "postpone": false},
+    {"id": "P4", "name": "RPKI complete-state transitions and reconstruction", "dependencies": ["P2", "P3"], "hours": [8, 16, 28], "priority": "essential", "postpone": false},
+    {"id": "P5", "name": "RIS MRT expansion and source-coordinate oracle", "dependencies": ["P1"], "hours": [10, 18, 32], "priority": "essential", "postpone": false},
+    {"id": "P6", "name": "RIS native occurrence ingestion and committed output", "dependencies": ["P2", "P5"], "hours": [8, 16, 28], "priority": "essential", "postpone": false},
+    {"id": "P7", "name": "typed queries and simple batch/storage baselines", "dependencies": ["P4", "P6"], "hours": [12, 20, 36], "priority": "essential", "postpone": false},
+    {"id": "P8", "name": "service correctness, restart and partial-failure validation", "dependencies": ["P4", "P6"], "hours": [12, 20, 36], "priority": "essential", "postpone": false},
+    {"id": "P9", "name": "event-aware benchmark accounting", "dependencies": ["P6"], "hours": [8, 14, 24], "priority": "essential", "postpone": false},
+    {"id": "P10", "name": "bounded repeated experiments and negative-result analysis", "dependencies": ["P7", "P8", "P9"], "hours": [12, 22, 40], "priority": "essential", "postpone": false},
+    {"id": "P11", "name": "academic report and reproducible evidence bundle", "dependencies": ["P10"], "hours": [10, 16, 28], "priority": "essential", "postpone": false},
+    {"id": "P12", "name": "regression, CI and final packaging", "dependencies": ["P11"], "hours": [6, 10, 18], "priority": "essential", "postpone": false}
+  ],
+  "selected_scope_hours_best_expected_worst": [110, 194, 346],
+  "engineering_dependency_critical_path_expected_hours": 120,
+  "critical_path": ["P0", "P1", "P5", "P6", "P7 or P8", "P10", "P11", "P12"],
+  "single_developer_schedule": "all packages serialize in labor accounting: 194 expected hours, not the 120-hour unlimited-staff dependency bound",
+  "optional_additions": [
+    {"name": "DNS adapter, qualified state comparisons, privacy/license review, tests and integration", "hours": [36, 64, 112], "postpone": true},
+    {"name": "four-domain cross-evaluation and scope-generalization work", "hours": [12, 22, 40], "postpone": true},
+    {"name": "full routing state, ROV join, search/API, multi-worker cluster", "hours": null, "postpone": true, "reason": "new scope, unbudgeted; requires separate approval"}
+  ]
+}

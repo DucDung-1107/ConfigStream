@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "8026ae1cd1a0d7df1b2b6927000cfa8a776b022a",
+  "decision": "GO — REDUCED SCOPE",
+  "selected_option": "D",
+  "recommended_title": "ConfigStream: Evaluating Storage and Analytics for Network Policy and Routing Event Histories",
+  "central_problem": "Correct preservation of observed policy states and operational occurrences under replay/recovery, with explicit retention/query/ingestion cost trade-offs",
+  "implemented_in_phase14": false,
+  "options": [
+    {"id": "A", "scope": "preserve configuration-history evaluation", "datasets": ["A2", "A3"], "hours_best_expected_worst": [16, 28, 48], "status": "fallback if approval or time budget inadequate"},
+    {"id": "B", "scope": "state-history-centered", "datasets": ["A2", "B1", "C1"], "hours_best_expected_worst": [116, 202, 362], "status": "alternative, no natural-event capacity RQ"},
+    {"id": "C", "scope": "full heterogeneous expansion", "datasets": ["A2", "B1", "C1", "D1"], "hours_best_expected_worst": [158, 280, 498], "status": "not recommended"},
+    {"id": "D", "scope": "network policy/state and routing-occurrence evaluation", "datasets": ["B1", "D1"], "reference_only": ["A2"], "hours_best_expected_worst": [110, 194, 346], "status": "selected conditional investment recommendation"},
+    {"id": "small-state", "scope": "one new state source plus existing file-history reference", "datasets": ["B1"], "reference_only": ["A2"], "hours_best_expected_worst": [76, 132, 238], "status": "smaller fallback, excludes RQ3"}
+  ],
+  "excluded_or_postponed": ["DNS adapter", "full BGP routing state/RIB reconstruction", "RPKI-BGP validation or causal join", "new search/API", "multi-worker deployment", "new dataset survey", "live collection", "policy/security engine"],
+  "note": "Effort judgments are not measured runtimes, probabilities or confidence intervals. No repository rename. Phase12 decision B remains unchanged."
+}
