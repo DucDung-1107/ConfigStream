@@ -5,6 +5,7 @@ import json
 import subprocess
 import threading
 from dataclasses import replace
+from hashlib import sha256
 from pathlib import Path
 from time import monotonic
 from uuid import uuid4
@@ -87,7 +88,10 @@ def main():
     parser.add_argument("--days", type=int, choices=[1, 2, 14], required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--legacy-prefix", default="")
+    parser.add_argument("--total-seconds", type=int, choices=[3600, 7200], default=3600)
     args = parser.parse_args()
+    if args.total_seconds == 7200 and args.days != 14:
+        parser.error("The approved 120-minute cap is only for the frozen fourteen-day stage")
     if args.output.exists():
         parser.error("A fresh isolated experiment directory is required")
     args.output.mkdir(parents=True)
@@ -124,11 +128,29 @@ def main():
         "processing_mode": "reuse",
         "max_chunks": 256,
         "per_day_timeout_seconds": 1800,
-        "total_budget_seconds": 3600,
+        "total_budget_seconds": args.total_seconds,
         "days": [],
         "boundaries": [],
         "wire_network_bytes": None,
         "mode": "Kafka-Spark-MinIO",
+        "code_commit": subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip(),
+        "code_sha256": {
+            name: sha256(Path(name).read_bytes()).hexdigest()
+            for name in (
+                "schemas/rpki.py",
+                "messaging/rpki.py",
+                "spark/rpki.py",
+                "spark/rpki_stream.py",
+                "lake/rpki.py",
+                "workloads/rpki_oracle.py",
+                "benchmarks/rpki_service.py",
+            )
+        },
     }
     checkpoint = args.output / "checkpoint"
     checkpoint.mkdir()
@@ -159,7 +181,7 @@ def main():
         def check_budget():
             resources.check()
             guest.check()
-            if monotonic() - started > 3600:
+            if monotonic() - started > args.total_seconds:
                 raise RuntimeError("Predeclared overall experiment budget exceeded")
 
         from itertools import islice
@@ -194,7 +216,7 @@ def main():
 
         ordered = list(references.values())
         for index, reference in enumerate(ordered):
-            if monotonic() - started > 3600:
+            if monotonic() - started > args.total_seconds:
                 raise RuntimeError("Predeclared overall experiment budget exceeded")
             resources.check()
             guest.check()
@@ -220,7 +242,7 @@ def main():
                 max_chunks=256,
                 topic=topic,
             )
-            remaining = max(1, min(1800, int(3600 - (monotonic() - started))))
+            remaining = max(1, min(1800, int(args.total_seconds - (monotonic() - started))))
             if not query.awaitTermination(remaining):
                 query.stop()
                 raise RuntimeError("Predeclared day drain budget exceeded")

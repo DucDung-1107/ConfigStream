@@ -299,6 +299,24 @@ def test_resource_tree_accounting_is_bounded_to_run(tmp_path, monkeypatch):
         sampler.check()
 
 
+@pytest.mark.parametrize("table", [None, "99 0 10"])
+def test_missing_process_tree_sampling_fails_closed(tmp_path, monkeypatch, table):
+    from types import SimpleNamespace
+
+    from workloads import rpki_resources
+
+    cancelled = []
+    sampler = rpki_resources.ResourceSampler(
+        tmp_path,
+        SimpleNamespace(sparkContext=SimpleNamespace(cancelAllJobs=lambda: cancelled.append(True))),
+    )
+    monkeypatch.setattr(rpki_resources, "command", lambda arguments: table)
+    sampler.sample()
+    assert sampler.failure == "resource_sampling_failed" and cancelled == [True]
+    with pytest.raises(RuntimeError, match="safety validation"):
+        sampler.check()
+
+
 @pytest.mark.parametrize(
     "topic", ["config.snapshots", "arbitrary", "temporal.rpki.fixture.not-a-uuid"]
 )

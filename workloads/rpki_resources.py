@@ -56,6 +56,8 @@ class ResourceSampler:
             rss = command(["ps", "-axo", "pid=,ppid=,rss="])
             usage = tree_rss(rss, os.getpid()) if rss is not None else None
             try:
+                if usage is None:
+                    raise OSError("Process-tree resource sampling unavailable")
                 free = shutil.disk_usage(self.output).free
                 size = directory_bytes(self.output)
             except OSError:
