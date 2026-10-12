@@ -94,9 +94,17 @@ prove complete worldwide RPKI state or cryptographic validator correctness.
   Staged raw-file/secret and diff audits are recorded before commit. CI uses no
   live RIPE downloads and no fourteen-day input.
 
-CI: pending implementation push at initial recording; the validation follow-up
-records the exact tested commit, run URL, jobs and conclusions. A skipped local
-service test is not a successful remote integration test.
+CI independently verified for executable-code commit
+`376a46bef929656600305230623c371ad827e87e`:
+[run 38232287381](https://github.com/kongwoang/ConfigStream/actions/runs/38232287381),
+**completed / success**. Both `Python 3.12 quality` and `Spark transformation tests`
+jobs succeeded. Downloaded logs show **941 unit**, **80 API**, **68 Spark** tests;
+4.54 s, 0.96 s and 138.60 s respectively. The initial implementation commit
+`ae4046e486d2bd1c5f47ef42e1262adeed4f3d32` also passed
+[run 38231879077](https://github.com/kongwoang/ConfigStream/actions/runs/38231879077).
+This documentation-only validation recording is separate from those tested code
+revisions. Its own workflow status is verified in the final handoff. A skipped
+local service test is not a successful remote integration test.
 
 ## Resources, rights and negative evidence
 

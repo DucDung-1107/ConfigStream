@@ -1,7 +1,8 @@
 {
   "decision": "PARTIAL — BOUNDED REAL-DATA STAGES VALIDATED",
   "starting_commit": "2d5772db73feba03376572f7dc6d9ef000112697",
-  "code_commit": null,
+  "implementation_commit": "ae4046e486d2bd1c5f47ef42e1262adeed4f3d32",
+  "code_commit": "376a46bef929656600305230623c371ad827e87e",
   "maximum_validated_pipeline_stage": "D_LOCAL_SPARK_PARQUET_ONLY",
   "independent_oracle_days": 14,
   "committed_local_days": 2,
@@ -37,7 +38,22 @@
     "live_service_skipped": 1,
     "lint": "PASS",
     "format": "PASS",
-    "ci": "PENDING_PUSH"
+    "ci": "SUCCESS_CODE_COMMIT",
+    "ci_run_id": 38232287381,
+    "ci_url": "https://github.com/kongwoang/ConfigStream/actions/runs/38232287381",
+    "ci_head_sha": "376a46bef929656600305230623c371ad827e87e",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "ci_jobs": {
+      "Python 3.12 quality": "success",
+      "Spark transformation tests": "success"
+    },
+    "ci_counts_from_logs": {
+      "quality_unit": 941,
+      "api": 80,
+      "spark": 68
+    },
+    "ci_is_not_service_integration": true
   },
   "open_gates": [
     "actual owned Kafka/MinIO conditional-write and checkpoint interruption smoke",
