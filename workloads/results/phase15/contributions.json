@@ -1,0 +1,60 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "claims": [
+    {
+      "id": "K1",
+      "candidate_claims": [
+        "C1",
+        "C3"
+      ],
+      "name": "auditable typed preservation and recovery",
+      "type": "supporting/core systems engineering",
+      "status": "hypothesis, not experimentally proven",
+      "evidence_required": [
+        "E1"
+      ],
+      "invalidated_by": "Unexplained identity, completeness or recovery failure; envelope alone insufficient."
+    },
+    {
+      "id": "K2",
+      "candidate_claims": [
+        "C2",
+        "C4"
+      ],
+      "name": "reproducible storage/query and processing trade-offs",
+      "type": "empirical",
+      "status": "future measurement",
+      "evidence_required": [
+        "E2R",
+        "E2D",
+        "E2B",
+        "E3B",
+        "E3R"
+      ],
+      "invalidated_by": "Unfair projection/resource comparisons; negative preference is a valid finding."
+    },
+    {
+      "id": "K3",
+      "candidate_claims": [
+        "C5"
+      ],
+      "name": "cross-domain applicability and limits under uncertainty",
+      "type": "empirical generalization",
+      "status": "hypothesis",
+      "evidence_required": [
+        "E4"
+      ],
+      "invalidated_by": "DNS adds only counts or authoritative-change claims without ground truth."
+    }
+  ],
+  "not_claimed": [
+    "new event-sourcing algorithm",
+    "universal exactly-once",
+    "new compression algorithm",
+    "horizontal scalability",
+    "causal DNS or deployment inference"
+  ]
+}

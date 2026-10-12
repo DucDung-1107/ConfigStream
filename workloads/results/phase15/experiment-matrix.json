@@ -1,0 +1,217 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "experiments": [
+    {
+      "id": "E1",
+      "rq_ids": [
+        "RQ1"
+      ],
+      "datasets": [
+        "terraform",
+        "rpki",
+        "dns",
+        "ris"
+      ],
+      "baselines": [
+        "B0",
+        "B8"
+      ],
+      "window": "frozen references plus owned negative fixtures",
+      "oracle": "I1-I9 and domain ledgers",
+      "acceptance": "zero unexplained identity/coverage/multiplicity/reconstruction mismatch"
+    },
+    {
+      "id": "E2T",
+      "rq_ids": [
+        "RQ2"
+      ],
+      "datasets": [
+        "terraform"
+      ],
+      "baselines": [],
+      "window": "existing accepted sample",
+      "queries": [
+        "accepted version lookup",
+        "version and adjacent-pair metadata"
+      ],
+      "representation": "existing raw references + normalized versions + diffs",
+      "limit": "reference only; no matched cross-domain speed or lossless raw reconstruction from normalized text"
+    },
+    {
+      "id": "E2R",
+      "rq_ids": [
+        "RQ2"
+      ],
+      "datasets": [
+        "rpki"
+      ],
+      "baselines": [
+        "B4",
+        "B6",
+        "B7"
+      ],
+      "window": "14 days",
+      "queries": [
+        "reconstruct every selected day",
+        "membership lookup",
+        "daily/per-ASN transitions"
+      ],
+      "oracle": "exact canonical set per day",
+      "checkpoints_accepted_days": 7
+    },
+    {
+      "id": "E2D",
+      "rq_ids": [
+        "RQ2"
+      ],
+      "datasets": [
+        "dns"
+      ],
+      "baselines": [
+        "B4",
+        "B5",
+        "B1"
+      ],
+      "window": "two days",
+      "queries": [
+        "reconstruct declared group-day projection",
+        "common-group stability",
+        "coverage/status audit"
+      ],
+      "oracle": "qualified group projection and row ledger",
+      "limit": "lossless only relative to declared projection; preserve raw source and observation references"
+    },
+    {
+      "id": "E2B",
+      "rq_ids": [
+        "RQ2"
+      ],
+      "datasets": [
+        "ris"
+      ],
+      "baselines": [
+        "B0",
+        "B1"
+      ],
+      "window": "nested 5/15/60 minutes",
+      "queries": [
+        "exact interval occurrence lookup",
+        "per-minute action counts",
+        "peer/prefix activity"
+      ],
+      "limit": "aggregates lossy; count build cost/extra bytes, not lossless compression"
+    },
+    {
+      "id": "E3T",
+      "rq_ids": [
+        "RQ3"
+      ],
+      "datasets": [
+        "terraform"
+      ],
+      "baselines": [],
+      "window": "existing accepted sample",
+      "limit": "unchanged reference acceptance, not matched event speed"
+    },
+    {
+      "id": "E3R",
+      "rq_ids": [
+        "RQ3"
+      ],
+      "datasets": [
+        "rpki"
+      ],
+      "baselines": [
+        "B0",
+        "B2",
+        "B3"
+      ],
+      "window": "14 days",
+      "unit": "source rows; complete descriptors and transitions counted separately"
+    },
+    {
+      "id": "E3D",
+      "rq_ids": [
+        "RQ3"
+      ],
+      "datasets": [
+        "dns"
+      ],
+      "baselines": [
+        "B0",
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "window": "two days after DNS gate",
+      "unit": "source rows and grouped observations separately"
+    },
+    {
+      "id": "E3B",
+      "rq_ids": [
+        "RQ3"
+      ],
+      "datasets": [
+        "ris"
+      ],
+      "baselines": [
+        "B0",
+        "B2",
+        "B3"
+      ],
+      "window_minutes": [
+        5,
+        15,
+        60
+      ],
+      "unit": "peer-specific unicast NLRI occurrences",
+      "physical_rate_multipliers": [
+        0.5,
+        1,
+        2
+      ],
+      "rate_reference": 1312.5433333333333,
+      "pacing": [
+        "uniform",
+        "source-burst-preserving"
+      ],
+      "limit": "source-time rate not pipeline throughput"
+    },
+    {
+      "id": "E4",
+      "rq_ids": [
+        "RQ1",
+        "RQ2"
+      ],
+      "datasets": [
+        "dns",
+        "rpki"
+      ],
+      "baselines": [
+        "B0",
+        "B4",
+        "B5"
+      ],
+      "window": "two real DNS days and project-owned perturbation fixtures",
+      "hypothesis": "Shared preservation transfers without interpreting measurement absence as complete-state absence.",
+      "acceptance": "exact qualified observations, no false deletion/causal claim, repeated-state reuse retains status/time/provenance",
+      "failure": "Only IP-change count, missing→empty conversion or bypassed completeness; postpone DNS and amend K3."
+    }
+  ],
+  "layers": [
+    "source characterization",
+    "correctness",
+    "storage/query cost",
+    "processing/resource cost"
+  ],
+  "repeat_policy": {
+    "minimum_repeats": 3,
+    "order_seed": 42,
+    "statistics": "individual values, median, range and paired ratios; no population CI from three runs",
+    "cold_cache": "fresh process/non-prewarmed, not asserted OS cache eviction"
+  },
+  "measured_new_results": []
+}

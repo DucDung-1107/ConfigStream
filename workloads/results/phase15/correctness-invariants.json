@@ -1,0 +1,100 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "invariants": [
+    {
+      "id": "I1",
+      "name": "Provenance integrity",
+      "applicability": "all",
+      "rule": "Artifact,coordinate,scope and policy binding resolvable",
+      "negative_fixture": "wrong artifact hash",
+      "oracle": "manifest and source-coordinate ledger",
+      "existing_coverage": "partial sidecars only",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I2",
+      "name": "Replay identity",
+      "applicability": "all",
+      "rule": "Same source ID retry adds no logical record; conflict fails",
+      "negative_fixture": "same ID changed payload",
+      "oracle": "clean/perturbed identity-payload maps",
+      "existing_coverage": "snapshot dedup bounded, not eternal",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I3",
+      "name": "Multiplicity preservation",
+      "applicability": "ris,dns raw",
+      "rule": "Distinct coordinates survive equal payload/time",
+      "negative_fixture": "two equal routing occurrences at different offsets",
+      "oracle": "coordinate ledger and payload multiset",
+      "existing_coverage": "not enforced for new kinds",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I4",
+      "name": "Complete comparable observation",
+      "applicability": "rpki,dns qualified",
+      "rule": "No partial/gap transition or missing-DNS deletion",
+      "negative_fixture": "missing chunk,timeout,scope change",
+      "oracle": "set digests and comparison eligibility",
+      "existing_coverage": "new barrier needed",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I5",
+      "name": "Temporal honesty",
+      "applicability": "all",
+      "rule": "Original precision and unknowns retained; ordering qualified",
+      "negative_fixture": "tie,inversion,unknown time",
+      "oracle": "source times and descriptors",
+      "existing_coverage": "UTC checks partially",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I6",
+      "name": "Committed visibility",
+      "applicability": "all",
+      "rule": "Only validated published batch and complete analytical observation visible",
+      "negative_fixture": "kill before manifest or completion",
+      "oracle": "manifest/path/completion inventory",
+      "existing_coverage": "batch-level only today",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I7",
+      "name": "Deterministic reconstruction",
+      "applicability": "declared projections",
+      "rule": "Exact named accepted projection, not world state",
+      "negative_fixture": "missing delta or removed DNS time/status",
+      "oracle": "independent or qualified projection oracle",
+      "existing_coverage": "configuration reference only",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I8",
+      "name": "Error accounting",
+      "applicability": "all",
+      "rule": "Every source unit classified with safe category and coordinate",
+      "negative_fixture": "unsupported/truncated source",
+      "oracle": "artifact/accept/exclude ledger partition",
+      "existing_coverage": "new-domain ledger needed",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    },
+    {
+      "id": "I9",
+      "name": "Existing compatibility",
+      "applicability": "existing configuration system",
+      "rule": "Old schema,IDs,defaults,normalization and manifests unchanged",
+      "negative_fixture": "incompatible registry/path",
+      "oracle": "existing regression and Phase12 oracle",
+      "existing_coverage": "old tests only, additive work untested",
+      "failure_policy": "Fail claim/run or quarantine incomplete evidence; never hide mismatch."
+    }
+  ],
+  "exactly_once_claim": false,
+  "oracle_policy": "Independent expression/ledger required; qualify shared parser/normalizer limits. Aggregates alone insufficient."
+}

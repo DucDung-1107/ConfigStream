@@ -1,0 +1,109 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "baselines": [
+    {
+      "id": "B0",
+      "name": "Python parsing + direct append-only Parquet",
+      "comparison": "processing",
+      "datasets": [
+        "all"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B1",
+      "name": "Local analytical SQL / optional pinned DuckDB",
+      "comparison": "query",
+      "datasets": [
+        "rpki",
+        "dns",
+        "ris"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B2",
+      "name": "Spark batch",
+      "comparison": "processing",
+      "datasets": [
+        "rpki",
+        "dns",
+        "ris"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B3",
+      "name": "Kafka-Spark streaming",
+      "comparison": "processing",
+      "datasets": [
+        "rpki",
+        "dns",
+        "ris"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B4",
+      "name": "Full projected state observations",
+      "comparison": "storage",
+      "datasets": [
+        "rpki",
+        "dns"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B5",
+      "name": "Canonical state reuse plus full observation references",
+      "comparison": "storage",
+      "datasets": [
+        "dns",
+        "rpki"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B6",
+      "name": "Baseline plus transitions",
+      "comparison": "storage",
+      "datasets": [
+        "rpki"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B7",
+      "name": "Baseline + 7-day checkpoints + transitions",
+      "comparison": "storage",
+      "datasets": [
+        "rpki"
+      ],
+      "status": "future design, not executed"
+    },
+    {
+      "id": "B8",
+      "name": "Unsafe payload/time dedup, owned fixture only",
+      "comparison": "negative correctness control",
+      "datasets": [
+        "all"
+      ],
+      "status": "future design, not executed"
+    }
+  ],
+  "fairness": [
+    "same selected source files",
+    "same parser/counting policy when possible",
+    "same accepted projection and query",
+    "same CPU/RSS limits",
+    "same correctness",
+    "compression/layout matched",
+    "startup/cache separated",
+    "failed runs retained"
+  ],
+  "duckdb": "optional bounded pinned analytical SQL baseline only; not installed here",
+  "negative_results_valid": true
+}

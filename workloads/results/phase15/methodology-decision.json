@@ -1,0 +1,105 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "decision": "METHOD FROZEN — FOUR-DATASET ROADMAP CONDITIONAL",
+  "title": "ConfigStream: A Semantics-Aware Big Data Architecture for Infrastructure State and Event History Analytics",
+  "instructor_approved": false,
+  "gates": [
+    {
+      "id": "A",
+      "name": "method coherence",
+      "result": "PASS_DESIGN_INSTRUCTOR_CONDITIONAL",
+      "closure": "Instructor accepts one systems-evaluation problem, three RQs and negative findings."
+    },
+    {
+      "id": "B",
+      "name": "semantic correctness",
+      "result": "PASS_SPECIFICATION",
+      "closure": "Phase16 own fixtures prove identities, unknown times, completeness and multiplicity."
+    },
+    {
+      "id": "C",
+      "name": "ground-truth availability",
+      "result": "CONDITIONAL",
+      "closure": "Independent RPKI/DNS oracles and RIS all-record framing/expansion ledger verified."
+    },
+    {
+      "id": "D",
+      "name": "architecture compatibility",
+      "result": "CONDITIONAL",
+      "closure": "Additive registration and old-history compatibility/recovery tests pass."
+    },
+    {
+      "id": "E",
+      "name": "data/legal access",
+      "result": "CONDITIONAL",
+      "closure": "Applicable research terms and publication attribution/permissions verified per source."
+    },
+    {
+      "id": "F",
+      "name": "evaluation credibility",
+      "result": "PASS_DESIGN",
+      "closure": "Matched baselines and denominators implemented without post-result threshold changes."
+    },
+    {
+      "id": "G",
+      "name": "resource feasibility",
+      "result": "CONDITIONAL",
+      "closure": "Actual labor/container budget approved; small-window byte/RSS pilot passes guards."
+    },
+    {
+      "id": "H",
+      "name": "scope discipline",
+      "result": "PASS_FREEZE",
+      "closure": "No causal inference, incidents, route state, serving or cluster required."
+    }
+  ],
+  "frozen": [
+    "central problem",
+    "RQ1-RQ3",
+    "K1-K3 claim definitions",
+    "four roles",
+    "taxonomy/typed identities",
+    "I1-I9",
+    "provenance/completeness/multiplicity",
+    "oracle qualifications",
+    "fair baselines/metrics/thresholds",
+    "exclusions/dependency gates"
+  ],
+  "amendment_policy": "Dated decision ID, old/new policy, verified reason, affected inputs/claims/tests and approval before new measurements; do not rewrite past results.",
+  "scope_exclusions": [
+    "production adapters in Phase15",
+    "new topics/jobs/schemas/lake zones in Phase15",
+    "incident classifiers",
+    "DNS root-cause inference",
+    "ROV joins",
+    "full routing-state reconstruction",
+    "Terraform execution",
+    "ML",
+    "dashboards",
+    "cloud/cluster deployment",
+    "new APIs/search"
+  ],
+  "validation": {
+    "status": "local validation passed; review-commit CI reported after push in final handoff",
+    "local_commands": {
+      "make check": {"unit_passed": 823, "seconds": 12.81, "lint_format": "passed"},
+      "make api-test": {"passed": 80, "seconds": 0.61, "existing_warnings": 1},
+      "make spark-test": {"passed": 60, "seconds": 48.48, "service_free": true}
+    },
+    "offline_checks": [
+      "11 JSON parse and reference consistency",
+      "exactly three RQs, four roles, nine invariants",
+      "original evidence SHA256 and counts",
+      "180/318/574 package sum and 188-hour dependency path",
+      "planning disk arithmetic and local links",
+      "diagram validation and exported-artifact visual review"
+    ],
+    "figures": {"palette": "ieee-bw", "colorblind_safe": true, "grayscale_safe": true, "exports": ["drawio", "PNG via Desktop", "SVG"]},
+    "new_integration_tests": false,
+    "source_downloads": false,
+    "production_code_changed": false
+  }
+}

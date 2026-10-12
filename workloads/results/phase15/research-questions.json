@@ -1,0 +1,159 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "central_problem": "Preserve source-identifiable heterogeneous infrastructure evidence under replay/failure without false equivalence, and measure history storage, reconstruction and processing costs against simpler batch methods.",
+  "questions": [
+    {
+      "id": "RQ1",
+      "question": "Can typed identity, coverage and publication contracts preserve declared evidence under retry, disorder and partial failure?",
+      "hypothesis": "Clean and perturbed runs yield identical accepted logical histories under the declared failure model.",
+      "datasets": [
+        "terraform",
+        "rpki",
+        "dns",
+        "ris"
+      ],
+      "experiments": [
+        "E1",
+        "E4"
+      ],
+      "independent_variables": [
+        "delivery duplication",
+        "distinct equal payloads",
+        "ordering and ties",
+        "missing or partial observations",
+        "failure placement",
+        "checkpoint reuse"
+      ],
+      "metrics": [
+        "missing_ids",
+        "unexpected_ids",
+        "identity_payload_conflicts",
+        "multiplicity_loss",
+        "state_digest_mismatch",
+        "false_gap_transitions",
+        "recovery_identity_mismatch"
+      ],
+      "acceptance": "Zero unexplained mismatches; explicit source exclusions unchanged.",
+      "refutation": "Any lost legitimate occurrence, fabricated removal, conflicting identity or visible partial analytical state.",
+      "baselines": [
+        "B0",
+        "B8"
+      ],
+      "threats": [
+        "oracle coupling",
+        "parser scope",
+        "source completeness",
+        "retention loss"
+      ]
+    },
+    {
+      "id": "RQ2",
+      "question": "How do lossless historical representations trade storage against exact reconstruction and query cost?",
+      "hypothesis": "At least one state representation meets the declared byte/query preference rule; null: none does.",
+      "datasets": [
+        "rpki",
+        "dns",
+        "terraform",
+        "ris"
+      ],
+      "experiments": [
+        "E2R",
+        "E2D",
+        "E2T",
+        "E2B"
+      ],
+      "independent_variables": [
+        "representation",
+        "checkpoint interval",
+        "file layout"
+      ],
+      "metrics": [
+        "analytical_bytes",
+        "all_in_bytes",
+        "file_count",
+        "manifest_count",
+        "reconstruction_seconds",
+        "query_seconds",
+        "peak_rss_bytes"
+      ],
+      "acceptance": {
+        "correctness": "RQ1 mandatory",
+        "analytical_saving_fraction_min": 0.2,
+        "median_required_query_ratio_max": 2,
+        "interpretation": "engineering preference, not scientific law; every required query must qualify"
+      },
+      "refutation": "Incorrect reconstruction, insufficient saving, or any required query exceeding the registered bound rejects preference.",
+      "baselines": [
+        "B4",
+        "B5",
+        "B6",
+        "B7"
+      ],
+      "threats": [
+        "projection mismatch",
+        "cache",
+        "raw retention overhead",
+        "small-file layout"
+      ]
+    },
+    {
+      "id": "RQ3",
+      "question": "How do real workload shape and delivery policy affect local processing cost and streaming utility relative to batch?",
+      "hypothesis": "RIS streaming can preserve evidence at the declared 1x physical replay target within limits; universal speed superiority is not hypothesized.",
+      "datasets": [
+        "ris",
+        "rpki",
+        "dns",
+        "terraform"
+      ],
+      "experiments": [
+        "E3B",
+        "E3R",
+        "E3D",
+        "E3T"
+      ],
+      "independent_variables": [
+        "window",
+        "pacing and bursts",
+        "physical replay target",
+        "engine"
+      ],
+      "metrics": [
+        "accepted_logical_rate",
+        "physical_input_rate",
+        "serialized_bytes",
+        "final_offset_lag",
+        "peak_offset_lag",
+        "drain_seconds",
+        "batch_seconds",
+        "rss_bytes",
+        "checkpoint_bytes",
+        "startup_seconds",
+        "recovery_seconds"
+      ],
+      "acceptance": {
+        "correctness": "RQ1 mandatory",
+        "final_offset_lag": 0,
+        "drain_fraction_of_publish_duration_max": 0.1,
+        "capacity_target": "1x of the fixed measured collector-hour mean, physical load only",
+        "resource_policy": "dataset-expansion-gates.json"
+      },
+      "refutation": "Identity mismatch, budget breach, nonzero final lag or excessive drain fails capacity claim; report saturation/negative baseline outcomes.",
+      "baselines": [
+        "B0",
+        "B2",
+        "B3"
+      ],
+      "threats": [
+        "serialization and expansion",
+        "startup amortization",
+        "host contention",
+        "source-time versus replay rate",
+        "engine branch metrics"
+      ]
+    }
+  ]
+}

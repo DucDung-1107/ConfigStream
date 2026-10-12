@@ -1,0 +1,91 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "resource_policy": {
+    "minimum_free_disk_bytes": 21474836480,
+    "total_experiment_cap_bytes": 53687091200,
+    "initial_per_run_reserved_bytes": 16106127360,
+    "maximum_initial_free_consumption_fraction": 0.5,
+    "aggregate_measured_rss_budget_bytes": 12884901888,
+    "download_concurrency_max": 2,
+    "one_measured_job": true,
+    "initial_host_free_bytes": 676258533376,
+    "host_ram_bytes": 19327352832,
+    "container_limits": "unknown, inspect before runs"
+  },
+  "windows": [
+    {
+      "dataset": "terraform",
+      "initial": "existing accepted sample",
+      "expansion": "none without new RQ",
+      "stop": "old acceptance or license/security policy differs"
+    },
+    {
+      "dataset": "rpki",
+      "initial": "2026-09-01/2026-09-14",
+      "expansion": [
+        "30 consecutive days",
+        "optional other anchor/longer segment"
+      ],
+      "gate": "exact sets and transitions; integrity/comparability/legal/resource closure",
+      "stop": "missing/partial mismatch; no silent bridge"
+    },
+    {
+      "dataset": "dns",
+      "initial": "2026-09-01/2026-09-02 .li",
+      "expansion": [
+        "7 days",
+        "optional other scope"
+      ],
+      "gate": "E4 and terms; qualified observation oracle and byte/RSS budget",
+      "stop": "false absence/deletion or only IP counts"
+    },
+    {
+      "dataset": "ris",
+      "initial": "rrc00 2026-09-01 00:00 first five-minute artifact",
+      "expansion": [
+        "15 minutes",
+        "60 minutes",
+        "optional multiple hours/second collector"
+      ],
+      "gate": "source-coordinate ledger, multiplicity/errors, exact outputs, budget and 1x drain",
+      "stop": "identity loss, framing uncertainty, resource breach",
+      "initial_24h_authorized": false
+    }
+  ],
+  "planning_scenarios": {
+    "classification": "nominal linear sensitivity scenarios, NOT forecasts",
+    "ris_24h": {
+      "compressed_bytes": 1770511104,
+      "logical_mrt_bytes": 10249646280,
+      "occurrences": 113403744
+    },
+    "rpki_30d": {
+      "compressed_bytes": 136750688.57142857,
+      "logical_csv_bytes": 1948654493.5714285,
+      "observations": 10849120.714285715,
+      "actual_future_changes": null
+    },
+    "dns_7d": {
+      "physical_bytes": 345900345,
+      "column_bytes": 883076341,
+      "rows": 7822020.5,
+      "actual_future_changes": null
+    },
+    "density_factors_assumed": [
+      0.5,
+      3
+    ],
+    "ris_serialized_bytes_per_event_assumed": [
+      200,
+      800
+    ],
+    "ris_parquet_bytes_per_event_assumed": [
+      60,
+      160
+    ],
+    "spark_runtime_unknown": null
+  }
+}

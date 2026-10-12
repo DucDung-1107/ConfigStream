@@ -1,0 +1,60 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "production_schema_changes": false,
+  "taxonomy": [
+    "VersionedConfiguration",
+    "StateObservation",
+    "StateTransition",
+    "MeasurementObservation",
+    "ObservedValueDifference",
+    "EventOccurrence",
+    "SourceProvenance"
+  ],
+  "common_required": [
+    "envelope_version",
+    "record_kind",
+    "payload_schema_version",
+    "source_id",
+    "dataset_id",
+    "source_scope",
+    "logical_record_id",
+    "provenance_manifest_id",
+    "source_coordinate",
+    "tagged_time_descriptor",
+    "quality_status"
+  ],
+  "required_manifest_bindings": [
+    "artifact identities/URLs/SHA256",
+    "selection/license/scope",
+    "parser_version",
+    "canonicalization_version_or_not_applicable",
+    "counting_policy_version"
+  ],
+  "delivery_ledger_only": [
+    "ingestion_time",
+    "Kafka topic/partition/offset"
+  ],
+  "identity_rules": {
+    "collision": "same ID/different identity or payload fails",
+    "policy_change": "new namespace and recorded lineage",
+    "unknown_time": "explicit unknown reason; never ingest-time replacement",
+    "ris": "artifact SHA256 + decompressed header offset + expansion ordinal + scope + counting policy; proposed, Phase16 proof required",
+    "rpki": "membership scope+ASN+canonical prefix+maxLength; observation descriptor distinct",
+    "dns": "raw Parquet row-group/row occurrence; groups bind partition and comparison policy",
+    "terraform": "existing snapshot ID and repository/path-incarnation/commit/ordinal sidecar unchanged"
+  },
+  "completion_rules": {
+    "rpki": "independent descriptor; complete comparable consecutive states only",
+    "dns": "complete partition does not imply observed entity absence; no inferred empty result",
+    "ris": "framed accepted subset and error ledger; no full route-state claim"
+  },
+  "parser_risk": {
+    "offset_status": "feasible from inspected framing; not locally proved",
+    "fallback": "all-record index including errors; must amend freeze and verify mapping",
+    "excluded_reference_records": 57,
+    "repeated_fingerprints_must_preserve": 118172
+  }
+}

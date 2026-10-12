@@ -1,0 +1,147 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "roles": [
+    {
+      "id": "terraform",
+      "source_path": "workloads/results/terrads/history-summary.json",
+      "source_sha256": "ebabae65de94361e7aa3badc954f2dbc6cda101286edf30c625d4db14bd93f34",
+      "kind": "VersionedConfiguration",
+      "evidence": "observed VCS history",
+      "rq_ids": [
+        "RQ1",
+        "RQ2",
+        "RQ3"
+      ],
+      "primary_rqs": [
+        "RQ1"
+      ],
+      "counts": {
+        "accepted_repositories": 375,
+        "file_incarnations": 6505,
+        "revisions": 10188,
+        "adjacent_pairs": 3683,
+        "logical_utf8_bytes": 12278085,
+        "single_version_files": 5040
+      },
+      "unique_test": "Ordinal source-version adjacency despite time ties/inversions.",
+      "limits": [
+        "Git is not deployment",
+        "sparse filtered public sample",
+        "raw and normalized projections differ"
+      ],
+      "implementation_role": "reuse reference only"
+    },
+    {
+      "id": "rpki",
+      "source_path": "workloads/results/dataset-feasibility/rpki.json",
+      "source_sha256": "7e93f3626078a3590841dc633a6c937b454d690fc9714569a156acc67b35c83d",
+      "kind": "StateObservation",
+      "evidence": "observed validated authorization sets",
+      "rq_ids": [
+        "RQ1",
+        "RQ2",
+        "RQ3"
+      ],
+      "primary_rqs": [
+        "RQ1",
+        "RQ2"
+      ],
+      "scope": "ripencc.tal",
+      "window": "2026-09-01/2026-09-14 inclusive",
+      "counts": {
+        "days": 14,
+        "observations": 5062923,
+        "transition_tuples": 12016,
+        "compressed_bytes": 63816988,
+        "logical_csv_bytes": 909372097
+      },
+      "unique_test": "Independent completeness barrier and exact scoped membership reconstruction.",
+      "limits": [
+        "single anchor",
+        "daily censoring",
+        "validator effects not operator actions"
+      ],
+      "implementation_role": "new typed state path after gates"
+    },
+    {
+      "id": "dns",
+      "source_path": "workloads/results/dataset-feasibility/dns.json",
+      "source_sha256": "e401e526f145115592ff371d154ac08b52115eb06540f2eb91affc039c686a64",
+      "kind": "MeasurementObservation",
+      "evidence": "measurement-derived observations, causal changes unknown",
+      "rq_ids": [
+        "RQ1",
+        "RQ2",
+        "RQ3"
+      ],
+      "primary_rqs": [
+        "RQ1",
+        "RQ2"
+      ],
+      "scope": ".li",
+      "window": "2026-09-01/2026-09-02 inclusive",
+      "counts": {
+        "days": 2,
+        "rows": 2234863,
+        "common_successful_address_groups": 144883,
+        "changed_common_groups": 4091,
+        "physical_parquet_bytes": 98828670,
+        "uncompressed_column_bytes": 252307526
+      },
+      "unique_test": "Complete partition does not imply complete per-entity knowledge; missing/failed is not deletion.",
+      "limits": [
+        "no authoritative-change labels",
+        "worker is not proven stable vantage",
+        "two days and one zone"
+      ],
+      "implementation_role": "gated generalization, postpone if E4 fails"
+    },
+    {
+      "id": "ris",
+      "source_path": "workloads/results/dataset-feasibility/bgp.json",
+      "source_sha256": "04e3e8b4176190b857d7d4a405835a940bfa2780a5a38659471b1286a6b557cf",
+      "kind": "EventOccurrence",
+      "evidence": "native operational occurrences",
+      "rq_ids": [
+        "RQ1",
+        "RQ2",
+        "RQ3"
+      ],
+      "primary_rqs": [
+        "RQ1",
+        "RQ3"
+      ],
+      "scope": "rrc00",
+      "window": "2026-09-01T00:00:00Z/2026-09-01T01:00:00Z",
+      "counts": {
+        "mrt_records": 2300578,
+        "events": 4725156,
+        "announcements": 4462391,
+        "withdrawals": 262765,
+        "excluded_parser_records": 57,
+        "repeated_fingerprints_preserved": 118172,
+        "compressed_bytes": 73771296,
+        "logical_mrt_bytes": 427068595,
+        "source_events_per_second": 1312.5433333333333,
+        "peak_events_per_minute": 181868
+      },
+      "unique_test": "Occurrence multiplicity, parser expansion and natural bursts.",
+      "limits": [
+        "one collector-hour",
+        "parsed lower bound",
+        "no RIB or complete route-state claim"
+      ],
+      "implementation_role": "new typed event path after coordinate gate"
+    }
+  ],
+  "static_context": {
+    "source_path": "workloads/results/terrads/static-summary.json",
+    "source_sha256": "79438bd5bf29328d2f823386d524226bd36f0f55417aff553df21b55757f3f76",
+    "terraform_files": 1513378,
+    "logical_utf8_bytes": 2601501820,
+    "temporal": false
+  }
+}

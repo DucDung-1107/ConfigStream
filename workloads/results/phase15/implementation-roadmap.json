@@ -1,0 +1,338 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "packages": [
+    {
+      "id": "W0",
+      "name": "approval, access, budget",
+      "dependencies": [],
+      "hours": [
+        4,
+        8,
+        16
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W1",
+      "name": "contracts and early DNS/RIS oracle feasibility",
+      "dependencies": [
+        "W0"
+      ],
+      "hours": [
+        12,
+        20,
+        36
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W2",
+      "name": "Terraform reference audit",
+      "dependencies": [
+        "W1"
+      ],
+      "hours": [
+        4,
+        6,
+        12
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W3",
+      "name": "typed publication and reader registration",
+      "dependencies": [
+        "W1"
+      ],
+      "hours": [
+        10,
+        18,
+        32
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W4",
+      "name": "RPKI import and coverage",
+      "dependencies": [
+        "W1"
+      ],
+      "hours": [
+        8,
+        12,
+        24
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W5",
+      "name": "RPKI transition and reconstruction",
+      "dependencies": [
+        "W3",
+        "W4"
+      ],
+      "hours": [
+        8,
+        16,
+        28
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W6",
+      "name": "RIS framing/expansion oracle",
+      "dependencies": [
+        "W1"
+      ],
+      "hours": [
+        14,
+        26,
+        48
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W7",
+      "name": "RIS typed event path",
+      "dependencies": [
+        "W3",
+        "W6"
+      ],
+      "hours": [
+        8,
+        16,
+        28
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W8",
+      "name": "DNS observation/status canonicalization",
+      "dependencies": [
+        "W1"
+      ],
+      "hours": [
+        14,
+        24,
+        42
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": true
+    },
+    {
+      "id": "W9",
+      "name": "DNS generalization/reconstruction",
+      "dependencies": [
+        "W3",
+        "W5",
+        "W8"
+      ],
+      "hours": [
+        16,
+        28,
+        50
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": true
+    },
+    {
+      "id": "W10",
+      "name": "cross-kind recovery/failure validation",
+      "dependencies": [
+        "W2",
+        "W5",
+        "W7",
+        "W9"
+      ],
+      "hours": [
+        16,
+        28,
+        50
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W11",
+      "name": "batch/query/storage baselines",
+      "dependencies": [
+        "W5",
+        "W7",
+        "W9"
+      ],
+      "hours": [
+        18,
+        30,
+        54
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W12",
+      "name": "occurrence-aware measurements",
+      "dependencies": [
+        "W7"
+      ],
+      "hours": [
+        10,
+        18,
+        32
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W13",
+      "name": "bounded repeated experiments",
+      "dependencies": [
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "hours": [
+        16,
+        30,
+        54
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W14",
+      "name": "academic synthesis",
+      "dependencies": [
+        "W13"
+      ],
+      "hours": [
+        12,
+        20,
+        36
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    },
+    {
+      "id": "W15",
+      "name": "regression/CI/reproduction",
+      "dependencies": [
+        "W14"
+      ],
+      "hours": [
+        10,
+        18,
+        32
+      ],
+      "effort_unit": "judgmental person-hours, not measured",
+      "postpone": false
+    }
+  ],
+  "totals_best_expected_worst_person_hours": [
+    180,
+    318,
+    574
+  ],
+  "dependency_critical_path_expected_hours": 188,
+  "dependency_bound_scope": "technical package graph with unlimited staffing; excludes chronological milestone approval barriers and waiting time, not a calendar forecast",
+  "critical_path": [
+    "W0",
+    "W1",
+    "W3",
+    "W5",
+    "W9",
+    "W11",
+    "W13",
+    "W14",
+    "W15"
+  ],
+  "one_developer_expected_hours": 318,
+  "phase14_full_reference_hours": [
+    158,
+    280,
+    498
+  ],
+  "phases": [
+    {
+      "id": "P16",
+      "approval_dependencies": [],
+      "name": "shared contracts/infrastructure",
+      "packages": [
+        "W0",
+        "W1",
+        "W2",
+        "W3"
+      ],
+      "acceptance": "offline I1-I9 applicable fixtures; RIS offset proof; DNS unknown/empty distinction; old manifests preserved",
+      "stop": "unresolved approvals, identity or completeness; no adapters"
+    },
+    {
+      "id": "P17",
+      "approval_dependencies": ["P16"],
+      "name": "RPKI complete observations",
+      "packages": [
+        "W4",
+        "W5"
+      ],
+      "acceptance": "14 exact sets, 13 boundaries, 12016 tuple transitions and gap/partial/recovery tests",
+      "stop": "unexplained state mismatch"
+    },
+    {
+      "id": "P18",
+      "approval_dependencies": ["P17"],
+      "name": "RIS native occurrences",
+      "packages": [
+        "W6",
+        "W7",
+        "W12"
+      ],
+      "acceptance": "5/15/60-minute exact occurrence ledgers, multiplicity and exclusions/recovery/resource accounting",
+      "stop": "coordinate/multiplicity loss or resource failure"
+    },
+    {
+      "id": "P19",
+      "approval_dependencies": ["P18"],
+      "name": "DNS generalization",
+      "packages": [
+        "W8",
+        "W9"
+      ],
+      "acceptance": "E4, exact qualified projections, terms compliance, no false deletions/causal labels",
+      "stop": "postpone DNS and revise K3 if insufficient"
+    },
+    {
+      "id": "P20",
+      "approval_dependencies": ["P19"],
+      "name": "multi-workload empirical evaluation",
+      "packages": [
+        "W10",
+        "W11",
+        "W13"
+      ],
+      "acceptance": "matched E1-E4, baselines, repeats and recorded negative/expansion decisions",
+      "stop": "correctness/fairness/budget breach"
+    },
+    {
+      "id": "P21",
+      "approval_dependencies": ["P20"],
+      "name": "academic synthesis",
+      "packages": [
+        "W14",
+        "W15"
+      ],
+      "acceptance": "claim audit, regression/CI, reproducible safe results",
+      "stop": "unsupported claims or failed tests"
+    }
+  ],
+  "production_implementation_started": false
+}

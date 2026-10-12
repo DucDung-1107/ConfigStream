@@ -1,0 +1,107 @@
+{
+  "design_version": "phase15-freeze-v1",
+  "baseline_commit": "5409bf13c305dbb0a3d0c6b8b50d648e52dfc257",
+  "date": "2026-10-12",
+  "classification": "paper design; no new-domain implementation or experimental result",
+  "risks": [
+    {
+      "id": "R1",
+      "risk": "DNS no distinct generalization value",
+      "severity": "high",
+      "mitigation": "E4 missing/status/unknown fixtures",
+      "residual": "medium",
+      "reduce_trigger": "Postpone DNS/K3 if only changed-IP counts remain"
+    },
+    {
+      "id": "R2",
+      "risk": "RIS telemetry scope creep",
+      "severity": "high",
+      "mitigation": "Occurrence preservation only; no incidents/ROV/RIB",
+      "residual": "medium",
+      "reduce_trigger": "New domain product required"
+    },
+    {
+      "id": "R3",
+      "risk": "Envelope/publication alone trivial",
+      "severity": "high",
+      "mitigation": "Exact oracle/counterexamples and matched costs",
+      "residual": "high academic",
+      "reduce_trigger": "Instructor rejects systems contribution"
+    },
+    {
+      "id": "R4",
+      "risk": "Terraform loses relevance",
+      "severity": "medium",
+      "mitigation": "Ordinal/version reference, no speed ranking",
+      "residual": "low",
+      "reduce_trigger": "Reference cannot reproduce old acceptance"
+    },
+    {
+      "id": "R5",
+      "risk": "Four domains disconnect RQs",
+      "severity": "high",
+      "mitigation": "E1-E4 and K1-K3 only",
+      "residual": "medium",
+      "reduce_trigger": "Independent operational RQs needed"
+    },
+    {
+      "id": "R6",
+      "risk": "Incompatible units pooled",
+      "severity": "high",
+      "mitigation": "Within-domain projection/units and N/A",
+      "residual": "low",
+      "reduce_trigger": "Misleading summed changes or throughput ranking"
+    },
+    {
+      "id": "R7",
+      "risk": "Streaming unnecessary for daily sources",
+      "severity": "high",
+      "mitigation": "Strong batch baselines; negative acceptance",
+      "residual": "medium",
+      "reduce_trigger": "No need to reduce if negative reported honestly"
+    },
+    {
+      "id": "R8",
+      "risk": "Unfair baseline/cache comparison",
+      "severity": "high",
+      "mitigation": "Matched query/input/resource and repeats",
+      "residual": "medium",
+      "reduce_trigger": "No defensible baseline available"
+    },
+    {
+      "id": "R9",
+      "risk": "Domain-specific effort dominates",
+      "severity": "high",
+      "mitigation": "318 expected hours and stage stops",
+      "residual": "high",
+      "reduce_trigger": "Approved labor budget insufficient"
+    },
+    {
+      "id": "R10",
+      "risk": "Novelty is integration only",
+      "severity": "high",
+      "mitigation": "K1 correctness, K2 costs, K3 limits",
+      "residual": "high academic",
+      "reduce_trigger": "No independently measured contribution"
+    },
+    {
+      "id": "R11",
+      "risk": "Parser/oracle coupling",
+      "severity": "high",
+      "mitigation": "Independent framing; checked expansion fixtures; qualify coverage",
+      "residual": "medium-high",
+      "reduce_trigger": "Cannot resolve coordinate or hidden exclusions"
+    },
+    {
+      "id": "R12",
+      "risk": "Access/license/resource failure",
+      "severity": "high",
+      "mitigation": "Private cache, attribution, owned fixtures, hard guards",
+      "residual": "medium",
+      "reduce_trigger": "Illegal source use or mandatory raw demo without rights"
+    }
+  ],
+  "probabilities": "qualitative judgments, not estimated likelihoods",
+  "global_stop": "Instructor rejects method or essential legal/correctness/compatibility gate cannot close.",
+  "dns_postponement": "Amend K3 and four-role completion claim; do not silently declare success."
+}
