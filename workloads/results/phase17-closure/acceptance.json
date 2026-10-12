@@ -1,0 +1,118 @@
+{
+  "schema_version": "p17-closure-1",
+  "decision": "PASS — PHASE 17 FULL END-TO-END ACCEPTANCE CLOSED",
+  "starting_commit": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+  "implementation_commits": [
+    "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+    "a70d557e669a8066b95c5f6536423c69a5d2127c",
+    "50bf7ae30c5ea4e7f759e8b52ee059509236bacb"
+  ],
+  "runtime_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+  "runtime_sha256": {
+    "schemas/rpki.py": "1d17010be86c7cdf22cf878604e8b9b4dce5da6cdf3a69f6da1547f7094b82e7",
+    "messaging/rpki.py": "80d8354f5dafc0245d4c3619d3a814467a70787c7e9cf15ce14a88896b3b0660",
+    "spark/rpki.py": "aeaf07688a0c587ed6749e53b9c781128c6a39a6cb44c15f90a25a3172b07706",
+    "spark/rpki_stream.py": "6c8f6e02b5230a891ff68a6628cab7775c7d4a3f4efdc4de9240d3b144c49d6c",
+    "lake/rpki.py": "4d72aae3c6b4e16d6fc60904020ce292ce4da5428d839fe49294d6408fcd5864",
+    "workloads/rpki_oracle.py": "ee21d4ddd3ff307e8c252fec2d048496ad5dd8e9e5344dea401b956db676e4b8",
+    "benchmarks/rpki_service.py": "4bc9196ea2b072384924780fbc94f99c7df1bfb0ebfa3e5aa6edff2eb55e6009"
+  },
+  "previous_decision": "PARTIAL — BOUNDED REAL-DATA STAGES VALIDATED (Phase17 preserved unchanged)",
+  "largest_accepted_stage": "E",
+  "real_service_days": 14,
+  "source_rows": 5062923,
+  "adjacent_boundaries": 13,
+  "additions": 7096,
+  "removals": 4920,
+  "transitions": 12016,
+  "source_exclusions": 0,
+  "missing_or_unexpected_identities": 0,
+  "exact_transition_identity_audit": "PASS: independent SQL sets versus every committed transition identity/action/tuple/observation projection",
+  "reconstruction": "PASS: all 14 full and baseline/delta states, intermediate exact checksums/sets",
+  "services": "Actual existing Kafka 4.1.2 + Spark 4.0.2 local[2] + MinIO RELEASE.2025-10-15T17-29-55Z",
+  "checkpoint_failure_cases": 8,
+  "invalid_transport_cases": 1,
+  "service_suite": {
+    "passed": 9,
+    "skipped": 0,
+    "seconds": 176.49
+  },
+  "elapsed_seconds": 5053.7410359580535,
+  "overall_predeclared_cap_seconds": 7200,
+  "final_kafka_lag_chunks": 0,
+  "peak_sampled_tree_rss_bytes": 2728542208,
+  "min_guest_free_disk_bytes": 45494489088,
+  "resource_guard_failures": [],
+  "committed_parquet_bytes": 1647306927,
+  "committed_parquet_files": 836,
+  "accounted_system_bytes": 2659717473,
+  "matched_local_callback_median_reduction_percent": 27.697555,
+  "matched_performance_scope": "8192-row local partial-day pilot, 3 matched pairs only; no full-window before/after or engine superiority claim",
+  "regression_totals": {
+    "unit": 954,
+    "api": 80,
+    "spark": 71
+  },
+  "old_schema_or_manifest_migrations": 0,
+  "new_source_download_bytes": 0,
+  "raw_records_committed_to_git": 0,
+  "requirements": {
+    "source_integrity": "PASS",
+    "exact_source_map": "PASS",
+    "complete_daily_membership": "PASS",
+    "consecutive_transitions": "PASS",
+    "reconstruction": "PASS",
+    "actual_kafka": "PASS",
+    "actual_minio_conditional_publication": "PASS",
+    "actual_checkpoint_retry": "PASS_UNDER_DECLARED_OWNED_CALLBACK_FAILURE_MODEL",
+    "resources": "PASS_SELECTED_RUN",
+    "legacy_regressions": "PASS",
+    "scientific_reporting": "PASS"
+  },
+  "remaining_gates": [
+    {
+      "name": "Instructor approval",
+      "status": "NOT_ESTABLISHED",
+      "effect": "Required for academic acceptance of wider framing, not fabricated by technical closure"
+    },
+    {
+      "name": "Raw/normalized redistribution",
+      "status": "BLOCKED_PENDING_PERMISSION",
+      "effect": "No raw third-party records committed; keep private"
+    },
+    {
+      "name": "Multiwriter/power-loss/failover",
+      "status": "NOT_TESTED",
+      "effect": "No guarantee claimed"
+    },
+    {
+      "name": "RQ2/RQ3 matched baselines",
+      "status": "PHASE20_PENDING",
+      "effect": "Preliminary costs only; daily batch may be simpler/faster"
+    },
+    {
+      "name": "RIS full occurrence/MP/ADD-PATH ledger",
+      "status": "PHASE18_PENDING",
+      "effect": "Phase16 bounded offset feasibility is not full-hour parsing acceptance"
+    }
+  ],
+  "phase18_started": false,
+  "phase18_readiness": "RPKI prerequisite closed; only begin on new explicit Phase18 task after fresh legal/resource/parser gates. No authorization for automatic expansion.",
+  "reduced_track": "Existing Phase16 full/reduced graph tests pass; DNS remains optional for TrackR, no four-role generalization claimed.",
+  "ci_evidence": "validation.json pins verified implementation CI; final artifact-delivery SHA and exact final CI are verified and reported separately in handoff",
+  "evidence": [
+    "service-environment.json",
+    "daily-pipeline-validation.json",
+    "transition-pipeline-validation.json",
+    "reconstruction-validation.json",
+    "checkpoint-recovery-validation.json",
+    "resource-measurements.json",
+    "validation.json"
+  ],
+  "scope_limits": [
+    "One trust anchor and fixed 14-day historical window",
+    "Controlled callback interruptions on owned fixtures, not power loss or multiwriter races",
+    "No new DNS/RIS source adapter or Phase18 work",
+    "No RQ2/RQ3 or universal cross-domain contribution declared proven"
+  ]
+}

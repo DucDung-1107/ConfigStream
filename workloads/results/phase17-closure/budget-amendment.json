@@ -1,0 +1,15 @@
+{
+  "decision_id": "P17.1-2026-10-12-E-TIME-CAP",
+  "amends": "execution-policy.json",
+  "owner_reply": "Cho phép cap 120 phút cho run 14 ngày",
+  "reason": "Complete first service day took 298.913 seconds. Fourteen-day planning estimate is approximately 70–100 minutes; this is extrapolation, not a measured full-window result.",
+  "scope": "Only Stage E, the unchanged September 1–14 ripencc.tal reference; no broader dataset expansion",
+  "previous_overall_cap_seconds": 3600,
+  "approved_overall_cap_seconds": 7200,
+  "per_day_query_cap_seconds": 1800,
+  "requires": ["Stage C PASS", "Stage D PASS", "Actual service recovery PASS", "All existing resource guards"],
+  "unchanged": ["20 GiB free host/guest disk reserve", "15 GiB aggregate run growth", "50 GiB experiment output budget", "2 GiB driver heap", "6 GiB VM RAM", "Exact independent source/day/member/boundary acceptance", "Immediate stop on correctness/resource failure"],
+  "negative_findings": "This was approved before the first Stage E attempt, not a timeout increase following a failed full-window run. Any Stage E failure is preserved; no blind retry.",
+  "instructor_approval": "NOT_ESTABLISHED",
+  "raw_redistribution_permission": "NOT_ESTABLISHED"
+}

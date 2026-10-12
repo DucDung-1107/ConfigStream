@@ -1,0 +1,82 @@
+{
+  "schema_version": "p17-closure-1",
+  "status": "PASS_INTEGRATION",
+  "store": "actual existing MinIO S3 endpoint, isolated owned prefixes",
+  "format_version": "rpki-1.0",
+  "conditional_write": "Actual IfNoneMatch=* publication followed by identical retry and conflicting digest retry; server behavior validated by readback/rejection, not mock parameter assertions",
+  "cases": [
+    {
+      "failure_point": "before_raw_output",
+      "query_id": "233d84d1-cff7-4cbc-b440-01ab27cdfa0c",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "partial_raw_output",
+      "query_id": "829b9820-dedf-4d0a-8502-43d94f9acf09",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "before_raw_commit",
+      "query_id": "1a1da849-a55b-48b2-8573-717ae48e4141",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "after_raw_commit",
+      "query_id": "0b52889e-0638-4678-b7f6-e95bff3998ff",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "before_day_completion",
+      "query_id": "27bbf328-05fe-4525-ae82-d8d2012b7cbc",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "after_members_write",
+      "query_id": "65921d99-8fb8-4d45-b8ef-22848f91e82b",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "after_day_completion",
+      "query_id": "ed12f2a8-14bf-4091-a6aa-59e471ffa179",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "after_boundary",
+      "query_id": "cb5fd3ca-bb56-416d-b6f4-202de6300d19",
+      "status": "PASS",
+      "raw_commits": 1,
+      "states": 2
+    },
+    {
+      "failure_point": "invalid_transport",
+      "query_id": "4af277e6-2e24-4aba-aa48-f4b7c5676eac",
+      "status": "PASS",
+      "raw_commits": 0,
+      "states": 0
+    }
+  ],
+  "uncommitted_visibility": "partial_raw_output and after_members_write: raw/state committed readers reject partial/uncompleted evidence; resumed output exact",
+  "legacy_reader": "Existing Phase12 one-batch six-snapshot read in service-day2; full suite unchanged",
+  "new_registry_or_format": false,
+  "model": "single writer, immutable source, conditional per-key metadata; no atomic Kafka/MinIO/checkpoint transaction",
+  "not_tested": [
+    "multiwriter races",
+    "power loss",
+    "remote deployment",
+    "all existing configuration objects"
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "schema_version": "p17-closure-1",
+  "status": "PASS_INTEGRATION",
+  "query_id": "44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+  "runtime_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+  "runtime_sha256": {
+    "schemas/rpki.py": "1d17010be86c7cdf22cf878604e8b9b4dce5da6cdf3a69f6da1547f7094b82e7",
+    "messaging/rpki.py": "80d8354f5dafc0245d4c3619d3a814467a70787c7e9cf15ce14a88896b3b0660",
+    "spark/rpki.py": "aeaf07688a0c587ed6749e53b9c781128c6a39a6cb44c15f90a25a3172b07706",
+    "spark/rpki_stream.py": "6c8f6e02b5230a891ff68a6628cab7775c7d4a3f4efdc4de9240d3b144c49d6c",
+    "lake/rpki.py": "4d72aae3c6b4e16d6fc60904020ce292ce4da5428d839fe49294d6408fcd5864",
+    "workloads/rpki_oracle.py": "ee21d4ddd3ff307e8c252fec2d048496ad5dd8e9e5344dea401b956db676e4b8",
+    "benchmarks/rpki_service.py": "4bc9196ea2b072384924780fbc94f99c7df1bfb0ebfa3e5aa6edff2eb55e6009"
+  },
+  "scope": "ripencc.tal; 2026-09-01 through 2026-09-14; pinned reference only",
+  "boundaries": [
+    {
+      "additions": 717,
+      "current_id": "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907",
+      "dataset": "transitions",
+      "digest": "7044894b836c03e4fa623e0d79cee5848c1fdc6805b20fcd2e463a33473debea",
+      "format_version": "rpki-1.0",
+      "identity": "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246/5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907",
+      "identity_digest": "0026b377ee11f9e54a4bf4c6d7949d2e5edce541edee9c68efad5e5caa28d9d9",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246/5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907",
+      "previous_id": "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246",
+      "provenance_ids": [
+        "b193fa7665f484541e452ecce8f78568b375688e4df923bb7c1513fe15951691",
+        "089ef1e56264c2450e79e2b7cb38437041662c0e0053569a5cfe4c1c4d0e89b7"
+      ],
+      "removals": 437,
+      "rows": 1154
+    },
+    {
+      "additions": 825,
+      "current_id": "e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e",
+      "dataset": "transitions",
+      "digest": "436161d67e2714aa35e2e8bb8534dcc058e28d08934f153eaac3219284ae748a",
+      "format_version": "rpki-1.0",
+      "identity": "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907/e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e",
+      "identity_digest": "4115ea6d77b1e032ca4e13536c7e3eef873a317f41e22460302efd73e670ce6d",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907/e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e",
+      "previous_id": "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907",
+      "provenance_ids": [
+        "089ef1e56264c2450e79e2b7cb38437041662c0e0053569a5cfe4c1c4d0e89b7",
+        "e225f7433eb0dffbaaaa9223ba31e4e7cd2a126e586b30a13ccd28445844a5e3"
+      ],
+      "removals": 298,
+      "rows": 1123
+    },
+    {
+      "additions": 808,
+      "current_id": "fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c",
+      "dataset": "transitions",
+      "digest": "a1eeeb8a0482946deb10320ba7d105f2077c26f5c76b8a6a45c934e3bbc8a937",
+      "format_version": "rpki-1.0",
+      "identity": "e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e/fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c",
+      "identity_digest": "fa9b277c25169940a1140a69a690b2b7b5685ea55039197000349fff6ab35fad",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e/fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c",
+      "previous_id": "e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e",
+      "provenance_ids": [
+        "e225f7433eb0dffbaaaa9223ba31e4e7cd2a126e586b30a13ccd28445844a5e3",
+        "248bfc2c10464d4705fa1cf6dac2b752668f0c1970e450952c5927ac3bb8ea6a"
+      ],
+      "removals": 600,
+      "rows": 1408
+    },
+    {
+      "additions": 599,
+      "current_id": "1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622",
+      "dataset": "transitions",
+      "digest": "6807a37c5eb2dba159b2afa5efc667c4b18ac32b8b98be762b99e9f4243c7d60",
+      "format_version": "rpki-1.0",
+      "identity": "fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c/1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622",
+      "identity_digest": "4e0dde1b7eeb346441078020d1770807da698ff3bf83d5674e074272ce4aad02",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c/1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622",
+      "previous_id": "fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c",
+      "provenance_ids": [
+        "248bfc2c10464d4705fa1cf6dac2b752668f0c1970e450952c5927ac3bb8ea6a",
+        "06ae8c60c486bde3466fe0145e88239e18725cfcb27bec8f896f3f6e51811d7a"
+      ],
+      "removals": 450,
+      "rows": 1049
+    },
+    {
+      "additions": 222,
+      "current_id": "2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb",
+      "dataset": "transitions",
+      "digest": "dcfec395f478d0af17a0c9bb4d36ed32c42cdadfb6691c1f30fc94f19a217d61",
+      "format_version": "rpki-1.0",
+      "identity": "1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622/2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb",
+      "identity_digest": "5db5bd992007ac060465e76a8e4b165ea6dc20fea458b06a1afbf1e076c4c5d0",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622/2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb",
+      "previous_id": "1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622",
+      "provenance_ids": [
+        "06ae8c60c486bde3466fe0145e88239e18725cfcb27bec8f896f3f6e51811d7a",
+        "a49a2c77c347317f656ec1305daa5a3b2cd4542f1eebd5734af5d4233765c2dd"
+      ],
+      "removals": 201,
+      "rows": 423
+    },
+    {
+      "additions": 335,
+      "current_id": "d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b",
+      "dataset": "transitions",
+      "digest": "20681474366eaf4133d9324036f00fa3ad8bd905e3823234804b7dcb9e71c500",
+      "format_version": "rpki-1.0",
+      "identity": "2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb/d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b",
+      "identity_digest": "222bf10163949b3c99d33bd09339635c43b82c362a7dbff826c2116dd268054a",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb/d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b",
+      "previous_id": "2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb",
+      "provenance_ids": [
+        "a49a2c77c347317f656ec1305daa5a3b2cd4542f1eebd5734af5d4233765c2dd",
+        "e542894481c72d795b2b89602a89a6b82c279d7eebc53fdc426f0ee36b2a492b"
+      ],
+      "removals": 294,
+      "rows": 629
+    },
+    {
+      "additions": 602,
+      "current_id": "ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9",
+      "dataset": "transitions",
+      "digest": "c5ac71e26ba34d3d1bd921ecb021d0a18fdcd88f770740a82a101c6988f8aad8",
+      "format_version": "rpki-1.0",
+      "identity": "d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b/ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9",
+      "identity_digest": "6dfb116f14ce5d59151c475879a6e9130a8e754c90bc34d17d691826d947b69c",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b/ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9",
+      "previous_id": "d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b",
+      "provenance_ids": [
+        "e542894481c72d795b2b89602a89a6b82c279d7eebc53fdc426f0ee36b2a492b",
+        "4e20dcb22208e12334812ed524873b40a85c69be0e8bb99cce8cdfc83ccb7d82"
+      ],
+      "removals": 435,
+      "rows": 1037
+    },
+    {
+      "additions": 743,
+      "current_id": "99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451",
+      "dataset": "transitions",
+      "digest": "1d8aeeab9c1645c3f2d73f4549f1f292e8ae021897b623180c93153b349b5de9",
+      "format_version": "rpki-1.0",
+      "identity": "ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9/99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451",
+      "identity_digest": "2b47db7ac701c52d40807a17d1bcafbafd438f6188a84c9ba0d303c12fc93f9e",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9/99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451",
+      "previous_id": "ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9",
+      "provenance_ids": [
+        "4e20dcb22208e12334812ed524873b40a85c69be0e8bb99cce8cdfc83ccb7d82",
+        "67a9cd047bc88afdc3de2495a4dc920535bf638844aabcb4170d8b8a2a028a38"
+      ],
+      "removals": 461,
+      "rows": 1204
+    },
+    {
+      "additions": 734,
+      "current_id": "58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc",
+      "dataset": "transitions",
+      "digest": "acab4ece0da35306ac39044d8c3b24759a433402ed6169f1eed99c1d0486d6de",
+      "format_version": "rpki-1.0",
+      "identity": "99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451/58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc",
+      "identity_digest": "959dc667ad98acd675cdd691385a8faf107bfb0aa59bfe0e1222bbe04281ae6b",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451/58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc",
+      "previous_id": "99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451",
+      "provenance_ids": [
+        "67a9cd047bc88afdc3de2495a4dc920535bf638844aabcb4170d8b8a2a028a38",
+        "d369f2fac3e44146dec3f75b952f0febadaac66a34301d2c8cee76c9aec44d52"
+      ],
+      "removals": 377,
+      "rows": 1111
+    },
+    {
+      "additions": 560,
+      "current_id": "d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd",
+      "dataset": "transitions",
+      "digest": "e30964b83d210d30a0a95de42f85404f5b9c1783a87d3c0badcd7908aa9eab62",
+      "format_version": "rpki-1.0",
+      "identity": "58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc/d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd",
+      "identity_digest": "e26558acf4dd88783287ca8eaf41e620f4ae544d5a6f03b4f629dffdc6d4e0c0",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc/d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd",
+      "previous_id": "58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc",
+      "provenance_ids": [
+        "d369f2fac3e44146dec3f75b952f0febadaac66a34301d2c8cee76c9aec44d52",
+        "1ef21d31f2b13f2376bfe7ddcf826734531c98910a5bf3bab5e13c6dc3126535"
+      ],
+      "removals": 457,
+      "rows": 1017
+    },
+    {
+      "additions": 465,
+      "current_id": "7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28",
+      "dataset": "transitions",
+      "digest": "e9aa7ddb043548e62f668fe885b715219a9d93192ab96576ea2807936c5a315c",
+      "format_version": "rpki-1.0",
+      "identity": "d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd/7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28",
+      "identity_digest": "b04d5c49a4a79742296cd028ebc514426420758f79fa1f7d7dfe3aabb0ccf871",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd/7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28",
+      "previous_id": "d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd",
+      "provenance_ids": [
+        "1ef21d31f2b13f2376bfe7ddcf826734531c98910a5bf3bab5e13c6dc3126535",
+        "bce8fffc8cde6fe8cdcd7390ef67ba8794d0249a8298c7b98ed3717ae196f23c"
+      ],
+      "removals": 302,
+      "rows": 767
+    },
+    {
+      "additions": 230,
+      "current_id": "292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460",
+      "dataset": "transitions",
+      "digest": "d4d1352fb097b891f1f8668ff2bd6b905d4994b039a8664321b7ac45ca34bfda",
+      "format_version": "rpki-1.0",
+      "identity": "7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28/292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460",
+      "identity_digest": "717c38f2e575544ed67d3297ac06dec30b502c245dbb264d70a147727d16c817",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28/292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460",
+      "previous_id": "7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28",
+      "provenance_ids": [
+        "bce8fffc8cde6fe8cdcd7390ef67ba8794d0249a8298c7b98ed3717ae196f23c",
+        "a61aff1f9d291ae97e50b5e151b57de5f9a8091a0531df44db0cb3238322d236"
+      ],
+      "removals": 155,
+      "rows": 385
+    },
+    {
+      "additions": 256,
+      "current_id": "d7ad51ae29ae892d859e685b3545c869aa618aba077f04e973fa08a3223be0d0",
+      "dataset": "transitions",
+      "digest": "268b6e9287caecfe539e281be7fd4e8e3d6d769593972305e0dfb6afe4b35c71",
+      "format_version": "rpki-1.0",
+      "identity": "292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460/d7ad51ae29ae892d859e685b3545c869aa618aba077f04e973fa08a3223be0d0",
+      "identity_digest": "98686b13f8f68d49584ae87065e98828dcc0938c8ec94ee96b55799ea24191fd",
+      "path": "s3a://config-lake/phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0/temporal/rpki/transitions/292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460/d7ad51ae29ae892d859e685b3545c869aa618aba077f04e973fa08a3223be0d0",
+      "previous_id": "292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460",
+      "provenance_ids": [
+        "a61aff1f9d291ae97e50b5e151b57de5f9a8091a0531df44db0cb3238322d236",
+        "fecfd120d8ced2733b571ff85b87767187bc9e83bf5cc4a9a1ea448eadb78641"
+      ],
+      "removals": 453,
+      "rows": 709
+    }
+  ],
+  "additions": 7096,
+  "removals": 4920,
+  "total": 12016,
+  "independent_identity_audit": [
+    {
+      "rows": 1154,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "0026b377ee11f9e54a4bf4c6d7949d2e5edce541edee9c68efad5e5caa28d9d9",
+      "previous_date": "2026-09-01",
+      "current_date": "2026-09-02"
+    },
+    {
+      "rows": 1123,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "4115ea6d77b1e032ca4e13536c7e3eef873a317f41e22460302efd73e670ce6d",
+      "previous_date": "2026-09-02",
+      "current_date": "2026-09-03"
+    },
+    {
+      "rows": 1408,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "fa9b277c25169940a1140a69a690b2b7b5685ea55039197000349fff6ab35fad",
+      "previous_date": "2026-09-03",
+      "current_date": "2026-09-04"
+    },
+    {
+      "rows": 1049,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "4e0dde1b7eeb346441078020d1770807da698ff3bf83d5674e074272ce4aad02",
+      "previous_date": "2026-09-04",
+      "current_date": "2026-09-05"
+    },
+    {
+      "rows": 423,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "5db5bd992007ac060465e76a8e4b165ea6dc20fea458b06a1afbf1e076c4c5d0",
+      "previous_date": "2026-09-05",
+      "current_date": "2026-09-06"
+    },
+    {
+      "rows": 629,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "222bf10163949b3c99d33bd09339635c43b82c362a7dbff826c2116dd268054a",
+      "previous_date": "2026-09-06",
+      "current_date": "2026-09-07"
+    },
+    {
+      "rows": 1037,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "6dfb116f14ce5d59151c475879a6e9130a8e754c90bc34d17d691826d947b69c",
+      "previous_date": "2026-09-07",
+      "current_date": "2026-09-08"
+    },
+    {
+      "rows": 1204,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "2b47db7ac701c52d40807a17d1bcafbafd438f6188a84c9ba0d303c12fc93f9e",
+      "previous_date": "2026-09-08",
+      "current_date": "2026-09-09"
+    },
+    {
+      "rows": 1111,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "959dc667ad98acd675cdd691385a8faf107bfb0aa59bfe0e1222bbe04281ae6b",
+      "previous_date": "2026-09-09",
+      "current_date": "2026-09-10"
+    },
+    {
+      "rows": 1017,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "e26558acf4dd88783287ca8eaf41e620f4ae544d5a6f03b4f629dffdc6d4e0c0",
+      "previous_date": "2026-09-10",
+      "current_date": "2026-09-11"
+    },
+    {
+      "rows": 767,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "b04d5c49a4a79742296cd028ebc514426420758f79fa1f7d7dfe3aabb0ccf871",
+      "previous_date": "2026-09-11",
+      "current_date": "2026-09-12"
+    },
+    {
+      "rows": 385,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "717c38f2e575544ed67d3297ac06dec30b502c245dbb264d70a147727d16c817",
+      "previous_date": "2026-09-12",
+      "current_date": "2026-09-13"
+    },
+    {
+      "rows": 709,
+      "missing": 0,
+      "unexpected": 0,
+      "identity_digest": "98686b13f8f68d49584ae87065e98828dcc0938c8ec94ee96b55799ea24191fd",
+      "previous_date": "2026-09-13",
+      "current_date": "2026-09-14"
+    }
+  ],
+  "identity_oracle": "read-only existing SQLite SQL EXCEPT + independent declared typed preimages; exact physical committed Parquet identity/action/tuple/observation set comparison",
+  "audit_code": "workloads/rpki_identity_audit.py at 50bf7ae30c5ea4e7f759e8b52ee059509236bacb",
+  "interpretation": "observed validated authorization set differences; not operator commands"
+}

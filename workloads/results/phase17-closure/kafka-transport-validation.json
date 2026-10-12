@@ -1,0 +1,100 @@
+{
+  "schema_version": "p17-closure-1",
+  "status": "PASS_INTEGRATION",
+  "query_id": "44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+  "runtime_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+  "runtime_sha256": {
+    "schemas/rpki.py": "1d17010be86c7cdf22cf878604e8b9b4dce5da6cdf3a69f6da1547f7094b82e7",
+    "messaging/rpki.py": "80d8354f5dafc0245d4c3619d3a814467a70787c7e9cf15ce14a88896b3b0660",
+    "spark/rpki.py": "aeaf07688a0c587ed6749e53b9c781128c6a39a6cb44c15f90a25a3172b07706",
+    "spark/rpki_stream.py": "6c8f6e02b5230a891ff68a6628cab7775c7d4a3f4efdc4de9240d3b144c49d6c",
+    "lake/rpki.py": "4d72aae3c6b4e16d6fc60904020ce292ce4da5428d839fe49294d6408fcd5864",
+    "workloads/rpki_oracle.py": "ee21d4ddd3ff307e8c252fec2d048496ad5dd8e9e5344dea401b956db676e4b8",
+    "benchmarks/rpki_service.py": "4bc9196ea2b072384924780fbc94f99c7df1bfb0ebfa3e5aa6edff2eb55e6009"
+  },
+  "scope": "ripencc.tal; 2026-09-01 through 2026-09-14; pinned reference only",
+  "topic": "temporal.rpki.fixture.44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+  "transport_version": "rpki-source-1.0",
+  "key": "observation_id",
+  "stages": [
+    {
+      "days": 1,
+      "status": "PASS",
+      "query_id": "52612c8b-a832-4109-a042-dad6ed1f75ae",
+      "source_rows": 360226,
+      "elapsed_seconds": 298.913220666931,
+      "serialized_json_value_bytes": 67179861,
+      "producer_seconds": 85.0794658329105,
+      "drain_seconds": 193.13772354193497,
+      "reconstruction_seconds": 1.9864339579362422
+    },
+    {
+      "days": 2,
+      "status": "PASS",
+      "query_id": "2c3deda8-7712-4ab6-96c3-b4ecb83c0084",
+      "source_rows": 720732,
+      "elapsed_seconds": 595.5266540830489,
+      "serialized_json_value_bytes": 134412108,
+      "producer_seconds": 177.46181737503503,
+      "drain_seconds": 376.4365229990799,
+      "reconstruction_seconds": 9.376315708155744
+    },
+    {
+      "days": 14,
+      "status": "PASS",
+      "query_id": "44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+      "source_rows": 5062923,
+      "elapsed_seconds": 5053.7410359580535,
+      "serialized_json_value_bytes": 944206867,
+      "producer_seconds": 1278.893084123847,
+      "drain_seconds": 2745.5005442517577,
+      "reconstruction_seconds": 827.537365334807
+    }
+  ],
+  "wire_network_bytes": null,
+  "wire_network_bytes_reason": "not instrumented; value-byte count excludes keys, headers, protocol overhead and compression",
+  "publisher_seconds_definition": "source integrity/parsing, canonicalization, JSON serialization and ACK-bound publication together; separate parsing time not instrumented",
+  "actual_broker_final_offsets": {
+    "status": "PASS",
+    "topic": "temporal.rpki.fixture.44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+    "partitions": 2,
+    "retention_ms": 604800000,
+    "retention_bytes": "-1",
+    "cleanup_policy": "delete",
+    "broker_low_high_offsets": {
+      "0": [
+        0,
+        9886
+      ],
+      "1": [
+        0,
+        9899
+      ]
+    },
+    "final_spark_offsets": {
+      "0": 9886,
+      "1": 9899
+    },
+    "last_checkpoint_batch": 83,
+    "final_lag_chunks": 0,
+    "broker_chunk_count": 19785,
+    "replication_factor": 1,
+    "inspection": "actual broker watermarks/config and persisted Kafka source checkpoint after completed availableNow drain"
+  },
+  "recovery_and_duplicate_cases": "checkpoint-recovery-validation.json",
+  "actual_broker_partition_log_sizes": [
+    {
+      "partition": "temporal.rpki.fixture.44d52ae9-a2e6-4f88-bf48-d77107f85df0-1",
+      "size": 473791795,
+      "offsetLag": 0,
+      "isFuture": false
+    },
+    {
+      "partition": "temporal.rpki.fixture.44d52ae9-a2e6-4f88-bf48-d77107f85df0-0",
+      "size": 473125609,
+      "offsetLag": 0,
+      "isFuture": false
+    }
+  ],
+  "partition_log_bytes": 946917404
+}

@@ -1,0 +1,38 @@
+{
+  "starting_commit": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+  "evidence_type": "MEASURED_LOCAL_PROFILE_AND_CODE_PATH_ANALYSIS",
+  "scope": "Eight equal-size partial-day callbacks, not fourteen-day end-to-end complexity.",
+  "confirmed_costs": [
+    "Two cumulative committed_rows calls per baseline callback.",
+    "Each previously committed active-day segment count and full projection checksum is recomputed.",
+    "Full active-day reconciliation and conflict checks invoke Spark jobs/shuffles.",
+    "Incoming rows are checked against a full independent daily source map every callback.",
+    "Globally sorted length-framed digest calculation includes driver iteration."
+  ],
+  "measurement_policy": {
+    "timings": "Inclusive function wall seconds; nested values overlap and are not additive.",
+    "scans": "Actual instrumented segment references plus Spark TaskEnd input/shuffle/spill counters.",
+    "bytes": "Spark reported filesystem bytes, not physical I/O or network.",
+    "unisolated": [
+      "Parquet enumeration versus footer I/O",
+      "Scheduling versus anti-join shuffle latency",
+      "Individual driver digest serialization versus JVM iterator latency"
+    ]
+  },
+  "segment_schedule": {
+    "baseline": "sum_i((i-1)+i)=n^2 for n incomplete callbacks; 64 at n=8",
+    "reuse": "sum_i(i-1)=n(n-1)/2; 28 at n=8; add full physical reread when completion is possible",
+    "conclusion": "Reduces duplicated callback work, not cumulative asymptotic order; completion checks are unchanged."
+  },
+  "choice": "Reuse verified merged DataFrame only within a callback; defer expensive full completion attempt until enough distinct logical rows exist, then reread physical committed history and apply exact oracle checks.",
+  "rejected_for_this_phase": [
+    "Persistent trusted driver dictionary over all coordinates",
+    "Count-only replacement for exact reconciliation",
+    "Sidecar/index format migration without demonstrated need",
+    "Payload deduplication"
+  ],
+  "identity_and_publication_policies_changed": false,
+  "baseline_mode": "reuse_verified_rows=False or --processing-mode baseline",
+  "matched_results": "before-after-performance.json",
+  "performance_claim": "27.70% lower median local callback-total time on this partial pilot only."
+}

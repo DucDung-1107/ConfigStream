@@ -1,0 +1,45 @@
+{
+  "schema_version": "p17-closure-1",
+  "status": "PASS_INTEGRATION",
+  "source": "owned fixture only, no external records redistributed",
+  "passed": 9,
+  "seconds": 176.49,
+  "recovery_validation": "checkpoint-recovery-validation.json",
+  "transport": {
+    "original_chunks": 4,
+    "repeated_chunks": 2,
+    "consumer_messages_checked": 6,
+    "key": "observation_id",
+    "version": "rpki-source-1.0",
+    "invalid_message_case": "invalid_transport"
+  },
+  "accepted_fixture": {
+    "raw_rows": 7,
+    "complete_states": 2,
+    "members_per_day": 3,
+    "additions": 1,
+    "removals": 1
+  },
+  "attempts": [
+    {
+      "name": "initial startup",
+      "status": "ABORTED_CONNECTOR_STARTUP",
+      "passed": 0,
+      "reason": "uncached Ivy metadata/startup; manually stopped, not successful service evidence"
+    },
+    {
+      "name": "eight fault points",
+      "status": "PASS_INTEGRATION",
+      "passed": 8,
+      "seconds": 170.11
+    },
+    {
+      "name": "final expanded suite",
+      "status": "PASS_INTEGRATION",
+      "passed": 9,
+      "seconds": 176.49
+    }
+  ],
+  "counting": "Report final 9 distinct cases; do not sum reruns to 17 different tests",
+  "normal_ci": "opt-in service tests NOT_RUN in normal CI"
+}

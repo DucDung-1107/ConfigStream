@@ -1,0 +1,100 @@
+{
+  "schema_version": "p17-closure-1",
+  "starting_commit": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+  "implementation_commits": [
+    "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+    "a70d557e669a8066b95c5f6536423c69a5d2127c",
+    "50bf7ae30c5ea4e7f759e8b52ee059509236bacb"
+  ],
+  "local": [
+    {
+      "command": "make check",
+      "passed": 954,
+      "failed": 0,
+      "seconds": 12.47,
+      "lint": "PASS",
+      "format": "PASS",
+      "baseline_passed": 941,
+      "new_cases": 13
+    },
+    {
+      "command": "make api-test",
+      "passed": 80,
+      "failed": 0,
+      "seconds": 0.58,
+      "warnings": 1,
+      "baseline_passed": 80
+    },
+    {
+      "command": "make spark-test",
+      "passed": 71,
+      "failed": 0,
+      "seconds": 92.37,
+      "baseline_passed": 68,
+      "new_cases": 3
+    },
+    {
+      "command": "RUN_PHASE17_SERVICES=1 .venv/bin/python -m pytest tests/phase17_integration -q",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 176.49,
+      "level": "ACTUAL_KAFKA_SPARK_MINIO"
+    }
+  ],
+  "implementation_ci": {
+    "sha": "50bf7ae30c5ea4e7f759e8b52ee059509236bacb",
+    "run_id": 38253122028,
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38253122028",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "Python 3.12 quality",
+        "conclusion": "success",
+        "unit_tests": 954,
+        "unit_seconds": 5.19,
+        "api_tests": 80,
+        "api_seconds": 1.21
+      },
+      {
+        "name": "Spark transformation tests",
+        "conclusion": "success",
+        "tests": 71,
+        "seconds": 193.45
+      }
+    ],
+    "live_service_tests_in_ci": false
+  },
+  "final_artifact_commit_ci": "Verify the delivery commit separately; exact final SHA/run is reported in the final handoff. This record is the already completed implementation CI, not an invented future result.",
+  "failed_attempts": [
+    {
+      "area": "Spark negative fixture authoring",
+      "passed": 5,
+      "failed": 3,
+      "seconds": 52,
+      "reason": "expected-conflict fixture used equal membership; test construction/report plumbing corrected, source fixtures and policies unchanged",
+      "follow_up": "8 focused RPKI cases passed 53.72s"
+    },
+    {
+      "area": "profile reporting",
+      "status": "FAIL_REPORTING",
+      "reason": "missing observation_id in oracle summary, no accepted performance claim"
+    },
+    {
+      "area": "initial service startup",
+      "status": "ABORTED_CONNECTOR_STARTUP",
+      "reason": "reuse existing pinned Ivy cache; no new infrastructure or source download"
+    },
+    {
+      "area": "independent transition audit test",
+      "passed": 1,
+      "failed": 1,
+      "seconds": 0.09,
+      "reason": "DayReference observation_id is a property, not a serialized top-level field; auditor corrected to use the existing envelope logical_record_id",
+      "follow_up": "954 complete unit cases passed; immutable source oracle unchanged"
+    }
+  ],
+  "scope": "RPKI acceptance closure only; no Phase18, DNS, RIS or full batch-vs-stream comparison",
+  "local_check_timing": "Latest complete local regression after the fourteen-day service run and independent identity audit."
+}

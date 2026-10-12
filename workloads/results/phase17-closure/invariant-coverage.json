@@ -1,0 +1,92 @@
+{
+  "schema_version": "p17-closure-1",
+  "scope": "RPKI selected 14-day reference and owned failure model only",
+  "invariants": [
+    {
+      "id": "I1",
+      "name": "Provenance",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "14 pinned SHA/size rechecks and exact full source-coordinate map/provenance bindings per day",
+      "offline_evidence": "owned invalid binding/hash cases",
+      "limitations": "Selected publisher CSV only; no independent certificate validation"
+    },
+    {
+      "id": "I2",
+      "name": "Replay identity",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "Actual checkpoint replay at eight fault points; duplicate broker chunks; older-coordinate retry/conflict in both processing modes",
+      "offline_evidence": "owned cross-callback/restart/conflict tests",
+      "limitations": "Single writer/query reconciliation; different isolated experiments are not global deduplication"
+    },
+    {
+      "id": "I3",
+      "name": "Multiplicity",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "7 distinct owned raw rows despite duplicate tuples; 14 distinct real daily observations and 5,062,923 logical rows",
+      "offline_evidence": "equal tuple at distinct row/date fixtures",
+      "limitations": "No payload-only identity; no RIS multiplicity claim"
+    },
+    {
+      "id": "I4",
+      "name": "Completeness",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "Incomplete S3/raw/member outputs are unreadable; 14 exact completions before 13 adjacent boundaries",
+      "offline_evidence": "missing coordinate/chunk, bad digest/count, changed scope/policy/gap fixtures",
+      "limitations": "Completion is distinct from batch commit/checkpoint; publisher validation regime actual build not established"
+    },
+    {
+      "id": "I5",
+      "name": "Temporal honesty",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "Scoped daily observation dates preserved; transitions described as CSV policy-set differences",
+      "offline_evidence": "Phase16 tagged unknown/precision tests and unchanged contracts",
+      "limitations": "No operator action/deployment timestamp or cause inferred"
+    },
+    {
+      "id": "I6",
+      "name": "Committed visibility",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "Actual MinIO conditional retry/conflict and uncommitted partial-file invisibility",
+      "offline_evidence": "legacy/typed committed readers and local publication tests",
+      "limitations": "No multiwriter, power-loss, cross-system ACID or end-to-end atomic transaction claim"
+    },
+    {
+      "id": "I7",
+      "name": "Reconstruction",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "All 14 full and baseline/delta states exact; independent complete transition-ID sets for 13 boundaries",
+      "offline_evidence": "missing boundary, mismatch/digest, invalid removal fixtures",
+      "limitations": "Retained full states also validate delta routine; not delta-only cold recovery benchmark"
+    },
+    {
+      "id": "I8",
+      "name": "Error accounting",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "0 parser exclusions in accepted real source; invalid broker input publishes 0, quarantine recorded; intentional failed callbacks visible",
+      "offline_evidence": "bad CSV/checksum and owned invalid-source fixtures",
+      "limitations": "Source corruption fails closed, not counted as a preserved valid event"
+    },
+    {
+      "id": "I9",
+      "name": "Compatibility",
+      "status": "PASS_INTEGRATION",
+      "offline": "PASS_OFFLINE",
+      "real_data_and_service_evidence": "954 unit, 80 API, 71 Spark; one actual existing Phase12 manifest with 6 snapshots readable",
+      "offline_evidence": "serialization/schema/allowlist/manifest and reduced/full roadmap regression tests",
+      "limitations": "Bounded live legacy check, not every existing object"
+    }
+  ],
+  "source_ledger": "daily-pipeline-validation.json",
+  "identity_oracle": "transition-pipeline-validation.json",
+  "recovery": "checkpoint-recovery-validation.json",
+  "regressions": "validation.json",
+  "cross_domain_claim": "Not all four datasets validated; no RQ2/RQ3 completion claim"
+}

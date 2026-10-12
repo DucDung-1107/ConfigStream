@@ -1,0 +1,92 @@
+{
+  "verification_date": "2026-10-12",
+  "starting_commit": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+  "worktree_initial": "CLEAN main",
+  "baseline_ci": {
+    "run_id": 38232763944,
+    "sha": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38232763944",
+    "jobs": [
+      "Python 3.12 quality: success",
+      "Spark transformation tests: success"
+    ]
+  },
+  "initial_probe": {
+    "path_runtimes": "docker/colima/podman absent on PATH",
+    "kafka_9092": "ECONNREFUSED",
+    "minio_9000": "ECONNREFUSED"
+  },
+  "discovered": {
+    "docker": ".tools/docker/docker",
+    "lima": ".tools/lima/bin/limactl",
+    "environment": ".cache/local-kafka-env.sh",
+    "credentials": ".cache/minio.env (values neither logged nor committed)",
+    "lima_home": ".cache/l",
+    "instance": "k",
+    "initial_status": "Stopped",
+    "initial_guest_free_disk_bytes": 7063482368
+  },
+  "approved_change": {
+    "owner_reply": "Cần thiết thì extend",
+    "disk_before_gib": 24,
+    "disk_after_gib": 64,
+    "ram_gib": 6,
+    "cpus": 2,
+    "guest_free_bytes_after_resize": 48665739264,
+    "deleted_volumes": 0,
+    "installed_software": 0,
+    "pulled_images": 0
+  },
+  "services": {
+    "docker_client": "29.8.1",
+    "docker_server": "29.8.1",
+    "compose": "5.5.1",
+    "lima": "2.2.0",
+    "kafka_image": "apache/kafka:4.1.2",
+    "kafka_container_memory_bytes": 1610612736,
+    "minio_version": "RELEASE.2025-10-15T17-29-55Z",
+    "minio_commit": "9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a",
+    "minio_container_memory_bytes": 805306368,
+    "health": "Kafka and MinIO healthy",
+    "elasticsearch_started": false
+  },
+  "host": {
+    "os": "macOS 27.0 arm64",
+    "cpu": "Apple M3 Pro",
+    "logical_cores": 12,
+    "physical_memory_bytes": 19327352832,
+    "python": "3.12.14",
+    "java": "21.0.12.1",
+    "spark": "4.0.2"
+  },
+  "source_cache": {
+    "artifacts_verified": 14,
+    "sha256_and_size_matches": 14,
+    "compressed_bytes": 63816988,
+    "new_source_download_bytes": 0,
+    "source_fingerprints": "../phase17/source-manifest.json"
+  },
+  "rights": {
+    "research_use": "bounded private research analysis with RIPE attribution; archive-specific unrestricted redistribution not established",
+    "instructor_approval": "NOT_ESTABLISHED",
+    "normalized_or_raw_publication": "BLOCKED_PENDING_PERMISSION",
+    "primary_terms": "https://www.ripe.net/about-us/legal/copyright-statement/",
+    "primary_archive_description": "https://github.com/RIPE-NCC/internet-dataset-descriptions/blob/main/rpki-repo-archive.md"
+  },
+  "final_lifecycle": {
+    "status": "RESTORED_STOPPED",
+    "kafka": "Stopped after all acceptance readbacks",
+    "minio": "Stopped after all acceptance readbacks",
+    "lima": "k Stopped",
+    "disk_gib": 64,
+    "ram_gib": 6,
+    "deleted_volumes": 0,
+    "deleted_topics": 0,
+    "deleted_prefixes": 0,
+    "background_experiment_tasks": 0,
+    "source_and_oracle_cache": "retained unchanged",
+    "note": "Approved disk extension retained; no destructive shrink or evidence cleanup."
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "schema_version": "p17-closure-1",
+  "status": "PASS_INTEGRATION",
+  "query_id": "44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+  "runtime_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+  "runtime_sha256": {
+    "schemas/rpki.py": "1d17010be86c7cdf22cf878604e8b9b4dce5da6cdf3a69f6da1547f7094b82e7",
+    "messaging/rpki.py": "80d8354f5dafc0245d4c3619d3a814467a70787c7e9cf15ce14a88896b3b0660",
+    "spark/rpki.py": "aeaf07688a0c587ed6749e53b9c781128c6a39a6cb44c15f90a25a3172b07706",
+    "spark/rpki_stream.py": "6c8f6e02b5230a891ff68a6628cab7775c7d4a3f4efdc4de9240d3b144c49d6c",
+    "lake/rpki.py": "4d72aae3c6b4e16d6fc60904020ce292ce4da5428d839fe49294d6408fcd5864",
+    "workloads/rpki_oracle.py": "ee21d4ddd3ff307e8c252fec2d048496ad5dd8e9e5344dea401b956db676e4b8",
+    "benchmarks/rpki_service.py": "4bc9196ea2b072384924780fbc94f99c7df1bfb0ebfa3e5aa6edff2eb55e6009"
+  },
+  "scope": "ripencc.tal; 2026-09-01 through 2026-09-14; pinned reference only",
+  "methods": [
+    "full committed canonical state",
+    "initial baseline plus every consecutive committed transition"
+  ],
+  "days": [
+    {
+      "date": "2026-09-01",
+      "members": 360226,
+      "rebuilt_members": 360226,
+      "set_digest": "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+      "source_map_digest": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "reconstruction_seconds": 1.725030209054239,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-02",
+      "members": 360506,
+      "rebuilt_members": 360506,
+      "set_digest": "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+      "source_map_digest": "b948bcc0d340c7d846975f63097767f0394a88194136a78887b72684a222e6b9",
+      "reconstruction_seconds": 8.182096374919638,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-03",
+      "members": 361033,
+      "rebuilt_members": 361033,
+      "set_digest": "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+      "source_map_digest": "460a37b5d49caaca3757945cb8ac89e5af8506acc8b6d0ef7ed4472758fbf932",
+      "reconstruction_seconds": 13.651164875016548,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-04",
+      "members": 361241,
+      "rebuilt_members": 361241,
+      "set_digest": "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+      "source_map_digest": "9b115bbb350c55c11c6697ecdde435c084946e662daaeeb9051421dec6f5151f",
+      "reconstruction_seconds": 29.419273791951127,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-05",
+      "members": 361390,
+      "rebuilt_members": 361390,
+      "set_digest": "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+      "source_map_digest": "c3eef221d00f4eb712fcc622c7463234d181d9a50ade93eef0dd88298e7789a4",
+      "reconstruction_seconds": 30.185639582923613,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-06",
+      "members": 361411,
+      "rebuilt_members": 361411,
+      "set_digest": "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+      "source_map_digest": "a8f5589f52fdb1f47e8442b609c02077c17fcf1256d70a857a81708eafc60a8e",
+      "reconstruction_seconds": 38.68590995797422,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-07",
+      "members": 361452,
+      "rebuilt_members": 361452,
+      "set_digest": "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+      "source_map_digest": "55e80bef5b7df9487890d9f28900e90b5e2f9ccd1b95707a7ffb57ff57613178",
+      "reconstruction_seconds": 47.34852649993263,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-08",
+      "members": 361619,
+      "rebuilt_members": 361619,
+      "set_digest": "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+      "source_map_digest": "3c91dfd0006dc98ea939deacf07b7ae9322c380cd9c829e2f3344bfad6d8c2bf",
+      "reconstruction_seconds": 56.05512604198884,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-09",
+      "members": 361901,
+      "rebuilt_members": 361901,
+      "set_digest": "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+      "source_map_digest": "1e996823b45afbd059a6c55e0e90a5fc3de771c21b366bfc0f8fc9ebdb2cd542",
+      "reconstruction_seconds": 68.1503069170285,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-10",
+      "members": 362258,
+      "rebuilt_members": 362258,
+      "set_digest": "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+      "source_map_digest": "18a461e1b16f6b712b08c1e193e386fa61e9711caba017a7d904e21cccba8278",
+      "reconstruction_seconds": 77.09348174999468,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-11",
+      "members": 362361,
+      "rebuilt_members": 362361,
+      "set_digest": "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+      "source_map_digest": "395a52c3c21d1fe2ac1d86ce280d74838e9164ed671080beee6baecbc20ac68c",
+      "reconstruction_seconds": 90.8552556670038,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-12",
+      "members": 362524,
+      "rebuilt_members": 362524,
+      "set_digest": "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+      "source_map_digest": "7acfe900a85ce6d4558c4f6fcbb6203d84ea78bd3bef42290a46dec0f6e45333",
+      "reconstruction_seconds": 110.37152291694656,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-13",
+      "members": 362599,
+      "rebuilt_members": 362599,
+      "set_digest": "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+      "source_map_digest": "e8121783593e038e22036662e7457ec04e98a904ae4e156ae2288d125df0ab26",
+      "reconstruction_seconds": 121.28771054197568,
+      "status": "PASS"
+    },
+    {
+      "date": "2026-09-14",
+      "members": 362402,
+      "rebuilt_members": 362402,
+      "set_digest": "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5",
+      "source_map_digest": "48df3a9499d9cba4f6607bd859a569e1381873a3c5b5c8c69d5efe3d997940d5",
+      "reconstruction_seconds": 134.52632020809688,
+      "status": "PASS"
+    }
+  ],
+  "oracle": "independent per-day member sets verified at publication; reconstruct checks intermediate exact membership and digest for every step",
+  "missing_or_unexpected": 0,
+  "timing_unit": "seconds for validated baseline/delta routine and result counts, not pure analytical SQL latency",
+  "limitations": [
+    "No gaps silently bridged",
+    "Selected publisher CSV states only",
+    "No causal interpretation or certificate revalidation"
+  ]
+}

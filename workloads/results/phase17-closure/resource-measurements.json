@@ -1,0 +1,130 @@
+{
+  "schema_version": "p17-closure-1",
+  "status": "PASS_INTEGRATION",
+  "query_id": "44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+  "runtime_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39",
+  "runtime_sha256": {
+    "schemas/rpki.py": "1d17010be86c7cdf22cf878604e8b9b4dce5da6cdf3a69f6da1547f7094b82e7",
+    "messaging/rpki.py": "80d8354f5dafc0245d4c3619d3a814467a70787c7e9cf15ce14a88896b3b0660",
+    "spark/rpki.py": "aeaf07688a0c587ed6749e53b9c781128c6a39a6cb44c15f90a25a3172b07706",
+    "spark/rpki_stream.py": "6c8f6e02b5230a891ff68a6628cab7775c7d4a3f4efdc4de9240d3b144c49d6c",
+    "lake/rpki.py": "4d72aae3c6b4e16d6fc60904020ce292ce4da5428d839fe49294d6408fcd5864",
+    "workloads/rpki_oracle.py": "ee21d4ddd3ff307e8c252fec2d048496ad5dd8e9e5344dea401b956db676e4b8",
+    "benchmarks/rpki_service.py": "4bc9196ea2b072384924780fbc94f99c7df1bfb0ebfa3e5aa6edff2eb55e6009"
+  },
+  "scope": "ripencc.tal; 2026-09-01 through 2026-09-14; pinned reference only",
+  "stages": [
+    {
+      "days": 1,
+      "status": "PASS",
+      "query_id": "52612c8b-a832-4109-a042-dad6ed1f75ae",
+      "source_rows": 360226,
+      "elapsed_seconds": 298.913220666931,
+      "serialized_json_value_bytes": 67179861,
+      "producer_seconds": 85.0794658329105,
+      "drain_seconds": 193.13772354193497,
+      "reconstruction_seconds": 1.9864339579362422
+    },
+    {
+      "days": 2,
+      "status": "PASS",
+      "query_id": "2c3deda8-7712-4ab6-96c3-b4ecb83c0084",
+      "source_rows": 720732,
+      "elapsed_seconds": 595.5266540830489,
+      "serialized_json_value_bytes": 134412108,
+      "producer_seconds": 177.46181737503503,
+      "drain_seconds": 376.4365229990799,
+      "reconstruction_seconds": 9.376315708155744
+    },
+    {
+      "days": 14,
+      "status": "PASS",
+      "query_id": "44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+      "source_rows": 5062923,
+      "elapsed_seconds": 5053.7410359580535,
+      "serialized_json_value_bytes": 944206867,
+      "producer_seconds": 1278.893084123847,
+      "drain_seconds": 2745.5005442517577,
+      "reconstruction_seconds": 827.537365334807
+    }
+  ],
+  "full_window": {
+    "host_sample_count": 2417,
+    "guest_sample_count": 483,
+    "peak_sampled_tree_rss_bytes": 2728542208,
+    "min_host_free_disk_bytes": 665609961472,
+    "min_guest_free_disk_bytes": 45494489088,
+    "min_guest_available_memory_bytes": 4187942912,
+    "sampled_guest_disk_growth_bytes": 2613866496,
+    "host_directory_bytes_after_run": 1024204,
+    "checkpoint_bytes": 106951,
+    "all_rss_samples_available": true,
+    "guard_failures": []
+  },
+  "storage": {
+    "source_rows": {
+      "objects": 840,
+      "bytes": 1155363172,
+      "parquet_files": 672,
+      "parquet_bytes": 1154238793
+    },
+    "members": {
+      "objects": 140,
+      "bytes": 491067347,
+      "parquet_files": 112,
+      "parquet_bytes": 490879532
+    },
+    "transitions": {
+      "objects": 78,
+      "bytes": 2355230,
+      "parquet_files": 52,
+      "parquet_bytes": 2188602
+    },
+    "metadata": {
+      "objects": 111,
+      "bytes": 90381,
+      "parquet_files": 0,
+      "parquet_bytes": 0
+    },
+    "other": {
+      "objects": 0,
+      "bytes": 0,
+      "parquet_files": 0,
+      "parquet_bytes": 0
+    }
+  },
+  "compressed_source_bytes": 63816988,
+  "logical_csv_bytes": 909372097,
+  "micro_batch_duration_ms": {
+    "count": 84,
+    "median": 29067.5,
+    "range": [
+      22125,
+      66913
+    ]
+  },
+  "accepted_source_rows_per_drain_second": 1844.080129796448,
+  "natural_event_rate": null,
+  "natural_event_rate_reason": "daily state observations, not a native arrival stream",
+  "minio_publication_seconds": null,
+  "minio_publication_seconds_reason": "included in callback drain; not separately instrumented for full-window run",
+  "cpu_time_seconds": null,
+  "cpu_time_seconds_reason": "not sampled for service run; task execution counters available for matched local pilot only",
+  "limits": "execution-policy.json plus preregistered budget-amendment.json",
+  "limitations": [
+    "sampled process-tree RSS may double count shared pages and miss peaks",
+    "guest sampling ten seconds, host sampling two seconds",
+    "final fail-closed unavailable-RSS hardening was offline-tested after this process loaded its preceding sampler; every actual RSS sample was independently checked available",
+    "S3 bytes and host directory bytes are measured separately; sampled guest growth includes Kafka plus MinIO and VM background activity",
+    "full run is one repetition, not a matched engine comparison"
+  ],
+  "committed_parquet_bytes": 1647306927,
+  "minio_all_objects_bytes": 1648876130,
+  "committed_parquet_to_logical_csv_ratio": 1.8114773176287593,
+  "retained_kafka_partition_log_bytes": 946917404,
+  "accounted_system_bytes": 2659717473,
+  "accounted_system_bytes_definition": "Pinned archives once + all selected MinIO objects + broker-reported selected partition logs + checkpoint. Not filesystem allocated bytes; excludes Kafka preallocated indexes/global service files, JVM caches, validation oracle and measurement logs.",
+  "retained_independent_oracle_bytes": 884133160,
+  "oracle_bytes_definition": "Existing unchanged private source reference, separate validation overhead; not new pipeline output.",
+  "committed_parquet_files": 836
+}

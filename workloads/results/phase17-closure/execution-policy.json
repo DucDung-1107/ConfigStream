@@ -1,0 +1,31 @@
+{
+  "policy_version": "p17-closure-2026-10-12-v1",
+  "starting_commit": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+  "scope": "RPKI closure only; no Phase 18, DNS, new sources or volume deletion",
+  "authorization": "Owner replied 'Cần thiết thì extend' to VM capacity gate; disk only enlarged 24 to 64 GiB, CPUs 2 and RAM 6 GiB unchanged",
+  "limits": {
+    "host_min_free_disk_bytes": 21474836480,
+    "guest_min_free_disk_bytes": 21474836480,
+    "per_run_growth_bytes": 16106127360,
+    "total_experiment_output_bytes": 53687091200,
+    "sampled_spark_tree_rss_bytes": 12884901888,
+    "guest_min_available_memory_bytes": 536870912,
+    "spark_master": "local[2]",
+    "driver_heap": "2g",
+    "shuffle_partitions": 8,
+    "max_chunks_per_service_callback": 256,
+    "per_day_query_timeout_seconds": 1800,
+    "per_stage_overall_timeout_seconds": 3600
+  },
+  "stages": [
+    "A: owned offline regressions and three matched fresh-JVM pilot pairs, 8192 source rows in eight 1024-row callbacks",
+    "B: actual Kafka/MinIO owned-fixture smoke and eight checkpoint interruption points",
+    "C: one complete pinned real day, fresh isolated prefix/topic/checkpoint",
+    "D: two complete pinned real days, fresh isolated prefix/topic/checkpoint",
+    "E: fourteen complete pinned real days, only after C/D and resource gates pass"
+  ],
+  "failure_policy": "Stop affected stage on identity/oracle/resource failure; preserve failed evidence. No blind retries or timeout increases.",
+  "performance_claim": "Within-domain matched callback experiment only. No streaming superiority or RIS velocity comparison.",
+  "independence": "Existing source-based SQLite oracle unchanged; exact source-map/member-set barriers required, not count-only acceptance.",
+  "publication": "Only aggregates, hashes, owned fixtures and code committed; external raw and normalized records remain private. Instructor approval and raw redistribution remain unverified."
+}

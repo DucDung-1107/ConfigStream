@@ -1,0 +1,657 @@
+{
+  "starting_commit": "72705d6bd77e65e9aa3b6bf24c97063d5b03ae84",
+  "experiment": "8192 pinned Sep-1 source rows; 32 source chunks in eight 1024-row local callbacks; incomplete state",
+  "logical_projection_equal_all_runs": true,
+  "cache_policy": "fresh JVM/output per run; OS cache uncontrolled; existing idle Kafka/MinIO services throughout matched runs",
+  "execution_order": [
+    "baseline",
+    "reuse",
+    "reuse",
+    "baseline",
+    "baseline",
+    "reuse"
+  ],
+  "statistics": {
+    "baseline": {
+      "runs": 3,
+      "failures": 0,
+      "individual_seconds": [
+        31.656954333069734,
+        30.532641791040078,
+        31.14253599999938
+      ],
+      "median_seconds": 31.14253599999938,
+      "range_seconds": [
+        30.532641791040078,
+        31.656954333069734
+      ]
+    },
+    "reuse": {
+      "runs": 3,
+      "failures": 0,
+      "individual_seconds": [
+        22.51681487506721,
+        22.564300708007067,
+        22.454251499962993
+      ],
+      "median_seconds": 22.51681487506721,
+      "range_seconds": [
+        22.454251499962993,
+        22.564300708007067
+      ]
+    }
+  },
+  "median_callback_reduction_percent": 27.697555282371166,
+  "runs": [
+    {
+      "mode": "baseline",
+      "status": "PASS",
+      "service_integration": "NOT_RUN",
+      "input": {
+        "artifact_bytes": 4539704,
+        "elapsed_seconds": 2.79508837510366,
+        "file": "rpki-ripencc.tal-2026-09-01.xz",
+        "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+        "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+      },
+      "requested_rows": 8192,
+      "batch_rows": 1024,
+      "cold_jvm": true,
+      "os_cache": "uncontrolled; input not evicted",
+      "resource_limits": {
+        "driver_heap_bytes": 2147483648,
+        "tree_rss_bytes": 12884901888,
+        "min_free_disk_bytes": 21474836480,
+        "run_growth_bytes": 16106127360
+      },
+      "source": {
+        "serialized_transport_projection_bytes": 1492927,
+        "source_rows": 8192,
+        "actual_kafka_bytes": null,
+        "partial": true
+      },
+      "prepare_seconds": 1.0807706249179319,
+      "query_id": "3e662e11-7bca-4951-bf66-0482304a6bbf",
+      "processing_seconds": 31.656954333069734,
+      "function_measurements": {
+        "committed_rows": {
+          "calls": 16,
+          "seconds": 12.118315707775764,
+          "failures": 0
+        },
+        "reconcile_rows": {
+          "calls": 40,
+          "seconds": 12.58569316426292,
+          "failures": 0
+        },
+        "publish_raw": {
+          "calls": 8,
+          "seconds": 4.56448691803962,
+          "failures": 0
+        },
+        "projection_digest": {
+          "calls": 72,
+          "seconds": 6.135029080905952,
+          "failures": 0
+        },
+        "write_parquet": {
+          "calls": 8,
+          "seconds": 1.3204077078262344,
+          "failures": 0
+        },
+        "finalize_day": {
+          "calls": 8,
+          "seconds": 3.4954899589065462,
+          "failures": 0
+        }
+      },
+      "ledger_visits": {
+        "committed_segment_visits": 64,
+        "declared_rows_checksum_visited": 65536
+      },
+      "callback_seconds": [
+        5.065678333048709,
+        3.2081080420175567,
+        3.3678602499421686,
+        4.0951440000208095,
+        3.6211831249529496,
+        3.8505719589302316,
+        4.063050666009076,
+        4.339900250080973
+      ],
+      "accepted_logical_rows": 8192,
+      "complete_days": 0,
+      "source_map_digest_reference": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "elapsed_seconds": 39.176748499972746,
+      "spark_task_metrics": {
+        "tasks": 3280,
+        "Executor Run Time": 21587,
+        "Executor CPU Time": 16879331000,
+        "JVM GC Time": 1138,
+        "Memory Bytes Spilled": 0,
+        "Disk Bytes Spilled": 0,
+        "Input Metrics/Bytes Read": 311954656,
+        "Input Metrics/Records Read": 3517752,
+        "Shuffle Read Metrics/Remote Bytes Read": 0,
+        "Shuffle Read Metrics/Local Bytes Read": 94773493,
+        "Shuffle Write Metrics/Shuffle Bytes Written": 94773493
+      },
+      "resource_failure": null,
+      "peak_sampled_tree_rss_bytes": 1663959040,
+      "min_free_disk_bytes": 673183313920,
+      "output_bytes": 62493739,
+      "parquet_bytes": 2286780,
+      "commit_count": 8,
+      "run": "matched-1-baseline"
+    },
+    {
+      "mode": "reuse",
+      "status": "PASS",
+      "service_integration": "NOT_RUN",
+      "input": {
+        "artifact_bytes": 4539704,
+        "elapsed_seconds": 2.79508837510366,
+        "file": "rpki-ripencc.tal-2026-09-01.xz",
+        "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+        "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+      },
+      "requested_rows": 8192,
+      "batch_rows": 1024,
+      "cold_jvm": true,
+      "os_cache": "uncontrolled; input not evicted",
+      "resource_limits": {
+        "driver_heap_bytes": 2147483648,
+        "tree_rss_bytes": 12884901888,
+        "min_free_disk_bytes": 21474836480,
+        "run_growth_bytes": 16106127360
+      },
+      "source": {
+        "serialized_transport_projection_bytes": 1492927,
+        "source_rows": 8192,
+        "actual_kafka_bytes": null,
+        "partial": true
+      },
+      "prepare_seconds": 1.097839541034773,
+      "query_id": "c8a62469-ecfe-4509-9f12-0068d22060d2",
+      "processing_seconds": 22.51681487506721,
+      "function_measurements": {
+        "committed_rows": {
+          "calls": 8,
+          "seconds": 5.8539363329764456,
+          "failures": 0
+        },
+        "reconcile_rows": {
+          "calls": 24,
+          "seconds": 7.967068871250376,
+          "failures": 0
+        },
+        "publish_raw": {
+          "calls": 8,
+          "seconds": 4.511190457735211,
+          "failures": 0
+        },
+        "projection_digest": {
+          "calls": 36,
+          "seconds": 3.3180536647560075,
+          "failures": 0
+        },
+        "write_parquet": {
+          "calls": 8,
+          "seconds": 1.3056644999887794,
+          "failures": 0
+        }
+      },
+      "ledger_visits": {
+        "committed_segment_visits": 28,
+        "declared_rows_checksum_visited": 28672
+      },
+      "callback_seconds": [
+        3.9693541249725968,
+        2.4933439580490813,
+        2.5218490000115708,
+        2.4696414589416236,
+        2.551533207995817,
+        2.691336708026938,
+        2.8555065830005333,
+        2.9112584999529645
+      ],
+      "accepted_logical_rows": 8192,
+      "complete_days": 0,
+      "source_map_digest_reference": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "elapsed_seconds": 28.75090108299628,
+      "spark_task_metrics": {
+        "tasks": 2284,
+        "Executor Run Time": 16254,
+        "Executor CPU Time": 12237260000,
+        "JVM GC Time": 805,
+        "Memory Bytes Spilled": 0,
+        "Disk Bytes Spilled": 0,
+        "Input Metrics/Bytes Read": 218868472,
+        "Input Metrics/Records Read": 3259576,
+        "Shuffle Read Metrics/Remote Bytes Read": 0,
+        "Shuffle Read Metrics/Local Bytes Read": 76313402,
+        "Shuffle Write Metrics/Shuffle Bytes Written": 76313402
+      },
+      "resource_failure": null,
+      "peak_sampled_tree_rss_bytes": 1556283392,
+      "min_free_disk_bytes": 673145081856,
+      "output_bytes": 44036157,
+      "parquet_bytes": 2286780,
+      "commit_count": 8,
+      "run": "matched-1-reuse"
+    },
+    {
+      "mode": "baseline",
+      "status": "PASS",
+      "service_integration": "NOT_RUN",
+      "input": {
+        "artifact_bytes": 4539704,
+        "elapsed_seconds": 2.79508837510366,
+        "file": "rpki-ripencc.tal-2026-09-01.xz",
+        "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+        "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+      },
+      "requested_rows": 8192,
+      "batch_rows": 1024,
+      "cold_jvm": true,
+      "os_cache": "uncontrolled; input not evicted",
+      "resource_limits": {
+        "driver_heap_bytes": 2147483648,
+        "tree_rss_bytes": 12884901888,
+        "min_free_disk_bytes": 21474836480,
+        "run_growth_bytes": 16106127360
+      },
+      "source": {
+        "serialized_transport_projection_bytes": 1492927,
+        "source_rows": 8192,
+        "actual_kafka_bytes": null,
+        "partial": true
+      },
+      "prepare_seconds": 1.045333749963902,
+      "query_id": "b1aadbed-d28e-4763-ad7a-981d39d480c1",
+      "processing_seconds": 30.532641791040078,
+      "function_measurements": {
+        "committed_rows": {
+          "calls": 16,
+          "seconds": 11.403547415975481,
+          "failures": 0
+        },
+        "reconcile_rows": {
+          "calls": 40,
+          "seconds": 11.648016833234578,
+          "failures": 0
+        },
+        "publish_raw": {
+          "calls": 8,
+          "seconds": 4.634412376093678,
+          "failures": 0
+        },
+        "projection_digest": {
+          "calls": 72,
+          "seconds": 6.137724376982078,
+          "failures": 0
+        },
+        "write_parquet": {
+          "calls": 8,
+          "seconds": 1.2568395410198718,
+          "failures": 0
+        },
+        "finalize_day": {
+          "calls": 8,
+          "seconds": 3.294722540769726,
+          "failures": 0
+        }
+      },
+      "ledger_visits": {
+        "committed_segment_visits": 64,
+        "declared_rows_checksum_visited": 65536
+      },
+      "callback_seconds": [
+        4.947551959077828,
+        3.1979762909468263,
+        3.241345249931328,
+        3.3619924589293078,
+        3.7814798750914633,
+        3.7418552500894293,
+        3.9765791659010574,
+        4.240398374968208
+      ],
+      "accepted_logical_rows": 8192,
+      "complete_days": 0,
+      "source_map_digest_reference": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "elapsed_seconds": 37.17509220796637,
+      "spark_task_metrics": {
+        "tasks": 3280,
+        "Executor Run Time": 20415,
+        "Executor CPU Time": 16188062000,
+        "JVM GC Time": 949,
+        "Memory Bytes Spilled": 0,
+        "Disk Bytes Spilled": 0,
+        "Input Metrics/Bytes Read": 311954656,
+        "Input Metrics/Records Read": 3517752,
+        "Shuffle Read Metrics/Remote Bytes Read": 0,
+        "Shuffle Read Metrics/Local Bytes Read": 94773493,
+        "Shuffle Write Metrics/Shuffle Bytes Written": 94773493
+      },
+      "resource_failure": null,
+      "peak_sampled_tree_rss_bytes": 1618608128,
+      "min_free_disk_bytes": 673027239936,
+      "output_bytes": 62474027,
+      "parquet_bytes": 2286780,
+      "commit_count": 8,
+      "run": "matched-2-baseline"
+    },
+    {
+      "mode": "reuse",
+      "status": "PASS",
+      "service_integration": "NOT_RUN",
+      "input": {
+        "artifact_bytes": 4539704,
+        "elapsed_seconds": 2.79508837510366,
+        "file": "rpki-ripencc.tal-2026-09-01.xz",
+        "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+        "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+      },
+      "requested_rows": 8192,
+      "batch_rows": 1024,
+      "cold_jvm": true,
+      "os_cache": "uncontrolled; input not evicted",
+      "resource_limits": {
+        "driver_heap_bytes": 2147483648,
+        "tree_rss_bytes": 12884901888,
+        "min_free_disk_bytes": 21474836480,
+        "run_growth_bytes": 16106127360
+      },
+      "source": {
+        "serialized_transport_projection_bytes": 1492927,
+        "source_rows": 8192,
+        "actual_kafka_bytes": null,
+        "partial": true
+      },
+      "prepare_seconds": 1.0169322079746053,
+      "query_id": "bc7bcfc6-cbac-455e-99bd-d82d68094251",
+      "processing_seconds": 22.564300708007067,
+      "function_measurements": {
+        "committed_rows": {
+          "calls": 8,
+          "seconds": 5.750315333018079,
+          "failures": 0
+        },
+        "reconcile_rows": {
+          "calls": 24,
+          "seconds": 7.9378119595348835,
+          "failures": 0
+        },
+        "publish_raw": {
+          "calls": 8,
+          "seconds": 4.636886042077094,
+          "failures": 0
+        },
+        "projection_digest": {
+          "calls": 36,
+          "seconds": 3.281100372900255,
+          "failures": 0
+        },
+        "write_parquet": {
+          "calls": 8,
+          "seconds": 1.3081924571888521,
+          "failures": 0
+        }
+      },
+      "ledger_visits": {
+        "committed_segment_visits": 28,
+        "declared_rows_checksum_visited": 28672
+      },
+      "callback_seconds": [
+        4.081951500033028,
+        2.498344708001241,
+        2.4124945829389617,
+        2.4574718340300024,
+        2.6198358749970794,
+        2.6785957920365036,
+        2.8283284169156104,
+        2.937817750032991
+      ],
+      "accepted_logical_rows": 8192,
+      "complete_days": 0,
+      "source_map_digest_reference": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "elapsed_seconds": 28.623542041983455,
+      "spark_task_metrics": {
+        "tasks": 2284,
+        "Executor Run Time": 16512,
+        "Executor CPU Time": 12319302000,
+        "JVM GC Time": 706,
+        "Memory Bytes Spilled": 0,
+        "Disk Bytes Spilled": 0,
+        "Input Metrics/Bytes Read": 218868472,
+        "Input Metrics/Records Read": 3259576,
+        "Shuffle Read Metrics/Remote Bytes Read": 0,
+        "Shuffle Read Metrics/Local Bytes Read": 76313402,
+        "Shuffle Write Metrics/Shuffle Bytes Written": 76313402
+      },
+      "resource_failure": null,
+      "peak_sampled_tree_rss_bytes": 1471102976,
+      "min_free_disk_bytes": 673098498048,
+      "output_bytes": 44032761,
+      "parquet_bytes": 2286780,
+      "commit_count": 8,
+      "run": "matched-2-reuse"
+    },
+    {
+      "mode": "baseline",
+      "status": "PASS",
+      "service_integration": "NOT_RUN",
+      "input": {
+        "artifact_bytes": 4539704,
+        "elapsed_seconds": 2.79508837510366,
+        "file": "rpki-ripencc.tal-2026-09-01.xz",
+        "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+        "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+      },
+      "requested_rows": 8192,
+      "batch_rows": 1024,
+      "cold_jvm": true,
+      "os_cache": "uncontrolled; input not evicted",
+      "resource_limits": {
+        "driver_heap_bytes": 2147483648,
+        "tree_rss_bytes": 12884901888,
+        "min_free_disk_bytes": 21474836480,
+        "run_growth_bytes": 16106127360
+      },
+      "source": {
+        "serialized_transport_projection_bytes": 1492927,
+        "source_rows": 8192,
+        "actual_kafka_bytes": null,
+        "partial": true
+      },
+      "prepare_seconds": 1.070454707951285,
+      "query_id": "6581f6a9-0a63-4c95-be3e-3058530ca85b",
+      "processing_seconds": 31.14253599999938,
+      "function_measurements": {
+        "committed_rows": {
+          "calls": 16,
+          "seconds": 11.685369040700607,
+          "failures": 0
+        },
+        "reconcile_rows": {
+          "calls": 40,
+          "seconds": 11.81301521207206,
+          "failures": 0
+        },
+        "publish_raw": {
+          "calls": 8,
+          "seconds": 4.65007595915813,
+          "failures": 0
+        },
+        "projection_digest": {
+          "calls": 72,
+          "seconds": 6.144915705895983,
+          "failures": 0
+        },
+        "write_parquet": {
+          "calls": 8,
+          "seconds": 1.426882459083572,
+          "failures": 0
+        },
+        "finalize_day": {
+          "calls": 8,
+          "seconds": 3.326440079836175,
+          "failures": 0
+        }
+      },
+      "ledger_visits": {
+        "committed_segment_visits": 64,
+        "declared_rows_checksum_visited": 65536
+      },
+      "callback_seconds": [
+        4.967575540998951,
+        3.485732959001325,
+        3.472914999932982,
+        3.4759817079175264,
+        3.6030117080081254,
+        3.8639269169652835,
+        4.0248999170726165,
+        4.204261000035331
+      ],
+      "accepted_logical_rows": 8192,
+      "complete_days": 0,
+      "source_map_digest_reference": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "elapsed_seconds": 37.89706454100087,
+      "spark_task_metrics": {
+        "tasks": 3280,
+        "Executor Run Time": 21155,
+        "Executor CPU Time": 16555296000,
+        "JVM GC Time": 1027,
+        "Memory Bytes Spilled": 0,
+        "Disk Bytes Spilled": 0,
+        "Input Metrics/Bytes Read": 311954656,
+        "Input Metrics/Records Read": 3517752,
+        "Shuffle Read Metrics/Remote Bytes Read": 0,
+        "Shuffle Read Metrics/Local Bytes Read": 94773493,
+        "Shuffle Write Metrics/Shuffle Bytes Written": 94773493
+      },
+      "resource_failure": null,
+      "peak_sampled_tree_rss_bytes": 1556742144,
+      "min_free_disk_bytes": 672967888896,
+      "output_bytes": 62471339,
+      "parquet_bytes": 2286780,
+      "commit_count": 8,
+      "run": "matched-3-baseline"
+    },
+    {
+      "mode": "reuse",
+      "status": "PASS",
+      "service_integration": "NOT_RUN",
+      "input": {
+        "artifact_bytes": 4539704,
+        "elapsed_seconds": 2.79508837510366,
+        "file": "rpki-ripencc.tal-2026-09-01.xz",
+        "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+        "url": "https://ftp.ripe.net/rpki/ripencc.tal/2026/09/01/roas.csv.xz"
+      },
+      "requested_rows": 8192,
+      "batch_rows": 1024,
+      "cold_jvm": true,
+      "os_cache": "uncontrolled; input not evicted",
+      "resource_limits": {
+        "driver_heap_bytes": 2147483648,
+        "tree_rss_bytes": 12884901888,
+        "min_free_disk_bytes": 21474836480,
+        "run_growth_bytes": 16106127360
+      },
+      "source": {
+        "serialized_transport_projection_bytes": 1492927,
+        "source_rows": 8192,
+        "actual_kafka_bytes": null,
+        "partial": true
+      },
+      "prepare_seconds": 1.0280281669693068,
+      "query_id": "8778925a-413f-4306-8d36-25c6875c809f",
+      "processing_seconds": 22.454251499962993,
+      "function_measurements": {
+        "committed_rows": {
+          "calls": 8,
+          "seconds": 5.820075083058327,
+          "failures": 0
+        },
+        "reconcile_rows": {
+          "calls": 24,
+          "seconds": 7.9229947089916095,
+          "failures": 0
+        },
+        "publish_raw": {
+          "calls": 8,
+          "seconds": 4.6979071259265766,
+          "failures": 0
+        },
+        "projection_digest": {
+          "calls": 36,
+          "seconds": 3.2925308742560446,
+          "failures": 0
+        },
+        "write_parquet": {
+          "calls": 8,
+          "seconds": 1.313776333234273,
+          "failures": 0
+        }
+      },
+      "ledger_visits": {
+        "committed_segment_visits": 28,
+        "declared_rows_checksum_visited": 28672
+      },
+      "callback_seconds": [
+        3.9250709998887032,
+        2.576117374934256,
+        2.4518456669757143,
+        2.454933875007555,
+        2.571250042063184,
+        2.6687569589121267,
+        2.8433535000076517,
+        2.9139508329099044
+      ],
+      "accepted_logical_rows": 8192,
+      "complete_days": 0,
+      "source_map_digest_reference": "52d1b8652dce7fa3913649ccdf12581a0fc17fa0b82aea02234950d636feab5e",
+      "elapsed_seconds": 28.760159333003685,
+      "spark_task_metrics": {
+        "tasks": 2284,
+        "Executor Run Time": 16223,
+        "Executor CPU Time": 12200010000,
+        "JVM GC Time": 782,
+        "Memory Bytes Spilled": 0,
+        "Disk Bytes Spilled": 0,
+        "Input Metrics/Bytes Read": 218868472,
+        "Input Metrics/Records Read": 3259576,
+        "Shuffle Read Metrics/Remote Bytes Read": 0,
+        "Shuffle Read Metrics/Local Bytes Read": 76313402,
+        "Shuffle Write Metrics/Shuffle Bytes Written": 76313402
+      },
+      "resource_failure": null,
+      "peak_sampled_tree_rss_bytes": 1441726464,
+      "min_free_disk_bytes": 672921862144,
+      "output_bytes": 44041252,
+      "parquet_bytes": 2286780,
+      "commit_count": 8,
+      "run": "matched-3-reuse"
+    }
+  ],
+  "exploratory_runs": [
+    {
+      "run": "baseline-1",
+      "status": "FAIL_REPORTING",
+      "reason": "post-validation report used missing observation_id summary key; retained, not an acceptance run",
+      "processing_seconds": 32.9620603750227
+    },
+    {
+      "run": "baseline-2",
+      "status": "PASS_EXPLORATORY",
+      "processing_seconds": 32.43378208298236
+    }
+  ],
+  "limitations": [
+    "Three repetitions are descriptive, not statistical significance or horizontal scalability.",
+    "Inclusive nested function timings must not be summed.",
+    "Task input byte counters are Spark filesystem metrics, not physical device or network bytes.",
+    "Pilot incomplete states never publish completion; full real-day service performance is separate."
+  ]
+}
