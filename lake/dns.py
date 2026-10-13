@@ -69,8 +69,11 @@ def read_source_completion(store, query_id, artifact):
     if (
         not descriptor
         or descriptor.get("format_version") != "dns-complete-source-1.1"
+        or descriptor.get("query_id") != query_id
         or descriptor.get("artifact_sha256") != artifact
         or descriptor.get("entity_coverage") != "unknown"
+        or descriptor.get("answer_coverage") != "unknown"
+        or set(descriptor.get("table_commits", {})) != {"groups", "contributors", "values", "reuse"}
     ):
         raise ValueError("DNS source completion missing/invalid")
     source = DnsReference.model_validate(
@@ -100,3 +103,81 @@ def read_source_completion(store, query_id, artifact):
         ):
             raise ValueError("DNS completed group/value evidence missing/corrupt")
     return descriptor
+
+
+def read_window(store, query_id, identity):
+    window = store.get(f"windows/{query_id}/{identity}")
+    if (
+        not window
+        or window.get("format_version") != "dns-selected-window-1.0"
+        or window.get("query_id") != query_id
+        or window.get("comparison_id") != identity
+        or len(window.get("artifact_sha256s", [])) != 2
+        or len(set(window["artifact_sha256s"])) != 2
+        or window.get("entity_coverage") != "unknown"
+    ):
+        raise ValueError("DNS accepted selected-window metadata missing/invalid")
+    comparison = store.get(f"comparison/{query_id}/{identity}")
+    if not comparison or metadata_digest(comparison) != window["comparison_sha256"]:
+        raise ValueError("DNS comparison binding missing/corrupt")
+    if window["inventory_sha256"] != metadata_digest(
+        sorted(store.inventory(query_id), key=lambda row: row["batch_id"])
+    ):
+        raise ValueError("DNS selected-window inventory changed")
+    for artifact in window["artifact_sha256s"]:
+        descriptor = read_source_completion(store, query_id, artifact)
+        source = store.get(f"sources/{descriptor['provenance_manifest_id']}")
+        if (
+            metadata_digest(descriptor) != window["source_completion_sha256s"][artifact]
+            or metadata_digest(source) != window["source_reference_sha256s"][artifact]
+        ):
+            raise ValueError("DNS source wrapper/completion binding corrupt")
+    for table, field in [
+        ("differences", "difference_commit_sha256"),
+        ("qualifications", "qualification_commit_sha256"),
+    ]:
+        commit = store.get(f"tables/{query_id}/{table}/{identity}")
+        if not commit or metadata_digest(commit) != comparison[field]:
+            raise ValueError("DNS selected-window analytical commit missing/corrupt")
+    return window
+
+
+def publish_window(store, query_id, comparison):
+    if (
+        comparison.get("format_version") != "dns-comparison-complete-1.0"
+        or comparison.get("query_id") != query_id
+        or comparison.get("exact_independent_projection") is not True
+    ):
+        raise ValueError("DNS exact accepted comparison required")
+    artifacts = comparison["artifact_sha256s"]
+    if len(artifacts) != 2 or len(set(artifacts)) != 2:
+        raise ValueError("DNS selected-window source scope invalid")
+    inventory = sorted(store.inventory(query_id), key=lambda row: row["batch_id"])
+    if any(not set(row["source_artifact_sha256s"]) <= set(artifacts) for row in inventory):
+        raise ValueError("DNS unexpected artifact in selected-window inventory")
+    descriptors = [read_source_completion(store, query_id, artifact) for artifact in artifacts]
+    if [metadata_digest(row) for row in descriptors] != comparison["source_completion_sha256s"]:
+        raise ValueError("DNS comparison source completion changed")
+    identity = comparison["comparison_id"]
+    window = dict(
+        format_version="dns-selected-window-1.0",
+        query_id=query_id,
+        comparison_id=identity,
+        artifact_sha256s=artifacts,
+        comparison_sha256=metadata_digest(comparison),
+        inventory_sha256=metadata_digest(inventory),
+        source_completion_sha256s={
+            artifact: metadata_digest(row)
+            for artifact, row in zip(artifacts, descriptors, strict=True)
+        },
+        source_reference_sha256s={
+            artifact: metadata_digest(store.get(f"sources/{row['provenance_manifest_id']}"))
+            for artifact, row in zip(artifacts, descriptors, strict=True)
+        },
+        logical_source_rows=sum(row["source_rows"] for row in descriptors),
+        entity_coverage="unknown",
+        answer_coverage="unknown",
+        causal_interpretation="unknown",
+    )
+    store.put(f"windows/{query_id}/{identity}", window)
+    return read_window(store, query_id, identity)

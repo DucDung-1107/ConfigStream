@@ -72,7 +72,7 @@ def main():
     from benchmarks.rpki_service import GuestGuard
     from lake.client import ensure_bucket, s3_client
     from lake.config import LakeConfig
-    from lake.dns import DnsStore, read_source_completion
+    from lake.dns import DnsStore, publish_window, read_source_completion
     from messaging.config import KafkaConfig
     from messaging.dns import ensure_topic, publish, source_offsets
     from spark.common.config import SparkConfig
@@ -174,6 +174,9 @@ def main():
                     result["observed_differences_only"] = True
                     result["comparison_completion"] = finalize_comparison(
                         session, store, query_id, chosen, args.oracle, differences, check=check
+                    )
+                    result["window_completion"] = publish_window(
+                        store, query_id, result["comparison_completion"]
                     )
             from confluent_kafka import Consumer, TopicPartition
 

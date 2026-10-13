@@ -1,6 +1,25 @@
 """Descriptive observed values and explicit limits on comparability."""
 
 
+def completed_groups(session, store, query_id, artifact):
+    from lake.dns import read_source_completion
+    from spark.dns_history import read_table
+
+    descriptor = read_source_completion(store, query_id, artifact)
+    groups = read_table(session, store, query_id, artifact, "groups")
+    reuse = read_table(session, store, query_id, artifact, "reuse")
+    values = read_table(session, store, query_id, artifact, "values")
+    contributors = read_table(session, store, query_id, artifact, "contributors")
+    rebuilt = reuse.join(values, "value_set_id").select(*groups.columns)
+    if (
+        rebuilt.exceptAll(groups).limit(1).count()
+        or groups.exceptAll(rebuilt).limit(1).count()
+        or contributors.count() != descriptor["address_rows"]
+    ):
+        raise ValueError("DNS committed value/contributor reconstruction mismatch")
+    return groups
+
+
 def compare_groups(previous, current):
     from pyspark.sql import functions as functions
     from pyspark.sql.types import ArrayType, StringType

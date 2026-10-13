@@ -21,6 +21,7 @@ def read_table(session, store, query, artifact, table):
     if (
         not commit
         or commit.get("format_version") != "dns-analytical-1.0"
+        or commit.get("query_id") != query
         or commit.get("table") != table
         or commit.get("artifact_sha256") != artifact
     ):

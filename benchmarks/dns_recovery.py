@@ -23,9 +23,10 @@ def main():
         parser.error("Unapproved recovery prefix")
     from confluent_kafka import Consumer, Producer, TopicPartition
 
+    from analytics.dns import completed_groups
     from benchmarks.rpki_service import GuestGuard
     from lake.config import LakeConfig
-    from lake.dns import DnsStore, read_source_completion
+    from lake.dns import DnsStore, publish_window, read_source_completion
     from lake.ris import metadata_digest
     from messaging.config import KafkaConfig
     from messaging.dns import source_offsets
@@ -140,6 +141,18 @@ def main():
                 raise ValueError("DNS replay changed accepted physical history")
             for artifact in sources:
                 read_source_completion(store, query_id, artifact)
+                groups = completed_groups(session, store, query_id, artifact)
+                if (
+                    groups.count()
+                    != accepted["source_completion"][list(sources).index(artifact)][
+                        "address_groups"
+                    ]
+                ):
+                    raise ValueError("DNS committed group count changed")
+                check()
+            result["window_completion"] = publish_window(
+                store, query_id, accepted["comparison_completion"]
+            )
             consumer = Consumer(
                 {
                     "bootstrap.servers": kafka.bootstrap_servers,

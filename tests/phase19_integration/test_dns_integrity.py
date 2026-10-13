@@ -127,3 +127,101 @@ def test_actual_owned_integrity(dns_services, tmp_path, scenario):
             assert store.inventory(query) == inventory
         else:
             assert read_source_completion(store, query, artifact)["source_rows"] == 6
+
+
+def test_actual_window_bindings(dns_services, tmp_path):
+    import hashlib
+    from datetime import date
+
+    import pyarrow as arrow
+    import pyarrow.parquet as parquet
+
+    from analytics.dns import compare_groups, completed_groups
+    from lake.client import s3_client
+    from lake.config import LakeConfig
+    from lake.dns import DnsStore, publish_window, read_window
+    from processing.dns import read_source
+    from schemas.dns import DnsChunk
+    from spark.dns import DnsProcessor
+    from spark.dns_history import finalize_comparison, finalize_source
+    from tests.unit.test_dns_measurements import owned_source
+    from workloads.dns_oracle import build
+
+    source_path = tmp_path / "first"
+    source_path.mkdir()
+    path, first, rows = owned_source(source_path)
+    rows[0]["response_ttl"] = 61
+    other_path = tmp_path / "second.parquet"
+    parquet.write_table(arrow.Table.from_pylist(rows), other_path, row_group_size=2)
+    other_artifact = first.manifest.artifacts[0].model_copy(
+        update={
+            "sha256": hashlib.sha256(other_path.read_bytes()).hexdigest(),
+            "bytes": other_path.stat().st_size,
+        }
+    )
+    second = first.model_copy(
+        update={
+            "partition_date": date(2024, 1, 2),
+            "manifest": first.manifest.model_copy(update={"artifacts": (other_artifact,)}),
+        }
+    )
+    oracle = tmp_path / "oracle"
+    references = [first, second]
+    for file, reference in zip([path, other_path], references, strict=True):
+        build(file, reference, oracle / reference.partition_date.isoformat())
+    query = str(uuid4())
+    config = replace(LakeConfig.from_env(), prefix=f"phase19-owned-window/{query}")
+    store = DnsStore(config=config)
+    selected = [
+        {
+            "date": ref.partition_date.isoformat(),
+            "artifact": {"sha256": ref.manifest.artifacts[0].sha256},
+        }
+        for ref in references
+    ]
+    processor = DnsProcessor(
+        dns_services,
+        store,
+        query,
+        {ref.manifest.artifacts[0].sha256: ref for ref in references},
+        [str(oracle / ref.partition_date.isoformat() / "raw.parquet") for ref in references],
+    )
+    for index, (file, reference) in enumerate(zip([path, other_path], references, strict=True)):
+        artifact = reference.manifest.artifacts[0].sha256
+        chunk = DnsChunk(artifact_sha256=artifact, rows=tuple(read_source(file, reference)))
+        processor.process(
+            dns_services.createDataFrame([(chunk.model_dump_json(),)], "value STRING"), index
+        )
+        finalize_source(
+            dns_services, store, query, reference, oracle / reference.partition_date.isoformat()
+        )
+    previous, current = [
+        completed_groups(dns_services, store, query, ref.manifest.artifacts[0].sha256)
+        for ref in references
+    ]
+    differences, summary = compare_groups(previous, current)
+    assert summary["changed_groups"] == 0 and summary["strict_matched_vantage_eligible"] == 0
+    comparison = finalize_comparison(dns_services, store, query, selected, oracle, differences)
+    window = publish_window(store, query, comparison)
+    assert publish_window(store, query, comparison) == window
+    assert window["logical_source_rows"] == 12 and window["entity_coverage"] == "unknown"
+    identity = comparison["comparison_id"]
+    with pytest.raises(ValueError):
+        store.put(f"windows/{query}/{identity}", window | {"entity_coverage": "complete"})
+    client = s3_client(config)
+    key = f"sources/{first.manifest.manifest_id}"
+    original = store.get(key)
+    corrupted = original | {"partition_date": "2024-01-03"}
+    client.put_object(
+        Bucket=config.bucket,
+        Key=config.object_key(store.key(key)),
+        Body=json.dumps(corrupted).encode(),
+    )
+    with pytest.raises(ValueError):
+        read_window(store, query, identity)
+    client.put_object(
+        Bucket=config.bucket,
+        Key=config.object_key(store.key(key)),
+        Body=json.dumps(original).encode(),
+    )
+    assert read_window(store, query, identity) == window
