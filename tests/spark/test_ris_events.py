@@ -33,6 +33,44 @@ def inputs(session, tmp_path):
     return reference, rows, expected, path
 
 
+def test_bounded_digest_preserves_independent_order(ris_session, tmp_path):
+    from hashlib import sha256
+
+    from spark.ris import projection_digest, source_order_digest
+
+    reference, rows, expected, path = inputs(ris_session, tmp_path)
+    values = [row.model_dump() for row in rows]
+    for columns, digest_function in (
+        (["logical_record_id"], projection_digest),
+        (["byte_offset", "expansion_ordinal"], source_order_digest),
+    ):
+        ordered = sorted(values, key=lambda row: tuple(row[column] for column in columns))
+        independent = sha256(
+            b"".join(
+                json.dumps(row, sort_keys=True, separators=(",", ":")).encode() + b"\n"
+                for row in ordered
+            )
+        ).hexdigest()
+        actual = digest_function(expected.repartition(1), partition_rows=1)
+        assert actual == (
+            (len(rows), independent) if columns == ["logical_record_id"] else independent
+        )
+
+
+def test_bounded_digest_rejects_skew_and_invalid_bounds(ris_session, tmp_path):
+    from spark.ris import projection_digest
+
+    reference, rows, expected, path = inputs(ris_session, tmp_path)
+    duplicate = expected.limit(1)
+    skew = duplicate
+    for _repeat in range(9):
+        skew = skew.unionByName(duplicate)
+    with pytest.raises(ValueError, match="skew"):
+        projection_digest(skew, partition_rows=1)
+    with pytest.raises(ValueError, match="partition row bound"):
+        projection_digest(expected, partition_rows=32769)
+
+
 def test_exact_replay_conflict_and_occurrence_queries(ris_session, tmp_path):
     reference, rows, expected, path = inputs(ris_session, tmp_path)
     chunk = EventChunk(artifact_sha256=rows[0].artifact_sha256, first_event=0, rows=rows)

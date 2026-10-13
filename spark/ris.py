@@ -69,10 +69,39 @@ def exact_projection(actual, expected, *, complete=False):
     return distinct
 
 
-def projection_digest(frame):
+def ordered_rows(frame, columns, *, partition_rows=32768):
+    from pyspark import StorageLevel
+    from pyspark.sql import functions as functions
+
+    if type(partition_rows) is not int or not 1 <= partition_rows <= 32768:
+        raise ValueError("RIS digest partition row bound")
+    count = frame.count()
+    if not count:
+        return
+    partitions = (count + partition_rows - 1) // partition_rows
+    if partitions > 4096:
+        raise ValueError("RIS digest partition count bound")
+    ordered = frame.repartitionByRange(partitions, *columns).sortWithinPartitions(*columns)
+    ordered.persist(StorageLevel.MEMORY_AND_DISK)
+    try:
+        maximum = (
+            ordered.groupBy(functions.spark_partition_id())
+            .count()
+            .agg(functions.max("count").alias("maximum"))
+            .first()
+            .maximum
+        )
+        if maximum > 4 * partition_rows:
+            raise ValueError("RIS digest partition skew exceeds bounded iteration")
+        yield from ordered.toLocalIterator(prefetchPartitions=False)
+    finally:
+        ordered.unpersist()
+
+
+def projection_digest(frame, *, partition_rows=32768):
     digest = sha256()
     count = 0
-    for row in frame.orderBy("logical_record_id").toLocalIterator():
+    for row in ordered_rows(frame, ["logical_record_id"], partition_rows=partition_rows):
         encoded = json.dumps(row.asDict(), sort_keys=True, separators=(",", ":")).encode()
         digest.update(encoded + b"\n")
         count += 1
@@ -106,9 +135,11 @@ def committed_events(session, store, query_id, expected):
     return exact_projection(combined, expected)
 
 
-def source_order_digest(frame):
+def source_order_digest(frame, *, partition_rows=32768):
     digest = sha256()
-    for row in frame.orderBy("byte_offset", "expansion_ordinal").toLocalIterator():
+    for row in ordered_rows(
+        frame, ["byte_offset", "expansion_ordinal"], partition_rows=partition_rows
+    ):
         digest.update(
             json.dumps(row.asDict(), sort_keys=True, separators=(",", ":")).encode() + b"\n"
         )
