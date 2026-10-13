@@ -155,6 +155,10 @@ def test_completed_window_requires_physical_and_source_inventory(ris_session, tm
     count, digest = projection_digest(expected)
     publish_window(store, query, [rows[0].artifact_sha256], count, digest)
     assert completed_events(ris_session, store, query, expected).count() == 4
+    processor.process(batch, 1)
+    assert len(store.inventory(query)) == 1
+    assert processor.metrics[-1]["sealed_replay_suppressed"] == 4
+    assert completed_events(ris_session, store, query, expected).count() == 4
     metadata = tmp_path / "lake" / store.key(f"batches/{query}/00000000000000000000")
     metadata.unlink()
     with pytest.raises(ValueError, match="inventory"):

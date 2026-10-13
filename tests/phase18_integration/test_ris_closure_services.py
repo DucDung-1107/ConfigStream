@@ -199,5 +199,14 @@ def test_actual_cross_archive_replay_and_window_interruption(service_session, tm
         count, digest = projection_digest(logical)
         publish_window(store, query_id, list(references), count, digest)
         assert read_window(store, query_id)["logical_occurrences"] == 8
+        inventory = store.inventory(query_id)
+        publish(archives[0], first, tmp_path / "sealed-replay.json", kafka, topic, chunk_size=2)
+        query = start_query(
+            service_session, processor, kafka.bootstrap_servers, checkpoint, topic, max_chunks=1
+        )
+        assert query.awaitTermination(180)
+        assert store.inventory(query_id) == inventory
+        assert read_window(store, query_id)["logical_occurrences"] == 8
+        assert sum(item.get("sealed_replay_suppressed", 0) for item in processor.metrics) == 4
     finally:
         logical.unpersist()

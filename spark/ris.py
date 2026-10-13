@@ -181,6 +181,29 @@ class RisProcessor:
             digest_start = monotonic()
             count, digest = projection_digest(validated)
             digest_seconds = monotonic() - digest_start
+            if self.store.get(f"windows/{self.query_id}") is not None:
+                from lake.ris import read_window
+
+                sealed = read_window(self.store, self.query_id)
+                if not set(artifacts) <= set(sealed["sources"]):
+                    raise ValueError("RIS new source cannot append to sealed window")
+                completed_events(self.session, self.store, self.query_id, self.expected).count()
+                self.metrics.append(
+                    dict(
+                        batch_id=batch_id,
+                        input_occurrences=input_rows,
+                        batch_logical_occurrences=0,
+                        sealed_replay_suppressed=count,
+                        seconds=monotonic() - began,
+                        verification_seconds=verification_seconds,
+                        digest_seconds=digest_seconds,
+                        publication_seconds=0,
+                        oracle_scope_artifacts=artifacts,
+                        oracle_scope_mode="sealed_exact_replay",
+                        previous_history_scans_in_callback=1,
+                    )
+                )
+                return
             identity = f"{self.query_id}/{batch_id:020d}"
             key = f"batches/{identity}"
             commit = dict(
