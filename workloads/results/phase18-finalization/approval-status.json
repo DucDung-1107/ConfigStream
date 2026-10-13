@@ -1,0 +1,24 @@
+{
+  "evidence": "OWNER_AUTHORIZED",
+  "basis": "Owner: Cứ thoải mái dùng tài nguyên sao cho hợp lý, ko cần phải hỏi tôi",
+  "original_two_stage_e_approvals": "CONSUMED",
+  "selected_modes": [
+    "readonly five-minute retained history, 600s",
+    "readonly fifteen-minute retained history, 600s",
+    "retained full-hour recovery, 1800s",
+    "reviewed disk-only digest correction and new same-cap recovery"
+  ],
+  "vm": {
+    "cpus": 2,
+    "memory_bytes": 6442450944,
+    "disk_bytes": 68719476736
+  },
+  "spark": {
+    "master": "local[2]",
+    "driver_heap": "2g"
+  },
+  "no_event_republication": true,
+  "no_downloads": true,
+  "no_volume_deletion": true,
+  "no_timeout_extension": true
+}

@@ -52,3 +52,15 @@ Spark's [EXPLAIN documentation](https://spark.apache.org/docs/4.0.2/sql-ref-synt
 defines plan inspection; its [memory tuning guide](https://spark.apache.org/docs/4.0.2/tuning.html)
 describes execution/storage memory sharing. Actual observations and reconstructed
 plans are recorded separately in the [experiment report](phase18-finalization-experiments.md).
+
+## Separate ordered-cache defect found during recovery
+
+The first corrected recovery passed global comparison and all twelve source-order
+checks, then failed at the global digest's maximum-partition barrier. Stage 1526
+shows `Java heap space` in `MemoryStore.SerializedValuesHolder` / serialized block
+allocation. This is direct evidence of a storage-cache allocation failure, rather
+than a recurrence of stage 4841's occurrence-key hash aggregation. Move the ordered
+cache from MEMORY_AND_DISK to DISK_ONLY; keep the exact sorting, row-size guard
+and SHA stream. The reviewed same-cap recovery then completes in the same heap.
+That successful execution supports the targeted correction, not an asymptotic
+scalability claim or a general guarantee that all future inputs fit 2 GiB.

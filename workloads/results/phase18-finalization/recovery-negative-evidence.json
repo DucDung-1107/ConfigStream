@@ -1,0 +1,27 @@
+{
+  "checkpoint_unchanged": true,
+  "code_commit": "d6f97b983b9463723a3c23cb27512385395e8c3a",
+  "elapsed_seconds": 271.5278200840112,
+  "failure_category": "Py4JJavaError",
+  "guest_failure": null,
+  "last_checkpoint_batch": 150,
+  "minimum_guest_available_memory_bytes": 4456509440,
+  "minimum_guest_free_disk_bytes": 36119781376,
+  "mode": "retained-history recovery, not fresh ingestion",
+  "peak_sampled_tree_rss_bytes": 2295365632,
+  "query_id": "24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+  "resource_failure": null,
+  "status": "FAIL",
+  "task_metrics": {
+    "disk_spilled_bytes": 0,
+    "maximum_task_execution_memory_bytes": 105119696,
+    "memory_spilled_bytes": 0,
+    "scope": "all finalization jobs including physical digests and queries",
+    "shuffle_written_bytes": 5994901177,
+    "tasks": 5872
+  },
+  "evidence": "MEASURED_SERVICE",
+  "root_error": "Java heap space in ordered digest cache, stage 1526",
+  "global_comparison_scope": "Completed by verified code path before failing final digest; no final window published",
+  "automatic_timeout_or_heap_increase": false
+}

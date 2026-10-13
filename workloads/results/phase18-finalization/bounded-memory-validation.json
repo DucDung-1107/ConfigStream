@@ -1,0 +1,58 @@
+{
+  "evidence": "PASS_LOCAL",
+  "owned_rows": 100000,
+  "retry_rows": 1,
+  "old_operators": {
+    "HashAggregate": 4,
+    "Sort": 0,
+    "Exchange": 6,
+    "Join": 2
+  },
+  "new_operators": {
+    "HashAggregate": 0,
+    "Sort": 1,
+    "Exchange": 7,
+    "Join": 3
+  },
+  "jvm_max_heap_bytes": 2147483648,
+  "sorted_partition_rows": [
+    12676,
+    12306,
+    12378,
+    12450,
+    12464,
+    12712,
+    12072,
+    12686,
+    12412,
+    12558,
+    12666,
+    12606,
+    12390,
+    12762,
+    12398,
+    12465
+  ],
+  "partitions": 16,
+  "counts": {
+    "accepted": 100000
+  },
+  "reconciliation_seconds": 1.5596363339573145,
+  "elapsed_seconds": 4.020019875024445,
+  "peak_sampled_tree_rss_bytes": 1115275264,
+  "task_metrics_scope": "all probe actions including partition measurement; not old/new matched runtime",
+  "task_count": 96,
+  "memory_spilled_bytes": 0,
+  "disk_spilled_bytes": 0,
+  "shuffle_written_bytes": 43939679,
+  "maximum_task_execution_memory_bytes": 34340848,
+  "final_recovery": {
+    "master": "local[2]",
+    "heap_bytes": 2147483648,
+    "rss_bytes": 2224193536,
+    "elapsed_seconds": 337.03808133408893,
+    "runtime_cap_seconds": 1800,
+    "resource_failure": null,
+    "guest_failure": null
+  }
+}

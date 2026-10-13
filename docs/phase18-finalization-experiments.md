@@ -63,3 +63,37 @@ gates. A command is not evidence it ran. Source/normalized ledgers, service logs
 checkpoints and Spark task logs stay private. Public results contain compact
 counts/checksums/timings only. Full-window outcomes are recorded separately after
 execution in [acceptance](phase18-finalization-acceptance.md).
+
+## Retained real history
+
+The readonly first archive passed in 43.326 seconds with 370,141 exact rows and
+unchanged SHA `ae6b5480b0ddb568c0b5efe466d84eeb11f8548c29a0c0f259473164ca3f4fbd`.
+The readonly three-archive history passed in 100.342 seconds with 1,303,847 rows
+and the original SHA `a2a0910bd20441aaf9a12c863c558b5f2b4c05198e932b95d49199fd79a151b3`.
+
+The first full retained-history recovery failed after 271.528 seconds at ordered
+digest caching (`MemoryStore.SerializedValuesHolder`, stage 1526), after exact
+global comparison and twelve source-order checks passed. Checkpoint and immutable
+batch inventory remained intact. No source/window completion was published.
+This capacity finding is distinct from the old stage 4841 hash aggregation.
+
+Change only ordered cache placement to DISK_ONLY, retaining partition-row guards,
+ordering and SHA bytes. Twenty-eight focused Spark cases passed in 48.03 seconds;
+the readonly fifteen-minute history again matched its original checksum in
+97.974 seconds. Under the owner's reasonable-resource authorization, register a
+new isolated recovery evidence directory at the same 1,800-second cap, same query
+and immutable batch prefix. No source replay or heap increase occurs.
+
+The corrected full recovery passed in **337.038 seconds**. Physical readback:
+102.210 seconds; bounded reconciliation: 42.607; source verification: 97.384;
+global projection SHA: 58.598; queries: 24.270; metadata publication: 3.873.
+Timings are instrumented call boundaries, not pure operator CPU time. Task log
+totals: 8,284 tasks, 6,639,241,276 shuffle-written bytes, zero reported spill,
+105,119,696-byte maximum task execution memory. Disk caching is separate from
+Spark spill counters. Failed-to-completed runs are not a matched speedup study.
+
+Exact full logical projection now matches the independent twelve-source oracle.
+All 57 frozen exclusions and twelve source descriptors are durably published;
+the final window descriptor readback matches the recovery report. No native
+events are republished and Kafka watermarks remain unchanged. The previous failed
+source-ingestion attempt and negative cache experiment remain preserved.

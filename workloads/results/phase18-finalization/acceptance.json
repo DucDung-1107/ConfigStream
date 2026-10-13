@@ -1,0 +1,22 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "decision": "PASS — FULL-HOUR RIS ACCEPTANCE CLOSED BY RETAINED-HISTORY RECOVERY",
+  "starting_commit": "f5b62bb947e6dfa4626687f08ff2245b928b34b1",
+  "execution_commit": "496e48f7771dad28c49386fceb452b16e956b490",
+  "logical_occurrences": 4725156,
+  "missing": 0,
+  "unexpected": 0,
+  "conflicts": 0,
+  "repeats_beyond_first": 118172,
+  "durable_exclusions": 57,
+  "source_accounting_descriptors": 12,
+  "complete_window": true,
+  "projection_sha256": "fc2fdc58bdd4801916a23ead06bef60ff2609a4ad2bc58358b2172850d118450",
+  "checkpoint_unchanged": true,
+  "old_inventory_unchanged": true,
+  "source_policy_qualified": true,
+  "instructor_approval": "NOT_VERIFIED",
+  "raw_redistribution": "NOT_AUTHORIZED; no external rows committed",
+  "phase19_entry": "TECHNICALLY_READY; explicit Phase19 request received; source-specific rights/gates still apply",
+  "phase20_started": false
+}

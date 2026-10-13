@@ -1,0 +1,29 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "starting_commit": "f5b62bb947e6dfa4626687f08ff2245b928b34b1",
+  "original_interruption": "5f937f78-ac0d-4b4c-a5f6-242cd734852f",
+  "original_aggregation_oom": {
+    "query_id": "24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+    "stage": 4841,
+    "failed_allocation_bytes": 33554416,
+    "operator": "generated hash aggregation",
+    "exact_original_plan_available": false,
+    "signal_markers_in_second_driver_log": 0
+  },
+  "sleep_evidence": {
+    "system_power_log_contains_sleep_wake_during_second_run": true,
+    "causation_of_oom": "UNPROVEN"
+  },
+  "new_recovery_failure": {
+    "code_commit": "d6f97b983b9463723a3c23cb27512385395e8c3a",
+    "elapsed_seconds": 271.5278200840112,
+    "stage": 1526,
+    "operator": "MemoryStore SerializedValuesHolder during MEMORY_AND_DISK ordered digest caching",
+    "global_exact_comparison_and_twelve_source_checks_completed_before_failure": true
+  },
+  "corrections": [
+    "Identity-partitioned sorted full-row comparison; DISK_ONLY accepted output",
+    "DISK_ONLY ordered digest cache; unchanged serialization"
+  ],
+  "no_asymptotic_or_speedup_claim": true
+}

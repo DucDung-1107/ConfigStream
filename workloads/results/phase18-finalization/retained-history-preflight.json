@@ -1,0 +1,21 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "query_id": "24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+  "commits": 151,
+  "parquet_objects": 604,
+  "parquet_bytes": 894628418,
+  "physical_claims": 4725156,
+  "formats": [
+    "ris-1.1"
+  ],
+  "continuous_batches": "0..150",
+  "inventory_sha256": "d3d2f02fc82525d1c659f0b8136bc42ea64e6c33ca232050f59a3d1f1a70319a",
+  "checkpoint_sha256": "52edbe5c2d29cb73b69afe80dda0d1e069dacf9e5333b69b88d6a473e67eaad8",
+  "last_checkpoint_batch": 150,
+  "source_offsets": {
+    "0": 12223,
+    "1": 24699
+  },
+  "fresh_broker_watermarks_match": true,
+  "recovery_candidate_was_not_count_only_acceptance": true
+}

@@ -1,0 +1,50 @@
+{
+  "evidence": "PASS_REAL_WINDOW",
+  "invariants": [
+    {
+      "id": "I1",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "All 12 frozen source/projection bindings"
+    },
+    {
+      "id": "I2",
+      "status": "PASS_INTEGRATION",
+      "scope": "Owned actual replay/callback fixtures; full-history recovery does not republish"
+    },
+    {
+      "id": "I3",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "4725156 distinct identities, 118172 legitimate repeats retained"
+    },
+    {
+      "id": "I4",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "Unsealed failed attempts; independently accepted recovered window"
+    },
+    {
+      "id": "I5",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "Source seconds/microseconds preserved in all 18-field comparisons"
+    },
+    {
+      "id": "I6",
+      "status": "PASS_INTEGRATION",
+      "scope": "Owned corruption/partial visibility fixtures and recovered immutable metadata"
+    },
+    {
+      "id": "I7",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "Exact full 12-source accepted EventRow map; no RIB claim"
+    },
+    {
+      "id": "I8",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "All 57 frozen exclusion coordinates checked and durably published"
+    },
+    {
+      "id": "I9",
+      "status": "PASS_LOCAL",
+      "scope": "1048/80/99 regression; old layouts/identity policies unchanged"
+    }
+  ]
+}

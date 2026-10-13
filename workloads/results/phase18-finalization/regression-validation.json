@@ -1,0 +1,17 @@
+{
+  "evidence": "PASS_LOCAL",
+  "unit": 1048,
+  "api": 80,
+  "spark": 99,
+  "unit_seconds": 18.91,
+  "api_seconds": 0.74,
+  "spark_seconds": 149.98,
+  "service_fixtures": 15,
+  "service_seconds": 167.9,
+  "skipped_invocation_not_counted": true,
+  "existing_terraform_rpki_compatibility": "PASS",
+  "ci_commit": "496e48f7771dad28c49386fceb452b16e956b490",
+  "ci_url": "https://github.com/kongwoang/ConfigStream/actions/runs/38426323262",
+  "ci_conclusion": "success",
+  "ci_scope": "service-free owned fixtures; real-window execution is local"
+}

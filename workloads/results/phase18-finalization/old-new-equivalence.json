@@ -1,0 +1,40 @@
+{
+  "evidence": "PASS_LOCAL",
+  "focused_cases": 44,
+  "focused_seconds": 30.5,
+  "digest_cache_correction_cases": 28,
+  "digest_cache_seconds": 48.03,
+  "negative_fields": 17,
+  "tests": [
+    "tests/unit/test_ris_finalization.py",
+    "tests/spark/test_ris_reconciliation.py"
+  ],
+  "independent_fixed_projection_sha256": "4a4c5f1bc228e15f37f852d0e70df5fb87e6c80f35504194aa87d51c5ee5479a",
+  "readonly_windows": [
+    {
+      "query_id": "58ec6278-3665-4f55-9fc4-9e6e3b2fba9c",
+      "code_commit": "143141ca7b3301cc6b45fd7195ad403e0536c514",
+      "logical_occurrences": 370141,
+      "projection_sha256": "ae6b5480b0ddb568c0b5efe466d84eeb11f8548c29a0c0f259473164ca3f4fbd",
+      "elapsed_seconds": 43.32647420896683,
+      "checkpoint_unchanged": true
+    },
+    {
+      "query_id": "be257a8a-d3e9-4505-b806-98403e985e80",
+      "code_commit": "d6f97b983b9463723a3c23cb27512385395e8c3a",
+      "logical_occurrences": 1303847,
+      "projection_sha256": "a2a0910bd20441aaf9a12c863c558b5f2b4c05198e932b95d49199fd79a151b3",
+      "elapsed_seconds": 100.34167049999814,
+      "checkpoint_unchanged": true
+    },
+    {
+      "query_id": "be257a8a-d3e9-4505-b806-98403e985e80",
+      "code_commit": "496e48f7771dad28c49386fceb452b16e956b490",
+      "logical_occurrences": 1303847,
+      "projection_sha256": "a2a0910bd20441aaf9a12c863c558b5f2b4c05198e932b95d49199fd79a151b3",
+      "elapsed_seconds": 97.97438070795033,
+      "checkpoint_unchanged": true
+    }
+  ],
+  "limitation": "No matched speedup experiment; initial authoring/import failures preserved privately"
+}

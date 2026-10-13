@@ -1,0 +1,27 @@
+{
+  "evidence": "PASS_LOCAL",
+  "original_stage_4841_plan": "NOT_CAPTURED; generated hash aggregation trace preserved privately",
+  "reconstructed_old": {
+    "HashAggregate": 4,
+    "Sort": 0,
+    "Exchange": 6,
+    "Join": 2
+  },
+  "candidate_tagged_input": {
+    "HashAggregate": 0,
+    "Sort": 1,
+    "Exchange": 7,
+    "Join": 3
+  },
+  "finite_status_aggregation_keys": 4,
+  "task_metrics_scope": "all finalization jobs including physical digests and queries",
+  "recovery_task_metrics": {
+    "disk_spilled_bytes": 0,
+    "maximum_task_execution_memory_bytes": 105119696,
+    "memory_spilled_bytes": 0,
+    "scope": "all finalization jobs including physical digests and queries",
+    "shuffle_written_bytes": 6639241276,
+    "tasks": 8284
+  },
+  "spill_claim": "Zero reported memory/disk spill in this run; disk-only persistence is cache I/O, not a spill counter"
+}

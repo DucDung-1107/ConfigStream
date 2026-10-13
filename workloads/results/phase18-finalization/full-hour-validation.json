@@ -1,0 +1,727 @@
+{
+  "checkpoint_unchanged": true,
+  "code_commit": "496e48f7771dad28c49386fceb452b16e956b490",
+  "elapsed_seconds": 337.03808133408893,
+  "exact_missing_identities": 0,
+  "exact_unexpected_identities": 0,
+  "guest_failure": null,
+  "last_checkpoint_batch": 150,
+  "logical_occurrences": 4725156,
+  "metadata_publication_seconds": 3.873288832954131,
+  "minimum_guest_available_memory_bytes": 4468011008,
+  "minimum_guest_free_disk_bytes": 36119662592,
+  "mode": "retained committed history finalization",
+  "peak_sampled_tree_rss_bytes": 2224193536,
+  "projection_digest_seconds": 58.59773654199671,
+  "projection_sha256": "fc2fdc58bdd4801916a23ead06bef60ff2609a4ad2bc58358b2172850d118450",
+  "query_id": "24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+  "query_summary": {
+    "actions": {
+      "announcement": 4462391,
+      "withdrawal": 262765
+    },
+    "events_per_minute": [
+      {
+        "count": 131108,
+        "minute": 1788220800
+      },
+      {
+        "count": 53630,
+        "minute": 1788220860
+      },
+      {
+        "count": 63090,
+        "minute": 1788220920
+      },
+      {
+        "count": 69888,
+        "minute": 1788220980
+      },
+      {
+        "count": 52425,
+        "minute": 1788221040
+      },
+      {
+        "count": 123592,
+        "minute": 1788221100
+      },
+      {
+        "count": 68062,
+        "minute": 1788221160
+      },
+      {
+        "count": 88890,
+        "minute": 1788221220
+      },
+      {
+        "count": 58892,
+        "minute": 1788221280
+      },
+      {
+        "count": 91607,
+        "minute": 1788221340
+      },
+      {
+        "count": 129374,
+        "minute": 1788221400
+      },
+      {
+        "count": 126543,
+        "minute": 1788221460
+      },
+      {
+        "count": 60497,
+        "minute": 1788221520
+      },
+      {
+        "count": 127969,
+        "minute": 1788221580
+      },
+      {
+        "count": 58280,
+        "minute": 1788221640
+      },
+      {
+        "count": 55166,
+        "minute": 1788221700
+      },
+      {
+        "count": 51033,
+        "minute": 1788221760
+      },
+      {
+        "count": 125875,
+        "minute": 1788221820
+      },
+      {
+        "count": 49153,
+        "minute": 1788221880
+      },
+      {
+        "count": 42262,
+        "minute": 1788221940
+      },
+      {
+        "count": 46628,
+        "minute": 1788222000
+      },
+      {
+        "count": 91278,
+        "minute": 1788222060
+      },
+      {
+        "count": 83723,
+        "minute": 1788222120
+      },
+      {
+        "count": 47123,
+        "minute": 1788222180
+      },
+      {
+        "count": 64434,
+        "minute": 1788222240
+      },
+      {
+        "count": 56251,
+        "minute": 1788222300
+      },
+      {
+        "count": 163475,
+        "minute": 1788222360
+      },
+      {
+        "count": 50309,
+        "minute": 1788222420
+      },
+      {
+        "count": 52503,
+        "minute": 1788222480
+      },
+      {
+        "count": 46283,
+        "minute": 1788222540
+      },
+      {
+        "count": 64711,
+        "minute": 1788222600
+      },
+      {
+        "count": 133713,
+        "minute": 1788222660
+      },
+      {
+        "count": 66392,
+        "minute": 1788222720
+      },
+      {
+        "count": 47980,
+        "minute": 1788222780
+      },
+      {
+        "count": 43119,
+        "minute": 1788222840
+      },
+      {
+        "count": 137023,
+        "minute": 1788222900
+      },
+      {
+        "count": 44399,
+        "minute": 1788222960
+      },
+      {
+        "count": 41605,
+        "minute": 1788223020
+      },
+      {
+        "count": 58414,
+        "minute": 1788223080
+      },
+      {
+        "count": 59077,
+        "minute": 1788223140
+      },
+      {
+        "count": 145791,
+        "minute": 1788223200
+      },
+      {
+        "count": 46305,
+        "minute": 1788223260
+      },
+      {
+        "count": 87022,
+        "minute": 1788223320
+      },
+      {
+        "count": 65887,
+        "minute": 1788223380
+      },
+      {
+        "count": 67726,
+        "minute": 1788223440
+      },
+      {
+        "count": 132474,
+        "minute": 1788223500
+      },
+      {
+        "count": 60521,
+        "minute": 1788223560
+      },
+      {
+        "count": 57767,
+        "minute": 1788223620
+      },
+      {
+        "count": 72204,
+        "minute": 1788223680
+      },
+      {
+        "count": 139495,
+        "minute": 1788223740
+      },
+      {
+        "count": 49753,
+        "minute": 1788223800
+      },
+      {
+        "count": 66942,
+        "minute": 1788223860
+      },
+      {
+        "count": 69822,
+        "minute": 1788223920
+      },
+      {
+        "count": 69717,
+        "minute": 1788223980
+      },
+      {
+        "count": 181868,
+        "minute": 1788224040
+      },
+      {
+        "count": 89083,
+        "minute": 1788224100
+      },
+      {
+        "count": 70648,
+        "minute": 1788224160
+      },
+      {
+        "count": 56816,
+        "minute": 1788224220
+      },
+      {
+        "count": 120953,
+        "minute": 1788224280
+      },
+      {
+        "count": 48586,
+        "minute": 1788224340
+      }
+    ],
+    "occurrences": 4725156,
+    "peers": 98,
+    "prefixes": 211670,
+    "repeated_fingerprints_beyond_first": 118172
+  },
+  "query_validation_seconds": 24.270012374967337,
+  "reconciliation": {
+    "counts": {
+      "accepted": 4725156
+    },
+    "partitions": 64,
+    "physical_readback_seconds": 102.20988950005267,
+    "reconciliation_seconds": 42.60724779206794
+  },
+  "resource_failure": null,
+  "source_accounting": [
+    {
+      "accepted_occurrences": 370141,
+      "accepted_records": 187475,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:05:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:00:00Z"
+      },
+      "artifact_sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "73dd670c9025a59f612c6ac139a759b7f0475cd24fcf053f72b39c02b46c9bcf",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 187480,
+      "framing_sha256": "57430f365614a96e709251a20d8ebd492674c52f2a5815711150cd4b76891489",
+      "non_event_records": 758,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "f190fdc7c3c9cf6ed6041d7f22030c14c96bea6cd291064620904616fa82ddaa",
+      "source_order_projection_sha256": "360db3704903d30cd175894ab91eb582745ed13c103318f61add9c2fa7ee9f7d",
+      "update_messages": 186717
+    },
+    {
+      "accepted_occurrences": 431043,
+      "accepted_records": 194128,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:10:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:05:00Z"
+      },
+      "artifact_sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "51153b5dc6601ef47d129219c296a634370aa000bb034ae3facfe6d3f60242a9",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 194133,
+      "framing_sha256": "431f9d353513cdf3ecef1aedd74e429845cad083e0804dd57b686b7774f633bb",
+      "non_event_records": 731,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "3759320e21b76d37d2c1e56382b9522a7c9cacdf7b78588c3d4ff67e41625d13",
+      "source_order_projection_sha256": "92441fbfd1f56c10add7c36e00896239989147cbbf6947f5a21b932e031466e1",
+      "update_messages": 193397
+    },
+    {
+      "accepted_occurrences": 502663,
+      "accepted_records": 250144,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:15:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:10:00Z"
+      },
+      "artifact_sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 4,
+      "exclusion_sha256": "5c03adab5f83da42969801ac37119c03cbc858db35d4e94983858a5699e840bd",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 250148,
+      "framing_sha256": "c6887d7535e8269ea183c7a01c1a000b8d0bfa250d49a598a9eb690454f53ab0",
+      "non_event_records": 760,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "95cbe3271f660feb9db474da62581201acc615c2ca98114396303535ef715cd1",
+      "source_order_projection_sha256": "cf8811eea115a966f5f2279de8b33fb5df4c2e4e6c100e465cbc43db9841c5f6",
+      "update_messages": 249384
+    },
+    {
+      "accepted_occurrences": 323489,
+      "accepted_records": 178217,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:20:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:15:00Z"
+      },
+      "artifact_sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "e27e974dfdfcef17afc9d86ba1e7a860f5a011c54692c20dfd71b29bf15765af",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 178222,
+      "framing_sha256": "e81e53ebf5c514c4b6162559ebf28e879997f7b80cf7681d10acfff3e570e9ed",
+      "non_event_records": 755,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "13746ad0c4238d46595f364bfbe4a80a3a2a0dde5d5e3d023e27e9f18ac4abd6",
+      "source_order_projection_sha256": "6b3dc2eca09bc0645fd0468021b1d5a3fab2f43d9cc5f9f23619634f6dfce61e",
+      "update_messages": 177462
+    },
+    {
+      "accepted_occurrences": 333186,
+      "accepted_records": 178070,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:25:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:20:00Z"
+      },
+      "artifact_sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "414a790991e93362ecff2ff073d929376b8e75d347529a5a196b122325914280",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 178075,
+      "framing_sha256": "b32cdef3eb8e5ca5492ea3606dcc18e2d8e76ca8bcdfa5eee637d220c37be144",
+      "non_event_records": 743,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "5b408468e96f6ef098e6f0dd585437b643b7be6bef8eab3dd28757bed86fa03c",
+      "source_order_projection_sha256": "67a441af5a9e499e387a1594755683e0ad91ab50ebd9f758132eea2faa854bc7",
+      "update_messages": 177327
+    },
+    {
+      "accepted_occurrences": 368821,
+      "accepted_records": 179758,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:30:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:25:00Z"
+      },
+      "artifact_sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "e14511dccccfb8605b80a62ae97a7b7e383b4711dc55fbad12f13aef5a383454",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 179763,
+      "framing_sha256": "b756179fca6d3e2aaad13927b4ec54801fb8a58c74e7c9514e4fa97ac9eb5220",
+      "non_event_records": 748,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "706d9ca261a3533902078a3138abebb774c8f284b781539d2cf1115ce0c787e4",
+      "source_order_projection_sha256": "086042c7a48194cc8a2efdfea9f7a47a2cc008f1955d7fa1023fa5c780dcd6cd",
+      "update_messages": 179010
+    },
+    {
+      "accepted_occurrences": 355915,
+      "accepted_records": 179663,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:35:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:30:00Z"
+      },
+      "artifact_sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 4,
+      "exclusion_sha256": "07b35f6d1a3bc73ead31dcdf21070c50136eea0483a394b5f4c33ec383ee10be",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 179667,
+      "framing_sha256": "1879eed42bd1ed788562153955d37263cebb227fb65652111817c91d224773da",
+      "non_event_records": 744,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "bce5ea43fb28cd278ed7b9a05e1dee1ae6f864ddbfb35d925dd04e4db093fb89",
+      "source_order_projection_sha256": "4f1804fabc4c817aa6d7334f8b0914a0b5d1e834b7ba0723e532bd8a17146e67",
+      "update_messages": 178919
+    },
+    {
+      "accepted_occurrences": 340518,
+      "accepted_records": 182194,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:40:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:35:00Z"
+      },
+      "artifact_sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "cf1220edc3117e76a5810e76a8bab8c09b95c8403b13a37fa6ce33d145a4953e",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 182199,
+      "framing_sha256": "3fdb36013bb7f35b883d50454a11bbc68d2fb1ffd31c96545ce9b460392291a1",
+      "non_event_records": 753,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "28cec45943f4092909cdf3692171b51241035d09432db86cb37c051058fbc2dc",
+      "source_order_projection_sha256": "d1830868cbedcc10e904040a3b0d6952878d58be27d5a6516bf96c9b1cd6d9bf",
+      "update_messages": 181441
+    },
+    {
+      "accepted_occurrences": 412731,
+      "accepted_records": 185677,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:45:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:40:00Z"
+      },
+      "artifact_sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "f4bd65f6a7c0b3663ead273ee2c087b7eab1d382b4cabca2ee7985c34ee1f172",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 185682,
+      "framing_sha256": "7fc7cda55cda0737954b05cbd93e028596a05c9421fb907b830be1767078edbb",
+      "non_event_records": 746,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "425c99c5c38dc1b6b88b2ac5e2ff09440c515375e83755d104d1e072dc16531d",
+      "source_order_projection_sha256": "0adc00f6f98fbc6514beecc9dc73251f46a9e7ddadb9e9add5c0744a6df07773",
+      "update_messages": 184931
+    },
+    {
+      "accepted_occurrences": 462461,
+      "accepted_records": 218491,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:50:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:45:00Z"
+      },
+      "artifact_sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "10dfa00468923e9b8ec6b4dcc61a6ea9f62ce022f5333f045ce5b0193050856d",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 218496,
+      "framing_sha256": "39094f26bbbb487fda471c050c6485169d12f26b34a77889b2a4d197d38cc3de",
+      "non_event_records": 748,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "705a5e7bed6fec7b08790794fce3ba0a6848d3c55c4067137b1a269b071e20bf",
+      "source_order_projection_sha256": "c864b584502d4b12d8414ba9d5ffacf4dcc566d3986810e89a6163e56b50b2c8",
+      "update_messages": 217743
+    },
+    {
+      "accepted_occurrences": 438102,
+      "accepted_records": 185391,
+      "archive_selection_time": {
+        "end": "2026-09-01T00:55:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:50:00Z"
+      },
+      "artifact_sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 4,
+      "exclusion_sha256": "9756959abd9abf1eb8f98cd71953912f2e77ab365abe0c898088bfa57d1cde09",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 185395,
+      "framing_sha256": "03569203f2db455876469e9b18654d1c3519992b3013cc1afae99da6f76ca264",
+      "non_event_records": 740,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "169921c94d15e932347f7b9fafbef0f63a859cdf8fd650c61c2ac48cbe471b8c",
+      "source_order_projection_sha256": "7f682929d4dff289a5e9e269458e9b9380a6011418070e29141d7778ff5b9a83",
+      "update_messages": 184651
+    },
+    {
+      "accepted_occurrences": 386086,
+      "accepted_records": 181313,
+      "archive_selection_time": {
+        "end": "2026-09-01T01:00:00Z",
+        "kind": "interval",
+        "precision": "second",
+        "role": "observation",
+        "start": "2026-09-01T00:55:00Z"
+      },
+      "artifact_sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924",
+      "canonicalization_version": "ris-wire-v1",
+      "collector": "rrc00",
+      "completeness": "selected_archive_under_pinned_policy",
+      "counting_policy_version": "feasibility-v1",
+      "excluded_records": 5,
+      "exclusion_sha256": "f4bc879a528b97396d4b7266da48b66c7171e5e37e62350618372a34b5ec1524",
+      "format_version": "ris-accounting-1.0",
+      "framed_records": 181318,
+      "framing_sha256": "919c82e21acb4aa45e19a40345b37f5d40c1c3323b2185cd915e363d42723e2e",
+      "non_event_records": 750,
+      "oracle_level": 3,
+      "parser_version": "mrtparse-2.2.0",
+      "provenance_manifest_id": "2b539f9e7f6ad62924a1bee9cdf2eeccb42799452630e53553f2deebc1628d7e",
+      "source_order_projection_sha256": "10f68ae4667bccf095eab885be773cee9a8adbc551f9b469f8352b2367feba8c",
+      "update_messages": 180563
+    }
+  ],
+  "source_checks": [
+    {
+      "accepted_occurrences": 370141,
+      "artifact_sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "source_order_projection_sha256": "360db3704903d30cd175894ab91eb582745ed13c103318f61add9c2fa7ee9f7d"
+    },
+    {
+      "accepted_occurrences": 431043,
+      "artifact_sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "source_order_projection_sha256": "92441fbfd1f56c10add7c36e00896239989147cbbf6947f5a21b932e031466e1"
+    },
+    {
+      "accepted_occurrences": 502663,
+      "artifact_sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+      "source_order_projection_sha256": "cf8811eea115a966f5f2279de8b33fb5df4c2e4e6c100e465cbc43db9841c5f6"
+    },
+    {
+      "accepted_occurrences": 323489,
+      "artifact_sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f",
+      "source_order_projection_sha256": "6b3dc2eca09bc0645fd0468021b1d5a3fab2f43d9cc5f9f23619634f6dfce61e"
+    },
+    {
+      "accepted_occurrences": 333186,
+      "artifact_sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8",
+      "source_order_projection_sha256": "67a441af5a9e499e387a1594755683e0ad91ab50ebd9f758132eea2faa854bc7"
+    },
+    {
+      "accepted_occurrences": 368821,
+      "artifact_sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2",
+      "source_order_projection_sha256": "086042c7a48194cc8a2efdfea9f7a47a2cc008f1955d7fa1023fa5c780dcd6cd"
+    },
+    {
+      "accepted_occurrences": 355915,
+      "artifact_sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de",
+      "source_order_projection_sha256": "4f1804fabc4c817aa6d7334f8b0914a0b5d1e834b7ba0723e532bd8a17146e67"
+    },
+    {
+      "accepted_occurrences": 340518,
+      "artifact_sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb",
+      "source_order_projection_sha256": "d1830868cbedcc10e904040a3b0d6952878d58be27d5a6516bf96c9b1cd6d9bf"
+    },
+    {
+      "accepted_occurrences": 412731,
+      "artifact_sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd",
+      "source_order_projection_sha256": "0adc00f6f98fbc6514beecc9dc73251f46a9e7ddadb9e9add5c0744a6df07773"
+    },
+    {
+      "accepted_occurrences": 462461,
+      "artifact_sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59",
+      "source_order_projection_sha256": "c864b584502d4b12d8414ba9d5ffacf4dcc566d3986810e89a6163e56b50b2c8"
+    },
+    {
+      "accepted_occurrences": 438102,
+      "artifact_sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad",
+      "source_order_projection_sha256": "7f682929d4dff289a5e9e269458e9b9380a6011418070e29141d7778ff5b9a83"
+    },
+    {
+      "accepted_occurrences": 386086,
+      "artifact_sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924",
+      "source_order_projection_sha256": "10f68ae4667bccf095eab885be773cee9a8adbc551f9b469f8352b2367feba8c"
+    }
+  ],
+  "source_verification_seconds": 97.38440908293705,
+  "status": "PASS_RETAINED_HISTORY_FINALIZATION",
+  "task_metrics": {
+    "disk_spilled_bytes": 0,
+    "maximum_task_execution_memory_bytes": 105119696,
+    "memory_spilled_bytes": 0,
+    "scope": "all finalization jobs including physical digests and queries",
+    "shuffle_written_bytes": 6639241276,
+    "tasks": 8284
+  },
+  "window_descriptor": {
+    "completeness": "selected_archives_not_routing_state",
+    "format_version": "ris-window-1.0",
+    "inventory_sha256": "d3d2f02fc82525d1c659f0b8136bc42ea64e6c33ca232050f59a3d1f1a70319a",
+    "logical_occurrences": 4725156,
+    "projection_sha256": "fc2fdc58bdd4801916a23ead06bef60ff2609a4ad2bc58358b2172850d118450",
+    "query_id": "24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+    "sources": {
+      "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2": "ec513b7799369a452e5910dfd25beb2b6572e786322dbb12233dcace8b205242",
+      "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d": "7c1e83b6aa45043ceb0f0024a290e62d3ed9c27f4bcebaf89fe55c6faefbc992",
+      "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66": "5234c28b36a89edfb31780a323d696ab952b770ea443c5447ac4289b264ddb09",
+      "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb": "fce1003ccda50d6afbe2ec578a5253c8f23bc49de5e2298688601ba0024cb109",
+      "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8": "a75d243b1c8d01d411e1836798a9243fb75152a18d312d390ff17073a6ff3e3d",
+      "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924": "08e323f401d355410166df26309fc092fa8289d6ffcf369373e61a90f16415a8",
+      "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f": "d85c2936e5633bd200ccd322de9a0417bdc1a13fa2cdeb817cf74f6f4dd18e9a",
+      "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd": "fa4ef43011688742782b03922629421305ce7330e27e9252dde8839e34a397c6",
+      "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59": "b4b703fe54a53e106a1b899f581cb5252a54f8133967b5ec39fa7e6b2e234498",
+      "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1": "485dae3ddf84f83e15700ae020cfa3138d5d3fdd3ab6262d755af53474af7de9",
+      "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad": "91e755d9c1f3f80aeeee50edb871cbf09c68a3aecd37f347677f9c04f3f59cbd",
+      "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de": "be291599c190ac9dcda1c935af69b416707c5a920203d447dfc582e1546d0f3a"
+    }
+  },
+  "evidence": "MEASURED_SERVICE",
+  "runtime_cap_seconds": 1800,
+  "fresh_ingestion": false,
+  "previous_failed_experiment_preserved": true,
+  "complete_independent_logical_projection": true,
+  "independent_oracle_level": 3,
+  "pinned_parser_disposition_qualified": true,
+  "source_exclusions": 57,
+  "framed_records": 2300578,
+  "update_messages": 2291545,
+  "native_multiplicity_preserved": true,
+  "source_archives": 12,
+  "metadata_readback": {
+    "window_agrees": true,
+    "source_descriptors": 12,
+    "exclusion_records": 57,
+    "commits": 151,
+    "parquet_objects": 604,
+    "parquet_bytes": 894628418,
+    "object_prefix_bytes": 896868378,
+    "sidecar_bytes": 37178,
+    "broker_watermarks": {
+      "0": 12223,
+      "1": 24699
+    },
+    "broker_unchanged": true
+  }
+}
