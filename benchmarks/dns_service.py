@@ -78,7 +78,7 @@ def main():
     from spark.common.config import SparkConfig
     from spark.common.runtime import create_session
     from spark.dns import DnsProcessor, committed_raw, start_query
-    from spark.dns_history import finalize_source, read_table
+    from spark.dns_history import finalize_comparison, finalize_source, read_table
 
     config = replace(LakeConfig.from_env(), prefix=result["lake_prefix"])
     kafka = KafkaConfig.from_env()
@@ -172,6 +172,9 @@ def main():
                     ):
                         raise ValueError("DNS descriptive/qualified comparison oracle mismatch")
                     result["observed_differences_only"] = True
+                    result["comparison_completion"] = finalize_comparison(
+                        session, store, query_id, chosen, args.oracle, differences, check=check
+                    )
             from confluent_kafka import Consumer, TopicPartition
 
             consumer = Consumer(

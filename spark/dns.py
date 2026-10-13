@@ -158,6 +158,22 @@ class DnsProcessor:
                     if previous != commit:
                         raise ValueError("DNS immutable batch replay conflict")
                 else:
+                    sealed = [
+                        artifact
+                        for artifact in commit["source_artifact_sha256s"]
+                        if self.store.get(f"completion/{self.query}/{artifact}") is not None
+                    ]
+                    if sealed:
+                        from lake.dns import read_source_completion
+
+                        if sealed != commit["source_artifact_sha256s"]:
+                            raise ValueError("DNS batch mixes sealed and unsealed sources")
+                        for artifact in sealed:
+                            read_source_completion(self.store, self.query, artifact)
+                        self.metrics.append(
+                            dict(batch_id=batch_id, logical_rows=0, identical_sealed_retry=count)
+                        )
+                        return
                     self.fault("before_output")
                     if self.fault("partial_output"):
                         valid.limit(1).write.mode("overwrite").parquet(commit["path"])

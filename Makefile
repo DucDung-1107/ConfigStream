@@ -41,7 +41,7 @@ PHASE6_ARGS ?=
 setup:
 	mkdir -p .cache/tmp .tools
 	test -x "$(UV)" || ($(PYTHON) -m venv .tools/uv && .tools/uv/bin/python -m pip install --no-cache-dir 'uv==0.12.21')
-	"$(UV)" sync --locked --extra kafka --extra ris
+	"$(UV)" sync --locked --extra kafka --extra ris --extra dns
 
 .PHONY: dataset-fetch dataset-inspect workload-generate
 .PHONY: observed-fetch observed-inspect observed-replay empirical-report calibration-generate phase11-integration-test

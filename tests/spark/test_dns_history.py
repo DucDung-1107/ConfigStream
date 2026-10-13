@@ -65,6 +65,54 @@ def test_exact_source_group_and_lossless_value_reuse(dns_session, tmp_path):
     assert data.count() == 1
     assert reused.join(data, "value_set_id").select(*full.columns).exceptAll(full).count() == 0
     assert read_table(dns_session, store, query, artifact, "contributors").count() == 2
+    inventory = store.inventory(query)
+    processor.process(batches[0], 99)
+    assert store.inventory(query) == inventory
+    assert read_source_completion(store, query, artifact)["source_rows"] == 6
+
+
+def test_independent_comparison_ledger(dns_session, tmp_path):
+    import hashlib
+    from datetime import date
+
+    import pyarrow as arrow
+    import pyarrow.parquet as parquet
+
+    from analytics.dns import compare_groups
+    from spark.dns import verify_projection
+    from workloads.dns_oracle import comparison_ledger
+
+    first = tmp_path / "first"
+    second = tmp_path / "second"
+    first.mkdir()
+    second.mkdir()
+    path, source, rows = owned_source(first)
+    build(path, source, first / "oracle")
+    rows[0]["ip4_address"] = "192.0.2.2"
+    other_path = second / "owned.parquet"
+    parquet.write_table(arrow.Table.from_pylist(rows), other_path, row_group_size=2)
+    artifact = source.manifest.artifacts[0].model_copy(
+        update={
+            "sha256": hashlib.sha256(other_path.read_bytes()).hexdigest(),
+            "bytes": other_path.stat().st_size,
+        }
+    )
+    other = source.model_copy(
+        update={
+            "partition_date": date(2024, 1, 2),
+            "manifest": source.manifest.model_copy(update={"artifacts": (artifact,)}),
+        }
+    )
+    build(other_path, other, second / "oracle")
+    ledger = tmp_path / "comparison.parquet"
+    assert comparison_ledger(first / "oracle", second / "oracle", ledger)["rows"] == 2
+    previous = dns_session.read.parquet(str(first / "oracle/groups.parquet"))
+    current = dns_session.read.parquet(str(second / "oracle/groups.parquet"))
+    actual, summary = compare_groups(previous, current)
+    assert summary["changed_groups"] == 1
+    expected = dns_session.read.parquet(str(ledger)).select(*actual.columns)
+    with verify_projection(actual, expected, complete=True) as exact:
+        assert exact.count() == 2
 
 
 @pytest.mark.parametrize(

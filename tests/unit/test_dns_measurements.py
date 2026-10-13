@@ -1,8 +1,6 @@
 import hashlib
 from datetime import date
 
-import pyarrow as arrow
-import pyarrow.parquet as parquet
 import pytest
 
 from processing.dns import normalize_row, qualify_pair, read_source
@@ -13,6 +11,8 @@ from workloads.dns_oracle import build, reference_row
 
 
 def owned_source(tmp_path):
+    arrow = pytest.importorskip("pyarrow")
+    parquet = pytest.importorskip("pyarrow.parquet")
     rows = []
     for index, (query, response, status, address) in enumerate(
         [

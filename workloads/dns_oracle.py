@@ -387,6 +387,59 @@ def build(path, source, output, *, check=lambda: None):
         database.close()
 
 
+def comparison_ledger(previous, current, output):
+    import pyarrow as arrow
+
+    database = sqlite3.connect(":memory:")
+    database.execute("ATTACH DATABASE ? AS previous", (str(previous / "oracle.sqlite"),))
+    database.execute("ATTACH DATABASE ? AS current", (str(current / "oracle.sqlite"),))
+    fields = [
+        ("group_key", arrow.string()),
+        ("previous_id", arrow.string()),
+        ("current_id", arrow.string()),
+        ("before", arrow.list_(arrow.string())),
+        ("after", arrow.list_(arrow.string())),
+        ("same_recorded_workers", arrow.bool_()),
+        ("added_values", arrow.list_(arrow.string())),
+        ("removed_values", arrow.list_(arrow.string())),
+        ("unchanged_values", arrow.list_(arrow.string())),
+        ("causal_interpretation", arrow.string()),
+        ("comparison_policy", arrow.string()),
+        ("strict_qualification", arrow.string()),
+    ]
+    writer = Columnar(output, arrow.schema(fields))
+    checksum = hashlib.sha256()
+    count = 0
+    try:
+        for old, new in database.execute(
+            "SELECT p.data,c.data FROM previous.groups p JOIN current.groups c USING(group_key) "
+            "ORDER BY p.group_key"
+        ):
+            old, new = json.loads(old), json.loads(new)
+            before, after = json.loads(old["addresses_json"]), json.loads(new["addresses_json"])
+            record = dict(
+                group_key=old["group_key"],
+                previous_id=old["group_id"],
+                current_id=new["group_id"],
+                before=before,
+                after=after,
+                same_recorded_workers=old["workers_json"] == new["workers_json"],
+                added_values=sorted(set(after) - set(before)),
+                removed_values=sorted(set(before) - set(after)),
+                unchanged_values=sorted(set(before) & set(after)),
+                causal_interpretation="unknown",
+                comparison_policy="phase13-descriptive-v1",
+                strict_qualification="vantage_unverified",
+            )
+            writer.append(record)
+            checksum.update(encoded(record).encode() + b"\n")
+            count += 1
+        writer.close()
+        return dict(rows=count, projection_sha256=checksum.hexdigest())
+    finally:
+        database.close()
+
+
 def compare(previous, current):
     database = sqlite3.connect(":memory:")
     database.execute("ATTACH DATABASE ? AS previous", (str(previous / "oracle.sqlite"),))

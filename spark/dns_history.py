@@ -59,6 +59,56 @@ def publish_table(session, store, query, artifact, table, frame, sort_columns):
     return commit
 
 
+def finalize_comparison(
+    session, store, query, selected, oracle, differences, *, check=lambda: None
+):
+    from hashlib import sha256
+
+    from lake.dns import read_source_completion
+    from workloads.dns_oracle import comparison_ledger
+
+    artifacts = [day["artifact"]["sha256"] for day in selected]
+    if len(artifacts) != 2 or len(set(artifacts)) != 2:
+        raise ValueError("DNS comparison requires two distinct selected sources")
+    sources = [read_source_completion(store, query, artifact) for artifact in artifacts]
+    identity = sha256(json.dumps(artifacts, separators=(",", ":")).encode()).hexdigest()
+    path = oracle / "comparison-ledger.parquet"
+    if not path.exists():
+        comparison_ledger(oracle / selected[0]["date"], oracle / selected[1]["date"], path)
+    expected = session.read.parquet(str(path)).select(*differences.columns)
+    with verify_projection(differences, expected, complete=True) as checked:
+        check()
+        commit = publish_table(
+            session, store, query, identity, "differences", checked, ["group_key"]
+        )
+        qualifications = checked.select(
+            "group_key",
+            "previous_id",
+            "current_id",
+            "strict_qualification",
+            "same_recorded_workers",
+        )
+        qualification = publish_table(
+            session, store, query, identity, "qualifications", qualifications, ["group_key"]
+        )
+        check()
+        descriptor = dict(
+            format_version="dns-comparison-complete-1.0",
+            query_id=query,
+            artifact_sha256s=artifacts,
+            comparison_id=identity,
+            source_completion_sha256s=[metadata_digest(source) for source in sources],
+            difference_commit_sha256=metadata_digest(commit),
+            qualification_commit_sha256=metadata_digest(qualification),
+            exact_independent_projection=True,
+            causal_interpretation="unknown",
+            entity_coverage="unknown",
+            strict_matched_vantage_eligible=0,
+        )
+        store.put(f"comparison/{query}/{identity}", descriptor)
+        return descriptor
+
+
 def finalize_source(
     session, store, query, reference, oracle, *, check=lambda: None, fault=lambda point: None
 ):

@@ -21,7 +21,7 @@ def source_offsets(value, topic):
         raise ValueError("DNS source offset topic binding mismatch")
     result = value[topic]
     if not 1 <= len(result) <= 2 or any(
-        not key.isdecimal() or type(offset) is not int or offset < 0
+        not isinstance(key, str) or not key.isdecimal() or type(offset) is not int or offset < 0
         for key, offset in result.items()
     ):
         raise ValueError("DNS source offset partition/value mismatch")
@@ -92,9 +92,11 @@ def publish(path, reference, progress, config, topic, *, limit=None, check=lambd
         acknowledged += len(pending)
         total_bytes += len(value)
         chunks += 1
-        progress.write_text(
+        temporary = progress.with_suffix(".pending")
+        temporary.write_text(
             json.dumps(dict(artifact_sha256=source, topic=topic, source_rows=acknowledged))
         )
+        temporary.replace(progress)
         pending.clear()
         check()
 

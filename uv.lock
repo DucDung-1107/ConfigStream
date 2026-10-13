@@ -103,6 +103,9 @@ api = [
     { name = "httpx" },
     { name = "uvicorn" },
 ]
+dns = [
+    { name = "pyarrow" },
+]
 kafka = [
     { name = "confluent-kafka" },
 ]
@@ -138,13 +141,14 @@ requires-dist = [
     { name = "mrtparse", marker = "extra == 'ris'", specifier = "==2.2.0" },
     { name = "pandas", marker = "extra == 'spark'", specifier = "==2.2.3" },
     { name = "protobuf", marker = "extra == 'spark'", specifier = "==5.29.5" },
+    { name = "pyarrow", marker = "extra == 'dns'", specifier = "==19.0.1" },
     { name = "pyarrow", marker = "extra == 'spark'", specifier = "==19.0.1" },
     { name = "pydantic", specifier = ">=2.10,<3" },
     { name = "pyspark", marker = "extra == 'spark'", specifier = "==4.0.2" },
     { name = "pyyaml", specifier = "==6.0.2" },
     { name = "uvicorn", marker = "extra == 'api'", specifier = "==0.54.0" },
 ]
-provides-extras = ["kafka", "ris", "spark", "lake", "search", "api"]
+provides-extras = ["kafka", "ris", "dns", "spark", "lake", "search", "api"]
 
 [package.metadata.requires-dev]
 dev = [
