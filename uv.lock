@@ -109,6 +109,9 @@ kafka = [
 lake = [
     { name = "boto3" },
 ]
+ris = [
+    { name = "mrtparse" },
+]
 search = [
     { name = "elasticsearch" },
 ]
@@ -132,6 +135,7 @@ requires-dist = [
     { name = "elasticsearch", marker = "extra == 'search'", specifier = "==9.5.1" },
     { name = "fastapi", marker = "extra == 'api'", specifier = "==0.143.0" },
     { name = "httpx", marker = "extra == 'api'", specifier = "==0.28.1" },
+    { name = "mrtparse", marker = "extra == 'ris'", specifier = "==2.2.0" },
     { name = "pandas", marker = "extra == 'spark'", specifier = "==2.2.3" },
     { name = "protobuf", marker = "extra == 'spark'", specifier = "==5.29.5" },
     { name = "pyarrow", marker = "extra == 'spark'", specifier = "==19.0.1" },
@@ -140,7 +144,7 @@ requires-dist = [
     { name = "pyyaml", specifier = "==6.0.2" },
     { name = "uvicorn", marker = "extra == 'api'", specifier = "==0.54.0" },
 ]
-provides-extras = ["kafka", "spark", "lake", "search", "api"]
+provides-extras = ["kafka", "ris", "spark", "lake", "search", "api"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -270,6 +274,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d3/59/322338183ecda247fb5d1763a6cbe46eff7222eaeebafd9fa65d4bf5cb11/jmespath-1.1.0.tar.gz", hash = "sha256:472c87d80f36026ae83c6ddd0f1d05d4e510134ed462851fd5f754c8c3cbb88d", size = 27377, upload-time = "2026-01-22T16:35:26.279Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/14/2f/967ba146e6d58cf6a652da73885f52fc68001525b4197effc174321d70b4/jmespath-1.1.0-py3-none-any.whl", hash = "sha256:a5663118de4908c91729bea0acadca56526eb2698e83de10cd116ae0f4e97c64", size = 20419, upload-time = "2026-01-22T16:35:24.919Z" },
+]
+
+[[package]]
+name = "mrtparse"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7c/06/2198d92180b3abd998b057621bb2843e2a596b550bb10adc649884142359/mrtparse-2.2.0.tar.gz", hash = "sha256:8806e20f57dfbbcdc107a9838af9d5386dacdc6d43474bfedeeacd80eb3945d4", size = 34842, upload-time = "2022-05-23T16:30:23.993Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/97/b2/e8035b3854081b707c56a7bf07240da3fc880c28464b1d67a77cbdf2db45/mrtparse-2.2.0-py2.py3-none-any.whl", hash = "sha256:1672a92950eafb8fb5f6b56fe4c4ce0ebae8ec87de7b1489df7780418c311ca7", size = 19116, upload-time = "2022-05-23T16:30:22.142Z" },
 ]
 
 [[package]]

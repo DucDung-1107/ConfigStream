@@ -1,0 +1,208 @@
+"""Native append-only occurrences with exact oracle validation and committed logical reads."""
+
+import json
+from hashlib import sha256
+from time import monotonic
+from uuid import UUID
+
+from schemas.ris import EventChunk, EventRow, RisReference, validate_topic
+
+
+def event_schema():
+    from pyspark.sql.types import LongType, StringType, StructField, StructType
+
+    integers = {
+        "byte_offset",
+        "all_record_index",
+        "expansion_ordinal",
+        "source_seconds",
+        "source_microseconds",
+        "peer_asn",
+        "afi",
+        "safi",
+        "path_id",
+    }
+    return StructType(
+        [
+            StructField(
+                name,
+                LongType() if name in integers else StringType(),
+                name in {"source_microseconds", "path_id"},
+            )
+            for name in EventRow.model_fields
+        ]
+    )
+
+
+def parse_partition(values, references):
+    parsed = {key: RisReference.model_validate(value) for key, value in references.items()}
+    for value in values:
+        if value.value is None or len(value.value.encode()) > 1024**2:
+            raise ValueError("Invalid RIS chunk size")
+        try:
+            chunk = EventChunk.model_validate_json(value.value)
+            reference = parsed[chunk.artifact_sha256]
+            chunk.validate_reference(reference)
+        except (ValueError, KeyError):
+            raise ValueError("Invalid RIS chunk or source binding") from None
+        for row in chunk.rows:
+            yield tuple(row.model_dump().values())
+
+
+def exact_projection(actual, expected, *, complete=False):
+    from pyspark.sql import functions as functions
+
+    columns = list(EventRow.model_fields)
+    distinct = actual.select(*columns).dropDuplicates()
+    if (
+        distinct.groupBy("logical_record_id")
+        .count()
+        .where(functions.col("count") > 1)
+        .limit(1)
+        .count()
+    ):
+        raise ValueError("RIS occurrence identity conflict")
+    if distinct.exceptAll(expected.select(*columns)).limit(1).count():
+        raise ValueError("RIS unexpected/conflicting source projection")
+    if complete and expected.select(*columns).exceptAll(distinct).limit(1).count():
+        raise ValueError("RIS missing source occurrences")
+    return distinct
+
+
+def projection_digest(frame):
+    digest = sha256()
+    count = 0
+    for row in frame.orderBy("logical_record_id").toLocalIterator():
+        encoded = json.dumps(row.asDict(), sort_keys=True, separators=(",", ":")).encode()
+        digest.update(encoded + b"\n")
+        count += 1
+    return count, digest.hexdigest()
+
+
+def committed_events(session, store, query_id, expected):
+    commits = store.inventory(query_id)
+    if not commits:
+        return session.createDataFrame([], event_schema())
+    frames = []
+    for commit in commits:
+        if commit.get("format_version") == "ris-1.1":
+            for manifest_id in commit["provenance_ids"]:
+                reference = store.get(f"sources/{manifest_id}")
+                if reference is None or (
+                    RisReference.model_validate(reference).manifest.manifest_id != manifest_id
+                ):
+                    raise ValueError("RIS committed provenance missing/corrupt")
+        frame = session.read.schema(event_schema()).parquet(store.committed_path(commit, query_id))
+        count, digest = projection_digest(frame)
+        if count != commit["logical_records"] or digest != commit["projection_sha256"]:
+            raise ValueError("RIS committed physical projection corruption")
+        frames.append(frame)
+    combined = frames[0]
+    for frame in frames[1:]:
+        combined = combined.unionByName(frame)
+    return exact_projection(combined, expected)
+
+
+class RisProcessor:
+    def __init__(self, session, store, query_id, references, oracle_paths, *, fault=None):
+        UUID(query_id)
+        self.session, self.store, self.query_id = session, store, query_id
+        self.references = {key: value.model_dump(mode="json") for key, value in references.items()}
+        for reference in references.values():
+            store.put(
+                f"sources/{reference.manifest.manifest_id}", reference.model_dump(mode="json")
+            )
+        self.expected = session.read.schema(event_schema()).parquet(*oracle_paths)
+        self.fault = fault or (lambda point: None)
+        self.metrics = []
+
+    def process(self, batch, batch_id):
+        from pyspark import StorageLevel
+
+        began = monotonic()
+        references = self.references
+        parsed = self.session.createDataFrame(
+            batch.selectExpr("CAST(value AS STRING) AS value").rdd.mapPartitions(
+                lambda values: parse_partition(values, references)
+            ),
+            event_schema(),
+        ).persist(StorageLevel.MEMORY_AND_DISK)
+        validated = None
+        try:
+            input_rows = parsed.count()
+            if not input_rows:
+                return
+            validated = exact_projection(parsed, self.expected).persist(
+                StorageLevel.MEMORY_AND_DISK
+            )
+            count, digest = projection_digest(validated)
+            identity = f"{self.query_id}/{batch_id:020d}"
+            key = f"batches/{identity}"
+            commit = dict(
+                format_version="ris-1.1",
+                query_id=self.query_id,
+                batch_id=batch_id,
+                path=self.store.path(identity),
+                logical_records=count,
+                projection_sha256=digest,
+                provenance_ids=sorted(
+                    RisReference.model_validate(value).manifest.manifest_id
+                    for value in self.references.values()
+                ),
+                source_artifact_sha256s=sorted(self.references),
+            )
+            previous = self.store.get(key)
+            if previous:
+                if previous != commit:
+                    raise ValueError("RIS batch replay conflict")
+            else:
+                self.fault("before_output")
+                if self.fault("partial_output"):
+                    validated.limit(1).write.mode("overwrite").parquet(commit["path"])
+                    raise RuntimeError("Owned RIS interruption after partial output")
+                validated.repartition(4).write.mode("overwrite").parquet(commit["path"])
+                self.fault("before_commit")
+                self.store.put(key, commit)
+            self.fault("after_commit")
+            self.metrics.append(
+                dict(
+                    batch_id=batch_id,
+                    input_occurrences=input_rows,
+                    batch_logical_occurrences=count,
+                    seconds=monotonic() - began,
+                )
+            )
+        except Exception as error:
+            self.store.put(
+                f"errors/{self.query_id}/{batch_id:020d}",
+                {
+                    "format_version": "ris-error-1.0",
+                    "batch_id": batch_id,
+                    "failure_category": type(error).__name__,
+                    "disposition": "callback_failed_not_source_event_acceptance",
+                },
+            )
+            raise
+        finally:
+            parsed.unpersist()
+            if validated is not None:
+                validated.unpersist()
+
+
+def start_query(session, processor, bootstrap, checkpoint, topic, *, max_chunks=256):
+    validate_topic(topic)
+    source = (
+        session.readStream.format("kafka")
+        .option("kafka.bootstrap.servers", bootstrap)
+        .option("subscribe", topic)
+        .option("startingOffsets", "earliest")
+        .option("failOnDataLoss", "true")
+        .option("maxOffsetsPerTrigger", max_chunks)
+        .load()
+    )
+    return (
+        source.writeStream.foreachBatch(processor.process)
+        .option("checkpointLocation", str(checkpoint))
+        .trigger(availableNow=True)
+        .start()
+    )

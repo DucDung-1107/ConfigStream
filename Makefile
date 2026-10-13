@@ -41,7 +41,7 @@ PHASE6_ARGS ?=
 setup:
 	mkdir -p .cache/tmp .tools
 	test -x "$(UV)" || ($(PYTHON) -m venv .tools/uv && .tools/uv/bin/python -m pip install --no-cache-dir 'uv==0.12.21')
-	"$(UV)" sync --locked --extra kafka
+	"$(UV)" sync --locked --extra kafka --extra ris
 
 .PHONY: dataset-fetch dataset-inspect workload-generate
 .PHONY: observed-fetch observed-inspect observed-replay empirical-report calibration-generate phase11-integration-test
@@ -121,7 +121,7 @@ test:
 	.venv/bin/python -m pytest tests/unit
 
 spark-setup: setup
-	"$(UV)" sync --locked --extra kafka --extra spark
+	"$(UV)" sync --locked --extra kafka --extra ris --extra spark
 
 lake-setup: setup
 	"$(UV)" sync --locked --extra kafka --extra spark --extra lake
