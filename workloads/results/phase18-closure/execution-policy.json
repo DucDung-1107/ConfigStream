@@ -2,9 +2,21 @@
   "evidence": "ESTIMATE",
   "registered_date": "2026-10-13",
   "scope": "12 pinned rrc00 archives; no downloads or VM expansion",
-  "service_approvals": {"1": 1800, "3": 1800},
+  "service_approvals": {"1": 1800, "3": 1800, "12": 7200},
   "owner_approval": "Cho phép run 15 phút, cap 1.800 giây",
-  "full_hour_service": "BLOCKED_PENDING_SEPARATE_OWNER_APPROVAL_AFTER_PILOT",
+  "full_hour_service": "OWNER_APPROVED_STAGE_E_ONE_RUN",
+  "full_hour_owner_approval": {
+    "date": "2026-10-13",
+    "archives": 12,
+    "runtime_cap_seconds": 7200,
+    "attempts": 1,
+    "automatic_retry": false,
+    "downloads": false,
+    "vm_expansion": false,
+    "evidence_deletion": false,
+    "spark_driver_heap": "2g",
+    "source": "Explicit owner Stage E authorization in current conversation"
+  },
   "three_archive_attempt": {
     "evidence": "MEASURED_SERVICE",
     "status": "FAIL_JAVA_HEAP_AT_FINAL_DIGEST",
@@ -23,7 +35,7 @@
     "expected_minutes_range": [65, 110],
     "expected_new_service_gib_range": [5, 7],
     "measured_guest_free_disk_before_proposal_bytes": 41690136576,
-    "authorization": "PENDING_SEPARATE_OWNER_REPLY"
+    "authorization": "OWNER_APPROVED_STAGE_E_ONE_RUN"
   },
   "per_run_growth_limit_bytes": 16106127360,
   "experiment_output_limit_bytes": 53687091200,

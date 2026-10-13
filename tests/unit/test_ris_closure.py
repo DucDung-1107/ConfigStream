@@ -153,6 +153,18 @@ def test_expanded_service_caps_require_explicit_approval():
         approve_execution(blocked, 3, 1800)
     approved_retry = policy | {"three_archive_attempt": {"retry": "OWNER_APPROVED_SAME_CAP_RETRY"}}
     approve_execution(approved_retry, 3, 1800)
+    approved_hour = policy | {
+        "service_approvals": {"1": 1800, "3": 1800, "12": 7200},
+        "full_hour_service": "OWNER_APPROVED_STAGE_E_ONE_RUN",
+    }
+    approve_execution(approved_hour, 12, 7200)
+    with pytest.raises(ValueError, match="approval"):
+        approve_execution(approved_hour | {"full_hour_service": "CONSUMED"}, 12, 7200)
+    unapproved_hour = policy | {"service_approvals": {"1": 1800, "3": 1800}}
+    with pytest.raises(ValueError, match="approval"):
+        approve_execution(unapproved_hour, 12, 7200)
+    with pytest.raises(ValueError, match="approval"):
+        approve_execution(policy, 3, 7200)
     with pytest.raises(ValueError, match="approval"):
         approve_execution(policy, 12, 3600)
     with pytest.raises(ValueError, match="approval"):

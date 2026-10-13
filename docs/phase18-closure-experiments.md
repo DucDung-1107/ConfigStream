@@ -155,6 +155,18 @@ Normal CI does not start services or download source data. Raw archives, complet
 normalized ledgers, checkpoints and service logs remain private. Results identify
 the actual commands executed; a reproduction command alone is not a test result.
 
+## Controlled Stage E runtime amendment — 2026-10-13
+
+The owner explicitly authorized one twelve-archive service attempt capped at
+7,200 seconds after the accepted fifteen-minute pilot. This supersedes the
+pending full-hour runtime approval, not the historical pilot results. The VM
+remains two CPUs, 6 GiB RAM and 64 GiB disk; Spark remains `local[2]` with a 2 GiB
+driver heap. All disk, memory, output-growth and independent-oracle requirements
+remain unchanged. No additional downloads, evidence deletion, automatic retry or
+timeout extension is authorized. Actual host/guest resources must pass preflight.
+The driver writes an isolated UUID, topic, checkpoint and MinIO prefix in its
+registered plan before publishing. Approval is not evidence of Stage E success.
+
 ## Rights and attribution
 
 Source: RIPE NCC / RIPE RIS, twelve pinned `rrc00` archives. The

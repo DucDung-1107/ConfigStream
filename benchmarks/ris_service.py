@@ -17,6 +17,8 @@ from workloads.rpki_resources import ResourceSampler, directory_bytes
 def approve_execution(policy, files, seconds):
     if policy.get("service_approvals", {}).get(str(files)) != seconds:
         raise ValueError("RIS selected service runtime lacks explicit owner approval")
+    if files == 12 and policy.get("full_hour_service") != "OWNER_APPROVED_STAGE_E_ONE_RUN":
+        raise ValueError("RIS another full-hour attempt requires new owner approval")
     attempt = policy.get("three_archive_attempt")
     if files == 3 and attempt and attempt.get("retry") != "OWNER_APPROVED_SAME_CAP_RETRY":
         raise ValueError("RIS another three-archive attempt requires new owner approval")
@@ -70,7 +72,7 @@ def main():
     arguments.add_argument("--oracle", type=Path, required=True)
     arguments.add_argument("--cache", type=Path, default=Path(".cache/phase13"))
     arguments.add_argument("--output", type=Path, required=True)
-    arguments.add_argument("--max-seconds", type=int, choices=[1800, 3600], default=1800)
+    arguments.add_argument("--max-seconds", type=int, choices=[1800, 3600, 7200], default=1800)
     arguments.add_argument(
         "--execution-policy",
         type=Path,
@@ -247,7 +249,7 @@ def main():
                 result["final_broker_lag"] = sum(
                     high - ends.get(partition, -1) for partition, high in highs.items()
                 )
-                if result["final_broker_lag"] != 0:
+                if highs != ends or result["final_broker_lag"] != 0:
                     raise ValueError("RIS final selected-topic lag is nonzero")
             finally:
                 consumer.close()

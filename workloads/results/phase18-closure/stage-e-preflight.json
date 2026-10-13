@@ -1,0 +1,28 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "date": "2026-10-13",
+  "starting_commit": "3ad15681a2c29a2c3001db9f0268b1d43e805575",
+  "guest_free_disk_bytes": 41688961024,
+  "guest_available_memory_bytes": 5031342080,
+  "host_free_disk_bytes": 661790662656,
+  "host_ram_bytes": 19327352832,
+  "private_experiment_bytes": 5391078320,
+  "vm": {
+    "name": "k",
+    "status": "Running",
+    "cpus": 2,
+    "memory_bytes": 6442450944,
+    "disk_bytes": 68719476736
+  },
+  "verified_cached_archives": 12,
+  "independent_oracle_level": 3,
+  "authenticated_kafka_minio": "PASS",
+  "new_download_bytes": 0,
+  "output_directory": ".cache/phase18-closure/service-hour; verified absent before run",
+  "spark_driver_heap": "2g",
+  "runtime_cap_seconds": 7200,
+  "kafka_container_memory_limit_bytes": 1610612736,
+  "minio_container_memory_limit_bytes": 805306368,
+  "resource_changes": false,
+  "evidence_deleted": false
+}
