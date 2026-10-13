@@ -122,7 +122,7 @@ recovery. See [invariant evidence](../workloads/results/phase18-closure/invarian
 Local `make check`: **1,023 passed**; `make api-test`: **80 passed**;
 `make spark-test`: **80 passed**. Relative to Phase 18: +39 unit and +7 Spark
 tests; API unchanged. Latest complete actual-service fixture suite: **14 passed
-in 127.95 seconds**, separately from standard CI. Normal CI needs neither live
+in 134.84 seconds**, separately from standard CI (the earlier run took 127.95 seconds). Normal CI needs neither live
 RIPE downloads nor Kafka/MinIO. One existing API dependency warning remains.
 
 RQ1 now has independent native-event/source and scoped recovery evidence. RQ2/RQ3
