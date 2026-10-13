@@ -18,8 +18,9 @@ def ensure_topic(config, topic):
     from confluent_kafka.admin import AdminClient, NewTopic
 
     validate_topic(topic)
+    admin = AdminClient({"bootstrap.servers": config.bootstrap_servers})
     try:
-        AdminClient({"bootstrap.servers": config.bootstrap_servers}).create_topics(
+        admin.create_topics(
             [
                 NewTopic(
                     topic,
