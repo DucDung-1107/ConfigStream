@@ -1,0 +1,544 @@
+{
+  "evidence": "MEASURED_SERVICE_NORMALIZED_CORE",
+  "status": "FAIL",
+  "registration": "matched-pilot-registration.json",
+  "private_run_directory": ".cache/phase20/matched-approved",
+  "cap_seconds": 7200,
+  "growth_cap_bytes": 3221225472,
+  "campaign_elapsed_seconds": 75.32681291701738,
+  "measured_successful_trials": 3,
+  "measured_failed_trials": 1,
+  "unexecuted_trial_count": 23,
+  "trials": [
+    {
+      "status": "PASS",
+      "evidence": "MEASURED_SERVICE_NORMALIZED_CORE",
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 2,
+      "query_id": "483a931b-53a2-482d-b453-a262e91d67da",
+      "prefix": "phase20-matched/483a931b-53a2-482d-b453-a262e91d67da",
+      "code_commit": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+      "input_binding": {
+        "workload": "dns",
+        "rows": 4096,
+        "source_normalized_path": ".cache/phase19/oracle/2026-09-01/raw.parquet",
+        "source_normalized_sha256": "5e3b6f945c6825c3af781c950de4e39102090190bc7031f63498168fcc066af5",
+        "normalized_wrapper_sha256": "f0a721088174ca2ec1f3d3152dad8000d312f95c5a84c17482c56ca25cb01986",
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "preparation_seconds": 0.3042000000132248,
+        "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+        "partial_selected_object": true
+      },
+      "format": "phase20-normalized-core-1",
+      "cache": "fresh process; filesystem cache uncontrolled",
+      "driver_heap": "2g",
+      "master": "local[2]",
+      "publication_seconds": 0.019024958019144833,
+      "validation_seconds": 5.201459041098133,
+      "transformation_seconds": 1.8188500000396743,
+      "topic": null,
+      "final_lag": "N/A",
+      "parser_seconds": "EXCLUDED_ALL_MODES",
+      "checkpoint": ".cache/phase20/matched-approved/dns-B2-2/checkpoint",
+      "spark_startup_seconds": 4.881382749998011,
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "minio_bytes": 1226761,
+      "parquet_bytes": 1213304,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "to_validated_commit_seconds": 13.249375915969722,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 786710528,
+      "minimum_guest_available_memory_bytes": 4672978944,
+      "minimum_guest_free_disk_bytes": 32306343936,
+      "resource_guard_failures": [
+        null,
+        null
+      ],
+      "host_retained_content_bytes": 348710,
+      "command_start_to_observed_exit_seconds": 14.732439624960534,
+      "launch_observation_resolution_seconds": 2,
+      "native_unit": "raw measurement source rows in a partial selected artifact",
+      "defined_retained_component_content_bytes": 233202495
+    },
+    {
+      "status": "FAIL",
+      "evidence": "MEASURED_SERVICE_NORMALIZED_CORE",
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 3,
+      "query_id": "8ffd5387-6e5a-4500-a12f-3e2d76424a0c",
+      "prefix": "phase20-matched/8ffd5387-6e5a-4500-a12f-3e2d76424a0c",
+      "code_commit": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+      "input_binding": {
+        "workload": "dns",
+        "rows": 4096,
+        "source_normalized_path": ".cache/phase19/oracle/2026-09-01/raw.parquet",
+        "source_normalized_sha256": "5e3b6f945c6825c3af781c950de4e39102090190bc7031f63498168fcc066af5",
+        "normalized_wrapper_sha256": "f0a721088174ca2ec1f3d3152dad8000d312f95c5a84c17482c56ca25cb01986",
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "preparation_seconds": 0.3042000000132248,
+        "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+        "partial_selected_object": true
+      },
+      "format": "phase20-normalized-core-1",
+      "cache": "fresh process; filesystem cache uncontrolled",
+      "driver_heap": "2g",
+      "master": "local[2]",
+      "publication_seconds": 0.0,
+      "validation_seconds": 0.0,
+      "transformation_seconds": 2.1323159160092473,
+      "topic": "evaluation.phase20.8ffd5387-6e5a-4500-a12f-3e2d76424a0c",
+      "final_lag": "N/A",
+      "parser_seconds": "EXCLUDED_ALL_MODES",
+      "checkpoint": ".cache/phase20/matched-approved/dns-B3-3/checkpoint",
+      "producer": {
+        "acknowledged_chunks": 32,
+        "acknowledged_rows": 4096,
+        "serialized_value_bytes": 4382703,
+        "producer_seconds": 0.7712180409580469
+      },
+      "spark_startup_seconds": 5.823478125035763,
+      "failure_category": "StreamingQueryException",
+      "to_validated_commit_seconds": 17.496259499923326,
+      "checkpoint_content_bytes": 1000,
+      "peak_sampled_process_tree_rss_bytes": 754958336,
+      "minimum_guest_available_memory_bytes": 4319203328,
+      "minimum_guest_free_disk_bytes": 32143523840,
+      "resource_guard_failures": [
+        null,
+        null
+      ],
+      "host_retained_content_bytes": 14097,
+      "command_start_to_observed_exit_seconds": null,
+      "launch_observation_resolution_seconds": 2,
+      "native_unit": "raw measurement source rows in a partial selected artifact",
+      "defined_retained_component_content_bytes": "NOT_MEASURED_COMPLETE_BOUNDARY"
+    },
+    {
+      "status": "PASS",
+      "evidence": "MEASURED_SERVICE_NORMALIZED_CORE",
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 2,
+      "query_id": "3b6a2ee0-f11b-4cfc-aca6-0cfcc68e58f9",
+      "prefix": "phase20-matched/3b6a2ee0-f11b-4cfc-aca6-0cfcc68e58f9",
+      "code_commit": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+      "input_binding": {
+        "workload": "ris",
+        "rows": 370141,
+        "source_normalized_path": ".cache/phase18-closure/oracle-hour-v2/updates.20260901.0000.gz/events.parquet",
+        "source_normalized_sha256": "ed581d91630b573083cbe243593d99941998edadf2caf6c803866bdfea2b9d47",
+        "normalized_wrapper_sha256": "c4e2e7da965777224ff70ca9b1f09ec66b190f9a5821273326dcdbc9b7a747b8",
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "preparation_seconds": 13.26209899992682,
+        "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+        "partial_selected_object": false
+      },
+      "format": "phase20-normalized-core-1",
+      "cache": "fresh process; filesystem cache uncontrolled",
+      "driver_heap": "2g",
+      "master": "local[2]",
+      "publication_seconds": 0.8334504580125213,
+      "validation_seconds": 8.912958665983751,
+      "transformation_seconds": 0.31857554195448756,
+      "topic": null,
+      "final_lag": "N/A",
+      "parser_seconds": "EXCLUDED_ALL_MODES",
+      "checkpoint": ".cache/phase20/matched-approved/ris-B0-2/checkpoint",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "minio_bytes": 105092068,
+      "parquet_bytes": 105090563,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "to_validated_commit_seconds": 10.267128958017565,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 229179392,
+      "minimum_guest_available_memory_bytes": 4371456000,
+      "minimum_guest_free_disk_bytes": 32201043968,
+      "resource_guard_failures": [
+        null,
+        null
+      ],
+      "host_retained_content_bytes": 134373287,
+      "command_start_to_observed_exit_seconds": 12.622131625073962,
+      "launch_observation_resolution_seconds": 2,
+      "native_unit": "accepted native event occurrences",
+      "defined_retained_component_content_bytes": 783034192
+    },
+    {
+      "status": "PASS",
+      "evidence": "MEASURED_SERVICE_NORMALIZED_CORE",
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 2,
+      "query_id": "21976c3a-8861-4bdf-bb51-631d0363deaf",
+      "prefix": "phase20-matched/21976c3a-8861-4bdf-bb51-631d0363deaf",
+      "code_commit": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+      "input_binding": {
+        "workload": "rpki",
+        "rows": 360226,
+        "source_normalized_path": ".cache/phase17/oracle/members/2026-09-01.parquet",
+        "source_normalized_sha256": "825da6847e3c400d7b59f3021c546b8b5a76fef5605babf543a1203af8c19034",
+        "normalized_wrapper_sha256": "56632494215eaafb907b49ca7e789847530c5208502a5b36367492fe595263d5",
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "preparation_seconds": 8.296303000068292,
+        "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+        "partial_selected_object": false
+      },
+      "format": "phase20-normalized-core-1",
+      "cache": "fresh process; filesystem cache uncontrolled",
+      "driver_heap": "2g",
+      "master": "local[2]",
+      "publication_seconds": 0.21641320793423802,
+      "validation_seconds": 5.4373925409745425,
+      "transformation_seconds": 0.1917058329563588,
+      "topic": null,
+      "final_lag": "N/A",
+      "parser_seconds": "EXCLUDED_ALL_MODES",
+      "checkpoint": ".cache/phase20/matched-approved/rpki-B0-2/checkpoint",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "minio_bytes": 56139724,
+      "parquet_bytes": 56138219,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "to_validated_commit_seconds": 5.936536916997284,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 177520640,
+      "minimum_guest_available_memory_bytes": 4396400640,
+      "minimum_guest_free_disk_bytes": 32201043968,
+      "resource_guard_failures": [
+        null,
+        null
+      ],
+      "host_retained_content_bytes": 84629752,
+      "command_start_to_observed_exit_seconds": 6.266521167010069,
+      "launch_observation_resolution_seconds": 2,
+      "native_unit": "canonical authorization memberships; not raw source rows or transitions",
+      "defined_retained_component_content_bytes": 364770702
+    }
+  ],
+  "configurations": {
+    "dns-B2": {
+      "accepted_repetitions": 1,
+      "repetition_status": "INSUFFICIENT_REPETITIONS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "individual": [
+            14.732439624960534
+          ],
+          "median": 14.732439624960534,
+          "minimum": 14.732439624960534,
+          "maximum": 14.732439624960534
+        },
+        "to_validated_commit_seconds": {
+          "individual": [
+            13.249375915969722
+          ],
+          "median": 13.249375915969722,
+          "minimum": 13.249375915969722,
+          "maximum": 13.249375915969722
+        },
+        "transformation_seconds": {
+          "individual": [
+            1.8188500000396743
+          ],
+          "median": 1.8188500000396743,
+          "minimum": 1.8188500000396743,
+          "maximum": 1.8188500000396743
+        },
+        "publication_seconds": {
+          "individual": [
+            0.019024958019144833
+          ],
+          "median": 0.019024958019144833,
+          "minimum": 0.019024958019144833,
+          "maximum": 0.019024958019144833
+        },
+        "validation_seconds": {
+          "individual": [
+            5.201459041098133
+          ],
+          "median": 5.201459041098133,
+          "minimum": 5.201459041098133,
+          "maximum": 5.201459041098133
+        },
+        "parquet_bytes": {
+          "individual": [
+            1213304
+          ],
+          "median": 1213304,
+          "minimum": 1213304,
+          "maximum": 1213304
+        },
+        "minio_bytes": {
+          "individual": [
+            1226761
+          ],
+          "median": 1226761,
+          "minimum": 1226761,
+          "maximum": 1226761
+        },
+        "checkpoint_content_bytes": {
+          "individual": [
+            0
+          ],
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "individual": [
+            786710528
+          ],
+          "median": 786710528,
+          "minimum": 786710528,
+          "maximum": 786710528
+        },
+        "defined_retained_component_content_bytes": {
+          "individual": [
+            233202495
+          ],
+          "median": 233202495,
+          "minimum": 233202495,
+          "maximum": 233202495
+        }
+      }
+    },
+    "ris-B0": {
+      "accepted_repetitions": 1,
+      "repetition_status": "INSUFFICIENT_REPETITIONS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "individual": [
+            12.622131625073962
+          ],
+          "median": 12.622131625073962,
+          "minimum": 12.622131625073962,
+          "maximum": 12.622131625073962
+        },
+        "to_validated_commit_seconds": {
+          "individual": [
+            10.267128958017565
+          ],
+          "median": 10.267128958017565,
+          "minimum": 10.267128958017565,
+          "maximum": 10.267128958017565
+        },
+        "transformation_seconds": {
+          "individual": [
+            0.31857554195448756
+          ],
+          "median": 0.31857554195448756,
+          "minimum": 0.31857554195448756,
+          "maximum": 0.31857554195448756
+        },
+        "publication_seconds": {
+          "individual": [
+            0.8334504580125213
+          ],
+          "median": 0.8334504580125213,
+          "minimum": 0.8334504580125213,
+          "maximum": 0.8334504580125213
+        },
+        "validation_seconds": {
+          "individual": [
+            8.912958665983751
+          ],
+          "median": 8.912958665983751,
+          "minimum": 8.912958665983751,
+          "maximum": 8.912958665983751
+        },
+        "parquet_bytes": {
+          "individual": [
+            105090563
+          ],
+          "median": 105090563,
+          "minimum": 105090563,
+          "maximum": 105090563
+        },
+        "minio_bytes": {
+          "individual": [
+            105092068
+          ],
+          "median": 105092068,
+          "minimum": 105092068,
+          "maximum": 105092068
+        },
+        "checkpoint_content_bytes": {
+          "individual": [
+            0
+          ],
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "individual": [
+            229179392
+          ],
+          "median": 229179392,
+          "minimum": 229179392,
+          "maximum": 229179392
+        },
+        "defined_retained_component_content_bytes": {
+          "individual": [
+            783034192
+          ],
+          "median": 783034192,
+          "minimum": 783034192,
+          "maximum": 783034192
+        }
+      }
+    },
+    "rpki-B0": {
+      "accepted_repetitions": 1,
+      "repetition_status": "INSUFFICIENT_REPETITIONS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "individual": [
+            6.266521167010069
+          ],
+          "median": 6.266521167010069,
+          "minimum": 6.266521167010069,
+          "maximum": 6.266521167010069
+        },
+        "to_validated_commit_seconds": {
+          "individual": [
+            5.936536916997284
+          ],
+          "median": 5.936536916997284,
+          "minimum": 5.936536916997284,
+          "maximum": 5.936536916997284
+        },
+        "transformation_seconds": {
+          "individual": [
+            0.1917058329563588
+          ],
+          "median": 0.1917058329563588,
+          "minimum": 0.1917058329563588,
+          "maximum": 0.1917058329563588
+        },
+        "publication_seconds": {
+          "individual": [
+            0.21641320793423802
+          ],
+          "median": 0.21641320793423802,
+          "minimum": 0.21641320793423802,
+          "maximum": 0.21641320793423802
+        },
+        "validation_seconds": {
+          "individual": [
+            5.4373925409745425
+          ],
+          "median": 5.4373925409745425,
+          "minimum": 5.4373925409745425,
+          "maximum": 5.4373925409745425
+        },
+        "parquet_bytes": {
+          "individual": [
+            56138219
+          ],
+          "median": 56138219,
+          "minimum": 56138219,
+          "maximum": 56138219
+        },
+        "minio_bytes": {
+          "individual": [
+            56139724
+          ],
+          "median": 56139724,
+          "minimum": 56139724,
+          "maximum": 56139724
+        },
+        "checkpoint_content_bytes": {
+          "individual": [
+            0
+          ],
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "individual": [
+            177520640
+          ],
+          "median": 177520640,
+          "minimum": 177520640,
+          "maximum": 177520640
+        },
+        "defined_retained_component_content_bytes": {
+          "individual": [
+            364770702
+          ],
+          "median": 364770702,
+          "minimum": 364770702,
+          "maximum": 364770702
+        }
+      }
+    }
+  },
+  "projection_digests": {
+    "dns": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+    "ris": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+    "rpki": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6"
+  },
+  "resources": {
+    "initial_guest": {
+      "guest_free_disk_bytes": 32307781632,
+      "guest_available_memory_bytes": 4693999616
+    },
+    "final_guest": {
+      "guest_free_disk_bytes": 32142180352,
+      "guest_available_memory_bytes": 4366569472
+    },
+    "host_new_content_bytes": 886372402,
+    "final_combined_growth_bytes": 1051973682,
+    "peak_sampled_campaign_process_tree_rss_bytes": 986693632,
+    "minimum_guest_free_disk_bytes": 32142180352,
+    "minimum_guest_available_memory_bytes": 4304404480,
+    "parent_guard_failures": [
+      null,
+      null
+    ]
+  },
+  "accounting": "Defined component-content lower bound: selected raw artifact and accepted normalized projection once, shared wrapper/oracle once, trial scratch including checkpoints, MinIO namespace and selected broker apparent bytes. Other shared provenance/error/oracle metadata and backend allocation NOT_MEASURED. Not complete deployed storage.",
+  "fairness": "All engines process identical canonical full-row wrapper from independently accepted normalized evidence. Source parsing and production state/group finalization excluded in every mode. Same codec and two writer partitions; row-group layouts differ and are not a lossless-representation preference experiment.",
+  "timing": "Command-start-to-observed-exit includes startup/shutdown and <=2-second polling resolution. Spark transformation_seconds includes S3A write; B0 separately records local write/upload. Only all-in boundaries are comparable. Exact verification reported separately but retained in all-in wall.",
+  "H3": "NOT_RUN: queued availableNow is not physical 1x replay/drain acceptance",
+  "new_fault_injection_tests": 0,
+  "phase21": "NOT_STARTED",
+  "failed_publication_audit": {
+    "query_id": "8ffd5387-6e5a-4500-a12f-3e2d76424a0c",
+    "object_count": 4,
+    "parquet_count": 2,
+    "bytes": 1218968,
+    "batch_commit_count": 0,
+    "completion_present": false,
+    "operation": "READ_ONLY_FAILED_NAMESPACE_AUDIT"
+  },
+  "code_commit": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+  "repair": "matched-pilot-repair.json"
+}

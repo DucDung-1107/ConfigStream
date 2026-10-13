@@ -12,7 +12,13 @@ query I/O are unmeasured. Fresh process/build is not
 cold filesystem cache; no privileged eviction. Earlier service results do not
 form matched B0/B2/B3 engine comparisons. The canonical tuple evaluation layout
 differs from original production multi-column Parquet; do not rank those unmatched
-byte counts. The new pilot proves rewrite exactness only, not service feasibility.
+byte counts. The original pilot proves rewrite exactness only. The approved core
+service pilot has only three accepted single trials in different configurations;
+one callback-thread harness failure stopped the remaining23. No equivalent
+matched engine ranking or three-repeat conclusion is available. Full-row JSON
+wrappers have different storage costs from original typed Parquet and must not
+be compared as a compression improvement. The repair is tested locally, not yet
+service-retested; a new explicit retry approval is required.
 
 **External:** one Apple M3 Pro, one trust anchor, one collector/hour, two selected
 OpenINTEL objects, filtered sparse public Git history. No multiworker cluster,

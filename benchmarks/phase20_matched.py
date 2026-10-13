@@ -10,6 +10,7 @@ import time
 from dataclasses import replace
 from hashlib import sha256
 from pathlib import Path
+from threading import RLock
 from time import monotonic
 from uuid import uuid4
 
@@ -40,6 +41,20 @@ def save(path, value):
     path.write_text(json.dumps(value, indent=2) + "\n")
 
 
+def normalized_offsets(value, topic):
+    parsed = json.loads(value) if isinstance(value, str) else value
+    if not isinstance(parsed, dict) or set(parsed) != {topic}:
+        raise ValueError("Normalized Kafka source topic binding mismatch")
+    offsets = parsed[topic]
+    if (
+        not isinstance(offsets, dict)
+        or set(offsets) != {"0", "1"}
+        or any(type(offset) is not int or offset < 0 for offset in offsets.values())
+    ):
+        raise ValueError("Normalized Kafka source offset mismatch")
+    return offsets
+
+
 def digest_rows(rows):
     digest = sha256(b"phase20-core-v1\n")
     for identity, payload in rows:
@@ -52,13 +67,18 @@ def digest_rows(rows):
 
 class ExactRows:
     def __init__(self, oracle, seen):
-        self.expected = sqlite3.connect(f"file:{oracle}?mode=ro", uri=True)
-        self.observed = sqlite3.connect(seen)
+        self.lock = RLock()
+        self.expected = sqlite3.connect(f"file:{oracle}?mode=ro", uri=True, check_same_thread=False)
+        self.observed = sqlite3.connect(seen, check_same_thread=False)
         self.observed.execute("PRAGMA cache_size=-16384")
         self.observed.execute("CREATE TABLE seen(identity TEXT PRIMARY KEY) WITHOUT ROWID")
         self.physical = 0
 
     def accept(self, identity, payload):
+        with self.lock:
+            self._accept(identity, payload)
+
+    def _accept(self, identity, payload):
         expected = self.expected.execute(
             "SELECT payload FROM expected WHERE identity=?", (identity,)
         ).fetchone()
@@ -68,6 +88,10 @@ class ExactRows:
         self.physical += 1
 
     def complete(self):
+        with self.lock:
+            return self._complete()
+
+    def _complete(self):
         self.observed.commit()
         observed = self.observed.execute("SELECT identity FROM seen ORDER BY identity")
         expected = self.expected.execute("SELECT identity,payload FROM expected ORDER BY identity")
@@ -92,8 +116,9 @@ class ExactRows:
         )
 
     def close(self):
-        self.expected.close()
-        self.observed.close()
+        with self.lock:
+            self.expected.close()
+            self.observed.close()
 
 
 def prepare(workload, root, check):
@@ -477,7 +502,9 @@ def worker(args):
                         }
                     finally:
                         consumer.close()
-                    ended = json.loads(progress[-1]["sources"][0]["endOffset"])[result["topic"]]
+                    ended = normalized_offsets(
+                        progress[-1]["sources"][0]["endOffset"], result["topic"]
+                    )
                     if ended != high:
                         raise ValueError("Selected normalized Kafka offsets not completely drained")
                     result["final_lag"] = 0
@@ -561,19 +588,27 @@ def main():
     parser.add_argument("--inputs", type=Path)
     parser.add_argument("--repetition", type=int)
     parser.add_argument("--remaining", type=float, default=CAP)
+    parser.add_argument("--retry", action="store_true")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Fresh private output required; no implicit retry")
     if args.worker:
         worker(args)
         return
-    policy = json.loads(
-        Path("workloads/results/phase20/matched-pilot-registration.json").read_text()
+    policy_path = Path(
+        "workloads/results/phase20/matched-pilot-retry-registration.json"
+        if args.retry
+        else "workloads/results/phase20/matched-pilot-registration.json"
+    )
+    policy = json.loads(policy_path.read_text())
+    growth_cap = 6 * 1024**3 if args.retry else GROWTH
+    expected_approval = (
+        "OWNER_APPROVED_ONE_BOUNDED_RETRY" if args.retry else "OWNER_APPROVED_BOUNDED_MATCHED_PILOT"
     )
     if (
-        policy["approval"] != "OWNER_APPROVED_BOUNDED_MATCHED_PILOT"
+        policy["approval"] != expected_approval
         or policy["cap_seconds"] != CAP
-        or policy["growth_bytes"] != GROWTH
+        or policy["growth_bytes"] != growth_cap
     ):
         parser.error("Specific bounded matched pilot approval missing")
     import pyarrow as arrow
@@ -581,30 +616,96 @@ def main():
     arrow.set_cpu_count(2)
     arrow.set_io_thread_count(2)
     args.output.mkdir(parents=True)
-    inputs = args.output / "inputs"
-    inputs.mkdir()
-    initial_guest = guest_resources()
+    retained = Path(policy["retained_failed_directory"]) if args.retry else None
+    previous = json.loads((retained / "campaign.json").read_text()) if retained else None
+    if previous is not None and previous["status"] != "FAIL":
+        parser.error("Approved retry must retain the failed original campaign")
+    if retained:
+        usage = Path(".cache/phase20/authorizations")
+        usage.mkdir(exist_ok=True)
+        with (usage / "P20-MATCHED-RETRY-1.json").open("x") as receipt:
+            receipt.write(
+                canonical(
+                    dict(
+                        output=str(args.output),
+                        policy_sha256=sha256(policy_path.read_bytes()).hexdigest(),
+                    )
+                )
+            )
+    inputs = retained / "inputs" if retained else args.output / "inputs"
+    if not retained:
+        inputs.mkdir()
+    initial_guest = previous["initial_guest"] if previous else guest_resources()
+    prior_seconds = previous["elapsed_seconds"] if previous else 0
+    effective_cap = CAP - prior_seconds
     began = monotonic()
     order = randomized_order(
         [f"{workload}-{mode}" for workload in SOURCES for mode in ("B0", "B2", "B3")]
     )
     save(args.output / "order.json", order)
     campaign = dict(
-        status="FAIL", cap_seconds=CAP, growth_bytes=GROWTH, initial_guest=initial_guest, trials=[]
+        status="FAIL",
+        cap_seconds=CAP,
+        growth_bytes=growth_cap,
+        initial_guest=initial_guest,
+        prior_elapsed_seconds=prior_seconds,
+        retained_failed_directory=str(retained) if retained else None,
+        inputs_directory=str(inputs),
+        trials=[],
     )
     try:
-        with guards(args.output, CAP) as resource_check:
+        with guards(args.output, effective_cap) as resource_check:
 
             def check():
                 resource_check()
                 guest = guest_resources()
-                growth = directory_bytes(args.output) + max(
-                    0, initial_guest["guest_free_disk_bytes"] - guest["guest_free_disk_bytes"]
+                retained_bytes = directory_bytes(retained) if retained else 0
+                growth = (
+                    retained_bytes
+                    + directory_bytes(args.output)
+                    + max(
+                        0, initial_guest["guest_free_disk_bytes"] - guest["guest_free_disk_bytes"]
+                    )
                 )
-                if growth > GROWTH or monotonic() - began >= CAP:
+                if growth > growth_cap or monotonic() - began >= effective_cap:
                     raise RuntimeError("Approved aggregate matched pilot budget exceeded")
 
-            campaign["inputs"] = [prepare(workload, inputs, check) for workload in SOURCES]
+            if retained:
+                bindings = []
+                for workload in SOURCES:
+                    check()
+                    selected = inputs / workload
+                    binding = json.loads((selected / "binding.json").read_text())
+                    source = Path(binding["source_normalized_path"])
+                    if (
+                        sha256(source.read_bytes()).hexdigest()
+                        != binding["source_normalized_sha256"]
+                        or sha256((selected / "input.parquet").read_bytes()).hexdigest()
+                        != binding["normalized_wrapper_sha256"]
+                    ):
+                        raise ValueError("Retained matched normalized input checksum mismatch")
+                    expected = sqlite3.connect(
+                        f"file:{selected / 'expected.sqlite'}?mode=ro", uri=True
+                    )
+                    try:
+                        if (
+                            expected.execute("SELECT count(*) FROM expected").fetchone()[0]
+                            != binding["rows"]
+                            or digest_rows(
+                                expected.execute(
+                                    "SELECT identity,payload FROM expected ORDER BY identity"
+                                )
+                            )
+                            != binding["projection_sha256"]
+                        ):
+                            raise ValueError("Retained exact oracle projection mismatch")
+                    finally:
+                        expected.close()
+                    bindings.append(binding)
+                campaign["inputs"] = bindings
+                campaign["input_preparation"] = "Revalidated immutable retained input; no rewriting"
+            else:
+                campaign["inputs"] = [prepare(workload, inputs, check) for workload in SOURCES]
             for configuration, repetition in order:
                 check()
                 name = f"{configuration}-{repetition}"
@@ -621,7 +722,7 @@ def main():
                     "--repetition",
                     str(repetition),
                     "--remaining",
-                    str(CAP - (monotonic() - began)),
+                    str(effective_cap - (monotonic() - began)),
                 ]
                 started = monotonic()
                 with (args.output / f"{name}.log").open("w") as log:
@@ -655,6 +756,8 @@ def main():
         campaign["elapsed_seconds"] = monotonic() - began
         campaign["final_guest"] = guest_resources()
         campaign["host_content_bytes"] = directory_bytes(args.output)
+        campaign["retained_failed_content_bytes"] = directory_bytes(retained) if retained else 0
+        campaign["combined_elapsed_seconds"] = prior_seconds + campaign["elapsed_seconds"]
         save(args.output / "campaign.json", campaign)
 
 

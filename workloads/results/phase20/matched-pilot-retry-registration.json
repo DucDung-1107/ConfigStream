@@ -1,0 +1,22 @@
+{
+  "evidence": "OWNER_APPROVED_CONTROLLED_REPAIR",
+  "approval": "OWNER_APPROVED_ONE_BOUNDED_RETRY",
+  "owner_reply": "Duyệt một retry bounded, tổng 7.200s/6GiB",
+  "decision_id": "P20-MATCHED-RETRY-1",
+  "date": "2026-10-14",
+  "cap_seconds": 7200,
+  "growth_bytes": 6442450944,
+  "retained_failed_directory": ".cache/phase20/matched-approved",
+  "prior_elapsed_seconds": 75.32681291701738,
+  "new_execution_max_seconds": 7124.673187082983,
+  "growth_boundary": "New retry host content plus retained first-attempt host content plus positive guest free-space decrease from original first-attempt preflight. No old evidence deletion.",
+  "old_rule": "One bounded 7200-second, 3GiB matched campaign; stop without automatic retry",
+  "new_rule": "Exactly one explicitly approved retry, unchanged aggregate runtime7200s, amended aggregate retained growth6GiB including failed attempt",
+  "reason": "SQLite callback-thread defect repaired with serialized cross-thread connections. Actual normalized JSON Parquet/reference overhead is larger than the initial estimate; complete retained 27-trial matrix may exceed3GiB. This is a resource amendment, not a preference threshold or input change.",
+  "unchanged": "Same pinned normalized inputs, full projection/identity checks, 27 seeded trials, all timings and query definitions, VM2CPU/6GiB/64GiB, Spark local[2]/2g, reserve20GiB, guest available512MiB, source/parser/identity/fingerprint policies",
+  "input_preparation": "Read-only reuse only after SHA checks of original normalized files/wrappers and exact immutable SQLite ledger count/digest; no rebuilding or mutating retained inputs",
+  "isolation": "Fresh trial UUID topics/prefixes/checkpoints; original failed namespace stays unchanged",
+  "single_use": "Exclusive private P20-MATCHED-RETRY-1 authorization receipt before launching the retry; failure consumes this authorization",
+  "stop": "Any further failure stops campaign; no implicit third attempt, cap increase, VM change, source download or full-hour replay",
+  "scientific_consequences": "First failure is preserved and excluded from accepted timing medians. Only repeated equivalent correct core trials can form engine comparisons; no production pipeline or H3 capacity claim."
+}

@@ -1,0 +1,23 @@
+{
+  "evidence": "PASS_OFFLINE_AND_PASS_LOCAL_WITH_NEGATIVE_SERVICE_EVIDENCE",
+  "failed_execution_sha": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+  "failure": "SQLite ProgrammingError: main-thread connection used by actual Spark foreachBatch callback thread",
+  "affected": "Evaluation harness ExactRows only; original domain processors/contracts unchanged",
+  "disposition": "Campaign stopped at fourth trial, 3PASS/1failed/23NOT_RUN; failed trial excluded from accepted medians, no automatic retry",
+  "committed_visibility": "Read-only failed MinIO namespace audit: two Parquet objects, zero batch manifests, no completion",
+  "fix": "SQLite check_same_thread=False with RLock serializing accept/complete/close; no count-only or fingerprint shortcut",
+  "offset_api_audit": "Installed Spark4.0.2 progress JSON and retained DNS progress expose endOffset as object; strict helper accepts JSON text or object, requires exact topic/two partitions/nonnegative integer offsets",
+  "fixture_validation": {
+    "unit_thread_and_projection_tests": 11,
+    "shared_evaluation_tests": 14,
+    "focused_total": 25,
+    "last_focused_seconds": 0.58,
+    "actual_local_Spark_callback_tests": 2,
+    "spark_seconds": 5.25,
+    "scope": "Owned fixtures, actual callback thread, equal-payload multiplicity, identical retry, conflicting payload fails; not Kafka/MinIO service rerun"
+  },
+  "retry_approval": "OWNER_APPROVED_ONE_BOUNDED_RETRY; see matched-pilot-retry-registration.json",
+  "new_service_retry_status": "NOT_STARTED_AT_REPAIR_REGISTRATION",
+  "unchanged": "Source hashes, identity, required fields, parser/counting/fingerprint policies, preference thresholds, VM/heap",
+  "phase21": "NOT_STARTED"
+}

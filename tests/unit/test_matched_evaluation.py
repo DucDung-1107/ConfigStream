@@ -1,9 +1,10 @@
 import sqlite3
+from concurrent.futures import ThreadPoolExecutor
 from hashlib import sha256
 
 import pytest
 
-from benchmarks.phase20_matched import ExactRows, canonical, digest_rows
+from benchmarks.phase20_matched import ExactRows, canonical, digest_rows, normalized_offsets
 
 
 def validator(tmp_path, rows):
@@ -56,3 +57,33 @@ def test_checksum_fixed_vector_and_no_nan():
     assert canonical({"time": 123, "unknown": None}) == '{"time":123,"unknown":null}'
     with pytest.raises(ValueError):
         canonical({"time": float("nan")})
+
+
+def test_callback_thread_exact_comparison_and_conflict(tmp_path):
+    comparison = validator(tmp_path, [("source1", "{}"), ("source2", "{}")])
+    try:
+        with ThreadPoolExecutor(max_workers=1) as callback:
+            for identity in ("source2", "source1", "source1"):
+                callback.submit(comparison.accept, identity, "{}").result()
+            with pytest.raises(ValueError, match="conflicting"):
+                callback.submit(comparison.accept, "source1", '{"changed":true}').result()
+        assert comparison.complete()["logical_rows"] == 2
+        assert comparison.complete()["reconciled_retries"] == 1
+    finally:
+        comparison.close()
+
+
+@pytest.mark.parametrize("serialized", [False, True])
+def test_source_offset_json_representations(serialized):
+    source = {"owned-topic": {"0": 3, "1": 4}}
+    value = canonical(source) if serialized else source
+    assert normalized_offsets(value, "owned-topic") == {"0": 3, "1": 4}
+
+
+@pytest.mark.parametrize(
+    "source",
+    [{"other": {"0": 0, "1": 0}}, {"owned": {"0": -1, "1": 0}}, {"owned": {"0": True, "1": 0}}],
+)
+def test_source_offset_binding_fail_closed(source):
+    with pytest.raises(ValueError, match="mismatch"):
+        normalized_offsets(source, "owned")

@@ -2,6 +2,16 @@
 
 **FINAL PHASE 20 DECISION: CONDITIONAL PASS — VALID COMPARISONS WITH OPEN MATRIX GATES.**
 
+Owner-approved matched normalized pilot subsequently stopped after75.327s:
+3 exact PASS, 1 SQLite callback-thread failure, 23 NOT_RUN. No invalid batch or
+completion metadata was published. The fix passes owned threaded and actual local
+Spark callback fixtures; exactly one corrected retry was explicitly approved
+with aggregate7,200s/6GiB including the failed attempt, not a full matrix budget.
+[Attempts](../workloads/results/phase20/matched-processing-attempt-1.json) and
+[repair/approval](../workloads/results/phase20/matched-pilot-repair.json) preserve
+the negative result, boundaries and consumed authorization. No paced RIS run or
+full-hour ingestion was started, and no engine ranking follows from this pilot.
+
 This is new matched E2R evidence, not merely restating Phases17–19 and not full
 four-workload E2/E3 completion. **Do not begin Phase21.**
 
@@ -30,7 +40,7 @@ and VM2CPU/6GiB/64GiB unchanged. No production processor/schema/dependency chang
 | E2R | 9 final matched builds: R1/R2/R3 x3; 3 warm query cycles/build; every14state and13boundary exact, all query outputs agree |
 | E2D | Prior exact DNS row/group/reuse evidence and negative +2,207,468-byte reuse; new standalone matched repeats NOT_RUN |
 | E2B | Prior full accepted native log/queries; new nested storage/query repeats NOT_RUN |
-| E3R/E3D/E3B | 9 qualified CPU-controlled normalized Parquet pilot trials; full matched B0/B1/B2/B3 and paced rates NOT_RUN |
+| E3R/E3D/E3B | 9 accepted local rewrite trials plus3exact core service trials;1failed/23unrun core cells; complete matched engines and paced rates NOT_RUN |
 | E4 | Preserve DNS unknown coverage/time/worker/status:144,883common,4,091descriptive differences,0strictmatched-vantage eligible |
 
 [Cell matrix](../workloads/results/phase20/evaluation-matrix.json),
