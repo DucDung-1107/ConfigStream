@@ -33,8 +33,8 @@ def dns_services(tmp_path_factory):
     "failure", ["before_output", "partial_output", "before_commit", "after_commit"]
 )
 def test_actual_source_checkpoint_recovery(dns_services, tmp_path, failure):
-    from lake.config import LakeConfig
     from lake.client import ensure_bucket
+    from lake.config import LakeConfig
     from lake.dns import DnsStore, read_source_completion
     from messaging.config import KafkaConfig
     from messaging.dns import ensure_topic, publish
