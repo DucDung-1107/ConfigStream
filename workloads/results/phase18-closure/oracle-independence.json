@@ -31,7 +31,7 @@
     "subtype": 4,
     "category": "parser_body_error:Insufficient buffer 0 < 1 byte",
     "independent_eligible_prefixes": 0,
-    "disposition": "Excluded from accepted occurrence denominator, retained in durable sidecars"
+    "disposition": "Excluded from accepted occurrence denominator and retained in exact private source ledgers; durable publication is scoped to accepted service windows. All 57 full-hour sidecars remain unpublished after Stage E finalization failure"
   },
   "negative_fixture_evidence": "Manually authored UPDATE, MP, ADD-PATH, attributes and malformed boundaries; checksums literal/independently specified"
 }

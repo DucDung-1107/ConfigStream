@@ -389,8 +389,11 @@
     "qualification": "Metadata counts alone are not renewed complete physical acceptance"
   },
   "full_hour_service": {
-    "evidence": "BLOCKED",
-    "reason": "Separate runtime authorization absent; successful fifteen-minute retry supports preregistration but does not itself authorize full-hour execution"
+    "evidence": "MEASURED_SERVICE",
+    "status": "FAIL_CAPACITY_BEFORE_COMPLETE_WINDOW",
+    "artifact": "twelve-archive-validation.json",
+    "reason": "Separately approved full-hour attempt acknowledged all twelve archives but failed global identity aggregation before sidecar/window/query acceptance",
+    "prior_gate": "Runtime approval was absent at the earlier fifteen-minute delivery; later explicit approvals and the interrupted attempt are recorded separately"
   },
   "performance_comparison": {
     "evidence": "NOT_RUN",

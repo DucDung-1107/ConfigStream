@@ -2,9 +2,13 @@
   "evidence": "ESTIMATE",
   "registered_date": "2026-10-13",
   "scope": "12 pinned rrc00 archives; no downloads or VM expansion",
-  "service_approvals": {"1": 1800, "3": 1800, "12": 7200},
+  "service_approvals": {
+    "1": 1800,
+    "3": 1800,
+    "12": 7200
+  },
   "owner_approval": "Cho phép run 15 phút, cap 1.800 giây",
-  "full_hour_service": "OWNER_APPROVED_STAGE_E_ONE_RUN",
+  "full_hour_service": "CONSUMED_NO_FURTHER_RUN_APPROVED",
   "full_hour_retry_owner_approval": {
     "date": "2026-10-13",
     "source": "Owner reply 'lại đi' to the explicit request for one new Stage E run capped at 7,200 seconds",
@@ -14,7 +18,9 @@
     "previous_attempt": "stage-e-interrupted-attempt.json",
     "previous_evidence_preserved": true,
     "fresh_output_directory": ".cache/phase18-closure/service-hour-v2",
-    "resource_or_identity_policy_changes": false
+    "resource_or_identity_policy_changes": false,
+    "outcome": "FAIL_CAPACITY_BEFORE_COMPLETE_WINDOW",
+    "result_artifact": "twelve-archive-validation.json"
   },
   "full_hour_owner_approval": {
     "date": "2026-10-13",
@@ -43,8 +49,14 @@
   "full_hour_proposal": {
     "evidence": "ESTIMATE",
     "runtime_cap_seconds": 7200,
-    "expected_minutes_range": [65, 110],
-    "expected_new_service_gib_range": [5, 7],
+    "expected_minutes_range": [
+      65,
+      110
+    ],
+    "expected_new_service_gib_range": [
+      5,
+      7
+    ],
     "measured_guest_free_disk_before_proposal_bytes": 41690136576,
     "authorization": "OWNER_APPROVED_STAGE_E_ONE_RUN"
   },

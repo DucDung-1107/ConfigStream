@@ -18,5 +18,5 @@
   "prefix_probe_and_provenance_lookup": "Passed in actual driver against independent complete reference projection; detailed external values remain private",
   "query_timing_seconds": null,
   "query_timing_reason": "103.618 seconds includes final readback/validation and queries, not a separately measured query latency",
-  "full_hour_service_query_status": "NOT_RUN; full-hour source SQL characterization is separate"
+  "full_hour_service_query_status": "NOT_RUN: Stage E stopped on final identity aggregation before historical query acceptance; source SQL characterization remains separate"
 }

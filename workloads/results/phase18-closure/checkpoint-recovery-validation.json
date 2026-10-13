@@ -107,5 +107,11 @@
     "Owned fixtures, not full-hour real-source failure injection",
     "Callback exceptions, not power loss or broker failover",
     "Single writer, no global Kafka/Spark/MinIO transaction"
-  ]
+  ],
+  "latest_stage_e_prerequisite_rerun": {
+    "evidence": "MEASURED_SERVICE",
+    "passed": 14,
+    "seconds": 134.84,
+    "scope": "same fourteen owned cases; no additional distinct tests counted"
+  }
 }

@@ -8,7 +8,7 @@
     "B": "PASS_SELECTED_WINDOW",
     "C": "PASS_SELECTED_WINDOW_LEVEL_4",
     "D": "PASS_REAL_WINDOW_LEVEL_3",
-    "E": "BLOCKED"
+    "E": "FAIL_CAPACITY_BEFORE_COMPLETE_WINDOW"
   },
   "source_archives_verified": 12,
   "framed_records": 2300578,
@@ -32,7 +32,7 @@
     "complete_window_descriptor": false,
     "qualification": "Not a fully accepted fifteen-minute window"
   },
-  "full_hour_service": "NOT_RUN; separate runtime approval requested after successful pilot",
+  "full_hour_service": "ATTEMPTED: all twelve archives acknowledged and 151 batches committed; final complete=True global aggregation failed with SparkOutOfMemoryError",
   "invariant_artifact": "invariant-coverage.json",
   "independent_oracle_artifact": "occurrence-ledger-validation.json",
   "actual_service_artifact": "service-validation.json",
@@ -44,8 +44,9 @@
     "actual_service_owned_fixtures": 14
   },
   "remaining_gates": [
-    "Separate full-hour runtime approval based on measured successful fifteen-minute pilot",
-    "All twelve committed source/exclusion/window inventories and historical queries under approved cap",
+    "Correct and independently test bounded global identity reconciliation/finalization under the unchanged 2 GiB heap",
+    "Any new full-hour execution requires explicit fresh owner approval; no automatic retry or cap increase",
+    "Complete bidirectional identity/projection agreement, all 57 durable exclusions, twelve source descriptors, complete-window metadata and historical queries",
     "Instructor approval and any additional external raw/normalized publication rights"
   ],
   "phase19_readiness": "NOT_READY; do not start automatically",
@@ -53,7 +54,7 @@
   "raw_external_git_publication": false,
   "new_source_download_bytes": 0,
   "vm_expansion": false,
-  "scope_reduction_trigger": "If bounded finalization still cannot complete safely, retain bounded native-event evidence and postpone full-hour service claims; never discard legitimate occurrences or weaken the oracle",
+  "scope_reduction_trigger": "If bounded global finalization cannot fit the measured local envelope, retain the accepted fifteen-minute event-service result; never weaken identity or multiplicity checks",
   "accepted_three_archive_retry": {
     "evidence": "MEASURED_SERVICE",
     "code_commit": "7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8",
@@ -66,5 +67,25 @@
     "projection_sha256": "a2a0910bd20441aaf9a12c863c558b5f2b4c05198e932b95d49199fd79a151b3",
     "complete_window_descriptor": true,
     "artifact": "three-archive-validation.json"
-  }
+  },
+  "stage_e_starting_commit": "3ad15681a2c29a2c3001db9f0268b1d43e805575",
+  "stage_e_run_commit": "e54e5cb4b9edcc9b9ed981667e683a7dfabe59fd",
+  "full_hour_attempt": {
+    "evidence": "MEASURED_SERVICE",
+    "artifact": "twelve-archive-validation.json",
+    "query_id": "24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+    "status": "FAIL_CAPACITY_BEFORE_COMPLETE_WINDOW",
+    "acknowledged_occurrences": 4725156,
+    "committed_physical_row_claims": 4725156,
+    "complete_logical_identity_acceptance": false,
+    "missing_or_unexpected_identities": null,
+    "durable_exclusion_sidecars": 0,
+    "complete_window_descriptor": false,
+    "historical_queries": "NOT_RUN",
+    "final_broker_lag": 0,
+    "elapsed_monotonic_seconds": 5225.007563750027,
+    "wall_to_result_seconds": 6125.458162546158,
+    "cap_seconds": 7200
+  },
+  "interrupted_full_hour_attempt": "stage-e-interrupted-attempt.json"
 }

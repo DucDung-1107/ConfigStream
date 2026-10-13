@@ -82,3 +82,19 @@ Range sampling may produce skew, so the maximum-row guard rejects unsafe output
 before iteration. Small independent ordering/skew tests and actual owned-service
 regressions pass; a fresh larger real-source completion still requires approval
 and successful acceptance. See [negative measurements](phase18-closure-experiments.md).
+
+## Full-hour failure barrier
+
+The later authorized twelve-file run failed global hash aggregation in the outer
+`complete=True` identity check. Its 151 physical batch checks and source bindings
+had completed, but complete accepted-event accounting did not. Finalization
+therefore did not publish archive accounting, exclusion sidecars or window metadata.
+The twelve source references and physical commits remain retained as partial
+history; they cannot establish complete selected-window coverage. A lag of zero
+does not override this barrier. Bounded digest iteration alone does not solve the
+separate global aggregation capacity issue.
+
+The fourteen owned actual-service recovery cases passed again in 134.84 seconds
+before the run. The full-hour attempt was not retried or repaired in place. Its
+objects and checkpoint are preserved for inspection; any proposed repair must
+retain the same identity/oracle and immutable-publication guarantees.

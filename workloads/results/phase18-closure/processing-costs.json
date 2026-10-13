@@ -68,6 +68,47 @@
       "producer_seconds": 502.5783146659378,
       "acknowledged_occurrences_per_producer_second": 2594.3160736385194,
       "final_broker_lag": 0
+    },
+    {
+      "code_commit": "e54e5cb4b9edcc9b9ed981667e683a7dfabe59fd",
+      "archives": 12,
+      "status": "FAIL_CAPACITY_BEFORE_COMPLETE_WINDOW",
+      "artifact": "twelve-archive-validation.json",
+      "elapsed_monotonic_seconds": 5225.007563750027,
+      "wall_to_result_seconds": 6125.458162546158,
+      "callback_count": 151,
+      "callback_timing": {
+        "seconds": {
+          "sum": 2971.553317788057,
+          "min": 12.178324125008658,
+          "max": 40.47088937496301
+        },
+        "verification_seconds": {
+          "sum": 1783.8073578859912,
+          "min": 10.133552082930692,
+          "max": 30.461294040898792
+        },
+        "digest_seconds": {
+          "sum": 94.25234552717302,
+          "min": 0.14278595801442862,
+          "max": 1.2392167079960927
+        },
+        "publication_seconds": {
+          "sum": 63.68800629302859,
+          "min": 0.2511587910121307,
+          "max": 3.310543333995156
+        }
+      },
+      "producer": {
+        "archives": 12,
+        "occurrences": 4725156,
+        "chunks": 36922,
+        "serialized_value_bytes": 3438263425,
+        "seconds": 2032.230843208963
+      },
+      "final_broker_lag": 0,
+      "completed_pipeline_throughput": null,
+      "reason": "Failure before complete-window acceptance; acknowledged/physical row totals are not fully accepted logical throughput"
     }
   ],
   "normal_callback_prior_committed_history_scans": 0,
@@ -84,5 +125,16 @@
   "before_after_speedup": {
     "evidence": "NOT_RUN",
     "reason": "No matched repetitions; negative first fifteen-minute result retained"
+  },
+  "full_hour_capacity_limit": {
+    "evidence": "MEASURED_SERVICE",
+    "operator": "Nested global hash aggregation during complete=True identity-conflict validation",
+    "spark_stage": 4841,
+    "shuffle_partitions": 2,
+    "adaptive_execution": false,
+    "driver_heap": "2g",
+    "error": "SparkOutOfMemoryError: No enough memory for aggregation",
+    "proposal": "Evaluate partition-bounded exact identity reconciliation and remove redundant whole-projection aggregation; retain full missing/extra/conflict checks. No fix or retry is claimed here.",
+    "physical_plan_causality_limit": "Trace identifies aggregation allocation failure; relative contribution of caching, skew and repeated aggregation has not been independently profiled."
   }
 }

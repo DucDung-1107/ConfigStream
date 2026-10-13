@@ -9,8 +9,11 @@ three-archive broker/streaming/physical-readback work completed. The first
 fifteen-minute attempt failed with Java heap exhaustion; the explicitly approved
 same-cap retry **passed complete-window publication and exact query validation**
 after bounded digest iteration. The largest fully accepted service window is now
-three complete archives / fifteen source minutes. No whole-hour
-service run is authorized or claimed; Phase 19/20 has not started.
+three complete archives / fifteen source minutes. The subsequently authorized
+whole-hour attempt acknowledged all twelve files and committed 151 batches, but
+failed at global finalization with Spark execution-memory exhaustion. No full-hour
+complete-window descriptor or historical query acceptance is claimed. Phase 19/20
+has not started.
 
 Starting clean `main`: `64a29734e84c37561555fad5ddb0cf6951414557`.
 Implementation corrections end at `7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8`;
@@ -20,6 +23,11 @@ Implementation CI at that exact SHA
 [passed](https://github.com/kongwoang/ConfigStream/actions/runs/38348594755);
 it ran owned/service-free tests, not the real reference window.
 
+Stage E work started at `3ad15681a2c29a2c3001db9f0268b1d43e805575`.
+The completed experimental attempt used `e54e5cb4b9edcc9b9ed981667e683a7dfabe59fd`,
+whose [CI passed](https://github.com/kongwoang/ConfigStream/actions/runs/38362627862).
+The final evidence commit and its CI are identified in the delivery handoff.
+
 ## Stage acceptance
 
 | Stage | Result | Actual evidence |
@@ -28,7 +36,7 @@ it ran owned/service-free tests, not the real reference window.
 | B: first five-minute file | PASS_SELECTED_WINDOW | 370,141 exact events, 5 durable exclusions, complete-window metadata and query agreement |
 | C: first three files | PASS_SELECTED_WINDOW | Same-cap corrected retry: 1,303,847 exact events, lag zero, 14 durable exclusions, complete-window descriptor and queries |
 | D: twelve-file oracle | PASS_REAL_WINDOW, level 3 | 4,725,156 exact accepted identities/projections; all required wire attributes independently checked |
-| E: full-hour service | BLOCKED | Separate runtime approval requested after successful pilot, not yet assumed |
+| E: full-hour service | FAIL_CAPACITY | All twelve archives transported; global complete=True identity aggregation failed before completion, sidecars and queries |
 
 The source result matches 2,300,578 frames, 2,291,545 UPDATE messages, 57 excluded
 body records, 4,462,391 announcements and 262,765 withdrawals. The fingerprint
@@ -96,14 +104,14 @@ a matched speedup experiment. See [three-file acceptance](../workloads/results/p
 
 | Invariant | Evidence status | Scope / unresolved limit |
 |---|---|---|
-| I1 provenance | PASS_INTEGRATION | Twelve pinned sources; owned corrupt references; no full-hour service inventory |
+| I1 provenance | PASS_INTEGRATION | Twelve pinned sources and 151 batch readbacks; full-hour source-accounting completion pending |
 | I2 replay | PASS_INTEGRATION | Owned actual broker/checkpoint/sealed retries, not whole-hour replay |
 | I3 multiplicity | PASS_REAL_WINDOW | Exact 12-source union plus cross-archive service fixtures |
-| I4 completeness | QUALIFIED | Fifteen-minute complete-window accepted; full-hour completion pending |
+| I4 completeness | PARTIAL | Fifteen-minute complete-window accepted; failed full hour correctly remained unsealed |
 | I5 temporal honesty | PASS_REAL_WINDOW | Exact historical timestamp projection, no causal/routing-state claim |
 | I6 committed visibility | PASS_INTEGRATION | Actual isolated corruption and partial-write rejection |
 | I7 reproduction | QUALIFIED | Twelve-source level 3; accepted fifteen-minute service level 4; full hour pending |
-| I8 error accounting | PASS_INTEGRATION | All 57 audited; 5 accepted-window / 14 larger-attempt durable exclusions |
+| I8 error accounting | PARTIAL | All 57 source exclusions audited; 14 durable exclusions in accepted fifteen-minute window; full-hour sidecars not published |
 | I9 compatibility | PASS_LOCAL | Existing Terraform/RPKI regression and paths unchanged |
 
 Statuses are scoped; no constructor or owned fixture proves all-hour service
@@ -130,10 +138,12 @@ are not verified. Research-use review is not a blanket raw-publication license.
 ## Remaining gates and rollback
 
 1. Retain the failed fifteen-minute attempt and the accepted same-cap retry.
-2. Obtain explicit approval of the proposed 7,200-second whole-hour cap, based on
-   the successful 1,056-second pilot; no VM/heap or disk-guard increase is proposed.
-3. Only then run twelve files and verify all logical events, 57 durable exclusions,
-   complete-window metadata, queries, resource use and selected broker lag.
+2. Retain both Stage E namespaces: the owner-interrupted first attempt and the
+   separately authorized twelve-file attempt that failed global aggregation.
+3. Correct and independently test bounded global reconciliation under the declared
+   heap. Any new real run needs fresh explicit approval; both current approvals
+   are consumed. Full identity agreement, 57 durable exclusions, twelve archive
+   descriptors, window completion and historical queries remain required.
 4. Obtain instructor/publication approval where required before broader academic
    or external-data release claims. Do not automatically start DNS or Phase 20.
 
@@ -142,6 +152,48 @@ physical partitioning/finalization within the same event projection rather than
 silently increasing heap, discarding events or weakening the oracle. Rollback
 disables the new RIS experiment/metadata path; no old lake migration or data
 deletion is required.
+
+## Stage E outcome — 2026-10-13
+
+Run `24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8` used twelve verified cached archives,
+the full independent oracle and the approved 7,200-second cap. Kafka acknowledged
+**4,725,156 occurrences / 36,922 chunks / 3,438,263,425 serialized value bytes**.
+Broker high watermarks equaled Spark end offsets on both partitions; lag was zero.
+All 151 per-batch count/digest/provenance readbacks completed before the outer
+`exact_projection(..., complete=True)` conflict aggregation failed in Spark stage
+4841 with `SparkOutOfMemoryError: No enough memory for aggregation`.
+
+Read-only post-failure inventory confirms **151 commits, 604 Parquet objects /
+894,628,418 bytes**, whose physical row counts sum to 4,725,156. This does not prove
+the unfinished complete bidirectional logical comparison. Missing/unexpected
+identity counts and a final window digest remain unknown. Twelve source references
+exist, but no full-hour archive-accounting descriptors, exclusion sidecars or
+window descriptor were published; historical queries were not reached.
+
+The driver recorded **5,225.008 monotonic seconds**; wall time from registration
+to result publication was **6,125.458 seconds**. Both are below the cap. The
+900.451-second clock difference is reported without assigning an unverified cause.
+Peak sampled process-tree RSS was **2,765,438,976 bytes**; guest disk stayed above
+36,126,408,704 bytes free and available RAM above 4,240,064,512 bytes. Sampled
+disk/RSS/guest guards did not trip, but Spark's execution-memory allocation failed
+within the unchanged 2-GiB heap. This is an unresolved capacity gate.
+
+The selected object prefix occupies 896,829,239 bytes, broker logs report
+3,485,956,455 apparent bytes and checkpoint files 91,481 bytes. Their defined sum
+is 4,382,877,175 bytes, excluding shared infrastructure and private source/oracle
+storage. Raw archives were retained once; no new download, VM expansion, evidence
+deletion or automatic retry occurred. Fourteen owned actual-service recovery cases
+passed again in 134.84 seconds before this attempt. They do not turn the failed
+full-hour finalization into accepted recovery or query evidence.
+
+After recording the consumed authorization, the final quality/unit check again
+passed all 1,023 tests in 13.60 seconds. Existing API/Spark checks remain 80/80
+passed from the same code path; the final evidence commit is also checked by CI.
+Kafka, MinIO and the VM are stopped after auditing; persistent volumes, source
+cache, interrupted/failed prefixes, topics and checkpoints remain retained.
+
+See [full attempted run](../workloads/results/phase18-closure/twelve-archive-validation.json)
+and [interrupted attempt](../workloads/results/phase18-closure/stage-e-interrupted-attempt.json).
 
 Related: [integrity](phase18-closure-integrity.md),
 [experiments](phase18-closure-experiments.md),

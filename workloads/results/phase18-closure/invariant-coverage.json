@@ -1,13 +1,13 @@
 {
   "evidence": "QUALIFIED_ORACLE",
-  "scope": "Evidence levels are scoped, not universal guarantees or all-hour service proof",
+  "scope": "Source evidence covers all twelve archives; full-hour service finalization failed. Complete service acceptance remains the previously validated fifteen-minute window.",
   "invariants": [
     {
       "id": "I1",
       "name": "Provenance",
       "status": "PASS_INTEGRATION",
-      "scope": "12 pinned sources independently audited; accepted three-archive service window with 14 durable exclusions; owned wrong/missing source fixtures",
-      "limitation": "Full-hour committed source descriptors not yet published"
+      "scope": "12 pinned sources independently audited; accepted three-archive service window with 14 durable exclusions; owned wrong/missing source fixtures; twelve source references and 151 physical batch count/digest/provenance checks completed in Stage E",
+      "limitation": "Whole-hour source accounting and completion were not published before finalization OOM"
     },
     {
       "id": "I2",
@@ -21,14 +21,14 @@
       "name": "Multiplicity",
       "status": "PASS_REAL_WINDOW",
       "scope": "12-source exact union has 4,725,156 distinct IDs; 118,172 repeats preserved; actual cross-archive equal-payload owned fixture",
-      "limitation": "Full-hour event-service union not yet accepted"
+      "limitation": "Full-hour per-batch physical rows total 4,725,156, but complete global identity/projection acceptance failed to finish"
     },
     {
       "id": "I4",
       "name": "Completeness",
-      "status": "QUALIFIED",
-      "scope": "12 complete source ledgers; accepted fifteen-minute complete-window descriptor; failed initial attempt remained unsealed",
-      "limitation": "Full-hour committed window still requires separately authorized service acceptance"
+      "status": "PARTIAL",
+      "scope": "12 complete source ledgers; accepted fifteen-minute complete-window descriptor; failed initial attempt remained unsealed; full-hour failure left no complete-window descriptor",
+      "limitation": "All-source accounting and full accepted-event reconciliation remain incomplete after Spark execution-memory failure"
     },
     {
       "id": "I5",
@@ -49,14 +49,14 @@
       "name": "History reproduction",
       "status": "QUALIFIED",
       "scope": "12-source level-3 exact projection; accepted fifteen-minute level-4 committed service projection and queries",
-      "limitation": "Full-hour service history not yet accepted"
+      "limitation": "Stage E complete=True global conflict aggregation failed; missing-identity count and final projection checksum remain unverified"
     },
     {
       "id": "I8",
       "name": "Error accounting",
-      "status": "PASS_INTEGRATION",
+      "status": "PARTIAL",
       "scope": "All 57 exact framed exclusions audited; 14 committed and verified in accepted three-archive window; isolated absent/conflicting sidecars rejected",
-      "limitation": "No full-hour published exclusion/window inventory yet; disposition remains pinned parser policy"
+      "limitation": "Full-hour run published zero archive/exclusion descriptors before failure; all 57 remain verified in the private source oracle"
     },
     {
       "id": "I9",

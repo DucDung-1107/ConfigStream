@@ -135,3 +135,14 @@ repeats. Full-hour ledger SHA-256 is
 Source peak is 181,868/minute and fixed-hour mean 1,312.543333/s; neither measures
 ConfigStream throughput. See the compact [ledger artifact](../workloads/results/phase18-closure/occurrence-ledger-validation.json)
 for per-file source hashes and projection checksums.
+
+## Stage E evidence boundary
+
+The authorized twelve-file service attempt transported the same 4,725,156 source
+occurrences and completed individual batch readbacks, but failed a global
+aggregation before complete bidirectional identity acceptance. All twelve sources
+retain level 3; the largest accepted level-4 service window remains the previous
+three archives. No full-hour level-4 result, missing-identity count, final window
+checksum or service query agreement may be inferred from acknowledged row totals.
+The source oracle and its original checksums are unchanged. See
+[Stage E failure evidence](../workloads/results/phase18-closure/twelve-archive-validation.json).

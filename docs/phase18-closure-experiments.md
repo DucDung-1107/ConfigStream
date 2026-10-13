@@ -2,8 +2,10 @@
 
 ## Preregistered envelope
 
-Owner approval explicitly allows **three cached archives / 15 source minutes,
-1,800 seconds maximum**. It does not authorize a whole-hour service run. The
+The initial approval allowed **three cached archives / 15 source minutes,
+1,800 seconds maximum**. Later dated amendments authorized two isolated full-hour
+attempts at 7,200 seconds: one interrupted for the owner's sleep request, then one
+fresh attempt which failed final aggregation. Those approvals are consumed. The
 [execution policy](../workloads/results/phase18-closure/execution-policy.json)
 keeps host/guest free disk at least 20 GiB, growth at most 15 GiB/run, experiment
 outputs at most 50 GiB, guest available RAM at least 512 MiB and unchanged
@@ -13,7 +15,7 @@ The original 1,800-second five-minute pilot cap is not increased after a failure
 The first three compressed inputs total **20,396,504 bytes**. Expected service
 growth is approximately 1–2 GiB, and runtime 15–25 minutes: both are planning
 estimates, not measured results. A full-hour cap must follow the measured pilot
-and separate owner approval. No source download, VM expansion, volume deletion,
+and separate owner approval, subsequently recorded below. No source download, VM expansion, volume deletion,
 paid service or concurrent heavy run is permitted.
 
 ## Sequence and truthfulness
@@ -24,7 +26,7 @@ paid service or concurrent heavy run is permitted.
 | B | Exact first-archive level-3 revalidation and committed source accounting | Selected service result; original runtime is never relabeled |
 | C | First three complete archives, exact level-4 projection and 15-minute metadata | Three-archive service result |
 | D | Twelve-file independent attributes, exact occurrence/coordinate/fingerprint ledger | Full-hour oracle JSON |
-| E | Authorized twelve-file Kafka/Spark/MinIO completion and exact readback | Separate full-hour service result, otherwise NOT_RUN |
+| E | Authorized twelve-file Kafka/Spark/MinIO completion and exact readback | FAIL_CAPACITY; see twelve-archive-validation.json |
 
 Offline source verification can precede expanded service execution. The oracle is
 paused while bounded Spark/service fixture checks execute; its original wall-clock
@@ -92,7 +94,7 @@ It is a capacity correction, **not a measured speedup**, and does not authorize 
 new real-data run by itself. The owner subsequently approved one same-cap retry;
 it completed in 1,056.353 seconds with all 1,303,847 exact events, complete-window
 metadata, 14 exclusions, query agreement and zero lag. The full-hour service cap
-still requires separate approval. Detailed [accepted retry evidence](../workloads/results/phase18-closure/three-archive-validation.json)
+required separate approval at that milestone. Detailed [accepted retry evidence](../workloads/results/phase18-closure/three-archive-validation.json)
 is distinct from the preserved failed attempt and is not a speedup claim.
 
 The RIS callback does **not** reread prior committed Parquet on every batch. Its
@@ -192,6 +194,44 @@ VM/heap/guards and cached independent oracle apply. Bounded owned-fixture recove
 tests and a fresh resource/source preflight must pass first. No additional attempt
 or timeout extension is implied.
 
+## Full-hour finalization capacity result
+
+The newly authorized run at `e54e5cb4b9edcc9b9ed981667e683a7dfabe59fd` transported
+all twelve archives and completed 151 callbacks. Kafka acknowledged 4,725,156
+occurrences, 36,922 chunks and 3,438,263,425 value bytes. Producer time totaled
+2,032.231 seconds; callback time totaled 2,971.553 seconds, including 1,783.807
+seconds in verification, 94.252 in digest calls and 63.688 in publication calls.
+These instrumented call boundaries include Spark scheduling/materialization and
+are not pure operator CPU times. No successful whole-pipeline throughput is
+reported because final acceptance failed.
+
+Failure occurred in `exact_projection(logical, expected, complete=True)` at the
+identity-conflict aggregation, before per-archive final digests, durable exclusion
+publication, window completion and queries. The trace identifies generated hash
+aggregation allocation failure in Spark stage 4841. Execution still used two
+shuffle partitions, AQE disabled and a 2-GiB heap. The existing range-partitioned
+digest correction does not bound this separate global aggregation. Nested
+deduplication, cache materialization and shuffle partition sizes are candidates
+for a bounded correction; their relative contribution has not been independently
+profiled. No production correction or successful retry is claimed for this fault.
+
+The full run recorded 5,225.008 monotonic seconds and 6,125.458 wall seconds to
+result publication. The clock difference is unresolved and both values are
+reported; neither exceeded 7,200 seconds. Peak sampled RSS was 2,765,438,976 bytes.
+Post-failure inventory holds 604 Parquet objects / 894,628,418 bytes and no complete
+window. The sum of selected apparent broker logs, entire object prefix and
+checkpoint is 4,382,877,175 bytes. The object prefix includes S3 success manifests
+(1,881,874 bytes), 318,947 bytes of RIS commit metadata and zero-byte markers.
+
+This failed run supplies negative capacity evidence. Final missing-identity counts,
+window projection digest, full-hour query times and fully accepted logical
+throughput are N/A. Task input, shuffle and spill byte counters remain unmeasured.
+All 57 source exclusions and 118,172 repeated fingerprints remain verified by the
+independent source oracle; full-hour service acceptance of those projections is
+unfinished. No count-only substitute, heap increase, timeout extension or automatic
+retry was used. A proposed next correction must preserve exact conflict, missing,
+extra and multiplicity checks before any newly authorized run.
+
 ## Rights and attribution
 
 Source: RIPE NCC / RIPE RIS, twelve pinned `rrc00` archives. The
@@ -209,6 +249,6 @@ Data Repository terms as though they automatically govern this raw RIS endpoint.
 Contribution: auditable selected native-event preservation, not a novel routing
 algorithm. Clarity: distinct source, occurrence, batch and window boundaries.
 Effect: correctness precedes throughput; no matched speedup claim. Evaluation:
-full-hour service acceptance needs separate evidence/approval. Method limits:
+full-hour service acceptance remains blocked by global-finalization capacity. Method limits:
 pinned exclusion disposition and a declared supported wire subset, not universal
 BGP validity, routing state or operational incident causality.

@@ -1,5 +1,11 @@
 {
   "evidence": "PASS_LOCAL",
+  "final_policy_and_evidence_quality_check": {
+    "command": "make check",
+    "passed": 1023,
+    "seconds": 13.60,
+    "scope": "Quality/unit regression after recording consumed Stage E authorization; real-window failure remains unchanged"
+  },
   "implementation_commit": "7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8",
   "commands": [
     {
@@ -50,6 +56,37 @@
   },
   "delivery_ci": "Exact documentation/evidence commit and CI are verified in the final agent handoff; no self-referential artifact hash",
   "independent_source_validation": "Complete accepted projection, source coordinates and exact window union; pinned exclusions retain qualified disposition",
-  "full_window_service_validation": "BLOCKED, never inferred from CI or broker lag",
-  "evidence_integrity": "Phase 13–18 historical artifacts unchanged; new artifacts contain only aggregate counts, references/digests and owned fixtures"
+  "full_window_service_validation": "FAIL_CAPACITY: SparkOutOfMemoryError in final complete=True identity aggregation; no window/sidecar/query acceptance. No automatic retry.",
+  "evidence_integrity": "Phase 13–18 historical artifacts unchanged; new artifacts contain only aggregate counts, references/digests and owned fixtures",
+  "stage_e_ci": {
+    "sha": "e54e5cb4b9edcc9b9ed981667e683a7dfabe59fd",
+    "run_url": "https://github.com/kongwoang/ConfigStream/actions/runs/38362627862",
+    "conclusion": "success",
+    "live_source_or_service_experiment": false
+  },
+  "stage_e_local_checks": [
+    {
+      "command": "make check",
+      "passed": 1023,
+      "seconds": 12.95
+    },
+    {
+      "command": "make api-test",
+      "passed": 80,
+      "seconds": 0.65,
+      "warnings": 1
+    },
+    {
+      "command": "make spark-test",
+      "passed": 80,
+      "seconds": 107.18
+    },
+    {
+      "command": "RUN_PHASE18_SERVICES=1 python -m pytest tests/phase18_integration -q",
+      "passed": 14,
+      "seconds": 134.84,
+      "evidence": "MEASURED_SERVICE",
+      "scope": "owned isolated fixtures before authorized new attempt"
+    }
+  ]
 }
