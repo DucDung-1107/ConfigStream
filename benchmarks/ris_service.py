@@ -397,7 +397,11 @@ def finalize_main():
                 )
             )
             check()
-            report["status"] = "PASS_RETAINED_HISTORY_FINALIZATION"
+            report["status"] = (
+                "PASS_READ_ONLY_RETAINED_VERIFICATION"
+                if options.read_only
+                else "PASS_RETAINED_HISTORY_FINALIZATION"
+            )
     except Exception as error:
         report["failure_category"] = type(error).__name__
         raise
