@@ -1,0 +1,19 @@
+{
+  "entry_decision": "GO — PHASE 18.2 ACCEPTED",
+  "starting_commit": "eaa8fdaaa16ade4a5fe21beb40a033c31c9cebae",
+  "entry_ci": "https://github.com/kongwoang/ConfigStream/actions/runs/38428875500",
+  "entry_ci_conclusion": "success",
+  "source_use": "Verified publisher CC BY-NC-SA 4.0 terms; private noncommercial student research; attribution attached",
+  "source_terms": "https://openintel.nl/download/terms/",
+  "raw_or_normalized_github_publication": false,
+  "instructor_approval": "NOT_VERIFIED",
+  "owner_resource_authorization": "Reasonable resource use without further questions, 2026-10-13",
+  "infrastructure": {"spark_master": "local[2]", "driver_heap": "2g", "vm_cpus": 2, "vm_memory_bytes": 6442450944, "vm_disk_bytes": 68719476736},
+  "runtime_caps_seconds": {"independent_two_object_oracle": 1200, "owned_service_fixtures": 900, "real_sample": 600, "one_complete_object": 1800, "both_objects": 3600},
+  "guards": {"free_host_guest_disk_bytes": 21474836480, "growth_per_run_bytes": 16106127360, "new_experiment_output_bytes": 53687091200, "guest_available_memory_bytes": 536870912},
+  "source_artifact_sha256s": ["e65a143bd5ce981cf2d3881bf38fa0af186a1ab524bb40ec75e44b13dc848c97", "9f8dd9ba56b813ebd3d68583a7d22ae525c67a2b10201f1806fc85e6b80b8854"],
+  "new_downloads": false,
+  "evidence_deletion": false,
+  "automatic_long_retry_or_cap_extension": false,
+  "phase20_started": false
+}
