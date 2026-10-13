@@ -20,6 +20,6 @@
     "cache": "Fresh process/build and warm cycles separately; no OS cache eviction",
     "required_query_preference": "Every registered E2R query must pass exactness and <=2x median time",
     "bytes_read": "NOT_MEASURED: do not infer physical I/O from file sizes",
-    "process_import_startup": "NOT_MEASURED in first bounded workers; included timing begins after imports"
+    "process_import_startup": "Final E2R outer command wall includes import/startup; isolated import component NOT_MEASURED. Pilot outer wall unavailable."
   }
 }

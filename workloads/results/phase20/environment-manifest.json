@@ -8,7 +8,6 @@
     "guest_free_disk_bytes": 32308719616,
     "guest_available_memory_bytes": 4697382912
   },
-  "containers": 1610612736,
   "container_limits": {
     "kafka_bytes": 1610612736,
     "minio_bytes": 805306368
@@ -29,5 +28,9 @@
   "spark": "local[2] / 2g driver heap",
   "active_heavy_jobs_at_preflight": 0,
   "instructor_approval": "NOT_VERIFIED",
-  "services_already_running": true
+  "services_already_running": true,
+  "jvm": "OpenJDK21.0.12.1 Homebrew",
+  "code_commit": "51a1ff6c8e1c4d20ef3e020aa026710d6d05f06a",
+  "container_cpu_quotas": "NanoCpus0 / CpuQuota0 each; shared existing two-CPU VM allocation",
+  "kafka_memory_limit_bytes": 1610612736
 }

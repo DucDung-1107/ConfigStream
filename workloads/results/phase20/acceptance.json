@@ -1,5 +1,5 @@
 {
-  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "code_commit": "1305ed8bda1057d5ade1680b762c1adfce7145c0",
   "input_artifacts": "source-manifest-validation.json",
   "resource_bounds": "experiment-registration.json",
   "timing_boundary": "See measured per-run boundaries; historical timings retain original definitions",
@@ -21,7 +21,9 @@
     "correctness": "exact ordered tuples for all14states and all13boundary projections, every accepted trial; all query hashes agree",
     "R2_analytical_saving_percent": 92.55489465783482,
     "R3_analytical_saving_percent": 85.43674428882582,
-    "preference_rule": "Both pass >=20% bytes AND <=2x median on every registered E2R query"
+    "preference_rule": "Both pass >=20% bytes AND <=2x median on every registered E2R query",
+    "query_timing": "Candidate execution/output only, external exact verification separate; command-start wall also recorded",
+    "initial_runs": "Preserved in initial-qualified-trials and validation-inclusive-trials; not used for final preference"
   },
   "partial": [
     "E2D prior exact component/reuse comparison, no standalone matched repetitions",
@@ -43,10 +45,10 @@
   "heavy_budget_approval": "REQUESTED_PENDING; neither full-hour replay nor fullheavy matrix started",
   "new_actual_service_tests": 0,
   "regression": {
-    "unit_quality": 1090,
+    "unit_quality": 1093,
     "api": 80,
     "spark": 107,
-    "focused_evaluation": 11,
+    "focused_evaluation": 14,
     "skipped_service_tests": "Not counted; new service campaign not invoked"
   },
   "negative_results": "DNS reuse +2207468bytes preserved; prior interruptedRIS and independentaggregationOOM preserved; new virtualenv bootstrap failure retained",
@@ -67,5 +69,22 @@
     "phase20-cross-domain-analysis.md",
     "phase20-threats-to-validity.md",
     "phase20-acceptance.md"
-  ]
+  ],
+  "base_execution_sha": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "final_e2r_namespace": ".cache/phase20/rpki-final",
+  "pilot_namespace": ".cache/phase20/pilot-cpu2",
+  "control_repairs": [
+    "control-amendment.json",
+    "query-boundary-amendment.json"
+  ],
+  "final_e2r_execution_sha": "1305ed8bda1057d5ade1680b762c1adfce7145c0",
+  "initial_control_qualification": "initial-qualified-trials.json, validation-inclusive-trials.json retained unchanged",
+  "final_e2r_wall_median_seconds": {
+    "R1": 45.13397629093379,
+    "R2": 43.915582875022665,
+    "R3": 43.41296741692349
+  },
+  "peak_final_sampled_worker_tree_rss_bytes": 252149760,
+  "active_heavy_jobs_after_runs": 0,
+  "new_allocations_or_source_downloads": false
 }

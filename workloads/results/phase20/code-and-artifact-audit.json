@@ -6,7 +6,9 @@
   "scope": "Selected accepted windows only; cached private sources, no new downloads",
   "phase21_started": false,
   "evidence": "SHA256_REPRODUCIBILITY",
-  "files": {
+  "trial_execution_sha": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "terraform_helper": "Working-tree evaluation helper at execution; exact source SHA recorded, production code unchanged",
+  "initial_execution_hashes": {
     "benchmarks/evaluation.py": "f5c586802d2729c79eb444305b5007e466e5a088108f6f845a3939974a8747b9",
     "benchmarks/phase20.py": "44866ddc90877def7112dc18fc80490868b59918228019d309d329d0dc6ead87",
     "benchmarks/phase20_report.py": "7238bebf3b5e2062ef7d5be3ca6c1677e500fad36810be9aba2da6d4d8690bae",
@@ -14,6 +16,13 @@
     "workloads/results/phase15/experiment-matrix.json": "9ff8155e9a97947e21b7828a466d6d7a69dfc4cddf91a6ca8d3dfda4e8ebc1ba",
     "workloads/results/phase20/experiment-registration.json": "a1c2d619e2ec6dc297f29cc4cfe9add4654311cee298c4aa5af72f19d7c04fe1"
   },
-  "trial_execution_sha": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
-  "terraform_helper": "Working-tree evaluation helper at execution; exact source SHA recorded, production code unchanged"
+  "final_e2r_execution_sha": "1305ed8bda1057d5ade1680b762c1adfce7145c0",
+  "native_pool_pilot_execution_sha": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+  "delivery_helper_sha256": {
+    "benchmarks/evaluation.py": "8fcc531cbe5e5778fef2921e484bf4b1188844a9dd7a97152e3f8fbd17fc88d9",
+    "benchmarks/phase20.py": "a91c2bec373f4063a31f3320eb49226d2e7fae191735c6eced9de6790033eb06",
+    "benchmarks/phase20_report.py": "ebc2dff5b1ec83d7058942a7b4461e937f3c7fe5faedcfcd57c96a51efbc41f0",
+    "benchmarks/phase20_inputs.py": "3ecb50a1c0532df5fb8cc529ac71bdbd26654634e506fbc5f3e0f4d69d4dcea2",
+    "benchmarks/terraform_reference.py": "6e320aefb4934074cb1568d0fbe589e27810468bb2b54b7b3590e1eff7566d47"
+  }
 }

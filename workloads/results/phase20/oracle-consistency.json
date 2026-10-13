@@ -10,5 +10,6 @@
   "dns": "Previously accepted independent normalization/grouping, shared PyArrow codec; no causal DNS truth",
   "terraform": "Text-v1 semantic diff still reference only, not independent HCL truth",
   "missing_extra_conflicts": 0,
-  "scope_of_zero": "Completed exact comparisons only; unrun service/rate cells have no invented result"
+  "scope_of_zero": "Completed exact comparisons only; unrun service/rate cells have no invented result",
+  "normalized_binding": "normalized-input-binding.json: public day checksums, 5062923 original row coordinates, first pilot projections match accepted ledgers"
 }

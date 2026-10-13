@@ -7,8 +7,8 @@
   "commands": [
     {
       "command": "make check",
-      "passed": 1090,
-      "seconds": 13.34,
+      "passed": 1093,
+      "seconds": 13.73,
       "lint_format": "PASS",
       "scope": "Owned unit/domain/evaluation fixtures; no external downloads"
     },
@@ -26,8 +26,8 @@
     },
     {
       "command": ".venv/bin/python -m pytest tests/unit/test_evaluation.py -q",
-      "passed": 11,
-      "seconds": 0.54
+      "passed": 14,
+      "seconds": 0.6
     }
   ],
   "new_actual_service_tests": 0,

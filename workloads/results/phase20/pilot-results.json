@@ -6,69 +6,69 @@
       "rows": 4096,
       "validation_seconds": {
         "individual": [
-          0.001880750060081482,
-          0.002402207930572331,
-          0.0017487499862909317
+          0.002664083964191377,
+          0.002506040968000889,
+          0.0025042500346899033
         ],
-        "maximum": 0.002402207930572331,
-        "median": 0.001880750060081482,
-        "minimum": 0.0017487499862909317
+        "maximum": 0.002664083964191377,
+        "median": 0.002506040968000889,
+        "minimum": 0.0025042500346899033
       },
       "write_seconds": {
         "individual": [
-          0.010639250045642257,
-          0.010433832998387516,
-          0.015587000059895217
+          0.0158149580238387,
+          0.01509674999397248,
+          0.02332320809364319
         ],
-        "maximum": 0.015587000059895217,
-        "median": 0.010639250045642257,
-        "minimum": 0.010433832998387516
+        "maximum": 0.02332320809364319,
+        "median": 0.0158149580238387,
+        "minimum": 0.01509674999397248
       }
     },
     "ris": {
       "rows": 370141,
       "validation_seconds": {
         "individual": [
-          0.05130037490744144,
-          0.055910624912939966,
-          0.05657554091885686
+          0.08445945789571851,
+          0.08170537499245256,
+          0.08003383304458112
         ],
-        "maximum": 0.05657554091885686,
-        "median": 0.055910624912939966,
-        "minimum": 0.05130037490744144
+        "maximum": 0.08445945789571851,
+        "median": 0.08170537499245256,
+        "minimum": 0.08003383304458112
       },
       "write_seconds": {
         "individual": [
-          0.22262166696600616,
-          0.2549653749447316,
-          0.2787032079650089
+          0.23705879203043878,
+          0.2372650420293212,
+          0.30818029202055186
         ],
-        "maximum": 0.2787032079650089,
-        "median": 0.2549653749447316,
-        "minimum": 0.22262166696600616
+        "maximum": 0.30818029202055186,
+        "median": 0.2372650420293212,
+        "minimum": 0.23705879203043878
       }
     },
     "rpki": {
       "rows": 360226,
       "validation_seconds": {
         "individual": [
-          0.03200054098851979,
-          0.03703054192010313,
-          0.033497790922410786
+          0.04450379102490842,
+          0.045379415969364345,
+          0.047617041040211916
         ],
-        "maximum": 0.03703054192010313,
-        "median": 0.033497790922410786,
-        "minimum": 0.03200054098851979
+        "maximum": 0.047617041040211916,
+        "median": 0.045379415969364345,
+        "minimum": 0.04450379102490842
       },
       "write_seconds": {
         "individual": [
-          0.1082754589151591,
-          0.17993220896460116,
-          0.13199954095762223
+          0.11405324994120747,
+          0.17961379198823124,
+          0.11912037502042949
         ],
-        "maximum": 0.17993220896460116,
-        "median": 0.13199954095762223,
-        "minimum": 0.1082754589151591
+        "maximum": 0.17961379198823124,
+        "median": 0.11912037502042949,
+        "minimum": 0.11405324994120747
       }
     }
   },
@@ -79,10 +79,12 @@
   "trials": [
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": false,
-      "elapsed_seconds": 0.18553100002463907,
+      "elapsed_seconds": 0.15299845789559186,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -97,19 +99,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 174943037,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.001880750060081482,
-      "write_seconds": 0.010639250045642257
+      "validation_seconds": 0.002664083964191377,
+      "write_seconds": 0.0158149580238387
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": false,
-      "elapsed_seconds": 0.16171045799273998,
+      "elapsed_seconds": 0.15557945903856307,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -124,19 +129,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 174943037,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.002402207930572331,
-      "write_seconds": 0.010433832998387516
+      "validation_seconds": 0.002506040968000889,
+      "write_seconds": 0.01509674999397248
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": false,
-      "elapsed_seconds": 0.1778784159105271,
+      "elapsed_seconds": 0.15894766699057072,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -151,26 +159,29 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 174943037,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.0017487499862909317,
-      "write_seconds": 0.015587000059895217
+      "validation_seconds": 0.0025042500346899033,
+      "write_seconds": 0.02332320809364319
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": true,
-      "elapsed_seconds": 0.41022487496957183,
+      "elapsed_seconds": 0.45161145797464997,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
       "mode": "ris",
       "output_bytes": 63697980,
       "parsing": "EXCLUDED: accepted normalized oracle input",
-      "private_output_bytes": 63698345,
+      "private_output_bytes": 63698347,
       "pyarrow_version": "19.0.1",
       "repetition": 1,
       "resources": "resources.json",
@@ -178,19 +189,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 65722314,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.05130037490744144,
-      "write_seconds": 0.22262166696600616
+      "validation_seconds": 0.08445945789571851,
+      "write_seconds": 0.23705879203043878
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": true,
-      "elapsed_seconds": 0.46347883401904255,
+      "elapsed_seconds": 0.4511596669908613,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -205,19 +219,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 65722314,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.055910624912939966,
-      "write_seconds": 0.2549653749447316
+      "validation_seconds": 0.08170537499245256,
+      "write_seconds": 0.2372650420293212
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": true,
-      "elapsed_seconds": 0.4713958330685273,
+      "elapsed_seconds": 0.5198839589720592,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -232,19 +249,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 65722314,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.05657554091885686,
-      "write_seconds": 0.2787032079650089
+      "validation_seconds": 0.08003383304458112,
+      "write_seconds": 0.30818029202055186
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": true,
-      "elapsed_seconds": 0.2758846250362694,
+      "elapsed_seconds": 0.28982591698877513,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -259,19 +279,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 31532240,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.03200054098851979,
-      "write_seconds": 0.1082754589151591
+      "validation_seconds": 0.04450379102490842,
+      "write_seconds": 0.11405324994120747
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": true,
-      "elapsed_seconds": 0.5370493340305984,
+      "elapsed_seconds": 0.4895737499464303,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -286,19 +309,22 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 31532240,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.03703054192010313,
-      "write_seconds": 0.17993220896460116
+      "validation_seconds": 0.045379415969364345,
+      "write_seconds": 0.17961379198823124
     },
     {
       "argv_mode": "isolated private local-only output",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
       "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
-      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
       "complete_source_scope": true,
-      "elapsed_seconds": 0.3312587089603767,
+      "elapsed_seconds": 0.29692591703496873,
       "engine": "PyArrow19.0.1",
       "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
       "exact_projection": "PASS",
@@ -313,12 +339,13 @@
       "runtime_cap_seconds": 600,
       "source_manifests": "workloads/results/phase20/experiment-registration.json",
       "source_normalized_bytes": 31532240,
+      "sqlite_query_threads": 1,
       "sqlite_version": "3.53.1",
       "status": "PASS",
       "suite": "pilot",
       "timing": "worker start through build, exact comparison and query cycles; parser excluded",
-      "validation_seconds": 0.033497790922410786,
-      "write_seconds": 0.13199954095762223
+      "validation_seconds": 0.047617041040211916,
+      "write_seconds": 0.11912037502042949
     }
   ]
 }

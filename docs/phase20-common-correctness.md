@@ -5,8 +5,9 @@ See [scope matrix](../workloads/results/phase20/correctness-matrix.json),
 [invariant coverage](../workloads/results/phase20/invariant-coverage.json).
 
 Current service-free regression reruns typed contracts, Terraform/RPKI/RIS/DNS
-identity/reconstruction/uncertainty tests. Eleven focused evaluation cases check
+identity/reconstruction/uncertainty tests. Fourteen focused evaluation cases check
 owned fourteen-day full/delta/checkpoint equivalence, missing/nonexistent deltas,
+separated query/verification timing and unchanged fixed checksum vectors,
 exact missing/extra/changed tuples, preference thresholds, missing required query,
 failed resource sampling and falsification of unsafe payload dedup.
 

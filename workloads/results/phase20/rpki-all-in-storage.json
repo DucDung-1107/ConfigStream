@@ -8,11 +8,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9437,
+      "own_result_and_telemetry_bytes": 11366,
       "retained_scratch_bytes": 58454016,
-      "accounted_component_content_bytes": 251980438,
-      "new_local_output_allocated_bytes": 109129728,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 109084672,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 251982367
     },
     {
       "mode": "R1",
@@ -21,11 +21,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9754,
+      "own_result_and_telemetry_bytes": 11512,
       "retained_scratch_bytes": 58454016,
-      "accounted_component_content_bytes": 251980755,
-      "new_local_output_allocated_bytes": 109129728,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 109117440,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 251982513
     },
     {
       "mode": "R1",
@@ -34,11 +34,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9605,
+      "own_result_and_telemetry_bytes": 11365,
       "retained_scratch_bytes": 58454016,
-      "accounted_component_content_bytes": 251980606,
-      "new_local_output_allocated_bytes": 109129728,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 109101056,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 251982366
     },
     {
       "mode": "R2",
@@ -47,11 +47,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9158,
+      "own_result_and_telemetry_bytes": 11181,
       "retained_scratch_bytes": 58576896,
-      "accounted_component_content_bytes": 207902132,
       "new_local_output_allocated_bytes": 64876544,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 207904155
     },
     {
       "mode": "R2",
@@ -60,11 +60,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9156,
+      "own_result_and_telemetry_bytes": 11180,
       "retained_scratch_bytes": 58576896,
-      "accounted_component_content_bytes": 207902130,
       "new_local_output_allocated_bytes": 64868352,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 207904154
     },
     {
       "mode": "R2",
@@ -73,11 +73,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9426,
+      "own_result_and_telemetry_bytes": 11186,
       "retained_scratch_bytes": 58576896,
-      "accounted_component_content_bytes": 207902400,
-      "new_local_output_allocated_bytes": 64872448,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 64876544,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 207904160
     },
     {
       "mode": "R3",
@@ -86,11 +86,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9147,
+      "own_result_and_telemetry_bytes": 11180,
       "retained_scratch_bytes": 58466304,
-      "accounted_component_content_bytes": 211190903,
-      "new_local_output_allocated_bytes": 68276224,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 68259840,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 211192936
     },
     {
       "mode": "R3",
@@ -99,11 +99,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9157,
+      "own_result_and_telemetry_bytes": 11184,
       "retained_scratch_bytes": 58466304,
-      "accounted_component_content_bytes": 211190913,
-      "new_local_output_allocated_bytes": 68276224,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 68259840,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 211192940
     },
     {
       "mode": "R3",
@@ -112,11 +112,11 @@
       "source_archives_once_bytes": 63816988,
       "shared_source_coordinate_map_bytes": 81907245,
       "shared_metadata_bytes": 36329,
-      "own_result_and_telemetry_bytes": 9158,
+      "own_result_and_telemetry_bytes": 11178,
       "retained_scratch_bytes": 58466304,
-      "accounted_component_content_bytes": 211190914,
-      "new_local_output_allocated_bytes": 68276224,
-      "kafka_checkpoint": "N/A: local representation build does not create delivery state; existing streaming inventory counted separately"
+      "new_local_output_allocated_bytes": 68259840,
+      "kafka_checkpoint": "N/A in new local representation; existing service costs in storage-inventory.json",
+      "accounted_component_content_bytes": 211192934
     }
   ],
   "shared_source_files": 14,
@@ -139,5 +139,7 @@
   "all_in_definition": "Unique archives + source-coordinate accounting + source/completion/transition metadata + candidate analytical files + result/resource metadata + retained query scratch. Separate from deployed streaming system, whose broker/checkpoint/output costs are not omitted from storage-inventory.json.",
   "filesystem_allocation_caveat": "st_blocks per new file, not exclusive APFS block ownership",
   "physical_query_io": "NOT_MEASURED",
-  "phase20_new_private_output_bytes": 986791930
+  "phase20_new_private_output_bytes": 2674981499,
+  "code_commit": "1305ed8bda1057d5ade1680b762c1adfce7145c0",
+  "initial_timings_preserved": "initial-qualified-trials.json and validation-inclusive-trials.json"
 }

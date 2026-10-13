@@ -1,0 +1,39 @@
+{
+  "evidence": "OWNER_APPROVAL_AND_PREREGISTRATION",
+  "approval": "OWNER_APPROVED_BOUNDED_MATCHED_PILOT",
+  "owner_reply": "Duyệt matched pilot bounded",
+  "cap_seconds": 7200,
+  "growth_bytes": 3221225472,
+  "growth_boundary": "New private campaign content plus positive guest free-space decrease; includes retained failed namespaces. No deletion.",
+  "scope": "Matched normalized core only: B0 direct Arrow, B2 Spark batch, B3 queued Kafka Structured Streaming availableNow. This does not measure raw parsing or full production domain finalization.",
+  "selections": {
+    "rpki": "September 1 canonical membership full six-field projection; source-coordinate map/provenance retained as shared reference, not newly streamed raw source observations",
+    "ris": "Complete first five-minute accepted EventRow projection, five exclusions retained as shared source evidence",
+    "dns": "First 4096 independently normalized raw source rows; partial artifact, no complete daily group claim"
+  },
+  "input_binding": "normalized-input-binding.json and source-manifest-validation.json; each prepared wrapper also binds full source-normalized SHA256",
+  "projection": "Every full typed normalized row canonically JSON serialized with sorted keys and no NaN, paired with existing source logical ID; lossless representation shared across all three engines",
+  "comparison": "Exact SQLite identity-to-full-JSON membership comparison, identical retry reconciliation only; ordered canonical checksum after exact membership, never checksum-only acceptance",
+  "repetitions": 3,
+  "configurations": 9,
+  "trial_order": "All 27 configuration/repetition pairs shuffled once, seed 42",
+  "timing": {
+    "preparation": "Shared wrapper/SQLite construction separately measured once; original source parsing excluded from every mode",
+    "core": "Read prepared normalized input, write same projection in Snappy Parquet; Spark includes S3A publication in write action, so cannot isolate pure transformation from publication",
+    "all_in": "Fresh worker process launch through validated conditional MinIO completion and Spark shutdown; startup, producer, physical checksums and exact independent readback included",
+    "B3": "Publish bounded acknowledged chunks before starting isolated availableNow query; queued historical replay, not paced live arrival and not H3 1x experiment"
+  },
+  "layout": "Two writer partitions; 262144 maximum target rows/file; Arrow row groups <=65536, Spark block layout runtime default. Record actual files, do not rank representation efficiency from unmatched row-group layouts.",
+  "kafka": "Fresh UUID topic per B3 trial, two partitions, replication one, zstd producer compression, 128 rows/chunk, <=1MiB/chunk, <=32MiB buffer, acknowledgments required",
+  "publication": "Existing conditional commit primitive, dedicated phase20-matched/UUID prefix; files checked exactly before batch commit; full identity coverage checked before completion metadata",
+  "resources": "VM 2CPU/6GiB/64GiB unchanged; Spark local[2], driver 2GiB; Arrow CPU/IO pools 2; >=20GiB host/guest free, >=512MiB guest available, <=12GiB process tree, single measured job",
+  "preflight_observed": {
+    "guest_free_disk_bytes": 32307834880,
+    "guest_available_memory_bytes": 4632301568,
+    "host_free_disk_bytes_approximate": 641483472896
+  },
+  "estimate": "7200-second total cap and 3GiB aggregate retained growth are hard stops, not guaranteed completion; current normalized source inputs ~98MiB plus bounded DNS subset before JSON wrapping",
+  "stop": "Any exactness, delivery, OOM, missing object or budget failure stops campaign; no automatic retry or timeout increase; retain all evidence",
+  "unapproved": "Full-hour replay, RIS rates matrix, VM changes, downloads, old evidence deletion, full production E3 matrix",
+  "phase21": "NOT_STARTED"
+}

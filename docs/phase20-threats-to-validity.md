@@ -7,7 +7,8 @@ knowledge. Different native units cannot be ranked or pooled as changes/s.
 **Internal:** parser/canonicalization work, JVM/startup, Kafka batching, Parquet
 layout, metadata/indexing, oracle validation, service contention and cache warmth
 differ. New E2R queries include disk materialization and independent comparison.
-Startup/import and physical query I/O are unmeasured. Fresh process/build is not
+Final command-start wall includes imports/startup; isolated import and physical
+query I/O are unmeasured. Fresh process/build is not
 cold filesystem cache; no privileged eviction. Earlier service results do not
 form matched B0/B2/B3 engine comparisons. The canonical tuple evaluation layout
 differs from original production multi-column Parquet; do not rank those unmatched

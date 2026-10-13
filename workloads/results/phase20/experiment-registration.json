@@ -45,7 +45,8 @@
     "one_active_measured_job": true,
     "vm": "2 CPU / 6 GiB / 64 GiB unchanged",
     "spark": "local[2], driver heap 2g unchanged",
-    "cache": "fresh worker process per configuration, then warm query repeats; OS cache NOT evicted"
+    "cache": "fresh worker process per configuration, then warm query repeats; OS cache NOT evicted",
+    "cpu_pool": "Arrow CPU2 / IO2 explicitly enforced; SQLite query1"
   },
   "bounded_runs": {
     "pilot": {
@@ -77,7 +78,7 @@
         "daily_transitions": "all13 exact additions/removals and daily counts",
         "asn_transitions": "per-ASN counts across all13 boundaries"
       },
-      "timing": "per configuration: fresh process and build cost; three reused-process query cycles per build. Query includes physical reads, disk SQLite materialization and ordered output/independent comparison; paired by repetition.",
+      "timing": "Final query execution/output excludes independently timed verification; outer command wall includes imports/startup. Initial inclusive runs archived and excluded.",
       "storage": "analytical tuple baselines/checkpoints + all13 transition sidecars; metadata measured separately; shared source/maps/descriptors once each. No Kafka/checkpoint omission: accepted service all-in historical inventory separately, not assigned to new local-only representations"
     }
   },
@@ -90,6 +91,9 @@
   ],
   "units": "workloads/results/phase20/unit-registry.json",
   "stop": "Any exact projection conflict/missing/extra, budget breach or sampler failure stops affected run; retain failed namespace; no automatic costly retry",
-  "amendments": [],
+  "amendments": [
+    "P20-CPU-CONTROL-AUDIT-20261014",
+    "P20-QUERY-BOUNDARY-AUDIT-20261014"
+  ],
   "phase21": "NOT_STARTED"
 }

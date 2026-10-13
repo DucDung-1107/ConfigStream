@@ -3,6 +3,7 @@ import hashlib
 import pytest
 
 from benchmarks.evaluation import (
+    encoding_digest,
     exact_encoding_digest,
     preference,
     randomized_order,
@@ -36,6 +37,7 @@ def test_preference_every_required_query_and_thresholds():
 
 def test_fixed_checksum_and_exact_difference():
     expected = hashlib.sha256(b"rpki-set-v1\n\x00\x00\x00\x01a\x00\x00\x00\x01b").hexdigest()
+    assert encoding_digest([(b"a",), (b"b",)]) == dict(rows=2, set_digest=expected)
     assert exact_encoding_digest([(b"a",), (b"b",)], [(b"a",), (b"b",)]) == dict(
         rows=2, set_digest=expected
     )
@@ -83,6 +85,11 @@ def test_owned_fourteen_day_representations(mode, tmp_path):
     build_rpki(mode, oracle, days, tmp_path, lambda: None)
     results = rpki_queries(mode, oracle, days, tmp_path, 1, lambda: None)
     assert len(results) == 5 and all(item["correctness"] == "PASS" for item in results)
+    assert all(item["seconds"] >= 0 and item["validation_seconds"] >= 0 for item in results)
+    assert all(
+        item["total_seconds"] == pytest.approx(item["seconds"] + item["validation_seconds"])
+        for item in results
+    )
     assert all(len(item["output_sha256"]) == 64 for item in results)
     if mode == "R2":
         import pyarrow as arrow

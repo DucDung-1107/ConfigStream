@@ -62,6 +62,14 @@ def summarize_rpki(root):
             by_query[query_id] = dict(
                 warm_cycles_by_build=values,
                 build_median_statistics=statistics([median(cycle) for cycle in values]),
+                independent_validation_cycles_by_build=[
+                    [
+                        query["validation_seconds"]
+                        for query in trial["queries"]
+                        if query["query_id"] == query_id
+                    ]
+                    for trial in selected
+                ],
                 output_sha256=digests[query_id],
                 exact_correctness="PASS",
             )
@@ -75,6 +83,14 @@ def summarize_rpki(root):
             elapsed_seconds=statistics([trial["elapsed_seconds"] for trial in selected]),
             parquet_files=selected[0]["parquet_files"],
             retained_scratch_bytes=[trial["scratch_retained_bytes"] for trial in selected],
+            command_start_to_exit_seconds=statistics(
+                [
+                    json.loads((root / f"{mode}-{trial['repetition']}.launch.json").read_text())[
+                        "command_start_to_exit_seconds"
+                    ]
+                    for trial in selected
+                ]
+            ),
         )
     decisions = {}
     full_queries = {
@@ -108,9 +124,9 @@ def summarize_rpki(root):
         preference_decisions=decisions,
         correctness="exact ordered comparison every day/cycle; all query outputs agree",
         matched_processing_rank="NOT_APPLICABLE: representation comparison, not B0 versus B3",
-        query_timing="Parquet reads + SQLite materialization + exact output/independent validation",
+        query_timing="Parquet + SQLite + output; external verification separate",
         cache="OS uncontrolled, three warm cycles per fresh-process build; build warms inputs",
-        process_import_startup_seconds="NOT_MEASURED; worker elapsed excludes module import",
+        process_import_startup_seconds="Launch includes startup; isolated import NOT_MEASURED",
         input_manifest="source-manifest-validation.json",
         policy="experiment-registration.json",
     )
@@ -118,6 +134,11 @@ def summarize_rpki(root):
 
 def summarize_pilot(root):
     trials = load_trials(root)
+    if any(
+        trial.get("arrow_cpu_pool_threads") != 2 or trial.get("arrow_io_pool_threads") != 2
+        for trial in trials
+    ):
+        raise ValueError("Pilot native pool controls not explicit")
     return dict(
         evidence="MEASURED_REAL_SOURCE_NORMALIZED",
         trials=trials,
@@ -184,7 +205,7 @@ def main():
     parser.add_argument("--rpki-dir", type=Path)
     parser.add_argument("--pilot-dir", type=Path)
     args = parser.parse_args()
-    rpki_root = args.rpki_dir or args.private / "rpki-cpu2"
+    rpki_root = args.rpki_dir or args.private / "rpki-final"
     pilot_root = args.pilot_dir or args.private / "pilot-cpu2"
     reports = dict(
         rpki=summarize_rpki(rpki_root),

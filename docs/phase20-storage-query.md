@@ -26,25 +26,29 @@ sidecars remain explicit; missing or invalid removal fails, rather than empty re
 | R3 | 6,954,890 | 28 | 85.44% | PREFERRED |
 
 Median seconds below are median of three build-level medians; every build retains
-its three individual warm cycles. Query time includes Parquet reads, SQLite
-materialization and independent exact output validation. Import/startup is
-NOT_MEASURED, build time is separate. OS cache was not evicted; these are not cold
+its three individual warm cycles. Final query time includes Parquet reads, SQLite
+materialization and output. Independent exact verification is timed separately.
+Command-start wall includes import/startup; isolated import is NOT_MEASURED.
+Build time is separate. OS cache was not evicted; these are not cold
 filesystem measurements or production indexed-query latency.
 
 | Required query | R1 | R2 | R3 |
 |---|---:|---:|---:|
-| all_days | 8.2221 | 8.3477 | 8.1552 |
-| asn_transitions | 1.2618 | 1.3080 | 1.2421 |
-| daily_transitions | 1.2889 | 1.2355 | 1.2309 |
-| membership | 0.3879 | 0.4040 | 0.3872 |
-| selected_day | 0.5741 | 0.5855 | 0.5832 |
+| all_days | 6.7331 | 6.8803 | 6.7645 |
+| asn_transitions | 0.0214 | 0.0212 | 0.0213 |
+| daily_transitions | 0.0168 | 0.0112 | 0.0123 |
+| membership | 0.3842 | 0.4032 | 0.3838 |
+| selected_day | 0.4815 | 0.5133 | 0.4962 |
 
 Both candidates meet >=20% analytical saving AND <=2x median time on **every**
 registered query. **H2 SUPPORTED_WITHIN_TESTED_SCOPE**, not a universal preference
-or speedup. Build medians: R1 3.834 s,
-R2 1.797 s,
-R3 1.838 s.
+or speedup. Build medians: R1 3.181 s,
+R2 1.573 s,
+R3 1.696 s.
 All values/ranges/paired ratios are retained; no incorrect run is averaged.
+Final Arrow CPU/IO pools are explicitly two and SQLite is single-threaded.
+Initial uncontrolled-pool and validation-inclusive trials are preserved separately
+and excluded from final latency preference; see the controlled amendments.
 
 ## Analytical versus all-in accounting
 
@@ -82,6 +86,6 @@ Reproduce authorized bounded E2R only:
 ```sh
 source .cache/local-kafka-env.sh
 caffeinate -i .venv/bin/python -m benchmarks.phase20 --suite rpki --output .cache/phase20/rpki-new
-.venv/bin/python -m benchmarks.phase20_report --private .cache/phase20
+.venv/bin/python -m benchmarks.phase20_report --rpki-dir .cache/phase20/rpki-new --pilot-dir .cache/phase20/pilot-cpu2
 ```
 Fresh isolated output required; no automatic long service run.

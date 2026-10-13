@@ -24,6 +24,6 @@
     "median": 0.00007612502668052912,
     "minimum": 0.00007204106077551842
   },
-  "code_commit": "adc1b3c",
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
   "code_binding": "Uncommitted evaluation-only helper, SHA256 recorded in evaluation artifact audit before delivery; no production changes"
 }

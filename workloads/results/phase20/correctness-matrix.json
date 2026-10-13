@@ -7,7 +7,7 @@
   "phase21_started": false,
   "evidence": "REUSED_ACCEPTED_REAL_WINDOW_PLUS_NEW_OFFLINE",
   "H1": "SUPPORTED_WITHIN_TESTED_SCOPE",
-  "new_campaign": "current unit/API/Spark regressions and 11 evaluation fixtures, including falsified unsafe payload dedup",
+  "new_campaign": "current unit/API/Spark regressions and 14 evaluation fixtures, including falsified unsafe payload dedup",
   "new_actual_service_fault_tests": 0,
   "roles": {
     "terraform": {

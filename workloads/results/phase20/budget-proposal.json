@@ -39,7 +39,9 @@
     "scope": "First matched B0/B2/B3 normalized pilots: one RPKI day, first RIS five minutes, DNS4096 rows; three seeded repeats. Then measure 1x uniform RIS five-minute pilot before larger rate/window escalation.",
     "proposed_total_cap_seconds": 7200,
     "proposed_growth_max_bytes": 3221225472,
-    "cap_is_approved": false,
+    "cap_is_approved": true,
+    "approval": "Owner replied Duyệt matched pilot bounded; only normalized B0/B2/B3 1-day RPKI/5-minute RIS/DNS4096, three repeats/configuration, 7200s and 3GiB. Full matrix not authorized.",
+    "registered_extension": "matched-pilot-registration.json",
     "why": "Small matched pilot can measure startup/broker growth/core transform/final validation; current direct-Parquet pilot does not measure those costs."
   },
   "guards": "same VM/Spark allocations; >=20GiB host/guest free, >=512MiB guest available, <=15GiB/run, <=50GiB new outputs; single active measured job",
