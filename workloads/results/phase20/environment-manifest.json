@@ -1,0 +1,33 @@
+{
+  "evidence": "MEASURED_ENVIRONMENT",
+  "system": "macOS-27.0-arm64-arm-64bit",
+  "machine": "arm64",
+  "host_ram_bytes": 19327352832,
+  "host_free_disk_bytes": 645341741056,
+  "guest": {
+    "guest_free_disk_bytes": 32308719616,
+    "guest_available_memory_bytes": 4697382912
+  },
+  "containers": 1610612736,
+  "container_limits": {
+    "kafka_bytes": 1610612736,
+    "minio_bytes": 805306368
+  },
+  "vm": "existing k: 2CPU/6GiB/64GiB",
+  "libraries": {
+    "pyarrow": "19.0.1",
+    "pyspark": "4.0.2",
+    "confluent-kafka": "2.15.1",
+    "mrtparse": "2.2.0",
+    "boto3": "1.40.45"
+  },
+  "sqlite": "3.53.1",
+  "services": {
+    "kafka": "4.1.2",
+    "minio": "RELEASE.2025-10-15T17-29-55Z"
+  },
+  "spark": "local[2] / 2g driver heap",
+  "active_heavy_jobs_at_preflight": 0,
+  "instructor_approval": "NOT_VERIFIED",
+  "services_already_running": true
+}

@@ -1,0 +1,95 @@
+{
+  "version": "phase20-registration-v1",
+  "date": "2026-10-14",
+  "starting_sha": "51a1ff6c8e1c4d20ef3e020aa026710d6d05f06a",
+  "entry": "CONDITIONAL GO — BOUNDED EVALUATION",
+  "authoritative_matrix": "workloads/results/phase15/experiment-matrix.json",
+  "rq_ids": [
+    "RQ1",
+    "RQ2",
+    "RQ3"
+  ],
+  "hypotheses": {
+    "H1": "zero unexplained identity/projection mismatch under declared failure model",
+    "H2": "lossless candidate saves >=20% analytical bytes and <=2x median time for EVERY required query",
+    "H3": "RIS 1x physical replay exactness, final selected-offset lag zero, drain <=10% producer duration"
+  },
+  "source_manifests": {
+    "terraform": "workloads/results/terrads/source-manifest.json",
+    "rpki": "workloads/results/phase17/source-manifest.json",
+    "ris": "workloads/results/dataset-feasibility/bgp.json",
+    "dns": "workloads/results/dataset-feasibility/dns.json"
+  },
+  "policies": "Reuse accepted Phase17/18/19 parser/canonicalization/counting namespaces; no identity, fingerprint, exclusion or precision changes",
+  "authorization": {
+    "bounded": "owner request plus reasonable-resource instruction: reversible local evaluation and lightweight pilot",
+    "heavy": "NOT_AUTHORIZED: full repeated service matrix and RIS paced replay require separate explicit approval",
+    "instructor": "NOT_VERIFIED",
+    "duckdb": "NOT_APPROVED; use stdlib SQLite, no new database dependency",
+    "data": "cached sources only; no external rows/public ledgers, no new downloads"
+  },
+  "controls": {
+    "seed": 42,
+    "repetitions": 3,
+    "codec": "snappy",
+    "row_group_target": 65536,
+    "arrow_batch": 8192,
+    "sql_cache_kib": 16384,
+    "sql_temp": "FILE",
+    "cpu_threads": 2,
+    "host_rss_max_bytes": 12884901888,
+    "free_host_guest_min_bytes": 21474836480,
+    "guest_available_min_bytes": 536870912,
+    "growth_max_bytes": 16106127360,
+    "new_output_max_bytes": 53687091200,
+    "one_active_measured_job": true,
+    "vm": "2 CPU / 6 GiB / 64 GiB unchanged",
+    "spark": "local[2], driver heap 2g unchanged",
+    "cache": "fresh worker process per configuration, then warm query repeats; OS cache NOT evicted"
+  },
+  "bounded_runs": {
+    "pilot": {
+      "cap_seconds": 600,
+      "mode": "direct Parquet re-encoding of pinned accepted normalized oracle projections; parser cost excluded explicitly",
+      "inputs": [
+        "one complete RPKI day",
+        "first complete RIS five-minute occurrence projection",
+        "first 4096 DNS raw rows in physical order"
+      ],
+      "repetitions": 3,
+      "verification": "exact Arrow schema and ordered row projection equality; not new source parser validation"
+    },
+    "E2R": {
+      "cap_seconds_per_configuration": 900,
+      "repetitions": 3,
+      "modes": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "normalized_projection": "canonical tuple UTF-8 member_encoding losslessly determines scope/asn/prefix/max_length and membership_id under frozen membership-v1; same projection and metadata across candidates",
+      "checkpoint_placement": "initial day1 plus day8: checkpoint each 7 accepted consecutive days after initial baseline",
+      "shared": "13 exact added/removed transition projections, source archives once, raw source-coordinate maps once, same day descriptors",
+      "queries": {
+        "all_days": "reconstruct every accepted day, exact sorted tuple comparison with independent read-only SQLite oracle",
+        "selected_day": "reconstruct September14, exact comparison",
+        "membership": "first lexicographic canonical tuple on September1, lookup on September14",
+        "daily_transitions": "all13 exact additions/removals and daily counts",
+        "asn_transitions": "per-ASN counts across all13 boundaries"
+      },
+      "timing": "per configuration: fresh process and build cost; three reused-process query cycles per build. Query includes physical reads, disk SQLite materialization and ordered output/independent comparison; paired by repetition.",
+      "storage": "analytical tuple baselines/checkpoints + all13 transition sidecars; metadata measured separately; shared source/maps/descriptors once each. No Kafka/checkpoint omission: accepted service all-in historical inventory separately, not assigned to new local-only representations"
+    }
+  },
+  "pending_cells": [
+    "E2D standalone matched builds/query repeats",
+    "E2B 15/60-minute matched query/representation trials",
+    "E3R B0/B2/B3 14-day matched processing",
+    "E3D B0/B1/B2/B3 complete matched processing",
+    "E3B nested modes and 0.5/1/2x uniform/burst paced service replay"
+  ],
+  "units": "workloads/results/phase20/unit-registry.json",
+  "stop": "Any exact projection conflict/missing/extra, budget breach or sampler failure stops affected run; retain failed namespace; no automatic costly retry",
+  "amendments": [],
+  "phase21": "NOT_STARTED"
+}

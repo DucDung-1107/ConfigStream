@@ -1,0 +1,203 @@
+{
+  "evidence": "MEASURED_REAL_SOURCE",
+  "source_artifacts": [
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-01.xz",
+      "sha256": "4abf889127ea9968768cca5d1d4b6ca5e69a330ba0286c182d876f9caff00fdf",
+      "bytes": 4539704,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-02.xz",
+      "sha256": "00d18cf59171b0cfb2162f731671fa933bc38db9bce73406fc26ef12482b7f4b",
+      "bytes": 4542816,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-03.xz",
+      "sha256": "f7387c8ef336baa5e1c423ae8b4502c1292bdd0e01cc691959c40c6229f12617",
+      "bytes": 4547932,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-04.xz",
+      "sha256": "1cdabfcbdfec0b5f089f8ddeb792cb8de8179b001e10dcbeb450acac9954d4fa",
+      "bytes": 4550592,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-05.xz",
+      "sha256": "89a54df84b61e67a48ad989d687bcb83a0ff69917d174fe78599db0b7b1d3175",
+      "bytes": 4554096,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-06.xz",
+      "sha256": "d3500f62a1265cd77b851841275c309116eb6c050527ad6ea65ff58cfd4773ce",
+      "bytes": 4554080,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-07.xz",
+      "sha256": "e9a06b939e1acfe43ec647713f3e04000279fe29f684502206da9b4109ea29ce",
+      "bytes": 4554012,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-08.xz",
+      "sha256": "1c6f6879fbe324b63c4f5d2154d0b429056ca4f25be46a8149ea59cc977ae91d",
+      "bytes": 4556572,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-09.xz",
+      "sha256": "cdda33fa68468d321d1f6fbdcb70615f3dfef2917a7e08fe7aeab6ffacc1363d",
+      "bytes": 4561892,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-10.xz",
+      "sha256": "e4202bc034e1a80a76b063c3e0fcf37afc9bc1a5e2e23fb92f6259ac8a1a41ea",
+      "bytes": 4567992,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-11.xz",
+      "sha256": "ffbfea657639b6a8881e74adb340375a4a57f677411509930d166c9f0fc7c270",
+      "bytes": 4569604,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-12.xz",
+      "sha256": "ab1a52bad5fd38cd45e209bb6bbe465a31daac942d7846e9d46f0d01ea51e987",
+      "bytes": 4572800,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-13.xz",
+      "sha256": "7ed8e0aa02d728a2e8c9133b5dbb3170688fcaaaab50a6f0a8c01ed683d2d829",
+      "bytes": 4574016,
+      "status": "PASS"
+    },
+    {
+      "workload": "rpki",
+      "file": "rpki-ripencc.tal-2026-09-14.xz",
+      "sha256": "8a68c6da20ab45b62188e5f66f1cfa33e5c3c3569706a672c1f6f8ab08bbfabd",
+      "bytes": 4570880,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0000.gz",
+      "sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "bytes": 6043608,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0005.gz",
+      "sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "bytes": 6232506,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0010.gz",
+      "sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+      "bytes": 8120390,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0015.gz",
+      "sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f",
+      "bytes": 5659629,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0020.gz",
+      "sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8",
+      "bytes": 5608308,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0025.gz",
+      "sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2",
+      "bytes": 5775548,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0030.gz",
+      "sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de",
+      "bytes": 5665617,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0035.gz",
+      "sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb",
+      "bytes": 5735161,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0040.gz",
+      "sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd",
+      "bytes": 6060591,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0045.gz",
+      "sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59",
+      "bytes": 7101041,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0050.gz",
+      "sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad",
+      "bytes": 5882329,
+      "status": "PASS"
+    },
+    {
+      "workload": "ris",
+      "file": "updates.20260901.0055.gz",
+      "sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924",
+      "bytes": 5886568,
+      "status": "PASS"
+    },
+    {
+      "workload": "dns",
+      "file": "dns-li-2026-09-01.parquet",
+      "sha256": "e65a143bd5ce981cf2d3881bf38fa0af186a1ab524bb40ec75e44b13dc848c97",
+      "bytes": 49445610,
+      "status": "PASS"
+    },
+    {
+      "workload": "dns",
+      "file": "dns-li-2026-09-02.parquet",
+      "sha256": "9f8dd9ba56b813ebd3d68583a7d22ae525c67a2b10201f1806fc85e6b80b8854",
+      "bytes": 49383060,
+      "status": "PASS"
+    }
+  ],
+  "terraform": "HISTORICAL_REFERENCE: existing accepted Git sidecars, no re-mine",
+  "new_download_bytes": 0
+}
