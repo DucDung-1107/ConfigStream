@@ -1,0 +1,43 @@
+{
+  "decision": "CONDITIONAL PASS — SERVICE PATH VALIDATED, FULL ORACLE/WINDOW PENDING",
+  "starting_commit": "229205d54df067f41ab86ad18ba2ecb1d6fbf847",
+  "implementation_and_real_run_commit": "314897f4ec79d34a93780096b6294fb9b19958cc",
+  "research_questions_preserved": [
+    "RQ1",
+    "RQ2",
+    "RQ3"
+  ],
+  "selected_reference_archives": 12,
+  "full_framing_validated_archives": 12,
+  "complete_service_validated_archives": 1,
+  "service_accepted_occurrences": 370141,
+  "full_hour_event_pipeline_status": "NOT_RUN",
+  "source_parser_exclusions_full_hour": 57,
+  "independent_oracle": "QUALIFIED: independent NLRI/coordinates/identity, shared attribute decoding",
+  "maximum_service_window": "2026-09-01T00:00:00Z/2026-09-01T00:05:00Z",
+  "missing_selected_identities": 0,
+  "unexpected_selected_identities": 0,
+  "phase19_authorized": false,
+  "phase20_started": false,
+  "open_gates": [
+    "complete independent attribute/projection oracle",
+    "full source exclusion sidecar publication",
+    "three-archive exact/service acceptance",
+    "twelve-archive exact/service/recovery acceptance",
+    "remaining manifest failure cases",
+    "matched batch/query evaluation and larger-resource cap"
+  ],
+  "tests": {
+    "unit": 983,
+    "unit_seconds": 13.97,
+    "api": 80,
+    "spark": 73,
+    "spark_seconds": 102.49,
+    "api_seconds": 0.64,
+    "actual_service_owned": 5,
+    "actual_service_owned_seconds": 75.91,
+    "normal_ci_downloads_real_data": false
+  },
+  "ci_receipt": "Verify exact final pushed documentation SHA in handoff; fixture CI is not full RIS workload",
+  "no_raw_data_committed": true
+}

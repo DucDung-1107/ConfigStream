@@ -1,0 +1,23 @@
+{
+  "scope": "one complete five-minute source; accepted isolated run",
+  "compressed_source_bytes": 6043608,
+  "decompressed_source_bytes": 34706880,
+  "kafka_acknowledged_value_bytes": 269418671,
+  "kafka_selected_log_bytes": 269814875,
+  "normalized_parquet_bytes": 70024542,
+  "selected_s3_prefix_bytes": 70180672,
+  "commit_and_other_nonparquet_object_bytes": 156130,
+  "checkpoint_bytes": 10947,
+  "defined_accounted_pipeline_bytes": 346050102,
+  "accounting_definition": "selected compressed source once + selected broker .log files + all isolated S3 prefix objects + selected checkpoint",
+  "not_included": [
+    "broker index/shared logs",
+    "private oracle and framing ledgers",
+    "other archive files",
+    "failed reporting attempt",
+    "owned fault fixture outputs",
+    "temporary JVM staging"
+  ],
+  "parquet_files": 48,
+  "raw_archives_publication": "private only"
+}

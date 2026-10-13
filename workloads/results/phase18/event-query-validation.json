@@ -1,0 +1,46 @@
+{
+  "real_selected_summary": {
+    "actions": {
+      "announcement": 349085,
+      "withdrawal": 21056
+    },
+    "events_per_minute": [
+      {
+        "count": 131108,
+        "minute": 1788220800
+      },
+      {
+        "count": 53630,
+        "minute": 1788220860
+      },
+      {
+        "count": 63090,
+        "minute": 1788220920
+      },
+      {
+        "count": 69888,
+        "minute": 1788220980
+      },
+      {
+        "count": 52425,
+        "minute": 1788221040
+      }
+    ],
+    "occurrences": 370141,
+    "peers": 98,
+    "prefixes": 64607,
+    "repeated_fingerprints_beyond_first": 11351
+  },
+  "exact_selected_projection_match": true,
+  "qualified_attribute_groundtruth": true,
+  "local_owned_queries": [
+    "time interval",
+    "peer activity",
+    "prefix retrieval",
+    "action counts",
+    "minute bursts",
+    "fingerprints beyond first",
+    "artifact provenance"
+  ],
+  "full_hour_queries": "NOT_RUN"
+}

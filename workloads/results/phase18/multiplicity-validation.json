@@ -1,0 +1,19 @@
+{
+  "real_selected_occurrences": 370141,
+  "real_selected_distinct_occurrence_ids": 370141,
+  "unique_content_fingerprints": 358790,
+  "repeated_fingerprint_occurrences_beyond_first": 11351,
+  "fingerprint_definition": "SHA256(repr((seconds, action, (str(peer_asn), peer_ip), prefix_address, prefix_length, path_id, sha256(json.dumps(parsed_attributes,sort_keys=True).encode()).digest())))",
+  "actual_service_owned_fixture": {
+    "native_occurrences": 4,
+    "distinct_fingerprints": 2,
+    "physical_committed_delivery_rows": 9,
+    "logical_committed_occurrences": 4,
+    "complete_archive_replay": true,
+    "conflicting_replay_rejected": true
+  },
+  "full_hour_repeated_fingerprints": {
+    "status": "NOT_RUN",
+    "historical_phase13_reference": 118172
+  }
+}

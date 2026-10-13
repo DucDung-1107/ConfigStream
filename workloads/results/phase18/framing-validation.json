@@ -1,0 +1,261 @@
+{
+  "archives": [
+    {
+      "artifact": {
+        "bytes": 6043608,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0000.gz",
+        "sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d"
+      },
+      "decompressed_bytes": 34706880,
+      "framed_records": 187480,
+      "framing_sha256": "57430f365614a96e709251a20d8ebd492674c52f2a5815711150cd4b76891489",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 140,
+        "16/1": 345,
+        "16/4": 186928,
+        "16/5": 67
+      },
+      "update_messages": 186717
+    },
+    {
+      "artifact": {
+        "bytes": 6232506,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0005.gz",
+        "sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1"
+      },
+      "decompressed_bytes": 34710558,
+      "framed_records": 194133,
+      "framing_sha256": "431f9d353513cdf3ecef1aedd74e429845cad083e0804dd57b686b7774f633bb",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 118,
+        "16/1": 298,
+        "16/4": 193657,
+        "16/5": 60
+      },
+      "update_messages": 193397
+    },
+    {
+      "artifact": {
+        "bytes": 8120390,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0010.gz",
+        "sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66"
+      },
+      "decompressed_bytes": 50079102,
+      "framed_records": 250148,
+      "framing_sha256": "c6887d7535e8269ea183c7a01c1a000b8d0bfa250d49a598a9eb690454f53ab0",
+      "independent_frame_match": true,
+      "parser_excluded_records": 4,
+      "record_types": {
+        "16/0": 141,
+        "16/1": 286,
+        "16/4": 249656,
+        "16/5": 65
+      },
+      "update_messages": 249384
+    },
+    {
+      "artifact": {
+        "bytes": 5659629,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0015.gz",
+        "sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f"
+      },
+      "decompressed_bytes": 32842633,
+      "framed_records": 178222,
+      "framing_sha256": "e81e53ebf5c514c4b6162559ebf28e879997f7b80cf7681d10acfff3e570e9ed",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 129,
+        "16/1": 280,
+        "16/4": 177745,
+        "16/5": 68
+      },
+      "update_messages": 177462
+    },
+    {
+      "artifact": {
+        "bytes": 5608308,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0020.gz",
+        "sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8"
+      },
+      "decompressed_bytes": 32292842,
+      "framed_records": 178075,
+      "framing_sha256": "b32cdef3eb8e5ca5492ea3606dcc18e2d8e76ca8bcdfa5eee637d220c37be144",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 129,
+        "16/1": 331,
+        "16/4": 177552,
+        "16/5": 63
+      },
+      "update_messages": 177327
+    },
+    {
+      "artifact": {
+        "bytes": 5775548,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0025.gz",
+        "sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2"
+      },
+      "decompressed_bytes": 33079867,
+      "framed_records": 179763,
+      "framing_sha256": "b756179fca6d3e2aaad13927b4ec54801fb8a58c74e7c9514e4fa97ac9eb5220",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 126,
+        "16/1": 346,
+        "16/4": 179223,
+        "16/5": 68
+      },
+      "update_messages": 179010
+    },
+    {
+      "artifact": {
+        "bytes": 5665617,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0030.gz",
+        "sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de"
+      },
+      "decompressed_bytes": 32818904,
+      "framed_records": 179667,
+      "framing_sha256": "1879eed42bd1ed788562153955d37263cebb227fb65652111817c91d224773da",
+      "independent_frame_match": true,
+      "parser_excluded_records": 4,
+      "record_types": {
+        "16/0": 132,
+        "16/1": 284,
+        "16/4": 179189,
+        "16/5": 62
+      },
+      "update_messages": 178919
+    },
+    {
+      "artifact": {
+        "bytes": 5735161,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0035.gz",
+        "sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb"
+      },
+      "decompressed_bytes": 33192815,
+      "framed_records": 182199,
+      "framing_sha256": "3fdb36013bb7f35b883d50454a11bbc68d2fb1ffd31c96545ce9b460392291a1",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 132,
+        "16/1": 310,
+        "16/4": 181690,
+        "16/5": 67
+      },
+      "update_messages": 181441
+    },
+    {
+      "artifact": {
+        "bytes": 6060591,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0040.gz",
+        "sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd"
+      },
+      "decompressed_bytes": 34461808,
+      "framed_records": 185682,
+      "framing_sha256": "7fc7cda55cda0737954b05cbd93e028596a05c9421fb907b830be1767078edbb",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 125,
+        "16/1": 323,
+        "16/4": 185168,
+        "16/5": 66
+      },
+      "update_messages": 184931
+    },
+    {
+      "artifact": {
+        "bytes": 7101041,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0045.gz",
+        "sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59"
+      },
+      "decompressed_bytes": 42124988,
+      "framed_records": 218496,
+      "framing_sha256": "39094f26bbbb487fda471c050c6485169d12f26b34a77889b2a4d197d38cc3de",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 128,
+        "16/1": 314,
+        "16/4": 217989,
+        "16/5": 65
+      },
+      "update_messages": 217743
+    },
+    {
+      "artifact": {
+        "bytes": 5882329,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0050.gz",
+        "sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad"
+      },
+      "decompressed_bytes": 33188019,
+      "framed_records": 185395,
+      "framing_sha256": "03569203f2db455876469e9b18654d1c3519992b3013cc1afae99da6f76ca264",
+      "independent_frame_match": true,
+      "parser_excluded_records": 4,
+      "record_types": {
+        "16/0": 128,
+        "16/1": 346,
+        "16/4": 184859,
+        "16/5": 62
+      },
+      "update_messages": 184651
+    },
+    {
+      "artifact": {
+        "bytes": 5886568,
+        "revision": "phase13-pinned",
+        "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0055.gz",
+        "sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924"
+      },
+      "decompressed_bytes": 33570179,
+      "framed_records": 181318,
+      "framing_sha256": "919c82e21acb4aa45e19a40345b37f5d40c1c3323b2185cd915e363d42723e2e",
+      "independent_frame_match": true,
+      "parser_excluded_records": 5,
+      "record_types": {
+        "16/0": 132,
+        "16/1": 346,
+        "16/4": 180776,
+        "16/5": 64
+      },
+      "update_messages": 180563
+    }
+  ],
+  "decompressed_bytes": 427068595,
+  "elapsed_seconds": 78.48229795799125,
+  "framed_records": 2300578,
+  "occurrence_projection_status": "NOT_RUN_FULL_HOUR",
+  "parser_excluded_records": 57,
+  "runtime_cap_seconds": 600,
+  "source_download_bytes": 0,
+  "status": "PASS_FULL_FRAMING_ONLY",
+  "update_messages": 2291545,
+  "private_coordinate_ledger": {
+    "records": 2300578,
+    "bytes": 280651632,
+    "sha256": "e5d0dd4049c74bbe5528ad5496c59b8caabea165385dc094fbedfa3cd0c60673",
+    "kind": "source-coordinate metadata; private"
+  },
+  "identity_decision": "RIS_OFFSET_IDENTITY_PROVEN",
+  "scope": "complete source frames, not full-hour expanded event acceptance"
+}

@@ -1,0 +1,89 @@
+{
+  "source": "RIPE NCC RIS",
+  "collector": "rrc00",
+  "window": "2026-09-01T00:00:00Z/2026-09-01T01:00:00Z",
+  "verification": "all 12 compressed hashes/sizes match; complete gzip framing/CRC",
+  "source_download_bytes": 0,
+  "artifacts": [
+    {
+      "artifact_bytes": 6043608,
+      "file": "updates.20260901.0000.gz",
+      "sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0000.gz"
+    },
+    {
+      "artifact_bytes": 6232506,
+      "file": "updates.20260901.0005.gz",
+      "sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0005.gz"
+    },
+    {
+      "artifact_bytes": 8120390,
+      "file": "updates.20260901.0010.gz",
+      "sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0010.gz"
+    },
+    {
+      "artifact_bytes": 5659629,
+      "file": "updates.20260901.0015.gz",
+      "sha256": "ab6f4812e9fc9b30a482c866d814e7b24817cde820d4880557921bcfee5a7a2f",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0015.gz"
+    },
+    {
+      "artifact_bytes": 5608308,
+      "file": "updates.20260901.0020.gz",
+      "sha256": "a17a717a95872d0d482057903e4abcc8e0b31d3327f6569a73076f832f708ba8",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0020.gz"
+    },
+    {
+      "artifact_bytes": 5775548,
+      "file": "updates.20260901.0025.gz",
+      "sha256": "26e36367a44d716e910d13388cafc56ef02c391d017f1f00c519f26e10ca98a2",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0025.gz"
+    },
+    {
+      "artifact_bytes": 5665617,
+      "file": "updates.20260901.0030.gz",
+      "sha256": "ef693c78e03914c5d1abf4e30037388d5adf152a4938724b7365408ad1de02de",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0030.gz"
+    },
+    {
+      "artifact_bytes": 5735161,
+      "file": "updates.20260901.0035.gz",
+      "sha256": "9408a53ee1a028082a9fef24b6a99227e27691b7d0dae4737489f63fbf5e1ceb",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0035.gz"
+    },
+    {
+      "artifact_bytes": 6060591,
+      "file": "updates.20260901.0040.gz",
+      "sha256": "af0f15f1f7b35eff76a608365b0d4e420552bd78ba9ecc5183cd54bed849e4dd",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0040.gz"
+    },
+    {
+      "artifact_bytes": 7101041,
+      "file": "updates.20260901.0045.gz",
+      "sha256": "bf20df2951ebb0e97425db94546947d7670c8b1b86ea5354efd0c9d83aee0c59",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0045.gz"
+    },
+    {
+      "artifact_bytes": 5882329,
+      "file": "updates.20260901.0050.gz",
+      "sha256": "d5d7dafc33209884e230efdc8a287bf1308cdba9bcfe5ca45a495b9d4fa613ad",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0050.gz"
+    },
+    {
+      "artifact_bytes": 5886568,
+      "file": "updates.20260901.0055.gz",
+      "sha256": "a2c269a6600e4d3e75991642a5933394cba31301818015dba1cf7f7d02a34924",
+      "url": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0055.gz"
+    }
+  ],
+  "parser": "mrtparse==2.2.0",
+  "identity_policy": "configstream-temporal-v1, unchanged Phase16",
+  "canonicalization": "ris-wire-v1",
+  "counting_policy": "feasibility-v1",
+  "research_use": "private noncommercial; RIPE NCC/RIS attribution",
+  "raw_redistribution_permission": "NOT_ESTABLISHED",
+  "instructor_approval": "NOT_ESTABLISHED",
+  "selection_origin": "workloads/results/dataset-feasibility/bgp.json (Phase13 pinned manifests); no Phase18 fetch"
+}

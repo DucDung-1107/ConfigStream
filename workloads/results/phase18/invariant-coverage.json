@@ -1,0 +1,50 @@
+{
+  "scope": "selected first archive and owned fixtures; full framing separately",
+  "invariants": [
+    {
+      "id": "I1",
+      "status": "PASS_INTEGRATION",
+      "limit": "first archive; full-hour frames pinned, not full-hour events"
+    },
+    {
+      "id": "I2",
+      "status": "PASS_INTEGRATION",
+      "limit": "owned cross-batch retries/conflicts; physical copies explicitly reconciled"
+    },
+    {
+      "id": "I3",
+      "status": "PASS_INTEGRATION",
+      "limit": "owned distinct offsets and first-archive fingerprint multiplicity"
+    },
+    {
+      "id": "I4",
+      "status": "PARTIAL",
+      "limit": "all archive framing, selected event projection; not full-hour event coverage or RIB state"
+    },
+    {
+      "id": "I5",
+      "status": "PASS_INTEGRATION",
+      "limit": "source seconds preserved, extended precision on owned fixtures"
+    },
+    {
+      "id": "I6",
+      "status": "PASS_INTEGRATION",
+      "limit": "single writer callback faults, not power-loss/multiwriter ACID"
+    },
+    {
+      "id": "I7",
+      "status": "PARTIAL",
+      "limit": "selected exact projection/NLRI; full independent attributes/hour pending"
+    },
+    {
+      "id": "I8",
+      "status": "PARTIAL",
+      "limit": "all57 private coordinate exclusions; full source sidecar service publication pending"
+    },
+    {
+      "id": "I9",
+      "status": "PASS_REGRESSION",
+      "limit": "old suites unchanged; no new whole legacy-bucket service read"
+    }
+  ]
+}

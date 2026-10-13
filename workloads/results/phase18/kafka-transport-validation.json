@@ -1,0 +1,42 @@
+{
+  "status": "PASS_SELECTED_WINDOW",
+  "code_commit": "314897f4ec79d34a93780096b6294fb9b19958cc",
+  "topic": "temporal.ris.source.v1.90d00db4-e0c2-4a53-937f-2d067e9dbaa7",
+  "namespace": "temporal.ris.source.v1.<UUID>",
+  "partitions": 2,
+  "key": "compressed artifact SHA256",
+  "acknowledged": [
+    {
+      "acknowledged_occurrences": 370141,
+      "elapsed_seconds": 153.797882832936,
+      "messages": 2892,
+      "resumed_from_event": 0,
+      "serialized_value_bytes": 269418671
+    }
+  ],
+  "offset_validation": {
+    "topic": "temporal.ris.source.v1.90d00db4-e0c2-4a53-937f-2d067e9dbaa7",
+    "broker_watermarks": {
+      "0": [
+        0,
+        0
+      ],
+      "1": [
+        0,
+        2892
+      ]
+    },
+    "spark_end_offsets": {
+      "0": 0,
+      "1": 2892
+    },
+    "lag": {
+      "0": 0,
+      "1": 0
+    },
+    "acknowledged_chunks": 2892
+  },
+  "wire_network_bytes": null,
+  "wire_network_bytes_reason": "value and log bytes measured, wire traffic not captured",
+  "retention_ms": 604800000
+}

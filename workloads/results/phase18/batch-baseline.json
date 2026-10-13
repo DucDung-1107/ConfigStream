@@ -1,0 +1,16 @@
+{
+  "status": "QUALIFIED_COLUMNAR_ORACLE_AVAILABLE",
+  "input": "same complete pinned first archive",
+  "output_parquet_bytes": 65722314,
+  "oracle_elapsed_seconds": 90.52503758401144,
+  "projection": "same declared event fields; independent NLRI and identity, shared pinned attribute decoding",
+  "work_included": [
+    "source hash/framing passes",
+    "production/pinned parser",
+    "independent binary decoder comparison",
+    "SQLite fingerprint inventory",
+    "Parquet write"
+  ],
+  "matched_service_timing_comparison": false,
+  "full_independent_attributes": "OPEN_GATE"
+}

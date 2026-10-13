@@ -1,0 +1,36 @@
+{
+  "code_commit": "314897f4ec79d34a93780096b6294fb9b19958cc",
+  "host_physical_ram_bytes": 19327352832,
+  "vm": {
+    "cpus": 2,
+    "ram_bytes": 6442450944,
+    "disk_bytes": 68719476736,
+    "no_expansion_this_phase": true
+  },
+  "spark": {
+    "master": "local[2]",
+    "driver_heap": "2g",
+    "version": "4.0.2"
+  },
+  "kafka_container_limit_bytes": 1610612736,
+  "minio_container_limit_bytes": 805306368,
+  "registered_policy": {
+    "free_disk_bytes": 21474836480,
+    "guest_available_memory_bytes": 536870912,
+    "per_run_growth_bytes": 16106127360,
+    "total_host_experiment_bytes": 53687091200,
+    "tree_rss_bytes": 12884901888
+  },
+  "runtime_cap_seconds": 1800,
+  "observed_elapsed_seconds": 283.8459718750091,
+  "peak_sampled_process_tree_rss_bytes": 2158067712,
+  "minimum_guest_free_disk_bytes": 44806324224,
+  "minimum_guest_available_memory_bytes": 4517789696,
+  "host_samples": 136,
+  "guest_samples": 28,
+  "host_guard_failure": null,
+  "guest_guard_failure": null,
+  "sampling_limitation": "not instantaneous peak or full CPU/container transient profiling",
+  "source_download_bytes": 0,
+  "post_validation_service_state": "Kafka and MinIO stopped; Lima k stopped; all volumes, topics, checkpoints and private evidence retained"
+}

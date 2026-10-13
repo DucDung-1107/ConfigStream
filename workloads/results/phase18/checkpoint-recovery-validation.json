@@ -1,0 +1,33 @@
+{
+  "status": "PASS_OWNED_SERVICE_FIXTURES",
+  "actual_service_tests": 5,
+  "failure_points": [
+    "before_output",
+    "partial_output",
+    "before_commit",
+    "after_commit_before_checkpoint_ack",
+    "invalid_transport"
+  ],
+  "additional_cases": [
+    "complete fixture archive replay",
+    "cross-batch older coordinate replay",
+    "distinct equal payload offsets",
+    "actual conflicting same-ID broker replay",
+    "actual MinIO conditional conflict"
+  ],
+  "physical_delivery_rows": 9,
+  "logical_native_occurrences": 4,
+  "native_fingerprint_keys": 2,
+  "uncommitted_rows_visible": 0,
+  "full_hour_recovery": "NOT_RUN",
+  "not_tested": [
+    "power loss",
+    "broker failover",
+    "multiwriter publication",
+    "all missing/corrupt manifest fault cases"
+  ],
+  "code_commit": "314897f4ec79d34a93780096b6294fb9b19958cc",
+  "test_command": "RUN_PHASE18_SERVICES=1 .venv/bin/python -m pytest tests/phase18_integration -q",
+  "test_elapsed_seconds": 75.91,
+  "code_basis": "all five owned-service tests rerun on exact implementation commit after final unit/API/Spark regressions"
+}

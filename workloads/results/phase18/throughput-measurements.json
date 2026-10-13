@@ -1,0 +1,112 @@
+{
+  "code_commit": "314897f4ec79d34a93780096b6294fb9b19958cc",
+  "code_hashes": {
+    "benchmarks/ris_service.py": "d71927ae34c48da3a08a67a4c9096d722b42f13ef9d7cd22449919223384fb88",
+    "lake/ris.py": "20bafeee8da6d5922e7a270202effbaa2209441163a972a584abe766dcbc2dac",
+    "messaging/ris.py": "f97a1988f880f56314439c58f6b71598a85f03789580c94b1fef1b860bc52687",
+    "processing/ris.py": "22b37f7970c712ff3b62eff7b61cd648bd0c5492c1c6fccfe3468dc8c1325c54",
+    "schemas/ris.py": "e315e62f2f062833b072f15c45ee270849b0358f98e819c4a215fb6a7679c71d",
+    "spark/ris.py": "4b7cba087f5a17cd03f287d1e507c785a5c7574f93e4fc846976440e4bcf0263"
+  },
+  "source_occurrences": 370141,
+  "source_time_rate_per_second": 1233.8033333333333,
+  "producer_seconds": 153.797882832936,
+  "producer_acknowledged_occurrences_per_second": 2406.671621104617,
+  "callback_total_seconds": 104.73289229022339,
+  "callbacks": [
+    {
+      "batch_id": 0,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 15.183739833068103
+    },
+    {
+      "batch_id": 1,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 9.36212320800405
+    },
+    {
+      "batch_id": 2,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 9.540147082996555
+    },
+    {
+      "batch_id": 3,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.746539583080448
+    },
+    {
+      "batch_id": 4,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.56871620810125
+    },
+    {
+      "batch_id": 5,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.221225749934092
+    },
+    {
+      "batch_id": 6,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.231716624926776
+    },
+    {
+      "batch_id": 7,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.287879290990531
+    },
+    {
+      "batch_id": 8,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.455931833013892
+    },
+    {
+      "batch_id": 9,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.55160041700583
+    },
+    {
+      "batch_id": 10,
+      "batch_logical_occurrences": 32768,
+      "input_occurrences": 32768,
+      "seconds": 8.135472125024535
+    },
+    {
+      "batch_id": 11,
+      "batch_logical_occurrences": 9693,
+      "input_occurrences": 9693,
+      "seconds": 3.4478003340773284
+    }
+  ],
+  "whole_run_seconds": 283.8459718750091,
+  "whole_run_occurrences_per_second": 1304.0206191933937,
+  "validation_seconds": 16.80267491703853,
+  "final_broker_lag": {
+    "0": 0,
+    "1": 0
+  },
+  "phase20_matched_benchmark": "NOT_RUN",
+  "paced_replays": "NOT_RUN",
+  "per_event_latency": null,
+  "minio_publication_seconds": null,
+  "cpu_utilization": null,
+  "unmeasured_reason": "publication included in callbacks; no per-event arrival/CPU instrumentation",
+  "failed_attempts": [
+    {
+      "query_id": "5820f967-5434-431f-8d5d-125372df90b6",
+      "status": "FAIL_REPORTING",
+      "failure": "Spark progress UUID serialization",
+      "accepted_performance_evidence": false,
+      "preserved": true
+    }
+  ]
+}

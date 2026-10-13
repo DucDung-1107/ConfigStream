@@ -1,0 +1,81 @@
+{
+  "accepted_occurrences": 370141,
+  "accepted_records": 187475,
+  "actions": {
+    "announcement": 349085,
+    "withdrawal": 21056
+  },
+  "artifact": {
+    "bytes": 6043608,
+    "revision": "phase13-pinned",
+    "safe_reference": "https://data.ris.ripe.net/rrc00/2026.09/updates.20260901.0000.gz",
+    "sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d"
+  },
+  "attribute_and_fingerprint_oracle": "pinned mrtparse JSON projection, not independent",
+  "decompressed_bytes": 34706880,
+  "elapsed_seconds": 90.52503758401144,
+  "events_per_minute": [
+    [
+      1788220800,
+      131108
+    ],
+    [
+      1788220860,
+      53630
+    ],
+    [
+      1788220920,
+      63090
+    ],
+    [
+      1788220980,
+      69888
+    ],
+    [
+      1788221040,
+      52425
+    ]
+  ],
+  "excluded_records": 5,
+  "excluded_records_decodable_by_minimal_oracle": 5,
+  "exclusions_by_category": {
+    "parser_body_error:Insufficient buffer 0 < 1 byte": 5
+  },
+  "framed_records": 187480,
+  "framing_sha256": "57430f365614a96e709251a20d8ebd492674c52f2a5815711150cd4b76891489",
+  "independent_identity_semantics_match": true,
+  "peak_events_per_minute": 131108,
+  "record_types": {
+    "16/0": 140,
+    "16/1": 345,
+    "16/4": 186928,
+    "16/5": 67
+  },
+  "repeated_fingerprints_beyond_first": 11351,
+  "source_download_bytes": 0,
+  "source_order_projection_sha256": "360db3704903d30cd175894ab91eb582745ed13c103318f61add9c2fa7ee9f7d",
+  "source_rate_fixed_five_minutes": 1233.8033333333333,
+  "unique_peers": 98,
+  "unique_prefixes": 64607,
+  "update_messages": 186717,
+  "scope": "complete first five-minute archive",
+  "full_hour_status": "NOT_RUN",
+  "independent_columns": [
+    "source_coordinate",
+    "logical_record_id",
+    "source_time",
+    "peer_asn",
+    "peer_ip",
+    "action",
+    "afi",
+    "prefix",
+    "path_id",
+    "expansion_ordinal"
+  ],
+  "qualified_columns": [
+    "attribute_digest",
+    "content_fingerprint"
+  ],
+  "qualification": "pinned parser JSON decoding and production projection supply these fields; not fully independent",
+  "private_normalized_parquet_bytes": 65722314
+}

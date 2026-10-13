@@ -1,0 +1,36 @@
+{
+  "window_seconds": 300,
+  "unit": "native peer-prefix occurrence under frozen expansion policy",
+  "events_per_minute": [
+    [
+      1788220800,
+      131108
+    ],
+    [
+      1788220860,
+      53630
+    ],
+    [
+      1788220920,
+      63090
+    ],
+    [
+      1788220980,
+      69888
+    ],
+    [
+      1788221040,
+      52425
+    ]
+  ],
+  "source_occurrences_per_second": 1233.8033333333333,
+  "peak_occurrences_per_minute": 131108,
+  "median_occurrences_per_minute": 63090,
+  "peak_to_mean_minute_ratio": 1.7710548142464628,
+  "timestamps": "recorded MRT source time, not operator commands or verified packet clock",
+  "hour_rate": {
+    "status": "HISTORICAL_REFERENCE_ONLY",
+    "occurrences_per_second": 1312.5433333333333,
+    "peak_per_minute": 181868
+  }
+}

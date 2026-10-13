@@ -1,0 +1,18 @@
+{
+  "status": "PASS_SELECTED_WINDOW",
+  "query_id": "90d00db4-e0c2-4a53-937f-2d067e9dbaa7",
+  "format_version": "ris-1.1",
+  "prefix": "phase18/90d00db4-e0c2-4a53-937f-2d067e9dbaa7",
+  "commits": 12,
+  "parquet_files": 48,
+  "physical_rows": 370141,
+  "logical_rows": 370141,
+  "conditional_publication": "actual MinIO identical retry accepted; conflicting retry rejected",
+  "uncommitted_output_visibility": "actual owned failure fixtures invisible before commit",
+  "source_manifest_registration": "separate pinned references, committed reader binding",
+  "source_exclusion_sidecar": "PARTIAL: private full coordinate/error ledgers; provenance counts persisted; complete sidecar publication pending",
+  "exact_missing_identities": 0,
+  "exact_unexpected_identities": 0,
+  "single_writer": true,
+  "cross_system_atomic_transaction": false
+}
