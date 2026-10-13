@@ -302,7 +302,9 @@ def build(path, source, output, *, check=lambda: None):
                 raise ValueError("DNS owned group evidence bound exceeded")
             addresses = sorted({row[1] for row in members})
             workers = sorted({row[3] for row in members if row[3] is not None})
-            times = [row[4] for row in members if row[4] is not None]
+            times = [
+                row[4] for row in members if row[4] is not None and 0 <= row[4] <= 253402300799999
+            ]
             names = json.loads(key)
             identity = independent_id(
                 "dns_group_observation",

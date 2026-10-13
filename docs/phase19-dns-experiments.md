@@ -38,12 +38,25 @@ Final two-object, representation and recovery measurements are recorded in
 [machine-readable validation](../workloads/results/phase19/validation.json)
 and [acceptance](phase19-acceptance.md). Only completed runs are accepted.
 
+Both selected objects passed in 1,224.086 s, with 538,543,164 Parquet bytes and
+peak sampled process-tree RSS 2,742,534,144 bytes. Exact independent comparison
+and both source barriers passed; final lag was zero. A separate 39.850-s replay
+of 256 real rows preserved the raw inventory and completed remote reconstruction
+and the additive selected-window binding. This is not another full ingestion run.
+
+The value-reuse components are **2,207,468 bytes larger** than the full-group
+components under the same shared raw/contributor projection. Preserve this
+negative finding. Whole prototype storage includes both alternatives, validation
+metadata and differences; no overall compression or streaming superiority claim.
+
 ## Reproduction
 
 ```sh
 make check
 make api-test
 make spark-test
+# Optional dependencies for the full local validation environment:
+.tools/uv/bin/uv sync --locked --all-extras
 # Existing local service environment and private credentials only:
 source .cache/local-kafka-env.sh
 set -a; source .cache/minio.env; set +a
@@ -51,6 +64,8 @@ RUN_PHASE19_SERVICES=1 .venv/bin/python -m pytest tests/phase19_integration
 caffeinate -i .venv/bin/python -m benchmarks.dns_service --stage sample --output .cache/phase19/sample-new
 caffeinate -i .venv/bin/python -m benchmarks.dns_service --stage one --output .cache/phase19/one-new
 caffeinate -i .venv/bin/python -m benchmarks.dns_service --stage two --output .cache/phase19/two-new
+# Only after that run passes:
+caffeinate -i .venv/bin/python -m benchmarks.dns_recovery --accepted .cache/phase19/two-new --output .cache/phase19/replay-new
 ```
 
 These are opt-in controlled workflows, not automatic replay instructions. Advance

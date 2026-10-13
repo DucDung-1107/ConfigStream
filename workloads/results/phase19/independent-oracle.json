@@ -1,0 +1,1118 @@
+{
+  "evidence_code_commit": "3ef6f6cb56e1162435f1af4af284de9b2cb86af4",
+  "evidence": "MEASURED_REAL_SOURCE",
+  "sources": [
+    {
+      "date": "2026-09-01",
+      "artifact": {
+        "artifact_bytes": 49445610,
+        "date": "2026-09-01",
+        "elapsed_seconds": 58.786016416037455,
+        "file": "dns-li-2026-09-01.parquet",
+        "sha256": "e65a143bd5ce981cf2d3881bf38fa0af186a1ab524bb40ec75e44b13dc848c97",
+        "url": "https://object.openintel.nl/openintel-public/fdns/basis=zonefile/source=li/year=2026/month=09/day=01/part-00004-76329cb5-c6f0-4ed2-b723-c44f277b9286.c000.gz.parquet"
+      },
+      "evidence": "MEASURED_REAL_SOURCE",
+      "fields": [
+        {
+          "name": "query_type",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "query_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "response_type",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "response_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "response_ttl",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "timestamp",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rtt",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "worker_id",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "status_code",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ad_flag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "extended_error",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "section",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ip4_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ip6_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "as",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "as_full",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ip_prefix",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cname_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dname_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "mx_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "mx_preference",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ns_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "txt_text",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ds_key_tag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ds_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ds_digest_type",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ds_digest",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_protocol",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_rsa_n",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_rsa_e",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_rsa_bitsize",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_eccgost_x",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_eccgost_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_t",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_q",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_p",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_g",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_eddsa_a",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_wire",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec_next_domain_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec_owner_rrset_types",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_hash_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_iterations",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_salt",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_next_domain_name_hash",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_owner_rrset_types",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_hash_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_iterations",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_salt",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "spf_text",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "soa_mname",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "soa_rname",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "soa_serial",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_refresh",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_retry",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_expire",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_minimum",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_type_covered",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_labels",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_original_ttl",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signature_inception",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signature_expiration",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_key_tag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signer_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signature",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cds_key_tag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cds_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cds_digest_type",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cds_digest",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_protocol",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_rsa_n",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_rsa_e",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_rsa_bitsize",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_eccgost_x",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_eccgost_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_t",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_q",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_p",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_g",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_eddsa_a",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_wire",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "caa_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "caa_tag",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "caa_value",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_usage",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_selector",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_matchtype",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_certdata",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ptr_name",
+          "type": "string",
+          "nullable": true
+        }
+      ],
+      "uncompressed_column_bytes": 126089599,
+      "minimum_timestamp_ms": 1788220960000,
+      "maximum_timestamp_ms": 1788265872000,
+      "distinct_recorded_workers": 4,
+      "unknown_source_timestamp_rows": 0,
+      "unknown_worker_rows": 0,
+      "timestamp_encoding": "epoch_millisecond",
+      "source_precision": "second",
+      "summary": {
+        "source_rows": 1117660,
+        "selected_address_rows": 176790,
+        "address_groups": 145559,
+        "query_names": 172474,
+        "status_codes": {
+          "0": 1048328,
+          "3": 63983,
+          "2": 4534,
+          "65533": 815
+        },
+        "dispositions": {
+          "selected_address": 176790,
+          "non_target": 871538,
+          "unsuccessful": 69332
+        },
+        "raw_projection_sha256": "25e37675aa2c0294ee4526741649eae5d10f93ffc0d70dd7eb1b70fc787cf8b1",
+        "source_order_sha256": "31d663dab7f6fae180cad992006b1dacfc7b87f93f8d5de786c95d0d7253f5d6",
+        "group_projection_sha256": "db9078206b46467a19544c12c6a7766f6bd6e98b37d8ccfb71d79b6c9d2e93c4",
+        "row_groups": [
+          1117660
+        ],
+        "raw_coordinates_complete": true,
+        "entity_coverage": "unknown",
+        "real_proven_empty_rows": 0,
+        "elapsed_seconds": 148.39608983299695
+      }
+    },
+    {
+      "date": "2026-09-02",
+      "artifact": {
+        "artifact_bytes": 49383060,
+        "date": "2026-09-02",
+        "elapsed_seconds": 29.080347667098977,
+        "file": "dns-li-2026-09-02.parquet",
+        "sha256": "9f8dd9ba56b813ebd3d68583a7d22ae525c67a2b10201f1806fc85e6b80b8854",
+        "url": "https://object.openintel.nl/openintel-public/fdns/basis=zonefile/source=li/year=2026/month=09/day=02/part-00004-0e99c419-64ba-47ba-8300-a6bd40efcc0e.c000.gz.parquet"
+      },
+      "evidence": "MEASURED_REAL_SOURCE",
+      "fields": [
+        {
+          "name": "query_type",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "query_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "response_type",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "response_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "response_ttl",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "timestamp",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rtt",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "worker_id",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "status_code",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ad_flag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "extended_error",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "section",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ip4_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ip6_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "country",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "as",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "as_full",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ip_prefix",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cname_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dname_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "mx_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "mx_preference",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ns_address",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "txt_text",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ds_key_tag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ds_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ds_digest_type",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "ds_digest",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_protocol",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_rsa_n",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_rsa_e",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_rsa_bitsize",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_eccgost_x",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_eccgost_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_t",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_q",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_p",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_g",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_dsa_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_eddsa_a",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "dnskey_pk_wire",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec_next_domain_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec_owner_rrset_types",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_hash_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_iterations",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_salt",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_next_domain_name_hash",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3_owner_rrset_types",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_hash_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_iterations",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "nsec3param_salt",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "spf_text",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "soa_mname",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "soa_rname",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "soa_serial",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_refresh",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_retry",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_expire",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "soa_minimum",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_type_covered",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_labels",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_original_ttl",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signature_inception",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signature_expiration",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_key_tag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signer_name",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "rrsig_signature",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cds_key_tag",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cds_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cds_digest_type",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cds_digest",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_protocol",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_algorithm",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_rsa_n",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_rsa_e",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_rsa_bitsize",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_eccgost_x",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_eccgost_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_t",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_q",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_p",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_g",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_dsa_y",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_eddsa_a",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "cdnskey_pk_wire",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "caa_flags",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "caa_tag",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "caa_value",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_usage",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_selector",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_matchtype",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "tlsa_certdata",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "ptr_name",
+          "type": "string",
+          "nullable": true
+        }
+      ],
+      "uncompressed_column_bytes": 126217927,
+      "minimum_timestamp_ms": 1788307684000,
+      "maximum_timestamp_ms": 1788356689000,
+      "distinct_recorded_workers": 4,
+      "unknown_source_timestamp_rows": 0,
+      "unknown_worker_rows": 0,
+      "timestamp_encoding": "epoch_millisecond",
+      "source_precision": "second",
+      "summary": {
+        "source_rows": 1117203,
+        "selected_address_rows": 176690,
+        "address_groups": 145368,
+        "query_names": 172318,
+        "status_codes": {
+          "0": 1047792,
+          "3": 63946,
+          "2": 4544,
+          "65533": 921
+        },
+        "dispositions": {
+          "selected_address": 176690,
+          "non_target": 871102,
+          "unsuccessful": 69411
+        },
+        "raw_projection_sha256": "c8bc57c9bbf830821b24dd6f203b626d9c6637e122df065c52e00f20f1ef25a9",
+        "source_order_sha256": "ce0a1f650443f2d3aa95db514a576a1677b4d6e37eddd3b138a55e4bae6fc24b",
+        "group_projection_sha256": "60f8cd4fb1d547ef3e7d6169deee852e0c08a9045ad45f4f95b5a15f7d870d1f",
+        "row_groups": [
+          1117203
+        ],
+        "raw_coordinates_complete": true,
+        "entity_coverage": "unknown",
+        "real_proven_empty_rows": 0,
+        "elapsed_seconds": 151.70256141596474
+      }
+    }
+  ],
+  "comparison": {
+    "common_groups": 144883,
+    "changed_groups": 4091,
+    "added_values": 7716,
+    "removed_values": 7612,
+    "unchanged_values": 168436,
+    "same_recorded_worker_sets": 55517,
+    "new_observed_groups": 485,
+    "no_longer_observed_groups": 676,
+    "strict_matched_vantage_eligible": 0,
+    "strict_unknown_qualification_groups": 144883,
+    "strict_reason": "resolver/vantage and measurement-method version not independently supplied",
+    "causal_interpretation": "unknown"
+  },
+  "independent_normalization": true,
+  "cross_artifact_raw_identity_intersection": 0,
+  "cross_artifact_group_identity_intersection": 0,
+  "exact_private_ledgers": true,
+  "raw_source_rows": 2234863,
+  "raw_redistribution": false,
+  "original_source_retention_required_for_nonprojected_fields": true,
+  "matched_performance_baseline": false,
+  "oracle_wall_seconds": 302.21,
+  "oracle_peak_process_rss_bytes": 1048477696
+}

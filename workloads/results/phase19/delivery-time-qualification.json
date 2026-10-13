@@ -1,0 +1,1860 @@
+{
+  "evidence_code_commit": "3ef6f6cb56e1162435f1af4af284de9b2cb86af4",
+  "evidence": "MEASURED_SERVICE",
+  "query_id": "d1ccfc95-1c76-4f45-90d5-c02d2cfe35af",
+  "timeline": [
+    {
+      "batch_id": 0,
+      "spark_batch_timestamp_ms": 1791913891901,
+      "kafka_start_offsets": {
+        "0": 0,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 256,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 0,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913661016
+        },
+        {
+          "partition": 0,
+          "offset": 255,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913668023
+        }
+      ]
+    },
+    {
+      "batch_id": 1,
+      "spark_batch_timestamp_ms": 1791913905839,
+      "kafka_start_offsets": {
+        "0": 256,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 512,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 256,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913668184
+        },
+        {
+          "partition": 0,
+          "offset": 511,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913674865
+        }
+      ]
+    },
+    {
+      "batch_id": 2,
+      "spark_batch_timestamp_ms": 1791913913274,
+      "kafka_start_offsets": {
+        "0": 512,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 768,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 512,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913675026
+        },
+        {
+          "partition": 0,
+          "offset": 767,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913681823
+        }
+      ]
+    },
+    {
+      "batch_id": 3,
+      "spark_batch_timestamp_ms": 1791913920399,
+      "kafka_start_offsets": {
+        "0": 768,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 1024,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 768,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913681989
+        },
+        {
+          "partition": 0,
+          "offset": 1023,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913688651
+        }
+      ]
+    },
+    {
+      "batch_id": 4,
+      "spark_batch_timestamp_ms": 1791913927432,
+      "kafka_start_offsets": {
+        "0": 1024,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 1280,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 1024,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913688808
+        },
+        {
+          "partition": 0,
+          "offset": 1279,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913695312
+        }
+      ]
+    },
+    {
+      "batch_id": 5,
+      "spark_batch_timestamp_ms": 1791913934587,
+      "kafka_start_offsets": {
+        "0": 1280,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 1536,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 1280,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913695476
+        },
+        {
+          "partition": 0,
+          "offset": 1535,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913702150
+        }
+      ]
+    },
+    {
+      "batch_id": 6,
+      "spark_batch_timestamp_ms": 1791913941718,
+      "kafka_start_offsets": {
+        "0": 1536,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 1792,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 1536,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913702321
+        },
+        {
+          "partition": 0,
+          "offset": 1791,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913708940
+        }
+      ]
+    },
+    {
+      "batch_id": 7,
+      "spark_batch_timestamp_ms": 1791913948721,
+      "kafka_start_offsets": {
+        "0": 1792,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 2048,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 1792,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913709099
+        },
+        {
+          "partition": 0,
+          "offset": 2047,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913715629
+        }
+      ]
+    },
+    {
+      "batch_id": 8,
+      "spark_batch_timestamp_ms": 1791913955831,
+      "kafka_start_offsets": {
+        "0": 2048,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 2304,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 2048,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913715787
+        },
+        {
+          "partition": 0,
+          "offset": 2303,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913722270
+        }
+      ]
+    },
+    {
+      "batch_id": 9,
+      "spark_batch_timestamp_ms": 1791913962897,
+      "kafka_start_offsets": {
+        "0": 2304,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 2560,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 2304,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913722434
+        },
+        {
+          "partition": 0,
+          "offset": 2559,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913728969
+        }
+      ]
+    },
+    {
+      "batch_id": 10,
+      "spark_batch_timestamp_ms": 1791913969921,
+      "kafka_start_offsets": {
+        "0": 2560,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 2816,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 2560,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913729127
+        },
+        {
+          "partition": 0,
+          "offset": 2815,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913735703
+        }
+      ]
+    },
+    {
+      "batch_id": 11,
+      "spark_batch_timestamp_ms": 1791913976851,
+      "kafka_start_offsets": {
+        "0": 2816,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 3072,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 2816,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913735862
+        },
+        {
+          "partition": 0,
+          "offset": 3071,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913742312
+        }
+      ]
+    },
+    {
+      "batch_id": 12,
+      "spark_batch_timestamp_ms": 1791913983811,
+      "kafka_start_offsets": {
+        "0": 3072,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 3328,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 3072,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913742474
+        },
+        {
+          "partition": 0,
+          "offset": 3327,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913748993
+        }
+      ]
+    },
+    {
+      "batch_id": 13,
+      "spark_batch_timestamp_ms": 1791913990813,
+      "kafka_start_offsets": {
+        "0": 3328,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 3584,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 3328,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913749151
+        },
+        {
+          "partition": 0,
+          "offset": 3583,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913756215
+        }
+      ]
+    },
+    {
+      "batch_id": 14,
+      "spark_batch_timestamp_ms": 1791913997964,
+      "kafka_start_offsets": {
+        "0": 3584,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 3840,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 3584,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913756381
+        },
+        {
+          "partition": 0,
+          "offset": 3839,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913763031
+        }
+      ]
+    },
+    {
+      "batch_id": 15,
+      "spark_batch_timestamp_ms": 1791914005282,
+      "kafka_start_offsets": {
+        "0": 3840,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 4096,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 3840,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913763198
+        },
+        {
+          "partition": 0,
+          "offset": 4095,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913769920
+        }
+      ]
+    },
+    {
+      "batch_id": 16,
+      "spark_batch_timestamp_ms": 1791914012352,
+      "kafka_start_offsets": {
+        "0": 4096,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 4352,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 4096,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913770082
+        },
+        {
+          "partition": 0,
+          "offset": 4351,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913776690
+        }
+      ]
+    },
+    {
+      "batch_id": 17,
+      "spark_batch_timestamp_ms": 1791914019250,
+      "kafka_start_offsets": {
+        "0": 4352,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 4608,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 4352,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913776856
+        },
+        {
+          "partition": 0,
+          "offset": 4607,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913783378
+        }
+      ]
+    },
+    {
+      "batch_id": 18,
+      "spark_batch_timestamp_ms": 1791914026153,
+      "kafka_start_offsets": {
+        "0": 4608,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 4864,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 4608,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913783541
+        },
+        {
+          "partition": 0,
+          "offset": 4863,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913790023
+        }
+      ]
+    },
+    {
+      "batch_id": 19,
+      "spark_batch_timestamp_ms": 1791914033045,
+      "kafka_start_offsets": {
+        "0": 4864,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 5120,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 4864,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913790189
+        },
+        {
+          "partition": 0,
+          "offset": 5119,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913796753
+        }
+      ]
+    },
+    {
+      "batch_id": 20,
+      "spark_batch_timestamp_ms": 1791914039977,
+      "kafka_start_offsets": {
+        "0": 5120,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 5376,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 5120,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913796912
+        },
+        {
+          "partition": 0,
+          "offset": 5375,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913803439
+        }
+      ]
+    },
+    {
+      "batch_id": 21,
+      "spark_batch_timestamp_ms": 1791914046854,
+      "kafka_start_offsets": {
+        "0": 5376,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 5632,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 5376,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913803598
+        },
+        {
+          "partition": 0,
+          "offset": 5631,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913810079
+        }
+      ]
+    },
+    {
+      "batch_id": 22,
+      "spark_batch_timestamp_ms": 1791914053981,
+      "kafka_start_offsets": {
+        "0": 5632,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 5888,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 5632,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913810237
+        },
+        {
+          "partition": 0,
+          "offset": 5887,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913816885
+        }
+      ]
+    },
+    {
+      "batch_id": 23,
+      "spark_batch_timestamp_ms": 1791914061058,
+      "kafka_start_offsets": {
+        "0": 5888,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 6144,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 5888,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913817050
+        },
+        {
+          "partition": 0,
+          "offset": 6143,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913823703
+        }
+      ]
+    },
+    {
+      "batch_id": 24,
+      "spark_batch_timestamp_ms": 1791914068245,
+      "kafka_start_offsets": {
+        "0": 6144,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 6400,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 6144,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913823865
+        },
+        {
+          "partition": 0,
+          "offset": 6399,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913830450
+        }
+      ]
+    },
+    {
+      "batch_id": 25,
+      "spark_batch_timestamp_ms": 1791914075253,
+      "kafka_start_offsets": {
+        "0": 6400,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 6656,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 6400,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913830612
+        },
+        {
+          "partition": 0,
+          "offset": 6655,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913837135
+        }
+      ]
+    },
+    {
+      "batch_id": 26,
+      "spark_batch_timestamp_ms": 1791914082339,
+      "kafka_start_offsets": {
+        "0": 6656,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 6912,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 6656,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913837298
+        },
+        {
+          "partition": 0,
+          "offset": 6911,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913843720
+        }
+      ]
+    },
+    {
+      "batch_id": 27,
+      "spark_batch_timestamp_ms": 1791914089462,
+      "kafka_start_offsets": {
+        "0": 6912,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 7168,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 6912,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913843879
+        },
+        {
+          "partition": 0,
+          "offset": 7167,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913850345
+        }
+      ]
+    },
+    {
+      "batch_id": 28,
+      "spark_batch_timestamp_ms": 1791914096580,
+      "kafka_start_offsets": {
+        "0": 7168,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 7424,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 7168,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913850507
+        },
+        {
+          "partition": 0,
+          "offset": 7423,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913857011
+        }
+      ]
+    },
+    {
+      "batch_id": 29,
+      "spark_batch_timestamp_ms": 1791914103627,
+      "kafka_start_offsets": {
+        "0": 7424,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 7680,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 7424,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913857175
+        },
+        {
+          "partition": 0,
+          "offset": 7679,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913863626
+        }
+      ]
+    },
+    {
+      "batch_id": 30,
+      "spark_batch_timestamp_ms": 1791914110698,
+      "kafka_start_offsets": {
+        "0": 7680,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 7936,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 7680,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913863784
+        },
+        {
+          "partition": 0,
+          "offset": 7935,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913870303
+        }
+      ]
+    },
+    {
+      "batch_id": 31,
+      "spark_batch_timestamp_ms": 1791914117943,
+      "kafka_start_offsets": {
+        "0": 7936,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 8192,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 7936,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913870465
+        },
+        {
+          "partition": 0,
+          "offset": 8191,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913877002
+        }
+      ]
+    },
+    {
+      "batch_id": 32,
+      "spark_batch_timestamp_ms": 1791914125251,
+      "kafka_start_offsets": {
+        "0": 8192,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 8448,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 8192,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913877166
+        },
+        {
+          "partition": 0,
+          "offset": 8447,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913883827
+        }
+      ]
+    },
+    {
+      "batch_id": 33,
+      "spark_batch_timestamp_ms": 1791914132293,
+      "kafka_start_offsets": {
+        "0": 8448,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 8704,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 8448,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913883986
+        },
+        {
+          "partition": 0,
+          "offset": 8703,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913890607
+        }
+      ]
+    },
+    {
+      "batch_id": 34,
+      "spark_batch_timestamp_ms": 1791914139199,
+      "kafka_start_offsets": {
+        "0": 8704,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 8732,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 8704,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913890692
+        },
+        {
+          "partition": 0,
+          "offset": 8731,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791913891322
+        }
+      ]
+    },
+    {
+      "batch_id": 35,
+      "spark_batch_timestamp_ms": 1791914371240,
+      "kafka_start_offsets": {
+        "0": 8732,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 8988,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 8732,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914141180
+        },
+        {
+          "partition": 0,
+          "offset": 8987,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914148631
+        }
+      ]
+    },
+    {
+      "batch_id": 36,
+      "spark_batch_timestamp_ms": 1791914381920,
+      "kafka_start_offsets": {
+        "0": 8988,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 9244,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 8988,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914148793
+        },
+        {
+          "partition": 0,
+          "offset": 9243,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914155331
+        }
+      ]
+    },
+    {
+      "batch_id": 37,
+      "spark_batch_timestamp_ms": 1791914389146,
+      "kafka_start_offsets": {
+        "0": 9244,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 9500,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 9244,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914155503
+        },
+        {
+          "partition": 0,
+          "offset": 9499,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914162165
+        }
+      ]
+    },
+    {
+      "batch_id": 38,
+      "spark_batch_timestamp_ms": 1791914396073,
+      "kafka_start_offsets": {
+        "0": 9500,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 9756,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 9500,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914162330
+        },
+        {
+          "partition": 0,
+          "offset": 9755,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914168906
+        }
+      ]
+    },
+    {
+      "batch_id": 39,
+      "spark_batch_timestamp_ms": 1791914403012,
+      "kafka_start_offsets": {
+        "0": 9756,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 10012,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 9756,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914169069
+        },
+        {
+          "partition": 0,
+          "offset": 10011,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914175592
+        }
+      ]
+    },
+    {
+      "batch_id": 40,
+      "spark_batch_timestamp_ms": 1791914410045,
+      "kafka_start_offsets": {
+        "0": 10012,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 10268,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 10012,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914175754
+        },
+        {
+          "partition": 0,
+          "offset": 10267,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914182413
+        }
+      ]
+    },
+    {
+      "batch_id": 41,
+      "spark_batch_timestamp_ms": 1791914417244,
+      "kafka_start_offsets": {
+        "0": 10268,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 10524,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 10268,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914182579
+        },
+        {
+          "partition": 0,
+          "offset": 10523,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914189302
+        }
+      ]
+    },
+    {
+      "batch_id": 42,
+      "spark_batch_timestamp_ms": 1791914424577,
+      "kafka_start_offsets": {
+        "0": 10524,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 10780,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 10524,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914189471
+        },
+        {
+          "partition": 0,
+          "offset": 10779,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914196060
+        }
+      ]
+    },
+    {
+      "batch_id": 43,
+      "spark_batch_timestamp_ms": 1791914431660,
+      "kafka_start_offsets": {
+        "0": 10780,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 11036,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 10780,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914196218
+        },
+        {
+          "partition": 0,
+          "offset": 11035,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914202726
+        }
+      ]
+    },
+    {
+      "batch_id": 44,
+      "spark_batch_timestamp_ms": 1791914438688,
+      "kafka_start_offsets": {
+        "0": 11036,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 11292,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 11036,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914202887
+        },
+        {
+          "partition": 0,
+          "offset": 11291,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914209332
+        }
+      ]
+    },
+    {
+      "batch_id": 45,
+      "spark_batch_timestamp_ms": 1791914445564,
+      "kafka_start_offsets": {
+        "0": 11292,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 11548,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 11292,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914209488
+        },
+        {
+          "partition": 0,
+          "offset": 11547,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914216108
+        }
+      ]
+    },
+    {
+      "batch_id": 46,
+      "spark_batch_timestamp_ms": 1791914452382,
+      "kafka_start_offsets": {
+        "0": 11548,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 11804,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 11548,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914216265
+        },
+        {
+          "partition": 0,
+          "offset": 11803,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914222756
+        }
+      ]
+    },
+    {
+      "batch_id": 47,
+      "spark_batch_timestamp_ms": 1791914459298,
+      "kafka_start_offsets": {
+        "0": 11804,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 12060,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 11804,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914222924
+        },
+        {
+          "partition": 0,
+          "offset": 12059,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914229421
+        }
+      ]
+    },
+    {
+      "batch_id": 48,
+      "spark_batch_timestamp_ms": 1791914466183,
+      "kafka_start_offsets": {
+        "0": 12060,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 12316,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 12060,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914229586
+        },
+        {
+          "partition": 0,
+          "offset": 12315,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914236226
+        }
+      ]
+    },
+    {
+      "batch_id": 49,
+      "spark_batch_timestamp_ms": 1791914473054,
+      "kafka_start_offsets": {
+        "0": 12316,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 12572,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 12316,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914236391
+        },
+        {
+          "partition": 0,
+          "offset": 12571,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914242959
+        }
+      ]
+    },
+    {
+      "batch_id": 50,
+      "spark_batch_timestamp_ms": 1791914480021,
+      "kafka_start_offsets": {
+        "0": 12572,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 12828,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 12572,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914243121
+        },
+        {
+          "partition": 0,
+          "offset": 12827,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914249712
+        }
+      ]
+    },
+    {
+      "batch_id": 51,
+      "spark_batch_timestamp_ms": 1791914487032,
+      "kafka_start_offsets": {
+        "0": 12828,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 13084,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 12828,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914249870
+        },
+        {
+          "partition": 0,
+          "offset": 13083,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914256419
+        }
+      ]
+    },
+    {
+      "batch_id": 52,
+      "spark_batch_timestamp_ms": 1791914494024,
+      "kafka_start_offsets": {
+        "0": 13084,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 13340,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 13084,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914256581
+        },
+        {
+          "partition": 0,
+          "offset": 13339,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914263043
+        }
+      ]
+    },
+    {
+      "batch_id": 53,
+      "spark_batch_timestamp_ms": 1791914500911,
+      "kafka_start_offsets": {
+        "0": 13340,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 13596,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 13340,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914263201
+        },
+        {
+          "partition": 0,
+          "offset": 13595,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914269753
+        }
+      ]
+    },
+    {
+      "batch_id": 54,
+      "spark_batch_timestamp_ms": 1791914507791,
+      "kafka_start_offsets": {
+        "0": 13596,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 13852,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 13596,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914269910
+        },
+        {
+          "partition": 0,
+          "offset": 13851,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914276399
+        }
+      ]
+    },
+    {
+      "batch_id": 55,
+      "spark_batch_timestamp_ms": 1791914514725,
+      "kafka_start_offsets": {
+        "0": 13852,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 14108,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 13852,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914276559
+        },
+        {
+          "partition": 0,
+          "offset": 14107,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914283040
+        }
+      ]
+    },
+    {
+      "batch_id": 56,
+      "spark_batch_timestamp_ms": 1791914521623,
+      "kafka_start_offsets": {
+        "0": 14108,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 14364,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 14108,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914283198
+        },
+        {
+          "partition": 0,
+          "offset": 14363,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914289725
+        }
+      ]
+    },
+    {
+      "batch_id": 57,
+      "spark_batch_timestamp_ms": 1791914528509,
+      "kafka_start_offsets": {
+        "0": 14364,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 14620,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 14364,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914289883
+        },
+        {
+          "partition": 0,
+          "offset": 14619,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914296433
+        }
+      ]
+    },
+    {
+      "batch_id": 58,
+      "spark_batch_timestamp_ms": 1791914535453,
+      "kafka_start_offsets": {
+        "0": 14620,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 14876,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 14620,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914296599
+        },
+        {
+          "partition": 0,
+          "offset": 14875,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914303147
+        }
+      ]
+    },
+    {
+      "batch_id": 59,
+      "spark_batch_timestamp_ms": 1791914542458,
+      "kafka_start_offsets": {
+        "0": 14876,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 15132,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 14876,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914303302
+        },
+        {
+          "partition": 0,
+          "offset": 15131,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914309761
+        }
+      ]
+    },
+    {
+      "batch_id": 60,
+      "spark_batch_timestamp_ms": 1791914549423,
+      "kafka_start_offsets": {
+        "0": 15132,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 15388,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 15132,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914309920
+        },
+        {
+          "partition": 0,
+          "offset": 15387,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914316412
+        }
+      ]
+    },
+    {
+      "batch_id": 61,
+      "spark_batch_timestamp_ms": 1791914556360,
+      "kafka_start_offsets": {
+        "0": 15388,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 15644,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 15388,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914316572
+        },
+        {
+          "partition": 0,
+          "offset": 15643,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914323216
+        }
+      ]
+    },
+    {
+      "batch_id": 62,
+      "spark_batch_timestamp_ms": 1791914563269,
+      "kafka_start_offsets": {
+        "0": 15644,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 15900,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 15644,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914323376
+        },
+        {
+          "partition": 0,
+          "offset": 15899,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914329820
+        }
+      ]
+    },
+    {
+      "batch_id": 63,
+      "spark_batch_timestamp_ms": 1791914570142,
+      "kafka_start_offsets": {
+        "0": 15900,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 16156,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 15900,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914329982
+        },
+        {
+          "partition": 0,
+          "offset": 16155,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914336474
+        }
+      ]
+    },
+    {
+      "batch_id": 64,
+      "spark_batch_timestamp_ms": 1791914577094,
+      "kafka_start_offsets": {
+        "0": 16156,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 16412,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 16156,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914336632
+        },
+        {
+          "partition": 0,
+          "offset": 16411,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914343131
+        }
+      ]
+    },
+    {
+      "batch_id": 65,
+      "spark_batch_timestamp_ms": 1791914584019,
+      "kafka_start_offsets": {
+        "0": 16412,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 16668,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 16412,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914343290
+        },
+        {
+          "partition": 0,
+          "offset": 16667,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914350156
+        }
+      ]
+    },
+    {
+      "batch_id": 66,
+      "spark_batch_timestamp_ms": 1791914591046,
+      "kafka_start_offsets": {
+        "0": 16668,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 16924,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 16668,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914350424
+        },
+        {
+          "partition": 0,
+          "offset": 16923,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914356942
+        }
+      ]
+    },
+    {
+      "batch_id": 67,
+      "spark_batch_timestamp_ms": 1791914598338,
+      "kafka_start_offsets": {
+        "0": 16924,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 17180,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 16924,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914357103
+        },
+        {
+          "partition": 0,
+          "offset": 17179,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914363749
+        }
+      ]
+    },
+    {
+      "batch_id": 68,
+      "spark_batch_timestamp_ms": 1791914605676,
+      "kafka_start_offsets": {
+        "0": 17180,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 17436,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 17180,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914363911
+        },
+        {
+          "partition": 0,
+          "offset": 17435,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914370497
+        }
+      ]
+    },
+    {
+      "batch_id": 69,
+      "spark_batch_timestamp_ms": 1791914612591,
+      "kafka_start_offsets": {
+        "0": 17436,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 17461,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 17436,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914370575
+        },
+        {
+          "partition": 0,
+          "offset": 17460,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791914371121
+        }
+      ]
+    },
+    {
+      "batch_id": 70,
+      "spark_batch_timestamp_ms": 1791915469138,
+      "kafka_start_offsets": {
+        "0": 17461,
+        "1": 0
+      },
+      "kafka_end_offsets": {
+        "0": 17463,
+        "1": 0
+      },
+      "endpoint_timestamp_samples": [
+        {
+          "partition": 0,
+          "offset": 17461,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791915468501
+        },
+        {
+          "partition": 0,
+          "offset": 17462,
+          "kafka_timestamp_type": 1,
+          "kafka_recorded_timestamp_ms": 1791915468708
+        }
+      ]
+    }
+  ],
+  "kafka_timestamp_type_1": "producer CreateTime, not proven broker arrival time",
+  "spark_timestamp": "checkpoint batch initiation clock, not source observation time",
+  "source_precision": "second",
+  "source_encoding": "epoch_millisecond",
+  "timestamp_sampling_scope": "Offset endpoints only; not a full per-record receipt ledger",
+  "true_network_arrival_time": "NOT_MEASURED",
+  "clock_accuracy": "NOT_ESTABLISHED"
+}

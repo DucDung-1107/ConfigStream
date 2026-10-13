@@ -1,0 +1,11 @@
+{
+  "I1": {"statuses": ["PASS_REAL_SOURCE", "PASS_INTEGRATION"], "scope": "All 2234863 selected rows; original Parquet coordinates, source and window hashes; owned provenance corruption tests"},
+  "I2": {"statuses": ["PASS_INTEGRATION"], "scope": "256 real source retries with zero added logical rows; four actual Kafka checkpoint failure/restart cases"},
+  "I3": {"statuses": ["PASS_REAL_SOURCE", "PASS_OFFLINE"], "scope": "Full exact raw maps, contributors and lossless reuse; distinct source rows are never address-value deduplicated"},
+  "I4": {"statuses": ["PASS_REAL_SOURCE", "PASS_OFFLINE", "PASS_INTEGRATION"], "scope": "Artifact/group barriers plus owned absence/timeout/empty/worker controls; real entity coverage remains unknown"},
+  "I5": {"statuses": ["PASS_REAL_SOURCE", "QUALIFIED"], "scope": "Original epoch-ms values with second precision; recorded Kafka endpoint and Spark checkpoint clocks separate; true arrival time and clock accuracy not established"},
+  "I6": {"statuses": ["PASS_INTEGRATION"], "scope": "Owned missing/corrupt metadata, raw Parquet, group/value/window tests; committed physical readers validate projection checksums"},
+  "I7": {"statuses": ["PASS_REAL_SOURCE", "PASS_INTEGRATION"], "scope": "Exact per-source raw/group/contributor and common-group difference maps; remote reused-value reconstruction; no zone-state claim"},
+  "I8": {"statuses": ["PASS_REAL_SOURCE", "PASS_OFFLINE"], "scope": "All selected rows accounted for; non-address is not an error, 65533 unknown, synthetic timeout/proven-empty controls, no real proven-empty inference"},
+  "I9": {"statuses": ["PASS_OFFLINE", "PASS_LOCAL"], "scope": "1079 unit, 80 API, 106 Spark; original schemas/paths/checkpoints unchanged; no old full-volume pipeline replay was required"}
+}

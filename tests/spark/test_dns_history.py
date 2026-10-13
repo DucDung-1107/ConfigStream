@@ -115,6 +115,21 @@ def test_independent_comparison_ledger(dns_session, tmp_path):
         assert exact.count() == 2
 
 
+def test_group_invalid_time_remains_unknown(dns_session, tmp_path):
+    from processing.dns import normalize_row
+    from spark.dns import observed_groups, schema
+    from workloads.dns_oracle import raw_schema
+
+    path, source, rows = owned_source(tmp_path)
+    unknown = normalize_row(rows[0] | {"timestamp": -1}, source, 0, 0)
+    raw = dns_session.createDataFrame([tuple(unknown.model_dump().values())], schema(raw_schema()))
+    groups, selected = observed_groups(raw, source)
+    result = groups.first()
+    assert result.unknown_time == 1
+    assert result.minimum_timestamp_ms is None and result.maximum_timestamp_ms is None
+    assert selected.first().timestamp_ms == -1
+
+
 @pytest.mark.parametrize(
     "failure", ["before_output", "partial_output", "before_commit", "after_commit"]
 )

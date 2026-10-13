@@ -1,0 +1,49 @@
+{
+  "evidence_code_commit": "3ef6f6cb56e1162435f1af4af284de9b2cb86af4",
+  "evidence": "MEASURED_SERVICE",
+  "query_id": "d1ccfc95-1c76-4f45-90d5-c02d2cfe35af",
+  "after_bounded_real_source_replay": true,
+  "tables": {
+    "raw": {
+      "parquet_bytes": 358989038,
+      "parquet_files": 140
+    },
+    "groups": {
+      "parquet_bytes": 42504527,
+      "parquet_files": 4
+    },
+    "contributors": {
+      "parquet_bytes": 46551557,
+      "parquet_files": 4
+    },
+    "values": {
+      "parquet_bytes": 3852158,
+      "parquet_files": 4
+    },
+    "reuse": {
+      "parquet_bytes": 40859837,
+      "parquet_files": 4
+    },
+    "differences": {
+      "parquet_bytes": 24159623,
+      "parquet_files": 2
+    },
+    "qualifications": {
+      "parquet_bytes": 21626424,
+      "parquet_files": 2
+    }
+  },
+  "source_parquet_bytes": 98828670,
+  "object_content_bytes": 539562365,
+  "parquet_bytes": 538543164,
+  "full_component_bytes": 448045122,
+  "reused_component_bytes": 450252590,
+  "representation_evaluation": "Components only; prototype jointly retains full and reused groups for validation. Not a standalone reduced-retention deployment.",
+  "selected_broker_apparent_bytes": 2039525808,
+  "selected_broker_allocated_bytes": 1997791232,
+  "checkpoint_bytes": 64079,
+  "private_oracle_bytes": 3357722430,
+  "network_wire_bytes": "NOT_MEASURED",
+  "minio_backend_filesystem_overhead": "NOT_MEASURED",
+  "matched_batch_stream_speed_comparison": "NOT_RUN; Phase20 not started"
+}

@@ -1,0 +1,33 @@
+{
+  "evidence": "PASS_LOCAL",
+  "validated_implementation_commit": "3ef6f6cb56e1162435f1af4af284de9b2cb86af4",
+  "quality": {"command": "make check", "passed": 1079, "seconds": 12.87, "lint_format": "PASS"},
+  "api": {"command": "make api-test", "passed": 80, "seconds": 0.56, "warnings": 1},
+  "spark": {"command": "make spark-test", "passed": 106, "seconds": 171.42},
+  "actual_services": {
+    "evidence": "MEASURED_SERVICE",
+    "first_command": "RUN_PHASE19_SERVICES=1 pytest tests/phase19_integration -q",
+    "first_collected_cases": 13,
+    "first_passed": 13,
+    "first_seconds": 141.96,
+    "second_command": "RUN_PHASE19_SERVICES=1 pytest tests/phase19_integration/test_dns_integrity.py::test_actual_window_bindings -q",
+    "second_passed": 1,
+    "second_seconds": 45.86,
+    "distinct_passed_cases": 14,
+    "skipped": 0,
+    "checkpoint_scope": "Four owned Kafka/Spark/MinIO callback-exception cases, including commit-before-ack restart",
+    "integrity_scope": "Ten owned Spark/MinIO provenance/file/group/value/late-completion/window cases",
+    "real_source_replay_command": "python -m benchmarks.dns_recovery --accepted .cache/phase19/service-two --output .cache/phase19/real-replay",
+    "real_source_replay_seconds": 39.85011333297007,
+    "real_source_replay_rows": 256,
+    "real_source_additional_logical_rows": 0,
+    "real_source_inventory_sha256_before_after": "aab8b5126f47bdc5532339a7e66c4d221b177f4159342e61f901cc00237a376d"
+  },
+  "preserved_negative_evidence": [
+    "Initial broker fixture: four failed cases due to destroyed temporary Kafka AdminClient; fixed client lifetime, later tests passed",
+    "Initial sample: exact raw readback passed but offset bookkeeping failed for Spark dict-form offsets; fresh bounded sample passed after focused fix",
+    "Early CI: missing optional PyArrow in quality setup; DNS extra and dependency isolation corrected",
+    "Value reuse components grew by 2207468 bytes versus full components"
+  ],
+  "not_claimed": ["power-loss durability", "broker failover", "multiwriter ACID", "full-source fault injection on external evidence", "matched batch speedup"]
+}

@@ -231,17 +231,20 @@ def observed_groups(raw, reference):
         selected = selected.withColumn(
             field, functions.lower(functions.regexp_replace(functions.col(field), r"\.+$", ""))
         )
+    known_time = functions.col("timestamp_ms").between(0, 253402300799999)
     grouped = selected.groupBy(*names).agg(
         functions.sort_array(functions.collect_set("address_value")).alias("addresses"),
         functions.sort_array(functions.collect_set("worker_id")).alias("workers"),
-        functions.min("timestamp_ms").alias("minimum_timestamp_ms"),
-        functions.max("timestamp_ms").alias("maximum_timestamp_ms"),
+        functions.min(functions.when(known_time, functions.col("timestamp_ms"))).alias(
+            "minimum_timestamp_ms"
+        ),
+        functions.max(functions.when(known_time, functions.col("timestamp_ms"))).alias(
+            "maximum_timestamp_ms"
+        ),
         functions.max(functions.when(functions.col("worker_id").isNull(), 1).otherwise(0)).alias(
             "unknown_worker"
         ),
-        functions.max(functions.when(functions.col("timestamp_ms").isNull(), 1).otherwise(0)).alias(
-            "unknown_time"
-        ),
+        functions.max(functions.when(known_time, 0).otherwise(1)).alias("unknown_time"),
         functions.count("*").alias("contributors"),
     )
     if grouped.where("contributors>4096").limit(1).count():

@@ -45,3 +45,25 @@ eligibility remains unproven; recorded-worker sensitivity is a separate analysis
 
 Sources: [dictionary](https://openintel.nl/data/dictionary/),
 [terms](https://openintel.nl/download/terms/). See [source acknowledgment](phase19-source-attribution.md).
+
+## P19-WINDOW-1.0 — additive final acceptance metadata
+
+Raw/source/analytical/comparison commit versions remain unchanged. Add an immutable
+`dns-selected-window-1.0` descriptor binding the whole raw inventory, both source
+completion hashes, complete source-reference wrapper hashes and comparison hash.
+It detects corrupted selection-date metadata outside the underlying SourceManifest
+hash, as well as unexpected artifact scopes. Readers verify the metadata chain;
+physical table readers additionally verify content. Existing source-only commits
+do not implicitly acquire this stronger window guarantee.
+
+The accepted two-object run completed source/comparison publication at `1d5e388`.
+A separate bounded 256-row replay plus complete committed group/value readback at
+`3ef6f6c` published the additive window descriptor. Original raw batches, source
+descriptors and comparison metadata were not overwritten or retrospectively relabeled.
+
+The final time audit aligns group unknown-time flags with the existing raw
+KnownTime/UnknownTime supported epoch range. Invalid encoded times remain in raw
+evidence but do not become a known group time range. Owned negative-time tests
+cover this. All selected real timestamps are nonnull and inside that range, as
+verified by the complete reference minima/maxima; the frozen group projections
+and identities therefore remain unchanged. No source replay is required.
