@@ -136,6 +136,48 @@ def test_dns_source_offset_representations():
     )
     with pytest.raises(ValueError):
         source_offsets({"wrong": {"0": 32}}, topic)
+    with pytest.raises(ValueError):
+        source_offsets({topic: {0: 32}}, topic)
+
+
+@pytest.mark.parametrize(
+    "field", ["parser_version", "canonicalization_version", "counting_policy_version"]
+)
+def test_dns_reference_rejects_policy_revision(tmp_path, field):
+    path, source, rows = owned_source(tmp_path)
+    record = source.model_dump(mode="json")
+    record["manifest"][field] = "unapproved-v2"
+    with pytest.raises(ValueError):
+        DnsReference.model_validate(record)
+
+
+@pytest.mark.parametrize(
+    "field", ["partition_date", "artifact_sha256", "provenance_manifest_id", "logical_record_id"]
+)
+def test_dns_reference_rejects_coordinate_binding(tmp_path, field):
+    path, source, rows = owned_source(tmp_path)
+    row = normalize_row(rows[0], source, 0, 0)
+    changed = "2024-01-02" if field == "partition_date" else "0" * 64
+    with pytest.raises(ValueError):
+        row.model_copy(update={field: changed}).validate_reference(source)
+
+
+def test_unknown_time_and_equal_values_across_days_preserve_evidence(tmp_path):
+    path, source, rows = owned_source(tmp_path)
+    row = normalize_row(rows[0], source, 0, 0)
+    unknown = normalize_row(rows[0] | {"timestamp": -1}, source, 0, 0)
+    assert unknown.time_descriptor().kind == "unknown"
+    other_artifact = source.manifest.artifacts[0].model_copy(update={"sha256": "b" * 64})
+    other = source.model_copy(
+        update={
+            "partition_date": date(2024, 1, 2),
+            "manifest": source.manifest.model_copy(update={"artifacts": (other_artifact,)}),
+        }
+    )
+    next_day = normalize_row(rows[0], other, 0, 0)
+    assert next_day.address_value == row.address_value
+    assert next_day.logical_record_id != row.logical_record_id
+    assert next_day.partition_date != row.partition_date
 
 
 @pytest.mark.parametrize(
