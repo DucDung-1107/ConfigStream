@@ -12,6 +12,15 @@
       "status": "BOOTSTRAP_FAILURE",
       "reason": "Resolving virtualenv interpreter symlink dropped environment; missing PyArrow; fixed .absolute(), failed namespace retained",
       "performance_use": "EXCLUDED; no measured projection run"
+    },
+    {
+      "status": "FAILED_CALLBACK_THREAD_VALIDATOR",
+      "code_commit": "138f4fc6dfeceb8dd6855e1614c9612144d79db5",
+      "seconds": 75.32681291701738,
+      "reason": "SQLite main-thread connection used byforeachBatch;stoppedbeforebatchcommit",
+      "disposition": "2uncommittedParquet/0commit/nocompletion;oracleunchanged;oneapprovedretry27PASS",
+      "performance_use": "Notpooledincorrectedmedians",
+      "results": "matched-processing-attempt-1.json"
     }
   ],
   "dns_prior": {
@@ -27,6 +36,6 @@
     "corrected_reported_disk_spill_bytes": 0,
     "interpretation": "Shuffle cost not hidden; disk-only persistence not called spill, not a matched speedup"
   },
-  "new_correctness_failures": "None in completed accepted trials; failed bootstrap excluded from timing medians",
-  "missing": "Import/startup, task CPU/physical IO and network-wire bytes NOT_MEASURED; full service-rate repetitions NOT_RUN"
+  "new_correctness_failures": "No incorrect accepted history; failed bootstrap/callback retained,excludedfromacceptedmedians",
+  "missing": "H3 rates/drain,fullproduction repetitionsNOT_RUN;CPU/physical-I/O/heapoccupancyunmeasured"
 }

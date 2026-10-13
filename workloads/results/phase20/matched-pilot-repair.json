@@ -17,7 +17,8 @@
     "scope": "Owned fixtures, actual callback thread, equal-payload multiplicity, identical retry, conflicting payload fails; not Kafka/MinIO service rerun"
   },
   "retry_approval": "OWNER_APPROVED_ONE_BOUNDED_RETRY; see matched-pilot-retry-registration.json",
-  "new_service_retry_status": "NOT_STARTED_AT_REPAIR_REGISTRATION",
+  "new_service_retry_status": "PASS:27exactcoretrials,9B3lag0;notcheckpointrestart/powerloss proof",
   "unchanged": "Source hashes, identity, required fields, parser/counting/fingerprint policies, preference thresholds, VM/heap",
-  "phase21": "NOT_STARTED"
+  "phase21": "NOT_STARTED",
+  "retry_results": "matched-processing-repetitions.json"
 }

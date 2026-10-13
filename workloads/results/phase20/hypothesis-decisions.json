@@ -10,7 +10,8 @@
     "decision": "SUPPORTED_WITHIN_TESTED_SCOPE",
     "sources": [
       "correctness-matrix.json",
-      "regression-validation.json"
+      "regression-validation.json",
+      "matched-processing-repetitions.json"
     ],
     "limit": "Declared owned callback/replay failure model and accepted real windows, not arbitrary distributed failures"
   },
@@ -20,7 +21,7 @@
       "rpki-representations.json"
     ],
     "finding": "R2 and R3 meet >=20% analytical byte saving and <=2x median time for every registered E2R query",
-    "limit": "Snappy canonical-tuple evaluation projection, SQLite validation-inclusive local queries; not universal or all-in deployed storage preference"
+    "limit": "Local Snappy canonical-tuple queries separate oracleverification;notuniversal or deployedall-in preference"
   },
   "H3": {
     "decision": "NOT_RUN",

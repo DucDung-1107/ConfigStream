@@ -1,5 +1,13 @@
 # Phase 20 — common correctness campaign
 
+The approved corrected core campaign adds27 exact MinIO histories with unchanged
+normalized identities/full fields and all9 B3 selected-offset lags0.
+[Measurements](../workloads/results/phase20/matched-processing-repetitions.json)
+do not claim new raw-parser or full production recovery acceptance.
+The real callback failure left2uncommitted Parquet/zero commits/no completion;
+owned threaded/local Spark tests and a separately approved fresh-namespace retry
+validated the repair without deleting negative evidence.
+
 See [scope matrix](../workloads/results/phase20/correctness-matrix.json),
 [recovery evidence](../workloads/results/phase20/recovery-results.json) and
 [invariant coverage](../workloads/results/phase20/invariant-coverage.json).

@@ -1,0 +1,2057 @@
+{
+  "evidence": "MEASURED_SERVICE_NORMALIZED_CORE",
+  "status": "PASS",
+  "registration": "matched-pilot-registration.json;matched-pilot-retry-registration.json",
+  "private_run_directory": ".cache/phase20/matched-retry-approved",
+  "cap_seconds": 7200,
+  "growth_cap_bytes": 6442450944,
+  "campaign_elapsed_seconds": 427.65458912507165,
+  "combined_attempt_elapsed_seconds": 502.98140204208903,
+  "measured_successful_trials": 27,
+  "measured_failed_trials": 0,
+  "unexecuted_trial_count": 0,
+  "trials": [
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B0",
+      "repetition": 1,
+      "query_id": "4054e7ea-d665-4c61-8bde-6d9e5fb3514b",
+      "topic": null,
+      "prefix": "phase20-matched/4054e7ea-d665-4c61-8bde-6d9e5fb3514b",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 2.087032458046451,
+      "to_validated_commit_seconds": 0.2656456669792533,
+      "transformation_seconds": 0.013441915973089635,
+      "publication_seconds": 0.03392433398403227,
+      "validation_seconds": 0.1269541250076145,
+      "final_lag": "N/A",
+      "parquet_bytes": 1121151,
+      "minio_bytes": 1122636,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 93945856,
+      "minimum_guest_available_memory_bytes": 4309262336,
+      "minimum_guest_free_disk_bytes": 31916072960,
+      "host_retained_content_bytes": 1452342,
+      "defined_retained_component_content_bytes": 234202002
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B0",
+      "repetition": 2,
+      "query_id": "28ebe99e-80d1-4392-a843-40481d1e8e28",
+      "topic": null,
+      "prefix": "phase20-matched/28ebe99e-80d1-4392-a843-40481d1e8e28",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 6.302452125004493,
+      "to_validated_commit_seconds": 5.350279625039548,
+      "transformation_seconds": 0.013937124982476234,
+      "publication_seconds": 0.036003957968205214,
+      "validation_seconds": 5.202235374948941,
+      "final_lag": "N/A",
+      "parquet_bytes": 1121151,
+      "minio_bytes": 1122636,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 122208256,
+      "minimum_guest_available_memory_bytes": 4484870144,
+      "minimum_guest_free_disk_bytes": 31684853760,
+      "host_retained_content_bytes": 1452672,
+      "defined_retained_component_content_bytes": 234202332
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B0",
+      "repetition": 3,
+      "query_id": "91519eca-c11b-4f6c-8129-72d19fc4250b",
+      "topic": null,
+      "prefix": "phase20-matched/91519eca-c11b-4f6c-8129-72d19fc4250b",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 2.0892998749623075,
+      "to_validated_commit_seconds": 0.2782603329978883,
+      "transformation_seconds": 0.01005104195792228,
+      "publication_seconds": 0.03952541691251099,
+      "validation_seconds": 0.13236079190392047,
+      "final_lag": "N/A",
+      "parquet_bytes": 1121151,
+      "minio_bytes": 1122636,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 93913088,
+      "minimum_guest_available_memory_bytes": 4423102464,
+      "minimum_guest_free_disk_bytes": 31190310912,
+      "host_retained_content_bytes": 1452342,
+      "defined_retained_component_content_bytes": 234202002
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 1,
+      "query_id": "430e665f-f5d1-48cb-93a5-9d2a9c25aec1",
+      "topic": null,
+      "prefix": "phase20-matched/430e665f-f5d1-48cb-93a5-9d2a9c25aec1",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 10.486131874960847,
+      "to_validated_commit_seconds": 7.903328708023764,
+      "transformation_seconds": 1.6375368329463527,
+      "publication_seconds": 0.011241333093494177,
+      "validation_seconds": 0.15422791708260775,
+      "spark_startup_seconds": 4.856216999934986,
+      "final_lag": "N/A",
+      "parquet_bytes": 1213304,
+      "minio_bytes": 1226762,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 547438592,
+      "minimum_guest_available_memory_bytes": 4408692736,
+      "minimum_guest_free_disk_bytes": 30747451392,
+      "host_retained_content_bytes": 348119,
+      "defined_retained_component_content_bytes": 233201905
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 2,
+      "query_id": "aa516266-e3b3-4fa4-b530-f6ea91074133",
+      "topic": null,
+      "prefix": "phase20-matched/aa516266-e3b3-4fa4-b530-f6ea91074133",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 10.535779833910055,
+      "to_validated_commit_seconds": 9.780605750042014,
+      "transformation_seconds": 1.5881005839910358,
+      "publication_seconds": 0.014214333961717784,
+      "validation_seconds": 2.2061324580572546,
+      "spark_startup_seconds": 4.83546358300373,
+      "final_lag": "N/A",
+      "parquet_bytes": 1213304,
+      "minio_bytes": 1226762,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 740950016,
+      "minimum_guest_available_memory_bytes": 4636450816,
+      "minimum_guest_free_disk_bytes": 32142254080,
+      "host_retained_content_bytes": 348277,
+      "defined_retained_component_content_bytes": 233202063
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 3,
+      "query_id": "dc155b96-c65a-4d33-b4f0-65bbc6550e64",
+      "topic": null,
+      "prefix": "phase20-matched/dc155b96-c65a-4d33-b4f0-65bbc6550e64",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 12.584316583001055,
+      "to_validated_commit_seconds": 11.6379311659839,
+      "transformation_seconds": 1.4709327080054209,
+      "publication_seconds": 0.01288625004235655,
+      "validation_seconds": 5.1849267919315025,
+      "spark_startup_seconds": 3.9085162919946015,
+      "final_lag": "N/A",
+      "parquet_bytes": 1213304,
+      "minio_bytes": 1226760,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 899596288,
+      "minimum_guest_available_memory_bytes": 4311388160,
+      "minimum_guest_free_disk_bytes": 30979878912,
+      "host_retained_content_bytes": 348559,
+      "defined_retained_component_content_bytes": 233202343
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 1,
+      "query_id": "cfca1dc6-8760-4bd6-97da-d423c33d1f9e",
+      "topic": "evaluation.phase20.cfca1dc6-8760-4bd6-97da-d423c33d1f9e",
+      "prefix": "phase20-matched/cfca1dc6-8760-4bd6-97da-d423c33d1f9e",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 16.86571141600143,
+      "to_validated_commit_seconds": 15.44097633403726,
+      "transformation_seconds": 1.7533958340063691,
+      "publication_seconds": 0.015988083090633154,
+      "validation_seconds": 5.181608834071085,
+      "spark_startup_seconds": 4.345546542084776,
+      "stream_processing_seconds": 9.052124207955785,
+      "producer": {
+        "acknowledged_chunks": 32,
+        "acknowledged_rows": 4096,
+        "serialized_value_bytes": 4382703,
+        "producer_seconds": 0.5550959579413757
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 16,
+        "1": 16
+      },
+      "parquet_bytes": 1207209,
+      "minio_bytes": 1220665,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1041,
+      "broker_apparent_bytes": 42375356,
+      "broker_allocated_bytes": 475136,
+      "peak_sampled_process_tree_rss_bytes": 887029760,
+      "minimum_guest_available_memory_bytes": 4354023424,
+      "minimum_guest_free_disk_bytes": 30745628672,
+      "host_retained_content_bytes": 331308,
+      "defined_retained_component_content_bytes": 275554353,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 64,
+          "duration_ms": {
+            "addBatch": 8330,
+            "commitOffsets": 87,
+            "getBatch": 7,
+            "latestOffset": 214,
+            "queryPlanning": 149,
+            "triggerExecution": 8834,
+            "walCommit": 38
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 2,
+      "query_id": "d8867ffd-42ee-48b1-965a-3294942bebef",
+      "topic": "evaluation.phase20.d8867ffd-42ee-48b1-965a-3294942bebef",
+      "prefix": "phase20-matched/d8867ffd-42ee-48b1-965a-3294942bebef",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 12.623822042020038,
+      "to_validated_commit_seconds": 10.471213042037562,
+      "transformation_seconds": 1.710828541079536,
+      "publication_seconds": 0.009799957973882556,
+      "validation_seconds": 0.12241520907264203,
+      "spark_startup_seconds": 4.744603500002995,
+      "stream_processing_seconds": 3.7507323749596253,
+      "producer": {
+        "acknowledged_chunks": 32,
+        "acknowledged_rows": 4096,
+        "serialized_value_bytes": 4382703,
+        "producer_seconds": 0.5536257919156924
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 16,
+        "1": 16
+      },
+      "parquet_bytes": 1208746,
+      "minio_bytes": 1222204,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1041,
+      "broker_apparent_bytes": 42375341,
+      "broker_allocated_bytes": 475136,
+      "peak_sampled_process_tree_rss_bytes": 921976832,
+      "minimum_guest_available_memory_bytes": 4395982848,
+      "minimum_guest_free_disk_bytes": 30981353472,
+      "host_retained_content_bytes": 339171,
+      "defined_retained_component_content_bytes": 275563740,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 64,
+          "duration_ms": {
+            "addBatch": 2998,
+            "commitOffsets": 90,
+            "getBatch": 7,
+            "latestOffset": 233,
+            "queryPlanning": 153,
+            "triggerExecution": 3528,
+            "walCommit": 37
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 3,
+      "query_id": "59c68046-297c-4ebd-838e-f737ea96f1e0",
+      "topic": "evaluation.phase20.59c68046-297c-4ebd-838e-f737ea96f1e0",
+      "prefix": "phase20-matched/59c68046-297c-4ebd-838e-f737ea96f1e0",
+      "exact": {
+        "logical_rows": 4096,
+        "physical_rows": 4096,
+        "reconciled_retries": 0,
+        "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 16.9238854580326,
+      "to_validated_commit_seconds": 15.967195832985453,
+      "transformation_seconds": 1.815592874889262,
+      "publication_seconds": 0.024097290937788785,
+      "validation_seconds": 5.229995250003412,
+      "spark_startup_seconds": 5.106229749973863,
+      "stream_processing_seconds": 9.054353417013772,
+      "producer": {
+        "acknowledged_chunks": 32,
+        "acknowledged_rows": 4096,
+        "serialized_value_bytes": 4382703,
+        "producer_seconds": 0.13273529207799584
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 16,
+        "1": 16
+      },
+      "parquet_bytes": 1207209,
+      "minio_bytes": 1220667,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1041,
+      "broker_apparent_bytes": 42375349,
+      "broker_allocated_bytes": 475136,
+      "peak_sampled_process_tree_rss_bytes": 812335104,
+      "minimum_guest_available_memory_bytes": 4220788736,
+      "minimum_guest_free_disk_bytes": 31978082304,
+      "host_retained_content_bytes": 331311,
+      "defined_retained_component_content_bytes": 275554351,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 64,
+          "duration_ms": {
+            "addBatch": 8242,
+            "commitOffsets": 84,
+            "getBatch": 8,
+            "latestOffset": 237,
+            "queryPlanning": 163,
+            "triggerExecution": 8781,
+            "walCommit": 41
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 1,
+      "query_id": "d78c7a8d-720f-4d5e-b9ae-4eeab7bc7853",
+      "topic": null,
+      "prefix": "phase20-matched/d78c7a8d-720f-4d5e-b9ae-4eeab7bc7853",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 8.437499249936081,
+      "to_validated_commit_seconds": 6.881415874930099,
+      "transformation_seconds": 0.3176671670516953,
+      "publication_seconds": 0.3836065011564642,
+      "validation_seconds": 6.080277708126232,
+      "final_lag": "N/A",
+      "parquet_bytes": 105090563,
+      "minio_bytes": 105092068,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 220905472,
+      "minimum_guest_available_memory_bytes": 4381757440,
+      "minimum_guest_free_disk_bytes": 30520143872,
+      "host_retained_content_bytes": 134372856,
+      "defined_retained_component_content_bytes": 783033761
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 2,
+      "query_id": "27c8c42f-d440-4f9b-b734-3f03395a2a80",
+      "topic": null,
+      "prefix": "phase20-matched/27c8c42f-d440-4f9b-b734-3f03395a2a80",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 10.4847866659984,
+      "to_validated_commit_seconds": 9.268903708085418,
+      "transformation_seconds": 0.3177840420976281,
+      "publication_seconds": 0.43436949991155416,
+      "validation_seconds": 8.410356667009182,
+      "final_lag": "N/A",
+      "parquet_bytes": 105090563,
+      "minio_bytes": 105092068,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 230490112,
+      "minimum_guest_available_memory_bytes": 4628168704,
+      "minimum_guest_free_disk_bytes": 32140877824,
+      "host_retained_content_bytes": 134373025,
+      "defined_retained_component_content_bytes": 783033930
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 3,
+      "query_id": "32021186-7bbe-4e4a-9730-ce5b992f8448",
+      "topic": null,
+      "prefix": "phase20-matched/32021186-7bbe-4e4a-9730-ce5b992f8448",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 12.6358957500197,
+      "to_validated_commit_seconds": 11.739766249898821,
+      "transformation_seconds": 0.3338609159691259,
+      "publication_seconds": 0.46896266704425216,
+      "validation_seconds": 10.81981170794461,
+      "final_lag": "N/A",
+      "parquet_bytes": 105090563,
+      "minio_bytes": 105092068,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 270794752,
+      "minimum_guest_available_memory_bytes": 4368482304,
+      "minimum_guest_free_disk_bytes": 30747475968,
+      "host_retained_content_bytes": 134373299,
+      "defined_retained_component_content_bytes": 783034204
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B2",
+      "repetition": 1,
+      "query_id": "38a6df16-1b22-41bc-b438-f77f61fc72e8",
+      "topic": null,
+      "prefix": "phase20-matched/38a6df16-1b22-41bc-b438-f77f61fc72e8",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 18.967320708092302,
+      "to_validated_commit_seconds": 16.84346595907118,
+      "transformation_seconds": 3.16180933394935,
+      "publication_seconds": 0.016017333953641355,
+      "validation_seconds": 8.547065583989024,
+      "spark_startup_seconds": 4.139774875016883,
+      "final_lag": "N/A",
+      "parquet_bytes": 126992191,
+      "minio_bytes": 127005690,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 1529020416,
+      "minimum_guest_available_memory_bytes": 4294508544,
+      "minimum_guest_free_disk_bytes": 30852755456,
+      "host_retained_content_bytes": 29254614,
+      "defined_retained_component_content_bytes": 699829141
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B2",
+      "repetition": 2,
+      "query_id": "945d06ae-0879-42e7-b168-ebf0efda96d7",
+      "topic": null,
+      "prefix": "phase20-matched/945d06ae-0879-42e7-b168-ebf0efda96d7",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 23.185871292022057,
+      "to_validated_commit_seconds": 21.054641332942992,
+      "transformation_seconds": 3.0788482080679387,
+      "publication_seconds": 0.022887874976731837,
+      "validation_seconds": 12.347142042010091,
+      "spark_startup_seconds": 4.607083625043742,
+      "final_lag": "N/A",
+      "parquet_bytes": 126992191,
+      "minio_bytes": 127005688,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 1577713664,
+      "minimum_guest_available_memory_bytes": 4446281728,
+      "minimum_guest_free_disk_bytes": 31063150592,
+      "host_retained_content_bytes": 29255061,
+      "defined_retained_component_content_bytes": 699829586
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B2",
+      "repetition": 3,
+      "query_id": "8b18d692-2339-446a-a9fa-44676f513e42",
+      "topic": null,
+      "prefix": "phase20-matched/8b18d692-2339-446a-a9fa-44676f513e42",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 21.166858833050355,
+      "to_validated_commit_seconds": 19.090659332927316,
+      "transformation_seconds": 3.22307212499436,
+      "publication_seconds": 0.018986916984431446,
+      "validation_seconds": 9.13011579203885,
+      "spark_startup_seconds": 5.521586750051938,
+      "final_lag": "N/A",
+      "parquet_bytes": 126992191,
+      "minio_bytes": 127005687,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 1398456320,
+      "minimum_guest_available_memory_bytes": 4390051840,
+      "minimum_guest_free_disk_bytes": 31557693440,
+      "host_retained_content_bytes": 29254773,
+      "defined_retained_component_content_bytes": 699829297
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B3",
+      "repetition": 1,
+      "query_id": "e32ba92e-9dfe-4f6f-b21a-04e3717bdf31",
+      "topic": "evaluation.phase20.e32ba92e-9dfe-4f6f-b21a-04e3717bdf31",
+      "prefix": "phase20-matched/e32ba92e-9dfe-4f6f-b21a-04e3717bdf31",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 29.72590170893818,
+      "to_validated_commit_seconds": 28.640127540915273,
+      "transformation_seconds": 3.939756541978568,
+      "publication_seconds": 0.01434516697190702,
+      "validation_seconds": 13.728253124980256,
+      "spark_startup_seconds": 5.337486915988848,
+      "stream_processing_seconds": 19.791614999994636,
+      "producer": {
+        "acknowledged_chunks": 2892,
+        "acknowledged_rows": 370141,
+        "serialized_value_bytes": 324402815,
+        "producer_seconds": 1.4414067500038072
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 1446,
+        "1": 1446
+      },
+      "parquet_bytes": 127635208,
+      "minio_bytes": 127648706,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1045,
+      "broker_apparent_bytes": 83200248,
+      "broker_allocated_bytes": 41299968,
+      "peak_sampled_process_tree_rss_bytes": 1479458816,
+      "minimum_guest_available_memory_bytes": 4315000832,
+      "minimum_guest_free_disk_bytes": 31746957312,
+      "host_retained_content_bytes": 29373344,
+      "defined_retained_component_content_bytes": 783791135,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 5784,
+          "duration_ms": {
+            "addBatch": 19048,
+            "commitOffsets": 96,
+            "getBatch": 8,
+            "latestOffset": 221,
+            "queryPlanning": 158,
+            "triggerExecution": 19574,
+            "walCommit": 35
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B3",
+      "repetition": 2,
+      "query_id": "089d25c1-06b8-4f71-8410-6cb0d806446a",
+      "topic": "evaluation.phase20.089d25c1-06b8-4f71-8410-6cb0d806446a",
+      "prefix": "phase20-matched/089d25c1-06b8-4f71-8410-6cb0d806446a",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 29.643647416029125,
+      "to_validated_commit_seconds": 27.806318124989048,
+      "transformation_seconds": 3.5680068749934435,
+      "publication_seconds": 0.016547916922718287,
+      "validation_seconds": 13.594695375068113,
+      "spark_startup_seconds": 4.877779957954772,
+      "stream_processing_seconds": 19.40783629193902,
+      "producer": {
+        "acknowledged_chunks": 2892,
+        "acknowledged_rows": 370141,
+        "serialized_value_bytes": 324402815,
+        "producer_seconds": 1.4490364160155877
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 1446,
+        "1": 1446
+      },
+      "parquet_bytes": 127635208,
+      "minio_bytes": 127648703,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1045,
+      "broker_apparent_bytes": 83200222,
+      "broker_allocated_bytes": 41299968,
+      "peak_sampled_process_tree_rss_bytes": 1593901056,
+      "minimum_guest_available_memory_bytes": 4370591744,
+      "minimum_guest_free_disk_bytes": 31191580672,
+      "host_retained_content_bytes": 29373179,
+      "defined_retained_component_content_bytes": 783790941,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 5784,
+          "duration_ms": {
+            "addBatch": 18650,
+            "commitOffsets": 111,
+            "getBatch": 8,
+            "latestOffset": 212,
+            "queryPlanning": 163,
+            "triggerExecution": 19193,
+            "walCommit": 42
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "ris",
+      "mode": "B3",
+      "repetition": 3,
+      "query_id": "ab0b8851-d18d-45f4-b585-729fb5a10076",
+      "topic": "evaluation.phase20.ab0b8851-d18d-45f4-b585-729fb5a10076",
+      "prefix": "phase20-matched/ab0b8851-d18d-45f4-b585-729fb5a10076",
+      "exact": {
+        "logical_rows": 370141,
+        "physical_rows": 370141,
+        "reconciled_retries": 0,
+        "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 23.232975833001547,
+      "to_validated_commit_seconds": 22.258955708006397,
+      "transformation_seconds": 3.5844774580327794,
+      "publication_seconds": 0.017789749894291162,
+      "validation_seconds": 8.6731961669866,
+      "spark_startup_seconds": 4.542212542030029,
+      "stream_processing_seconds": 14.280932165915146,
+      "producer": {
+        "acknowledged_chunks": 2892,
+        "acknowledged_rows": 370141,
+        "serialized_value_bytes": 324402815,
+        "producer_seconds": 1.4501867500366643
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 1446,
+        "1": 1446
+      },
+      "parquet_bytes": 127650355,
+      "minio_bytes": 127663853,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1045,
+      "broker_apparent_bytes": 83200199,
+      "broker_allocated_bytes": 41299968,
+      "peak_sampled_process_tree_rss_bytes": 1446248448,
+      "minimum_guest_available_memory_bytes": 4358942720,
+      "minimum_guest_free_disk_bytes": 30576439296,
+      "host_retained_content_bytes": 29364480,
+      "defined_retained_component_content_bytes": 783797369,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 5784,
+          "duration_ms": {
+            "addBatch": 13555,
+            "commitOffsets": 99,
+            "getBatch": 7,
+            "latestOffset": 216,
+            "queryPlanning": 150,
+            "triggerExecution": 14069,
+            "walCommit": 36
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 1,
+      "query_id": "726c1585-fb57-42ee-9a24-06dda8b13150",
+      "topic": null,
+      "prefix": "phase20-matched/726c1585-fb57-42ee-9a24-06dda8b13150",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 12.576845500036143,
+      "to_validated_commit_seconds": 10.949647417059168,
+      "transformation_seconds": 0.2022503330372274,
+      "publication_seconds": 0.21422170801088214,
+      "validation_seconds": 10.432619458879344,
+      "final_lag": "N/A",
+      "parquet_bytes": 56138219,
+      "minio_bytes": 56139724,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 232488960,
+      "minimum_guest_available_memory_bytes": 4360159232,
+      "minimum_guest_free_disk_bytes": 30520168448,
+      "host_retained_content_bytes": 84630370,
+      "defined_retained_component_content_bytes": 364771320
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 2,
+      "query_id": "ed85a4ca-e384-48ae-a8df-3d01d48042b2",
+      "topic": null,
+      "prefix": "phase20-matched/ed85a4ca-e384-48ae-a8df-3d01d48042b2",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 6.296766708022915,
+      "to_validated_commit_seconds": 5.943099207943305,
+      "transformation_seconds": 0.19011883297935128,
+      "publication_seconds": 0.2068757510278374,
+      "validation_seconds": 5.444655833998695,
+      "final_lag": "N/A",
+      "parquet_bytes": 56138219,
+      "minio_bytes": 56139724,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 177733632,
+      "minimum_guest_available_memory_bytes": 4291985408,
+      "minimum_guest_free_disk_bytes": 32035606528,
+      "host_retained_content_bytes": 84629762,
+      "defined_retained_component_content_bytes": 364770712
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 3,
+      "query_id": "7b2835bd-b5d5-4661-8546-4ec94b0624cd",
+      "topic": null,
+      "prefix": "phase20-matched/7b2835bd-b5d5-4661-8546-4ec94b0624cd",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 6.281799915945157,
+      "to_validated_commit_seconds": 5.153107166057453,
+      "transformation_seconds": 0.19784633291419595,
+      "publication_seconds": 0.2477951250039041,
+      "validation_seconds": 4.6034529999597,
+      "final_lag": "N/A",
+      "parquet_bytes": 56138219,
+      "minio_bytes": 56139724,
+      "minio_objects": 4,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 178028544,
+      "minimum_guest_available_memory_bytes": 4468248576,
+      "minimum_guest_free_disk_bytes": 31477772288,
+      "host_retained_content_bytes": 84629760,
+      "defined_retained_component_content_bytes": 364770710
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B2",
+      "repetition": 1,
+      "query_id": "f35b8e02-852c-4dce-9c5a-de0eed5cde6f",
+      "topic": null,
+      "prefix": "phase20-matched/f35b8e02-852c-4dce-9c5a-de0eed5cde6f",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 21.080050874967128,
+      "to_validated_commit_seconds": 18.729540417087264,
+      "transformation_seconds": 2.498252666904591,
+      "publication_seconds": 0.015881375060416758,
+      "validation_seconds": 10.3962906668894,
+      "spark_startup_seconds": 4.7186005839612335,
+      "final_lag": "N/A",
+      "parquet_bytes": 60670522,
+      "minio_bytes": 60684015,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 1157808128,
+      "minimum_guest_available_memory_bytes": 4306759680,
+      "minimum_guest_free_disk_bytes": 31360692224,
+      "host_retained_content_bytes": 28447818,
+      "defined_retained_component_content_bytes": 313133059
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B2",
+      "repetition": 2,
+      "query_id": "2841a6cf-99c1-44b3-a44e-0d3dd64d1804",
+      "topic": null,
+      "prefix": "phase20-matched/2841a6cf-99c1-44b3-a44e-0d3dd64d1804",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 16.840371583006345,
+      "to_validated_commit_seconds": 14.661376500036567,
+      "transformation_seconds": 2.8691064580343664,
+      "publication_seconds": 0.016391832963563502,
+      "validation_seconds": 5.5599759160541,
+      "spark_startup_seconds": 4.951065083034337,
+      "final_lag": "N/A",
+      "parquet_bytes": 60670522,
+      "minio_bytes": 60684014,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 1153433600,
+      "minimum_guest_available_memory_bytes": 4367450112,
+      "minimum_guest_free_disk_bytes": 31686041600,
+      "host_retained_content_bytes": 28447480,
+      "defined_retained_component_content_bytes": 313132720
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B2",
+      "repetition": 3,
+      "query_id": "a4ff6f57-a8e5-4f74-88f2-1bd947ba3389",
+      "topic": null,
+      "prefix": "phase20-matched/a4ff6f57-a8e5-4f74-88f2-1bd947ba3389",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 14.729018041980453,
+      "to_validated_commit_seconds": 13.733544667018577,
+      "transformation_seconds": 2.5476977500366047,
+      "publication_seconds": 0.01745270797982812,
+      "validation_seconds": 5.5341845829971135,
+      "spark_startup_seconds": 4.633217666996643,
+      "final_lag": "N/A",
+      "parquet_bytes": 60670522,
+      "minio_bytes": 60684013,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 0,
+      "peak_sampled_process_tree_rss_bytes": 1141620736,
+      "minimum_guest_available_memory_bytes": 4356681728,
+      "minimum_guest_free_disk_bytes": 31917260800,
+      "host_retained_content_bytes": 28447312,
+      "defined_retained_component_content_bytes": 313132551
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B3",
+      "repetition": 1,
+      "query_id": "ceb0ee13-c17a-4559-82d9-390d99fc21ee",
+      "topic": "evaluation.phase20.ceb0ee13-c17a-4559-82d9-390d99fc21ee",
+      "prefix": "phase20-matched/ceb0ee13-c17a-4559-82d9-390d99fc21ee",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 23.143771708011627,
+      "to_validated_commit_seconds": 22.27717454195954,
+      "transformation_seconds": 2.69398345798254,
+      "publication_seconds": 0.017270958051085472,
+      "validation_seconds": 10.529390249983408,
+      "spark_startup_seconds": 4.620781750069,
+      "stream_processing_seconds": 15.217733583063819,
+      "producer": {
+        "acknowledged_chunks": 2815,
+        "acknowledged_rows": 360226,
+        "serialized_value_bytes": 127158099,
+        "producer_seconds": 0.6208080420037732
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 1408,
+        "1": 1407
+      },
+      "parquet_bytes": 60904507,
+      "minio_bytes": 60917994,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1045,
+      "broker_apparent_bytes": 60749230,
+      "broker_allocated_bytes": 18849792,
+      "peak_sampled_process_tree_rss_bytes": 1260437504,
+      "minimum_guest_available_memory_bytes": 4409483264,
+      "minimum_guest_free_disk_bytes": 30983221248,
+      "host_retained_content_bytes": 28512460,
+      "defined_retained_component_content_bytes": 374180910,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 5630,
+          "duration_ms": {
+            "addBatch": 14461,
+            "commitOffsets": 92,
+            "getBatch": 7,
+            "latestOffset": 222,
+            "queryPlanning": 155,
+            "triggerExecution": 14984,
+            "walCommit": 40
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B3",
+      "repetition": 2,
+      "query_id": "c9b1dfd4-a4d2-4328-9aec-e3fc32994ca3",
+      "topic": "evaluation.phase20.c9b1dfd4-a4d2-4328-9aec-e3fc32994ca3",
+      "prefix": "phase20-matched/c9b1dfd4-a4d2-4328-9aec-e3fc32994ca3",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 25.42441645800136,
+      "to_validated_commit_seconds": 23.761947500053793,
+      "transformation_seconds": 3.054196667042561,
+      "publication_seconds": 0.019884167006239295,
+      "validation_seconds": 11.042706417036243,
+      "spark_startup_seconds": 5.155620750039816,
+      "stream_processing_seconds": 16.138619958073832,
+      "producer": {
+        "acknowledged_chunks": 2815,
+        "acknowledged_rows": 360226,
+        "serialized_value_bytes": 127158099,
+        "producer_seconds": 0.6534363749669865
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 1408,
+        "1": 1407
+      },
+      "parquet_bytes": 60820351,
+      "minio_bytes": 60833838,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1045,
+      "broker_apparent_bytes": 60712304,
+      "broker_allocated_bytes": 18817024,
+      "peak_sampled_process_tree_rss_bytes": 1110360064,
+      "minimum_guest_available_memory_bytes": 4366647296,
+      "minimum_guest_free_disk_bytes": 31477764096,
+      "host_retained_content_bytes": 28471667,
+      "defined_retained_component_content_bytes": 374019035,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 5630,
+          "duration_ms": {
+            "addBatch": 15396,
+            "commitOffsets": 98,
+            "getBatch": 8,
+            "latestOffset": 224,
+            "queryPlanning": 153,
+            "triggerExecution": 15922,
+            "walCommit": 36
+          }
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "workload": "rpki",
+      "mode": "B3",
+      "repetition": 3,
+      "query_id": "f7a550b4-dceb-4584-8223-7f10b468ca7a",
+      "topic": "evaluation.phase20.f7a550b4-dceb-4584-8223-7f10b468ca7a",
+      "prefix": "phase20-matched/f7a550b4-dceb-4584-8223-7f10b468ca7a",
+      "exact": {
+        "logical_rows": 360226,
+        "physical_rows": 360226,
+        "reconciled_retries": 0,
+        "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+        "exact_membership_and_full_projection": "PASS"
+      },
+      "command_start_to_observed_exit_seconds": 25.41744008299429,
+      "to_validated_commit_seconds": 23.818875958095305,
+      "transformation_seconds": 3.0163857910083607,
+      "publication_seconds": 0.015504625043831766,
+      "validation_seconds": 10.316800666041672,
+      "spark_startup_seconds": 5.275033582933247,
+      "stream_processing_seconds": 15.430739333038218,
+      "producer": {
+        "acknowledged_chunks": 2815,
+        "acknowledged_rows": 360226,
+        "serialized_value_bytes": 127158099,
+        "producer_seconds": 0.9838325000600889
+      },
+      "final_lag": 0,
+      "selected_end_offsets": {
+        "0": 1408,
+        "1": 1407
+      },
+      "parquet_bytes": 60820351,
+      "minio_bytes": 60833838,
+      "minio_objects": 6,
+      "parquet_files": 2,
+      "committed_batches": 1,
+      "checkpoint_content_bytes": 1045,
+      "broker_apparent_bytes": 60779950,
+      "broker_allocated_bytes": 18878464,
+      "peak_sampled_process_tree_rss_bytes": 1297776640,
+      "minimum_guest_available_memory_bytes": 4355710976,
+      "minimum_guest_free_disk_bytes": 30334943232,
+      "host_retained_content_bytes": 28471669,
+      "defined_retained_component_content_bytes": 374086683,
+      "spark_progress": [
+        {
+          "batch_id": 0,
+          "reported_input_rows": 5630,
+          "duration_ms": {
+            "addBatch": 14703,
+            "commitOffsets": 84,
+            "getBatch": 7,
+            "latestOffset": 223,
+            "queryPlanning": 150,
+            "triggerExecution": 15217,
+            "walCommit": 41
+          }
+        }
+      ]
+    }
+  ],
+  "configurations": {
+    "dns-B0": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 2.0892998749623075,
+          "minimum": 2.087032458046451,
+          "maximum": 6.302452125004493
+        },
+        "to_validated_commit_seconds": {
+          "median": 0.2782603329978883,
+          "minimum": 0.2656456669792533,
+          "maximum": 5.350279625039548
+        },
+        "transformation_seconds": {
+          "median": 0.013441915973089635,
+          "minimum": 0.01005104195792228,
+          "maximum": 0.013937124982476234
+        },
+        "publication_seconds": {
+          "median": 0.036003957968205214,
+          "minimum": 0.03392433398403227,
+          "maximum": 0.03952541691251099
+        },
+        "validation_seconds": {
+          "median": 0.13236079190392047,
+          "minimum": 0.1269541250076145,
+          "maximum": 5.202235374948941
+        },
+        "parquet_bytes": {
+          "median": 1121151,
+          "minimum": 1121151,
+          "maximum": 1121151
+        },
+        "minio_bytes": {
+          "median": 1122636,
+          "minimum": 1122636,
+          "maximum": 1122636
+        },
+        "checkpoint_content_bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 93945856,
+          "minimum": 93913088,
+          "maximum": 122208256
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 234202002,
+          "minimum": 234202002,
+          "maximum": 234202332
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 14720.028384466441,
+          "minimum": 765.567463208939,
+          "maximum": 15419.03561453496
+        }
+      }
+    },
+    "dns-B2": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 10.535779833910055,
+          "minimum": 10.486131874960847,
+          "maximum": 12.584316583001055
+        },
+        "to_validated_commit_seconds": {
+          "median": 9.780605750042014,
+          "minimum": 7.903328708023764,
+          "maximum": 11.6379311659839
+        },
+        "transformation_seconds": {
+          "median": 1.5881005839910358,
+          "minimum": 1.4709327080054209,
+          "maximum": 1.6375368329463527
+        },
+        "publication_seconds": {
+          "median": 0.01288625004235655,
+          "minimum": 0.011241333093494177,
+          "maximum": 0.014214333961717784
+        },
+        "validation_seconds": {
+          "median": 2.2061324580572546,
+          "minimum": 0.15422791708260775,
+          "maximum": 5.1849267919315025
+        },
+        "parquet_bytes": {
+          "median": 1213304,
+          "minimum": 1213304,
+          "maximum": 1213304
+        },
+        "minio_bytes": {
+          "median": 1226762,
+          "minimum": 1226760,
+          "maximum": 1226762
+        },
+        "checkpoint_content_bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 740950016,
+          "minimum": 547438592,
+          "maximum": 899596288
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 233202063,
+          "minimum": 233201905,
+          "maximum": 233202343
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 418.78796719542703,
+          "minimum": 351.9525886157545,
+          "maximum": 518.2626398724353
+        },
+        "spark_startup_seconds": {
+          "median": 4.83546358300373,
+          "minimum": 3.9085162919946015,
+          "maximum": 4.856216999934986
+        }
+      }
+    },
+    "dns-B3": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 16.86571141600143,
+          "minimum": 12.623822042020038,
+          "maximum": 16.9238854580326
+        },
+        "to_validated_commit_seconds": {
+          "median": 15.44097633403726,
+          "minimum": 10.471213042037562,
+          "maximum": 15.967195832985453
+        },
+        "transformation_seconds": {
+          "median": 1.7533958340063691,
+          "minimum": 1.710828541079536,
+          "maximum": 1.815592874889262
+        },
+        "publication_seconds": {
+          "median": 0.015988083090633154,
+          "minimum": 0.009799957973882556,
+          "maximum": 0.024097290937788785
+        },
+        "validation_seconds": {
+          "median": 5.181608834071085,
+          "minimum": 0.12241520907264203,
+          "maximum": 5.229995250003412
+        },
+        "parquet_bytes": {
+          "median": 1207209,
+          "minimum": 1207209,
+          "maximum": 1208746
+        },
+        "minio_bytes": {
+          "median": 1220667,
+          "minimum": 1220665,
+          "maximum": 1222204
+        },
+        "checkpoint_content_bytes": {
+          "median": 1041,
+          "minimum": 1041,
+          "maximum": 1041
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 887029760,
+          "minimum": 812335104,
+          "maximum": 921976832
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 275554353,
+          "minimum": 275554351,
+          "maximum": 275563740
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 265.26820010539086,
+          "minimum": 256.52594499645176,
+          "maximum": 391.1676692620296
+        },
+        "spark_startup_seconds": {
+          "median": 4.744603500002995,
+          "minimum": 4.345546542084776,
+          "maximum": 5.106229749973863
+        },
+        "stream_processing_seconds": {
+          "median": 9.052124207955785,
+          "minimum": 3.7507323749596253,
+          "maximum": 9.054353417013772
+        }
+      },
+      "producer_measurements": {
+        "producer_seconds": {
+          "median": 0.5536257919156924,
+          "minimum": 0.13273529207799584,
+          "maximum": 0.5550959579413757
+        },
+        "acknowledged_rows": {
+          "median": 4096,
+          "minimum": 4096,
+          "maximum": 4096
+        },
+        "acknowledged_chunks": {
+          "median": 32,
+          "minimum": 32,
+          "maximum": 32
+        },
+        "serialized_value_bytes": {
+          "median": 4382703,
+          "minimum": 4382703,
+          "maximum": 4382703
+        }
+      }
+    },
+    "ris-B0": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 10.4847866659984,
+          "minimum": 8.437499249936081,
+          "maximum": 12.6358957500197
+        },
+        "to_validated_commit_seconds": {
+          "median": 9.268903708085418,
+          "minimum": 6.881415874930099,
+          "maximum": 11.739766249898821
+        },
+        "transformation_seconds": {
+          "median": 0.3177840420976281,
+          "minimum": 0.3176671670516953,
+          "maximum": 0.3338609159691259
+        },
+        "publication_seconds": {
+          "median": 0.43436949991155416,
+          "minimum": 0.3836065011564642,
+          "maximum": 0.46896266704425216
+        },
+        "validation_seconds": {
+          "median": 8.410356667009182,
+          "minimum": 6.080277708126232,
+          "maximum": 10.81981170794461
+        },
+        "parquet_bytes": {
+          "median": 105090563,
+          "minimum": 105090563,
+          "maximum": 105090563
+        },
+        "minio_bytes": {
+          "median": 105092068,
+          "minimum": 105092068,
+          "maximum": 105092068
+        },
+        "checkpoint_content_bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 230490112,
+          "minimum": 220905472,
+          "maximum": 270794752
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 783033930,
+          "minimum": 783033761,
+          "maximum": 783034204
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 39933.633108856215,
+          "minimum": 31528.82196467839,
+          "maximum": 53788.494508589756
+        }
+      }
+    },
+    "ris-B2": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 21.166858833050355,
+          "minimum": 18.967320708092302,
+          "maximum": 23.185871292022057
+        },
+        "to_validated_commit_seconds": {
+          "median": 19.090659332927316,
+          "minimum": 16.84346595907118,
+          "maximum": 21.054641332942992
+        },
+        "transformation_seconds": {
+          "median": 3.16180933394935,
+          "minimum": 3.0788482080679387,
+          "maximum": 3.22307212499436
+        },
+        "publication_seconds": {
+          "median": 0.018986916984431446,
+          "minimum": 0.016017333953641355,
+          "maximum": 0.022887874976731837
+        },
+        "validation_seconds": {
+          "median": 9.13011579203885,
+          "minimum": 8.547065583989024,
+          "maximum": 12.347142042010091
+        },
+        "parquet_bytes": {
+          "median": 126992191,
+          "minimum": 126992191,
+          "maximum": 126992191
+        },
+        "minio_bytes": {
+          "median": 127005688,
+          "minimum": 127005687,
+          "maximum": 127005690
+        },
+        "checkpoint_content_bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 1529020416,
+          "minimum": 1398456320,
+          "maximum": 1577713664
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 699829297,
+          "minimum": 699829141,
+          "maximum": 699829586
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 19388.59174767137,
+          "minimum": 17580.01925308799,
+          "maximum": 21975.346457755484
+        },
+        "spark_startup_seconds": {
+          "median": 4.607083625043742,
+          "minimum": 4.139774875016883,
+          "maximum": 5.521586750051938
+        }
+      }
+    },
+    "ris-B3": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 29.643647416029125,
+          "minimum": 23.232975833001547,
+          "maximum": 29.72590170893818
+        },
+        "to_validated_commit_seconds": {
+          "median": 27.806318124989048,
+          "minimum": 22.258955708006397,
+          "maximum": 28.640127540915273
+        },
+        "transformation_seconds": {
+          "median": 3.5844774580327794,
+          "minimum": 3.5680068749934435,
+          "maximum": 3.939756541978568
+        },
+        "publication_seconds": {
+          "median": 0.016547916922718287,
+          "minimum": 0.01434516697190702,
+          "maximum": 0.017789749894291162
+        },
+        "validation_seconds": {
+          "median": 13.594695375068113,
+          "minimum": 8.6731961669866,
+          "maximum": 13.728253124980256
+        },
+        "parquet_bytes": {
+          "median": 127635208,
+          "minimum": 127635208,
+          "maximum": 127650355
+        },
+        "minio_bytes": {
+          "median": 127648706,
+          "minimum": 127648703,
+          "maximum": 127663853
+        },
+        "checkpoint_content_bytes": {
+          "median": 1045,
+          "minimum": 1045,
+          "maximum": 1045
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 1479458816,
+          "minimum": 1446248448,
+          "maximum": 1593901056
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 783791135,
+          "minimum": 783790941,
+          "maximum": 783797369
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 13311.399169649894,
+          "minimum": 12923.860044659952,
+          "maximum": 16628.857384664403
+        },
+        "spark_startup_seconds": {
+          "median": 4.877779957954772,
+          "minimum": 4.542212542030029,
+          "maximum": 5.337486915988848
+        },
+        "stream_processing_seconds": {
+          "median": 19.40783629193902,
+          "minimum": 14.280932165915146,
+          "maximum": 19.791614999994636
+        }
+      },
+      "producer_measurements": {
+        "producer_seconds": {
+          "median": 1.4490364160155877,
+          "minimum": 1.4414067500038072,
+          "maximum": 1.4501867500366643
+        },
+        "acknowledged_rows": {
+          "median": 370141,
+          "minimum": 370141,
+          "maximum": 370141
+        },
+        "acknowledged_chunks": {
+          "median": 2892,
+          "minimum": 2892,
+          "maximum": 2892
+        },
+        "serialized_value_bytes": {
+          "median": 324402815,
+          "minimum": 324402815,
+          "maximum": 324402815
+        }
+      }
+    },
+    "rpki-B0": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 6.296766708022915,
+          "minimum": 6.281799915945157,
+          "maximum": 12.576845500036143
+        },
+        "to_validated_commit_seconds": {
+          "median": 5.943099207943305,
+          "minimum": 5.153107166057453,
+          "maximum": 10.949647417059168
+        },
+        "transformation_seconds": {
+          "median": 0.19784633291419595,
+          "minimum": 0.19011883297935128,
+          "maximum": 0.2022503330372274
+        },
+        "publication_seconds": {
+          "median": 0.21422170801088214,
+          "minimum": 0.2068757510278374,
+          "maximum": 0.2477951250039041
+        },
+        "validation_seconds": {
+          "median": 5.444655833998695,
+          "minimum": 4.6034529999597,
+          "maximum": 10.432619458879344
+        },
+        "parquet_bytes": {
+          "median": 56138219,
+          "minimum": 56138219,
+          "maximum": 56138219
+        },
+        "minio_bytes": {
+          "median": 56139724,
+          "minimum": 56139724,
+          "maximum": 56139724
+        },
+        "checkpoint_content_bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 178028544,
+          "minimum": 177733632,
+          "maximum": 232488960
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 364770712,
+          "minimum": 364770710,
+          "maximum": 364771320
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 60612.483049001865,
+          "minimum": 32898.41090579597,
+          "maximum": 69904.62033717072
+        }
+      }
+    },
+    "rpki-B2": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 16.840371583006345,
+          "minimum": 14.729018041980453,
+          "maximum": 21.080050874967128
+        },
+        "to_validated_commit_seconds": {
+          "median": 14.661376500036567,
+          "minimum": 13.733544667018577,
+          "maximum": 18.729540417087264
+        },
+        "transformation_seconds": {
+          "median": 2.5476977500366047,
+          "minimum": 2.498252666904591,
+          "maximum": 2.8691064580343664
+        },
+        "publication_seconds": {
+          "median": 0.016391832963563502,
+          "minimum": 0.015881375060416758,
+          "maximum": 0.01745270797982812
+        },
+        "validation_seconds": {
+          "median": 5.5599759160541,
+          "minimum": 5.5341845829971135,
+          "maximum": 10.3962906668894
+        },
+        "parquet_bytes": {
+          "median": 60670522,
+          "minimum": 60670522,
+          "maximum": 60670522
+        },
+        "minio_bytes": {
+          "median": 60684014,
+          "minimum": 60684013,
+          "maximum": 60684015
+        },
+        "checkpoint_content_bytes": {
+          "median": 0,
+          "minimum": 0,
+          "maximum": 0
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 1153433600,
+          "minimum": 1141620736,
+          "maximum": 1157808128
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 313132720,
+          "minimum": 313132551,
+          "maximum": 313133059
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 24569.725768866352,
+          "minimum": 19233.039998747645,
+          "maximum": 26229.644912073647
+        },
+        "spark_startup_seconds": {
+          "median": 4.7186005839612335,
+          "minimum": 4.633217666996643,
+          "maximum": 4.951065083034337
+        }
+      }
+    },
+    "rpki-B3": {
+      "accepted_repetitions": 3,
+      "repetition_status": "PASS",
+      "measurements": {
+        "command_start_to_observed_exit_seconds": {
+          "median": 25.41744008299429,
+          "minimum": 23.143771708011627,
+          "maximum": 25.42441645800136
+        },
+        "to_validated_commit_seconds": {
+          "median": 23.761947500053793,
+          "minimum": 22.27717454195954,
+          "maximum": 23.818875958095305
+        },
+        "transformation_seconds": {
+          "median": 3.0163857910083607,
+          "minimum": 2.69398345798254,
+          "maximum": 3.054196667042561
+        },
+        "publication_seconds": {
+          "median": 0.017270958051085472,
+          "minimum": 0.015504625043831766,
+          "maximum": 0.019884167006239295
+        },
+        "validation_seconds": {
+          "median": 10.529390249983408,
+          "minimum": 10.316800666041672,
+          "maximum": 11.042706417036243
+        },
+        "parquet_bytes": {
+          "median": 60820351,
+          "minimum": 60820351,
+          "maximum": 60904507
+        },
+        "minio_bytes": {
+          "median": 60833838,
+          "minimum": 60833838,
+          "maximum": 60917994
+        },
+        "checkpoint_content_bytes": {
+          "median": 1045,
+          "minimum": 1045,
+          "maximum": 1045
+        },
+        "peak_sampled_process_tree_rss_bytes": {
+          "median": 1260437504,
+          "minimum": 1110360064,
+          "maximum": 1297776640
+        },
+        "defined_retained_component_content_bytes": {
+          "median": 374086683,
+          "minimum": 374019035,
+          "maximum": 374180910
+        },
+        "worker_core_logical_rows_per_second": {
+          "median": 15159.784356866561,
+          "minimum": 15123.551616530849,
+          "maximum": 16170.183490797119
+        },
+        "spark_startup_seconds": {
+          "median": 5.155620750039816,
+          "minimum": 4.620781750069,
+          "maximum": 5.275033582933247
+        },
+        "stream_processing_seconds": {
+          "median": 15.430739333038218,
+          "minimum": 15.217733583063819,
+          "maximum": 16.138619958073832
+        }
+      },
+      "producer_measurements": {
+        "producer_seconds": {
+          "median": 0.6534363749669865,
+          "minimum": 0.6208080420037732,
+          "maximum": 0.9838325000600889
+        },
+        "acknowledged_rows": {
+          "median": 360226,
+          "minimum": 360226,
+          "maximum": 360226
+        },
+        "acknowledged_chunks": {
+          "median": 2815,
+          "minimum": 2815,
+          "maximum": 2815
+        },
+        "serialized_value_bytes": {
+          "median": 127158099,
+          "minimum": 127158099,
+          "maximum": 127158099
+        }
+      }
+    }
+  },
+  "matched_pairs": [
+    {
+      "workload": "rpki",
+      "reference": "B0",
+      "candidate": "B2",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        1.6761000105238273,
+        2.6744474368963806,
+        2.344713018412706
+      ],
+      "candidate_vs_reference_wall_median_ratio": 2.6744474368963806,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "rpki",
+      "reference": "B0",
+      "candidate": "B3",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        1.8401889176379815,
+        4.03769388908871,
+        4.046203384873329
+      ],
+      "candidate_vs_reference_wall_median_ratio": 4.036585959363733,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "rpki",
+      "reference": "B2",
+      "candidate": "B3",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        1.0978992339859672,
+        1.5097301346757215,
+        1.7256710535997606
+      ],
+      "candidate_vs_reference_wall_median_ratio": 1.5093158697663822,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "ris",
+      "reference": "B0",
+      "candidate": "B2",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        2.247978950426098,
+        2.2113822656223032,
+        1.6751371847158012
+      ],
+      "candidate_vs_reference_wall_median_ratio": 2.018816358151887,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "ris",
+      "reference": "B0",
+      "candidate": "B3",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        3.523070145358931,
+        2.8273009609400908,
+        1.8386489009269744
+      ],
+      "candidate_vs_reference_wall_median_ratio": 2.8273009609400908,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "ris",
+      "reference": "B2",
+      "candidate": "B3",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        1.5672166968872832,
+        1.2785220379546014,
+        1.0976109405862864
+      ],
+      "candidate_vs_reference_wall_median_ratio": 1.4004745649714894,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "dns",
+      "reference": "B0",
+      "candidate": "B2",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        5.024422037391934,
+        1.671695337773398,
+        6.023221814067301
+      ],
+      "candidate_vs_reference_wall_median_ratio": 5.0427322378029285,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "dns",
+      "reference": "B0",
+      "candidate": "B3",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        8.0811926767006,
+        2.003001655805682,
+        8.100266343211224
+      ],
+      "candidate_vs_reference_wall_median_ratio": 8.072422546000345,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    },
+    {
+      "workload": "dns",
+      "reference": "B2",
+      "candidate": "B3",
+      "repetitions": 3,
+      "equivalent_full_projection": "PASS",
+      "timing_boundary": "fresh worker command start to observed exit, <=2s resolution",
+      "paired_wall_ratios": [
+        1.6083825396354177,
+        1.198185824023153,
+        1.344839455238551
+      ],
+      "candidate_vs_reference_wall_median_ratio": 1.6008033275067217,
+      "interpretation": "Normalized core only; no full production or parsing superiority claim"
+    }
+  ],
+  "projection_digests": {
+    "dns": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+    "ris": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+    "rpki": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6"
+  },
+  "resources": {
+    "initial_guest": {
+      "guest_free_disk_bytes": 32307781632,
+      "guest_available_memory_bytes": 4693999616
+    },
+    "final_guest": {
+      "guest_free_disk_bytes": 30334918656,
+      "guest_available_memory_bytes": 4374724608
+    },
+    "host_new_content_bytes": 1010249781,
+    "retained_failed_content_bytes": 886372819,
+    "final_combined_growth_bytes": 3869485576,
+    "peak_sampled_campaign_process_tree_rss_bytes": 1612824576,
+    "minimum_guest_free_disk_bytes": 30334943232,
+    "minimum_guest_available_memory_bytes": 4191440896,
+    "parent_guard_failures": [
+      null,
+      null
+    ]
+  },
+  "accounting": "Defined component-content lower bound: selected raw artifact and accepted normalized projection once, shared wrapper/oracle once, trial scratch including checkpoints, MinIO namespace and selected broker apparent bytes. Other shared provenance/error/oracle metadata and backend allocation NOT_MEASURED. Not complete deployed storage. B0 retained local staging differs from direct-S3A Spark: component totals are not optimized system-representation rankings.",
+  "fairness": "All engines process identical canonical full-row wrapper from independently accepted normalized evidence. Source parsing and production state/group finalization excluded in every mode. Same codec and two writer partitions; row-group layouts differ and are not a lossless-representation preference experiment.",
+  "timing": "Command-start-to-observed-exit includes startup/shutdown and <=2-second polling resolution. Spark transformation_seconds includes S3A write; B0 separately records local write/upload. Only all-in boundaries are comparable. Exact verification reported separately but retained in all-in wall. Every individual timing is retained in trials; startup/core/publication scopes differ and must not be summed as mutually exclusive components.",
+  "H3": "NOT_RUN: queued availableNow is not physical 1x replay/drain acceptance",
+  "new_fault_injection_tests": 0,
+  "phase21": "NOT_STARTED",
+  "code_commit": "a79c21c8f37e823e29d6c40949cfc3c397804f01",
+  "input_artifacts": "source-manifest-validation.json",
+  "inputs": {
+    "dns": {
+      "workload": "dns",
+      "rows": 4096,
+      "source_normalized_path": ".cache/phase19/oracle/2026-09-01/raw.parquet",
+      "source_normalized_sha256": "5e3b6f945c6825c3af781c950de4e39102090190bc7031f63498168fcc066af5",
+      "normalized_wrapper_sha256": "f0a721088174ca2ec1f3d3152dad8000d312f95c5a84c17482c56ca25cb01986",
+      "projection_sha256": "cc15b8112f76c8453ccbaa09f3327570c664aa60bf5b58cf95533a62011b913a",
+      "preparation_seconds": 0.3042000000132248,
+      "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+      "partial_selected_object": true
+    },
+    "ris": {
+      "workload": "ris",
+      "rows": 370141,
+      "source_normalized_path": ".cache/phase18-closure/oracle-hour-v2/updates.20260901.0000.gz/events.parquet",
+      "source_normalized_sha256": "ed581d91630b573083cbe243593d99941998edadf2caf6c803866bdfea2b9d47",
+      "normalized_wrapper_sha256": "c4e2e7da965777224ff70ca9b1f09ec66b190f9a5821273326dcdbc9b7a747b8",
+      "projection_sha256": "393cdfe4760fb1c443f812d1e4f3e686e78b2d42ca0c09f43bf6dd843f13e160",
+      "preparation_seconds": 13.26209899992682,
+      "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+      "partial_selected_object": false
+    },
+    "rpki": {
+      "workload": "rpki",
+      "rows": 360226,
+      "source_normalized_path": ".cache/phase17/oracle/members/2026-09-01.parquet",
+      "source_normalized_sha256": "825da6847e3c400d7b59f3021c546b8b5a76fef5605babf543a1203af8c19034",
+      "normalized_wrapper_sha256": "56632494215eaafb907b49ca7e789847530c5208502a5b36367492fe595263d5",
+      "projection_sha256": "9a53e90eadf00b8b6038c92e547465572dbea03fdf361164ac9654f30dfe11c6",
+      "preparation_seconds": 8.296303000068292,
+      "source_parser": "EXCLUDED_ALL_MODES; accepted independent normalized projection",
+      "partial_selected_object": false
+    }
+  },
+  "units": {
+    "dns": "raw measurement source rows in a partial selected artifact",
+    "ris": "accepted native event occurrences",
+    "rpki": "canonical authorization memberships; not raw source rows or transitions"
+  },
+  "first_attempt": "matched-processing-attempt-1.json; not pooled into corrected medians",
+  "unmeasured": [
+    "CPU",
+    "JVM heap occupancy",
+    "task shuffle/spill",
+    "physical query/network IO",
+    "peak lag time series",
+    "MinIO backend allocation"
+  ]
+}

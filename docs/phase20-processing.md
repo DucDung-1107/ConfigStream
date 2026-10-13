@@ -1,5 +1,44 @@
 # Phase 20 — processing costs and pending matched engines
 
+## Corrected, separately approved pilot: 27 exact trials
+
+[All repetitions and paired ratios](../workloads/results/phase20/matched-processing-repetitions.json)
+bind execution `a79c21c8f37e823e29d6c40949cfc3c397804f01`: all nine configurations
+have three correct fresh-process repetitions. Every full normalized row matches
+the accepted independent projection; no missing/extra/conflicting identity.
+All9 B3 trials end at zero selected-offset lag. Parsing and production state/group
+finalization are excluded in every mode; queued availableNow is not paced H3.
+
+| Selected unit | B0 wall median (range), s | B2, s | B3, s |
+|---|---:|---:|---:|
+| RPKI360,226 canonical members | 6.297 (6.282–12.577) | 16.840 (14.729–21.080) | 25.417 (23.144–25.424) |
+| RIS370,141 native occurrences | 10.485 (8.437–12.636) | 21.167 (18.967–23.186) | 29.644 (23.233–29.726) |
+| DNS4096 raw measurements | 2.089 (2.087–6.302) | 10.536 (10.486–12.584) | 16.866 (12.624–16.924) |
+
+Command-start to observed-exit includes startup, publication, exact verification
+and shutdown, with up to2s polling resolution. B0 was faster for these registered
+normalized core tasks, not universally. Spark repartitions to two writers, Arrow
+streams to two staging files before upload; plans, row-group layouts and retained
+scratch differ. Do not rank optimized systems or physical representations from
+these component bytes. Filesystem cache was uncontrolled, not proven cold.
+
+Retry427.655s plus initial75.327s = **502.981s**, below aggregate7,200s.
+Retained host content plus guest free-space decrease, including the failed attempt:
+**3,869,485,576bytes**, below amended6GiB (above original3GiB). Peak sampled tree
+**1,612,824,576bytes**; guest RAM minimum4,191,440,896bytes; final guest disk free
+30,334,918,656bytes. VM/heap unchanged, no resource failures.
+All27 trial Parquet1,622,766,994bytes; MinIO namespaces1,623,023,143bytes;
+selected9Kafka directories558,968,199 apparent/181,870,592 allocated bytes;
+checkpoints9,393 content bytes. Backend allocation/network I/O are unmeasured.
+
+Three-repeat B3 ACK totals by role: RPKI1,080,678 canonical rows/8,445chunks;
+RIS1,110,423 native occurrences/8,676chunks; DNS12,288 raw rows/96chunks.
+Never pool these as one native event rate. Per-trial startup, producer/value-byte,
+Spark chunk-scan and validation timings remain recorded. CPU/task shuffle/spill,
+heap occupancy, physical query I/O and lag time series are NOT_MEASURED.
+No new fault-injection campaign or old-checkpoint recovery is claimed. Initial
+3PASS/1FAIL is retained separately, not averaged into corrected medians.
+
 ## Approved matched core campaign: stopped, not silently retried
 
 The [specific registration](../workloads/results/phase20/matched-pilot-registration.json)
@@ -57,8 +96,8 @@ target; no native events or statuses are discarded. Startup/module-import time
 is NOT_MEASURED; worker elapsed begins after imports. Parser construction is
 EXCLUDED. No Kafka messages or Spark callbacks were produced by this pilot.
 
-Thus B0/B2/B3 full-window matched engine comparisons are **NOT_RUN**. The three
-new accepted core trials do not complete even the bounded matched pairs. Existing
+Thus B0/B2/B3 full-window matched engine comparisons are **NOT_RUN**. The corrected
+27 core trials complete only the bounded matched pairs above. Existing
 RPKI 5,053.741-s full service run and DNS 1,224.086-s run include different parsing,
 publication, verification and recovery work. Do not compare the pilot's direct
 rewrite time or oracle time against them as an engine ranking. The prior RIS
@@ -78,7 +117,8 @@ may differ. Old raw-parsing times are labeled unmatched estimates, not completio
 promises. Current guest headroom above reserve is about 10 GiB; complete retained
 matrix growth is not established/approved. No VM resize, deletes or full-hour
 replay. The initial bounded service pilot approval was consumed by the stopped
-campaign; a corrected retry and full rate matrix still require separate decisions.
+campaign; its single explicitly approved retry passed. Further/full rate runs
+require a new decision; neither consumed authorization permits another run.
 
 All per-run measurements, slower runs and the initial virtualenv bootstrap failure
 remain recorded. The failed namespace is not renamed successful or averaged.

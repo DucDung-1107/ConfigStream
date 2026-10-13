@@ -6,7 +6,7 @@
   "evidence": "SCOPED_I1_I9",
   "invariants": {
     "I1": {
-      "new": "28 cached source checksums; exact RPKI tuples and unchanged Terraform content/edge ledger",
+      "new": "28 cached source checksums; exact RPKI tuples and unchanged Terraform content/edge ledger;27corefullprojectionsboundtoacceptednormalizedoracles",
       "prior": "All four accepted manifest-bound coordinate ledgers",
       "status": "PASS_REAL_SOURCE_NORMALIZED + REUSED_ACCEPTED_WINDOW"
     },
@@ -16,7 +16,7 @@
       "status": "PASS_OFFLINE + REUSED_PASS_INTEGRATION"
     },
     "I3": {
-      "new": "unsafe dedup falsified; current RIS/DNS regression; all original rows retained in pilot projections",
+      "new": "unsafe dedup falsified; current RIS/DNS regression; all original rows retained in pilot projections;nativeEventRows/DNSmeasurementsretainedinall27trials",
       "prior": "4725156 RIS occurrences with118172 repeats;2234863 DNS raw identities",
       "status": "PASS_OFFLINE + REUSED_ACCEPTED_WINDOW"
     },
@@ -31,12 +31,12 @@
       "status": "PASS_LOCAL + QUALIFIED"
     },
     "I6": {
-      "new": "read-only existing object inventories, no new publication/fault campaign",
+      "new": "27conditionalcorecommits/completionsverified;failedB3namespace0commit/nocompletion;notnewproductioncorruption/powerloss tests",
       "prior": "Existing actual missing/corrupt/uncommitted commit tests",
-      "status": "REUSED_PASS_INTEGRATION; listing not new checksum proof"
+      "status": "PASS_INTEGRATION_NORMALIZED_CORE + REUSED_PASS_INTEGRATION"
     },
     "I7": {
-      "new": "Every RPKI day exact in all9 builds/3 cycles; Terraform exact content/ordinal edges; Arrow pilot full-field equality",
+      "new": "Every RPKI day exact in all9 builds/3 cycles; Terraform exact content/ordinal edges; Arrow pilot full-field equality;27exactidentity-to-full-JSONchecks",
       "prior": "RIS Level3 required event projection; DNS full/group/contributor/reuse maps",
       "status": "PASS_REAL_SOURCE_NORMALIZED + REUSED_ACCEPTED_WINDOW"
     },
@@ -46,9 +46,10 @@
       "status": "PASS_OFFLINE + REUSED_ACCEPTED_WINDOW"
     },
     "I9": {
-      "new": "1093unit/80API/107Spark tests, no production/domain changes",
+      "new": "1104unit/80API/109Spark,25focusedunit+2localcallbacktests;no productionchanges",
       "prior": "All accepted formats and source semantics preserved",
       "status": "PASS_OFFLINE + PASS_LOCAL"
     }
-  }
+  },
+  "matched_core_evidence": "matched-processing-repetitions.json"
 }

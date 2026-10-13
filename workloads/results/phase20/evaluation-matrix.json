@@ -13,9 +13,10 @@
     "E2D": "PARTIAL: previous same-projection component costs/reconstruction; standalone matched repeats NOT_RUN",
     "E2B": "PARTIAL: prior exact accepted log/query/storage; new 15/60 matched trials NOT_RUN",
     "E3T": "PASS_REFERENCE: no throughput ranking required",
-    "E3R": "NOT_RUN: matched full14-day B0/B2/B3; normalized direct-Parquet pilot only",
-    "E3D": "NOT_RUN: full-object matched B0/B1/B2/B3; normalized4096-row pilot only",
-    "E3B": "NOT_RUN: matched nested engines and paced 0.5/1/2x; normalized5-minute direct-Parquet pilot only",
+    "E3R": "PARTIAL:onecanonicalday B0/B2/B3 core x3PASS;full14-day production NOT_RUN",
+    "E3D": "PARTIAL:DNS4096 B0/B2/B3 core x3PASS;fullobjects/groups/B1 NOT_RUN",
+    "E3B": "PARTIAL:first5min EventRow B0/B2/B3 core x3PASS;15/60production/pacedrates NOT_RUN",
     "E4": "CONSOLIDATED: exact prior DNS evidence/uncertainty controls; not authoritative zone/configuration change"
-  }
+  },
+  "matched_core_results": "matched-processing-repetitions.json"
 }

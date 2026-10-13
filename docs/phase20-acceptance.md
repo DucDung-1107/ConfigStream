@@ -2,6 +2,13 @@
 
 **FINAL PHASE 20 DECISION: CONDITIONAL PASS — VALID COMPARISONS WITH OPEN MATRIX GATES.**
 
+The corrected, separately approved campaign passed27/27 core trials, three per
+mode/scope, with exact readback and all9 B3 selected-offset lags0. Aggregate both
+attempts502.981s, retained growth3,869,485,576bytes, peak tree1,612,824,576bytes;
+unchanged allocations, all guards passed. [All measurements](../workloads/results/phase20/matched-processing-repetitions.json)
+and [boundaries](phase20-processing.md) preserve the original failure separately.
+These are normalized core comparisons, not full production E3 or paced H3.
+
 Owner-approved matched normalized pilot subsequently stopped after75.327s:
 3 exact PASS, 1 SQLite callback-thread failure, 23 NOT_RUN. No invalid batch or
 completion metadata was published. The fix passes owned threaded and actual local
@@ -40,7 +47,7 @@ and VM2CPU/6GiB/64GiB unchanged. No production processor/schema/dependency chang
 | E2R | 9 final matched builds: R1/R2/R3 x3; 3 warm query cycles/build; every14state and13boundary exact, all query outputs agree |
 | E2D | Prior exact DNS row/group/reuse evidence and negative +2,207,468-byte reuse; new standalone matched repeats NOT_RUN |
 | E2B | Prior full accepted native log/queries; new nested storage/query repeats NOT_RUN |
-| E3R/E3D/E3B | 9 accepted local rewrite trials plus3exact core service trials;1failed/23unrun core cells; complete matched engines and paced rates NOT_RUN |
+| E3R/E3D/E3B | 9 local rewrite plus27 exact three-repeat core engine trials; initial3PASS/1FAIL preserved; full production/paced rates NOT_RUN |
 | E4 | Preserve DNS unknown coverage/time/worker/status:144,883common,4,091descriptive differences,0strictmatched-vantage eligible |
 
 [Cell matrix](../workloads/results/phase20/evaluation-matrix.json),
@@ -95,21 +102,25 @@ correctness, K2 actual local costs and K3 preservation applicability **and limit
 
 ## Recovery, resources and regression
 
-New service fault tests **0**; read-only service storage audit only. Prior
+New service fault tests **0**;27 clean core service trials and an observed actual
+fail-stop before batch commit are measured, not a checkpoint-recovery campaign. Prior
 phase-local evidence: RPKI9, RIS15, DNS14 fixture cases (do not sum overlap).
 RIS337.038s recovery republished no events/checkpoint changes; DNS39.850s/256-row
 retry added no logical rows. [Recovery](../workloads/results/phase20/recovery-results.json)
 does not claim power loss, failover, multiwriter or isolated restart timing.
 
-Final measured worker-tree RSS peak252,149,760bytes. Resource samplers passed;
+Local E2R worker-tree peak252,149,760bytes; corrected service campaign peak
+1,612,824,576bytes. Resource samplers passed;
 20-GiB host/guest reserve,512-MiB guest available floor,15-GiB/run and50-GiB
-new-output guards maintained. Approximately2.67GB private new output includes
-all retained qualified/accepted local trials. No downloads, paid cloud, VM/heap
+new-output guards maintained. Local qualified/accepted output~2.67GB is retained
+alongside failed/retry host output~1.90GB; service aggregate growth3.87GB includes
+guest storage and fits the specifically amended6GiB cap. No source downloads, paid cloud, VM/heap
 increase, broker reset or evidence deletion. Existing Kafka/MinIO remain running.
 [Resources](../workloads/results/phase20/resource-measurements.json).
 
-Regression: **1,093 unit/quality,80 API,107 Spark**; fourteen evaluation fixtures
-included. Normal CI is service-free and downloads no real sources.
+Regression: **1,104 unit/quality,80 API,109 Spark**;25 focused evaluation units and
+two actual local callback fixtures included in these totals.
+Normal CI is service-free and downloads no real sources.
 [Regression](../workloads/results/phase20/regression-validation.json).
 Original Terraform/RPKI/RIS/DNS production paths/contracts unchanged.
 
@@ -123,9 +134,10 @@ bootstrap failure and qualified control/boundary trials are retained in
 
 [Budget proposal](../workloads/results/phase20/budget-proposal.json): ideal full
 nested RIS rate matrix producer work alone~28.44h; startup/drain/validation adds
-work. Guest headroom above reserve~10GiB cannot approve unspecified complete
+work. Final guest headroom above reserve~8.25GiB cannot approve unspecified complete
 retained matrix. Separate owner decision requested for matched bounded service
-pilots (not a new full-hour replay); no approval assumed from expired budgets.
+production/rate pilots (not automatic full-hour replay); bounded core and retry
+approvals were consumed, not expanded into a full matrix budget.
 
 [Threats](phase20-threats-to-validity.md) include one local machine, short selected
 scopes, source precision/unknown DNS vantage, parser/shared-codec qualification,

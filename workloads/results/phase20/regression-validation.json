@@ -1,5 +1,5 @@
 {
-  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "code_commit": "a79c21c8f37e823e29d6c40949cfc3c397804f01",
   "input_artifacts": "source-manifest-validation.json",
   "resource_bounds": "experiment-registration.json",
   "timing_boundary": "See measured per-run boundaries; historical timings retain original definitions",
@@ -7,27 +7,32 @@
   "commands": [
     {
       "command": "make check",
-      "passed": 1093,
-      "seconds": 13.73,
-      "lint_format": "PASS",
-      "scope": "Owned unit/domain/evaluation fixtures; no external downloads"
+      "passed": 1104,
+      "seconds": 17.43,
+      "lint_format": "PASS"
     },
     {
       "command": "make api-test",
       "passed": 80,
-      "seconds": 0.58,
+      "seconds": 0.6,
       "warnings": 1
     },
     {
       "command": "make spark-test",
-      "passed": 107,
-      "seconds": 176.14,
-      "scope": "Service-free transformations, no full real workloads"
+      "passed": 109,
+      "seconds": 183.19,
+      "scope": "Owned servicefreefixtures"
     },
     {
-      "command": ".venv/bin/python -m pytest tests/unit/test_evaluation.py -q",
-      "passed": 14,
-      "seconds": 0.6
+      "command": "pytest focused evaluation units",
+      "passed": 25,
+      "seconds": 0.58
+    },
+    {
+      "command": "pytest tests/spark/test_evaluation_pilot.py",
+      "passed": 2,
+      "seconds": 5.25,
+      "scope": "Owned actual local callbackthread,notKafka"
     }
   ],
   "new_actual_service_tests": 0,
@@ -38,5 +43,6 @@
   },
   "prior_service_scope": "Reused phase-local evidence only, do not sum overlap or claim rerun",
   "production_files_changed": [],
-  "external_source_in_CI": false
+  "external_source_in_CI": false,
+  "new_clean_service_trials": 27
 }

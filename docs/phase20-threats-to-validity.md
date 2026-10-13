@@ -14,11 +14,14 @@ form matched B0/B2/B3 engine comparisons. The canonical tuple evaluation layout
 differs from original production multi-column Parquet; do not rank those unmatched
 byte counts. The original pilot proves rewrite exactness only. The approved core
 service pilot has only three accepted single trials in different configurations;
-one callback-thread harness failure stopped the remaining23. No equivalent
-matched engine ranking or three-repeat conclusion is available. Full-row JSON
+one callback-thread failure initially stopped the remaining23. A separately
+approved corrected27-trial campaign completed all three-repeat core pairs, not
+full production comparisons. Full-row JSON
 wrappers have different storage costs from original typed Parquet and must not
-be compared as a compression improvement. The repair is tested locally, not yet
-service-retested; a new explicit retry approval is required.
+be compared as a compression improvement. B0 retains staging, Spark writes S3A
+and repartitions to match writer count; these are not optimized-system cost
+comparisons. Exit polling up to2s matters for DNS4096. The repaired service
+campaign passed its one approved retry; more runs require new authorization.
 
 **External:** one Apple M3 Pro, one trust anchor, one collector/hour, two selected
 OpenINTEL objects, filtered sparse public Git history. No multiworker cluster,

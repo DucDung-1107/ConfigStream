@@ -16,7 +16,10 @@
     "elapsed_wall_seconds": "specified boundaries; never callback-only time relabeled all-in",
     "accepted_logical_occurrences_per_second": "distinct RIS IDs / stream-ready to final validated commit incl drain",
     "source_time_occurrences_per_second": "historical hour occurrence count / 3600 source seconds, not achieved throughput",
-    "drain_ratio": "post-producer to final validated commit seconds / producer seconds"
+    "drain_ratio": "post-producer to final validated commit seconds / producer seconds",
+    "rpki_canonical_members": "Scoped canonicalmembers,notrawobservations/operatorcommands",
+    "worker_core_logical_rows_per_second": "Per-role exact IDs /measurement after client,input,verifier setup through verifiedcompletion and guardshutdown;notprocessstartup or H3acceptedrate",
+    "command_start_to_observed_exit_seconds": "Import/startup/shutdowninclusive,<=2s pollresolution"
   },
   "forbidden": [
     "pooling four workload rates",

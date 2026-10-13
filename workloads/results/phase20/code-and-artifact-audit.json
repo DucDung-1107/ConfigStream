@@ -19,10 +19,13 @@
   "final_e2r_execution_sha": "1305ed8bda1057d5ade1680b762c1adfce7145c0",
   "native_pool_pilot_execution_sha": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
   "delivery_helper_sha256": {
-    "benchmarks/evaluation.py": "8fcc531cbe5e5778fef2921e484bf4b1188844a9dd7a97152e3f8fbd17fc88d9",
-    "benchmarks/phase20.py": "a91c2bec373f4063a31f3320eb49226d2e7fae191735c6eced9de6790033eb06",
-    "benchmarks/phase20_report.py": "ebc2dff5b1ec83d7058942a7b4461e937f3c7fe5faedcfcd57c96a51efbc41f0",
     "benchmarks/phase20_inputs.py": "3ecb50a1c0532df5fb8cc529ac71bdbd26654634e506fbc5f3e0f4d69d4dcea2",
-    "benchmarks/terraform_reference.py": "6e320aefb4934074cb1568d0fbe589e27810468bb2b54b7b3590e1eff7566d47"
-  }
+    "benchmarks/phase20.py": "a91c2bec373f4063a31f3320eb49226d2e7fae191735c6eced9de6790033eb06",
+    "benchmarks/phase20_matched.py": "1ec142655e4637ea624687be8b2ec6541418333b1dacc18b21048baa9e1be193",
+    "benchmarks/phase20_report.py": "ebc2dff5b1ec83d7058942a7b4461e937f3c7fe5faedcfcd57c96a51efbc41f0",
+    "benchmarks/phase20_matched_report.py": "fa94ab42adba898b9f6f180d0b29abd24f76cf6630424449e924f2a64e818ef6",
+    "benchmarks/evaluation.py": "8fcc531cbe5e5778fef2921e484bf4b1188844a9dd7a97152e3f8fbd17fc88d9"
+  },
+  "matched_core_execution_sha": "a79c21c8f37e823e29d6c40949cfc3c397804f01",
+  "private_data_review": "Only aggregates/hashes/controlmetadata;no rawrows,credentials,checkpoints or sourcearchives in new tracked files"
 }

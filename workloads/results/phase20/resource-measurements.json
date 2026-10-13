@@ -220,5 +220,28 @@
       "suite": "pilot-cpu2"
     }
   ],
-  "task_spill_cpu": "NOT_MEASURED: these workers use PyArrow/SQLite, no Spark JVM"
+  "task_spill_cpu": "NOT_MEASURED: these workers use PyArrow/SQLite, no Spark JVM",
+  "matched_campaign": {
+    "initial_guest": {
+      "guest_free_disk_bytes": 32307781632,
+      "guest_available_memory_bytes": 4693999616
+    },
+    "final_guest": {
+      "guest_free_disk_bytes": 30334918656,
+      "guest_available_memory_bytes": 4374724608
+    },
+    "host_new_content_bytes": 1010249781,
+    "retained_failed_content_bytes": 886372819,
+    "final_combined_growth_bytes": 3869485576,
+    "peak_sampled_campaign_process_tree_rss_bytes": 1612824576,
+    "minimum_guest_free_disk_bytes": 30334943232,
+    "minimum_guest_available_memory_bytes": 4191440896,
+    "parent_guard_failures": [
+      null,
+      null
+    ]
+  },
+  "matched_aggregate_seconds": 502.98140204208903,
+  "matched_policy": "matched-pilot-retry-registration.json",
+  "memory_qualification": "Sampled Python/JVM tree,notheapoccupancy;2GiB allocationunchanged;all guardsPASS"
 }

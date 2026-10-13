@@ -589,3 +589,14 @@ search and a thin read-only FastAPI serving layer.
 Each phase is tested, committed, and pushed before the next begins. Recorded local
 replay measurements do not establish production throughput, distributed-cluster
 scalability, or end-to-end exactly-once delivery.
+
+## Research evaluation status
+
+Terraform configuration histories, scoped RPKI states, RIS native occurrences
+and uncertain DNS measurements retain distinct semantics and accepted evidence.
+[Phase20 acceptance](docs/phase20-acceptance.md) is **CONDITIONAL PASS**:
+matched RPKI representations and27 three-repeat normalized-core engine trials
+passed; full production comparisons and paced RIS capacity remain unexecuted.
+Source ledgers stay private, public CI uses owned fixtures. Kubernetes20K is a
+separate deployment acceptance task; no cluster or dashboard success is implied.
+Do not begin Phase21 automatically.

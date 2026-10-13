@@ -28,5 +28,12 @@
     "elapsed_seconds": 39.85011333,
     "scope": "14 prior service fixtures, real identical retry and immutable inventory; no whole-object real-source fault matrix"
   },
-  "failure_detection_and_restart_component_seconds": "NOT_MEASURED; do not treat complete fixture/recovery elapsed as isolated restart cost"
+  "failure_detection_and_restart_component_seconds": "NOT_MEASURED; do not treat complete fixture/recovery elapsed as isolated restart cost",
+  "new_clean_service_trials": 27,
+  "new_fault_injection_tests": 0,
+  "new_failstop": {
+    "results": "matched-processing-attempt-1.json",
+    "scope": "Actualcallbackfailure afterParquet beforemetadata,no acceptedcommit/completion",
+    "retry": "Freshapprovednamespaces;notoldcheckpointrestart/powerloss"
+  }
 }

@@ -40,12 +40,29 @@ def summarize(root):
             "ris": "accepted native event occurrences",
             "dns": "raw measurement source rows in a partial selected artifact",
         }[result["workload"]]
+        if result["status"] == "PASS":
+            result["worker_core_logical_rows_per_second"] = (
+                result["exact"]["logical_rows"] / result["to_validated_commit_seconds"]
+            )
+        if result["mode"] == "B3" and (path.parent / "progress.json").exists():
+            progress = json.loads((path.parent / "progress.json").read_text())
+            result["spark_progress"] = [
+                {
+                    "batch_id": batch["batchId"],
+                    "reported_input_rows": batch["numInputRows"],
+                    "duration_ms": batch["durationMs"],
+                }
+                for batch in progress
+            ]
+            result["spark_input_unit"] = (
+                "Kafka chunk scan rows, possibly revisited by callback actions; NOT native IDs"
+            )
         selected_raw = {
             "rpki": ".cache/phase13/rpki-ripencc.tal-2026-09-01.xz",
             "ris": ".cache/phase13/updates.20260901.0000.gz",
             "dns": ".cache/phase13/dns-li-2026-09-01.parquet",
         }[result["workload"]]
-        shared = root / "inputs" / result["workload"]
+        shared = Path(campaign.get("inputs_directory", str(root / "inputs"))) / result["workload"]
         result["defined_retained_component_content_bytes"] = (
             (
                 Path(selected_raw).stat().st_size
@@ -91,12 +108,53 @@ def summarize(root):
                     "checkpoint_content_bytes",
                     "peak_sampled_process_tree_rss_bytes",
                     "defined_retained_component_content_bytes",
+                    "worker_core_logical_rows_per_second",
+                    "spark_startup_seconds",
+                    "stream_processing_seconds",
                 )
                 if all(run.get(field) is not None for run in runs)
             },
         }
+        if all(run.get("producer") is not None for run in runs):
+            summaries[configuration]["producer_measurements"] = {
+                field: statistics([run["producer"][field] for run in runs])
+                for field in (
+                    "producer_seconds",
+                    "acknowledged_rows",
+                    "acknowledged_chunks",
+                    "serialized_value_bytes",
+                )
+            }
     if any(len(values) != 1 for values in digests.values()):
         raise ValueError("Matched normalized projections disagree")
+    pairs = []
+    for workload in ("rpki", "ris", "dns"):
+        for reference, candidate in (("B0", "B2"), ("B0", "B3"), ("B2", "B3")):
+            left = {run["repetition"]: run for run in groups.get(f"{workload}-{reference}", [])}
+            right = {run["repetition"]: run for run in groups.get(f"{workload}-{candidate}", [])}
+            if set(left) != {1, 2, 3} or set(right) != {1, 2, 3}:
+                continue
+            field = "command_start_to_observed_exit_seconds"
+            pairs.append(
+                dict(
+                    workload=workload,
+                    reference=reference,
+                    candidate=candidate,
+                    repetitions=3,
+                    equivalent_full_projection="PASS",
+                    timing_boundary="fresh worker command start to observed exit, <=2s resolution",
+                    paired_wall_ratios=[
+                        right[index][field] / left[index][field] for index in (1, 2, 3)
+                    ],
+                    candidate_vs_reference_wall_median_ratio=statistics(
+                        [run[field] for run in right.values()]
+                    )["median"]
+                    / statistics([run[field] for run in left.values()])["median"],
+                    interpretation=(
+                        "Normalized core only; no full production or parsing superiority claim"
+                    ),
+                )
+            )
     parent = json.loads((root / "resources.json").read_text())
     return dict(
         evidence="MEASURED_SERVICE_NORMALIZED_CORE",
@@ -106,17 +164,23 @@ def summarize(root):
         cap_seconds=campaign["cap_seconds"],
         growth_cap_bytes=campaign["growth_bytes"],
         campaign_elapsed_seconds=campaign["elapsed_seconds"],
+        combined_attempt_elapsed_seconds=campaign.get(
+            "combined_elapsed_seconds", campaign["elapsed_seconds"]
+        ),
         measured_successful_trials=sum(trial["status"] == "PASS" for trial in trials),
         measured_failed_trials=sum(trial["status"] != "PASS" for trial in trials),
         unexecuted_trial_count=27 - len(trials),
         trials=trials,
         configurations=summaries,
+        matched_pairs=pairs,
         projection_digests={workload: next(iter(values)) for workload, values in digests.items()},
         resources=dict(
             initial_guest=campaign["initial_guest"],
             final_guest=campaign["final_guest"],
             host_new_content_bytes=campaign["host_content_bytes"],
+            retained_failed_content_bytes=campaign.get("retained_failed_content_bytes", 0),
             final_combined_growth_bytes=campaign["host_content_bytes"]
+            + campaign.get("retained_failed_content_bytes", 0)
             + max(
                 0,
                 campaign["initial_guest"]["guest_free_disk_bytes"]

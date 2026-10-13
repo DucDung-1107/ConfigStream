@@ -15,13 +15,14 @@
     "unsupported": "cross-system ACID, power-loss durability, multiwriter consensus"
   },
   "K2": {
-    "supported": "New matched E2R representation/query results; transparent inventory costs and preserved negative DNS reuse",
+    "supported": "New matched E2R representation/query results; transparent inventory costs and preserved negative DNS reuse;three-repeat matched normalized core overhead,notfullproduction ranking",
     "sources": [
       "rpki-representations.json",
       "storage-inventory.json",
-      "../phase19/representation-costs.json"
+      "../phase19/representation-costs.json",
+      "matched-processing-repetitions.json"
     ],
-    "unsupported": "matched batch-stream ranking, full four-workload comparative performance, horizontal scalability"
+    "unsupported": "universal/productionstreamingsuperiority,fullfourworkloadcompletion,horizontalscaling"
   },
   "K3": {
     "supported": "Common preservation principles with distinct domain-specific completeness/multiplicity/uncertainty constraints",

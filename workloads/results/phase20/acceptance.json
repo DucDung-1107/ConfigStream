@@ -4,9 +4,9 @@
   "resource_bounds": "experiment-registration.json",
   "timing_boundary": "See measured per-run boundaries; historical timings retain original definitions",
   "evidence": "MEASURED_BOUNDED_EVALUATION",
-  "decision": "CONDITIONAL PASS — VALID COMPARISONS WITH OPEN MATRIX GATES",
+  "decision": "CONDITIONAL PASS \u2014 VALID COMPARISONS WITH OPEN MATRIX GATES",
   "starting_sha": "51a1ff6c8e1c4d20ef3e020aa026710d6d05f06a",
-  "entry": "CONDITIONAL GO — BOUNDED EVALUATION",
+  "entry": "CONDITIONAL GO \u2014 BOUNDED EVALUATION",
   "registered_before_trials": true,
   "threshold_amendments": [],
   "completed": [
@@ -15,7 +15,8 @@
     "9 matched E2R builds,3querycycles/build",
     "Terraform accepted content/ordinal-edge lookup reference",
     "Read-only Kafka/MinIO/checkpoint inventories",
-    "Current service-free domain/evaluation regressions"
+    "Current service-free domain/evaluation regressions",
+    "27 matched normalized core B0/B2/B3 trials;3repeats/mode,1RPKIday/RIS5min/DNS4096,exact readback and9B3lag0"
   ],
   "E2R": {
     "correctness": "exact ordered tuples for all14states and all13boundary projections, every accepted trial; all query hashes agree",
@@ -30,10 +31,11 @@
     "E2B prior accepted exact log/query evidence, no new matched repeated query trials"
   ],
   "pending": [
-    "Matched B0/B1/B2/B3 processing configurations",
-    "RIS physical paced0.5/1/2x and drain tests",
-    "Remaining standalone DNS/RIS storage/query repetitions",
-    "Process import/startup/CPU/physical-query-I/O measurement"
+    "Full-window production matched engines",
+    "RIS pacedrates/drain",
+    "Standalone DNS/RIS E2 repetitions",
+    "CPU/task/physical-I/O measurement",
+    "Instructor/fullheavy budget approval"
   ],
   "hypotheses": {
     "H1": "SUPPORTED_WITHIN_TESTED_SCOPE",
@@ -42,14 +44,15 @@
   },
   "source_restrictions": "Private sources/normalized ledgers only; safe aggregate/code/ownedfixtures published; attribution preserved",
   "instructor_approval": "NOT_VERIFIED",
-  "heavy_budget_approval": "REQUESTED_PENDING; neither full-hour replay nor fullheavy matrix started",
+  "heavy_budget_approval": "Bounded7200s/6GiBretry approved andconsumed;fullmatrix/fullhour paced replay NOT_AUTHORIZED",
   "new_actual_service_tests": 0,
   "regression": {
-    "unit_quality": 1093,
+    "unit_quality": 1104,
     "api": 80,
-    "spark": 107,
-    "focused_evaluation": 14,
-    "skipped_service_tests": "Not counted; new service campaign not invoked"
+    "spark": 109,
+    "focused_evaluation": 25,
+    "skipped_service_tests": "Not counted;core service trials separately recorded",
+    "local_callback_tests": 2
   },
   "negative_results": "DNS reuse +2207468bytes preserved; prior interruptedRIS and independentaggregationOOM preserved; new virtualenv bootstrap failure retained",
   "claim_limits": [
@@ -86,5 +89,14 @@
   },
   "peak_final_sampled_worker_tree_rss_bytes": 252149760,
   "active_heavy_jobs_after_runs": 0,
-  "new_allocations_or_source_downloads": false
+  "new_allocations_or_source_downloads": false,
+  "matched_core_execution_sha": "a79c21c8f37e823e29d6c40949cfc3c397804f01",
+  "matched_core_results": "matched-processing-repetitions.json",
+  "matched_core_limits": "Parsing/full production state/group finalization excluded in everymode;queuedunpaced,notH3;row-group layouts differ",
+  "new_actual_service_trials": {
+    "retry_accepted": 27,
+    "first_accepted": 3,
+    "first_failed": 1,
+    "new_fault_injection_tests": 0
+  }
 }

@@ -11,5 +11,7 @@
   "terraform": "Text-v1 semantic diff still reference only, not independent HCL truth",
   "missing_extra_conflicts": 0,
   "scope_of_zero": "Completed exact comparisons only; unrun service/rate cells have no invented result",
-  "normalized_binding": "normalized-input-binding.json: public day checksums, 5062923 original row coordinates, first pilot projections match accepted ledgers"
+  "normalized_binding": "normalized-input-binding.json: public day checksums, 5062923 original row coordinates, first pilot projections match accepted ledgers",
+  "matched_core_results": "matched-processing-repetitions.json",
+  "matched_core": "27exactidentity-to-full-projectionchecks;sourceparseroraclesreused,notnewcircularsourcevalidation"
 }
