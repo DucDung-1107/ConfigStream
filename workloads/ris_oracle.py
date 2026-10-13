@@ -3,6 +3,7 @@
 import argparse
 import gzip
 import json
+import shutil
 import sqlite3
 from collections import Counter
 from hashlib import sha256
@@ -14,7 +15,7 @@ from processing.mrt_framing import frame_mrt
 from processing.ris import decode_frame, read_archive
 from schemas.ris import CANONICAL, COUNTING, PARSER, RisReference
 from schemas.temporal.provenance import Artifact, SourceManifest, verify_artifact_file
-from workloads.ris_reference import extract, frames, identity
+from workloads.ris_reference import extract, frames, occurrence_projection
 
 
 def parser_module():
@@ -29,7 +30,7 @@ def write_summary(path, value):
     path.write_text(json.dumps(value, sort_keys=True, indent=2) + "\n")
 
 
-def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
+def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00", check=lambda: None):
     import pyarrow as arrow
     import pyarrow.parquet as parquet
 
@@ -46,6 +47,8 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
         for frame in frame_mrt(stream):
             record, error = decode_frame(frame, parser)
             records += 1
+            if records % 10000 == 0:
+                check()
             decompressed = frame.next_offset
             types[f"{frame.record_type}/{frame.subtype}"] += 1
             if error:
@@ -92,16 +95,19 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
     )
     write_summary(output / "reference.json", reference.model_dump(mode="json"))
     write_summary(output / "exclusions.json", exclusions)
-    counts, minutes = Counter(), Counter()
+    counts, minutes, attribute_types = Counter(), Counter(), Counter()
     frame_digest, occurrence_digest = sha256(), sha256()
     database = sqlite3.connect(output / "fingerprints.sqlite")
     database.execute("CREATE TABLE fingerprints (fingerprint TEXT PRIMARY KEY)")
     database.execute("CREATE TABLE peers (peer TEXT PRIMARY KEY)")
     database.execute("CREATE TABLE prefixes (prefix TEXT PRIMARY KEY)")
+    database.execute("CREATE TABLE identities (identity TEXT PRIMARY KEY)")
     repeated = total = 0
     rows = []
     writer = None
     oracle_excluded_decodable = 0
+    attributes_verified = 0
+    exclusion_by_index = {item["all_record_index"]: item for item in exclusions}
     try:
         for actual, expected in zip_longest(read_archive(path, reference, parser), frames(path)):
             if actual is None or expected is None:
@@ -119,17 +125,32 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
                 raise ValueError("Independent frame coordinate disagreement")
             frame_digest.update(f"{offset},{index},{stamp},{kind},{subtype},{len(body)}\n".encode())
             try:
-                decoded = extract(kind, subtype, body)
+                decoded = extract(kind, subtype, body, with_attributes=True)
                 oracle_error = None
             except (ValueError, KeyError) as failure:
                 decoded, oracle_error = None, type(failure).__name__
             if error:
-                oracle_excluded_decodable += decoded is not None
+                try:
+                    minimal = extract(kind, subtype, body)
+                    eligible = len(minimal[3]) if minimal is not None else 0
+                    oracle_excluded_decodable += minimal is not None
+                except (ValueError, KeyError):
+                    eligible = None
+                exclusion_by_index[index].update(
+                    parser_version=PARSER,
+                    counting_policy_version=COUNTING,
+                    independent_eligible_prefixes=eligible,
+                    independent_attribute_status="decoded"
+                    if decoded is not None
+                    else "unsupported_or_invalid",
+                )
                 continue
             if events and (decoded is None or oracle_error):
                 raise ValueError("Independent supported-subset extractor cannot validate events")
             if decoded is not None:
-                peer_asn, peer_ip, micros, prefixes = decoded
+                peer_asn, peer_ip, micros, prefixes, attributes = decoded
+                attributes_verified += bool(attributes or prefixes)
+                attribute_types.update(str(next(iter(item["type"]))) for item in attributes)
                 actual_values = [
                     (event.action, event.afi, event.prefix, event.path_id) for event in events
                 ]
@@ -141,26 +162,31 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
                     for event in events
                 ):
                     raise ValueError("Independent peer/time disagreement")
-            for event in events:
-                if event.logical_record_id != identity(reference, offset, event.expansion_ordinal):
-                    raise ValueError("Independent occurrence identity disagreement")
-                if event.source_seconds != stamp:
-                    raise ValueError("Independent timestamp disagreement")
+            independent = (
+                list(occurrence_projection(reference, expected, decoded))
+                if decoded is not None
+                else []
+            )
+            if independent != [event.model_dump() for event in events]:
+                raise ValueError(
+                    "Independent complete occurrence/attribute projection disagreement"
+                )
+            for event in independent:
                 total += 1
-                counts[event.action] += 1
+                counts[event["action"]] += 1
                 minutes[stamp // 60 * 60] += 1
-                encoded = json.dumps(
-                    event.model_dump(), sort_keys=True, separators=(",", ":")
-                ).encode()
+                encoded = json.dumps(event, sort_keys=True, separators=(",", ":")).encode()
                 occurrence_digest.update(encoded + b"\n")
+                database.execute("INSERT INTO identities VALUES (?)", (event["logical_record_id"],))
                 repeated += not database.execute(
-                    "INSERT OR IGNORE INTO fingerprints VALUES (?)", (event.content_fingerprint,)
+                    "INSERT OR IGNORE INTO fingerprints VALUES (?)", (event["content_fingerprint"],)
                 ).rowcount
                 database.execute(
-                    "INSERT OR IGNORE INTO peers VALUES (?)", (f"{event.peer_asn}:{event.peer_ip}",)
+                    "INSERT OR IGNORE INTO peers VALUES (?)",
+                    (f"{event['peer_asn']}:{event['peer_ip']}",),
                 )
-                database.execute("INSERT OR IGNORE INTO prefixes VALUES (?)", (event.prefix,))
-                rows.append(event.model_dump())
+                database.execute("INSERT OR IGNORE INTO prefixes VALUES (?)", (event["prefix"],))
+                rows.append(event)
                 if len(rows) == 4096:
                     table = arrow.Table.from_pylist(rows, schema=event_arrow_schema())
                     if writer is None:
@@ -168,6 +194,7 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
                     writer.write_table(table)
                     rows.clear()
             if index % 10000 == 0:
+                check()
                 database.commit()
         if rows:
             table = arrow.Table.from_pylist(rows, schema=event_arrow_schema())
@@ -196,11 +223,20 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00"):
             source_order_projection_sha256=occurrence_digest.hexdigest(),
             independent_identity_semantics_match=True,
             excluded_records_decodable_by_minimal_oracle=oracle_excluded_decodable,
-            attribute_and_fingerprint_oracle="pinned mrtparse JSON projection, not independent",
+            attribute_and_fingerprint_oracle=(
+                "independent raw-wire values with frozen JSON/fingerprint serialization"
+            ),
+            oracle_level=3,
+            attribute_type_counts=attribute_types,
+            attribute_records_verified=attributes_verified,
+            accepted_disposition_policy=(
+                "pinned mrtparse classifications retained; not independent global BGP validity"
+            ),
             elapsed_seconds=monotonic() - started,
             source_download_bytes=0,
         )
         write_summary(output / "summary.json", summary)
+        write_summary(output / "exclusions.json", exclusions)
         return summary
     finally:
         if writer is not None:
@@ -232,12 +268,134 @@ def event_arrow_schema():
     )
 
 
+def window_ledger(output, files, *, check=lambda: None):
+    """Exact disk-backed union; repeats are calculated over the entire selected window."""
+    import pyarrow.parquet as parquet
+
+    began = monotonic()
+    database = sqlite3.connect(output / "window.sqlite")
+    database.execute("PRAGMA cache_size=-16384")
+    database.execute(
+        "CREATE TABLE occurrences (identity TEXT PRIMARY KEY, artifact TEXT, fingerprint TEXT, "
+        "peer_asn INTEGER, peer_ip TEXT, prefix TEXT, stamp INTEGER, action TEXT, projection TEXT)"
+    )
+    summaries = []
+    try:
+        for filename in files:
+            root = output / filename
+            summaries.append(json.loads((root / "summary.json").read_text()))
+            for batch in parquet.ParquetFile(root / "events.parquet").iter_batches(batch_size=4096):
+                check()
+                values = []
+                for row in batch.to_pylist():
+                    projection = sha256(
+                        json.dumps(row, sort_keys=True, separators=(",", ":")).encode()
+                    ).hexdigest()
+                    values.append(
+                        (
+                            row["logical_record_id"],
+                            row["artifact_sha256"],
+                            row["content_fingerprint"],
+                            row["peer_asn"],
+                            row["peer_ip"],
+                            row["prefix"],
+                            row["source_seconds"],
+                            row["action"],
+                            projection,
+                        )
+                    )
+                database.executemany("INSERT INTO occurrences VALUES (?,?,?,?,?,?,?,?,?)", values)
+                database.commit()
+        total = database.execute("SELECT COUNT(*) FROM occurrences").fetchone()[0]
+        fingerprints = database.execute(
+            "SELECT COUNT(DISTINCT fingerprint) FROM occurrences"
+        ).fetchone()[0]
+        repeated = total - fingerprints
+        within = sum(item["repeated_fingerprints_beyond_first"] for item in summaries)
+        digest = sha256(b"ris-window-ledger-v1\n")
+        for identity_value, projection in database.execute(
+            "SELECT identity,projection FROM occurrences ORDER BY identity"
+        ):
+            digest.update(
+                json.dumps([identity_value, projection], separators=(",", ":")).encode() + b"\n"
+            )
+        minutes = [
+            dict(minute=minute, announcement=announcement, withdrawal=withdrawal, occurrences=count)
+            for minute, announcement, withdrawal, count in database.execute(
+                "SELECT stamp/60*60, SUM(action='announcement'),SUM(action='withdrawal'), COUNT(*) "
+                "FROM occurrences GROUP BY stamp/60 ORDER BY stamp/60"
+            )
+        ]
+        result = dict(
+            evidence="MEASURED_REAL_SOURCE",
+            oracle_level=3,
+            archive_count=len(files),
+            accepted_occurrences=total,
+            distinct_occurrence_ids=total,
+            distinct_fingerprints=fingerprints,
+            repeats_beyond_first=repeated,
+            within_archive_repeats=within,
+            cross_archive_additional_repeats=repeated - within,
+            cross_archive_repeated_keys=database.execute(
+                "SELECT COUNT(*) FROM (SELECT fingerprint FROM occurrences GROUP BY fingerprint "
+                "HAVING COUNT(DISTINCT artifact)>1)"
+            ).fetchone()[0],
+            unique_peers=database.execute(
+                "SELECT COUNT(*) FROM (SELECT peer_asn,peer_ip FROM occurrences "
+                "GROUP BY peer_asn,peer_ip)"
+            ).fetchone()[0],
+            unique_prefixes=database.execute(
+                "SELECT COUNT(DISTINCT prefix) FROM occurrences"
+            ).fetchone()[0],
+            actions=dict(
+                database.execute("SELECT action,COUNT(*) FROM occurrences GROUP BY action")
+            ),
+            events_per_minute=minutes,
+            source_rate_fixed_window=total / (300 * len(files)),
+            peak_events_per_minute=max(item["occurrences"] for item in minutes),
+            ledger_sha256=digest.hexdigest(),
+            per_archive=summaries,
+            elapsed_seconds=monotonic() - began,
+            exact_cross_archive_identity_disjointness=True,
+        )
+        write_summary(output / "window-summary.json", result)
+        return result
+    finally:
+        database.close()
+
+
 def main():
     arguments = argparse.ArgumentParser()
     arguments.add_argument("--files", type=int, choices=[1, 3, 12], default=1)
     arguments.add_argument("--cache", type=Path, default=Path(".cache/phase13"))
     arguments.add_argument("--output", type=Path, required=True)
+    arguments.add_argument("--max-seconds", type=int, choices=[1800, 3600], default=3600)
     options = arguments.parse_args()
+    began = monotonic()
+    options.output.mkdir(parents=True, exist_ok=False)
+    write_summary(
+        options.output / "execution-policy.json",
+        {
+            "evidence": "ESTIMATE",
+            "mode": "offline independent oracle",
+            "files": options.files,
+            "max_seconds": options.max_seconds,
+            "minimum_free_disk_bytes": 20 * 1024**3,
+            "maximum_private_output_bytes": 15 * 1024**3,
+            "source_download_bytes": 0,
+        },
+    )
+
+    def check():
+        from workloads.rpki_resources import directory_bytes
+
+        if (
+            monotonic() - began > options.max_seconds
+            or shutil.disk_usage(options.output).free < 20 * 1024**3
+            or directory_bytes(options.output) > 15 * 1024**3
+        ):
+            raise RuntimeError("RIS offline oracle execution guard exceeded")
+
     selection = json.loads(Path("workloads/results/dataset-feasibility/bgp.json").read_text())
     for item in selection["artifacts"][: options.files]:
         artifact = Artifact(
@@ -246,8 +404,22 @@ def main():
             revision="phase13-pinned",
             bytes=item["artifact_bytes"],
         )
-        result = build(options.cache / item["file"], artifact, options.output / item["file"])
+        check()
+        result = build(
+            options.cache / item["file"], artifact, options.output / item["file"], check=check
+        )
         print(json.dumps(result, sort_keys=True), flush=True)
+    print(
+        json.dumps(
+            window_ledger(
+                options.output,
+                [item["file"] for item in selection["artifacts"][: options.files]],
+                check=check,
+            ),
+            sort_keys=True,
+        ),
+        flush=True,
+    )
 
 
 if __name__ == "__main__":

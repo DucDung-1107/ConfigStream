@@ -7,10 +7,11 @@ from typing import Literal
 
 from pydantic import Field, field_validator, model_validator
 
-from schemas.temporal.base import Contract, Count, Digest
+from schemas.temporal.base import Contract, Count, Digest, Token
 from schemas.temporal.identity import logical_identity
 from schemas.temporal.provenance import SourceManifest
 from schemas.temporal.records import Evidence, RisOccurrence
+from schemas.temporal.time import TimeDescriptor
 
 PARSER = "mrtparse-2.2.0"
 CANONICAL = "ris-wire-v1"
@@ -185,3 +186,71 @@ class EventChunk(Contract):
             raise ValueError("Chunk artifact mismatch")
         for row in self.rows:
             row.validate_reference(reference)
+
+
+class SourceExclusion(Contract):
+    artifact_sha256: Digest
+    byte_offset: Count
+    all_record_index: Count
+    type: int = Field(strict=True, ge=0, le=65535)
+    subtype: int = Field(strict=True, ge=0, le=65535)
+    category: str = Field(min_length=1, max_length=256)
+    fully_framed: Literal[True]
+    disposition: Literal["excluded_under_pinned_parser_policy"]
+    parser_version: Literal["mrtparse-2.2.0"]
+    counting_policy_version: Literal["feasibility-v1"]
+    independent_eligible_prefixes: Count | None
+    independent_attribute_status: Literal["decoded", "unsupported_or_invalid"]
+
+
+class ArchiveAccounting(Contract):
+    format_version: Literal["ris-accounting-1.0"] = "ris-accounting-1.0"
+    artifact_sha256: Digest
+    provenance_manifest_id: Digest
+    collector: Token
+    archive_selection_time: TimeDescriptor
+    framed_records: Count
+    accepted_records: Count
+    update_messages: Count
+    non_event_records: Count
+    excluded_records: Count
+    accepted_occurrences: Count
+    framing_sha256: Digest
+    source_order_projection_sha256: Digest
+    exclusion_sha256: Digest
+    oracle_level: Literal[3]
+    parser_version: Literal["mrtparse-2.2.0"] = PARSER
+    canonicalization_version: Literal["ris-wire-v1"] = CANONICAL
+    counting_policy_version: Literal["feasibility-v1"] = COUNTING
+    completeness: Literal["selected_archive_under_pinned_policy"]
+
+    @model_validator(mode="after")
+    def accounting(self):
+        if (
+            self.framed_records != self.accepted_records + self.excluded_records
+            or self.accepted_records != self.update_messages + self.non_event_records
+        ):
+            raise ValueError("RIS archive accounting mismatch")
+        return self
+
+    def validate_reference(self, reference):
+        source = reference.manifest
+        if (
+            self.artifact_sha256 != source.artifacts[0].sha256
+            or self.collector != source.source_scope
+            or self.provenance_manifest_id != source.manifest_id
+            or self.framed_records != source.expected_records
+            or self.accepted_records != source.accepted_records
+            or self.excluded_records != source.excluded_records
+        ):
+            raise ValueError("RIS accounting source binding mismatch")
+
+
+class WindowAccounting(Contract):
+    format_version: Literal["ris-window-1.0"] = "ris-window-1.0"
+    query_id: str = Field(min_length=1, max_length=128, pattern=r"^[A-Za-z0-9_.-]+$")
+    sources: dict[Digest, Digest] = Field(min_length=1, max_length=12)
+    inventory_sha256: Digest
+    logical_occurrences: Count
+    projection_sha256: Digest
+    completeness: Literal["selected_archives_not_routing_state"]

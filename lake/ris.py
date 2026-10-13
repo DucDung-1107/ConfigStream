@@ -3,11 +3,142 @@
 import json
 import os
 import re
+from datetime import UTC, datetime, timedelta
+from hashlib import sha256
 from pathlib import Path
 from uuid import uuid4
 
 from lake.client import s3_client
 from lake.temporal import dataset_path
+from schemas.ris import ArchiveAccounting, RisReference, SourceExclusion, WindowAccounting
+
+
+def metadata_digest(value):
+    return sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def publish_accounting(store, reference, summary, exclusions):
+    for key, expected in (
+        ("parser_version", reference.manifest.parser_version),
+        ("canonicalization_version", reference.manifest.canonicalization_version),
+        ("counting_policy_version", reference.manifest.counting_policy_version),
+    ):
+        if summary.get(key, expected) != expected:
+            raise ValueError("RIS accounting policy mismatch")
+    rows = [SourceExclusion.model_validate(row).model_dump(mode="json") for row in exclusions]
+    name = reference.manifest.artifacts[0].safe_reference.rsplit("/", 1)[-1]
+    match = re.fullmatch(r"updates\.([0-9]{8})\.([0-9]{4})\.gz", name)
+    archive_time = {
+        "kind": "unknown",
+        "role": "observation",
+        "reason": "no archive selection time supplied",
+    }
+    if match:
+        start = datetime.strptime("".join(match.groups()), "%Y%m%d%H%M").replace(tzinfo=UTC)
+        archive_time = dict(
+            kind="interval",
+            role="observation",
+            start=start,
+            end=start + timedelta(minutes=5),
+            precision="second",
+        )
+    descriptor = ArchiveAccounting(
+        artifact_sha256=reference.manifest.artifacts[0].sha256,
+        provenance_manifest_id=reference.manifest.manifest_id,
+        collector=reference.manifest.source_scope,
+        archive_selection_time=archive_time,
+        framed_records=summary["framed_records"],
+        accepted_records=summary["accepted_records"],
+        update_messages=summary["update_messages"],
+        non_event_records=summary["accepted_records"] - summary["update_messages"],
+        excluded_records=summary["excluded_records"],
+        accepted_occurrences=summary["accepted_occurrences"],
+        framing_sha256=summary["framing_sha256"],
+        source_order_projection_sha256=summary["source_order_projection_sha256"],
+        exclusion_sha256=metadata_digest(rows),
+        oracle_level=summary["oracle_level"],
+        completeness="selected_archive_under_pinned_policy",
+    )
+    descriptor.validate_reference(reference)
+    validate_exclusions(descriptor, rows)
+    artifact = descriptor.artifact_sha256
+    store.put(f"sources/{reference.manifest.manifest_id}", reference.model_dump(mode="json"))
+    store.put(f"exclusions/{artifact}", rows)
+    store.put(f"accounting/{artifact}", descriptor.model_dump(mode="json"))
+    return read_accounting(store, artifact)
+
+
+def validate_exclusions(descriptor, rows):
+    if not isinstance(rows, list) or len(rows) != descriptor.excluded_records:
+        raise ValueError("RIS missing/mismatched exclusion ledger")
+    validated = [SourceExclusion.model_validate(row) for row in rows]
+    if (
+        metadata_digest(rows) != descriptor.exclusion_sha256
+        or any(
+            row.artifact_sha256 != descriptor.artifact_sha256
+            or row.all_record_index >= descriptor.framed_records
+            for row in validated
+        )
+        or len({(row.byte_offset, row.all_record_index) for row in validated}) != len(rows)
+        or len({row.all_record_index for row in validated}) != len(rows)
+    ):
+        raise ValueError("RIS exclusion ledger integrity mismatch")
+
+
+def read_accounting(store, artifact):
+    descriptor = ArchiveAccounting.model_validate(store.get(f"accounting/{artifact}"))
+    if descriptor.artifact_sha256 != artifact:
+        raise ValueError("RIS accounting artifact mismatch")
+    reference = RisReference.model_validate(
+        store.get(f"sources/{descriptor.provenance_manifest_id}")
+    )
+    descriptor.validate_reference(reference)
+    validate_exclusions(descriptor, store.get(f"exclusions/{artifact}"))
+    return descriptor
+
+
+def publish_window(store, query_id, artifacts, count, projection_sha256):
+    if not 1 <= len(artifacts) <= 12 or len(set(artifacts)) != len(artifacts):
+        raise ValueError("RIS selected window bound/duplicate artifact")
+    sources = [read_accounting(store, artifact) for artifact in artifacts]
+    if count != sum(source.accepted_occurrences for source in sources):
+        raise ValueError("RIS incomplete selected window")
+    inventory = store.inventory(query_id)
+    if not inventory and count:
+        raise ValueError("RIS window has no committed events")
+    descriptor = WindowAccounting(
+        format_version="ris-window-1.0",
+        query_id=query_id,
+        sources={
+            source.artifact_sha256: metadata_digest(source.model_dump(mode="json"))
+            for source in sources
+        },
+        inventory_sha256=metadata_digest(sorted(inventory, key=lambda item: item["batch_id"])),
+        logical_occurrences=count,
+        projection_sha256=projection_sha256,
+        completeness="selected_archives_not_routing_state",
+    ).model_dump(mode="json")
+    store.put(f"windows/{query_id}", descriptor)
+    return read_window(store, query_id)
+
+
+def read_window(store, query_id):
+    descriptor = store.get(f"windows/{query_id}")
+    WindowAccounting.model_validate(descriptor)
+    if descriptor["query_id"] != query_id:
+        raise ValueError("RIS complete-window descriptor missing/corrupt")
+    count = 0
+    for artifact, expected in descriptor["sources"].items():
+        source = read_accounting(store, artifact)
+        count += source.accepted_occurrences
+        if metadata_digest(source.model_dump(mode="json")) != expected:
+            raise ValueError("RIS window source accounting conflict")
+    if count != descriptor["logical_occurrences"]:
+        raise ValueError("RIS window accounting count mismatch")
+    inventory = sorted(store.inventory(query_id), key=lambda item: item["batch_id"])
+    if metadata_digest(inventory) != descriptor["inventory_sha256"]:
+        raise ValueError("RIS window committed inventory missing/conflicting")
+    return descriptor
 
 
 def safe_key(key):
@@ -37,6 +168,8 @@ class EventStore:
         key = self.key(key)
         if self.root:
             path = self.root / key
+            if path.exists() and path.stat().st_size > 1024**2:
+                raise ValueError("RIS commit metadata bound")
             return json.loads(path.read_text()) if path.exists() else None
         from botocore.exceptions import ClientError
 
@@ -102,7 +235,8 @@ class EventStore:
         prefix = self.key(f"batches/{query_id}").removesuffix(".json") + "/"
         if self.root:
             return [
-                json.loads(path.read_text()) for path in sorted((self.root / prefix).glob("*.json"))
+                self.get(str(path.relative_to(self.root / "_ris_commits/v1")).removesuffix(".json"))
+                for path in sorted((self.root / prefix).glob("*.json"))
             ]
         client = s3_client(self.config)
         result = []

@@ -92,6 +92,9 @@ def committed_events(session, store, query_id, expected):
                     RisReference.model_validate(reference).manifest.manifest_id != manifest_id
                 ):
                     raise ValueError("RIS committed provenance missing/corrupt")
+                pinned = RisReference.model_validate(reference)
+                if pinned.manifest.artifacts[0].sha256 not in commit["source_artifact_sha256s"]:
+                    raise ValueError("RIS committed provenance artifact conflict")
         frame = session.read.schema(event_schema()).parquet(store.committed_path(commit, query_id))
         count, digest = projection_digest(frame)
         if count != commit["logical_records"] or digest != commit["projection_sha256"]:
@@ -103,8 +106,35 @@ def committed_events(session, store, query_id, expected):
     return exact_projection(combined, expected)
 
 
+def source_order_digest(frame):
+    digest = sha256()
+    for row in frame.orderBy("byte_offset", "expansion_ordinal").toLocalIterator():
+        digest.update(
+            json.dumps(row.asDict(), sort_keys=True, separators=(",", ":")).encode() + b"\n"
+        )
+    return digest.hexdigest()
+
+
+def completed_events(session, store, query_id, expected):
+    from lake.ris import read_window
+
+    descriptor = read_window(store, query_id)
+    result = exact_projection(
+        committed_events(session, store, query_id, expected), expected, complete=True
+    )
+    count, digest = projection_digest(result)
+    if (count, digest) != (
+        descriptor["logical_occurrences"],
+        descriptor["projection_sha256"],
+    ):
+        raise ValueError("RIS complete-window physical projection mismatch")
+    return result
+
+
 class RisProcessor:
-    def __init__(self, session, store, query_id, references, oracle_paths, *, fault=None):
+    def __init__(
+        self, session, store, query_id, references, oracle_paths, *, fault=None, scoped_oracle=False
+    ):
         UUID(query_id)
         self.session, self.store, self.query_id = session, store, query_id
         self.references = {key: value.model_dump(mode="json") for key, value in references.items()}
@@ -115,9 +145,11 @@ class RisProcessor:
         self.expected = session.read.schema(event_schema()).parquet(*oracle_paths)
         self.fault = fault or (lambda point: None)
         self.metrics = []
+        self.scoped_oracle = scoped_oracle
 
     def process(self, batch, batch_id):
         from pyspark import StorageLevel
+        from pyspark.sql import functions as functions
 
         began = monotonic()
         references = self.references
@@ -132,10 +164,23 @@ class RisProcessor:
             input_rows = parsed.count()
             if not input_rows:
                 return
-            validated = exact_projection(parsed, self.expected).persist(
-                StorageLevel.MEMORY_AND_DISK
+            artifacts = [
+                row.artifact_sha256
+                for row in parsed.select("artifact_sha256").distinct().limit(13).collect()
+            ]
+            if len(artifacts) > 12 or not set(artifacts) <= set(self.references):
+                raise ValueError("RIS micro-batch artifact metadata bound")
+            expected = (
+                self.expected.where(functions.col("artifact_sha256").isin(artifacts))
+                if self.scoped_oracle
+                else self.expected
             )
+            verification_start = monotonic()
+            validated = exact_projection(parsed, expected).persist(StorageLevel.MEMORY_AND_DISK)
+            verification_seconds = monotonic() - verification_start
+            digest_start = monotonic()
             count, digest = projection_digest(validated)
+            digest_seconds = monotonic() - digest_start
             identity = f"{self.query_id}/{batch_id:020d}"
             key = f"batches/{identity}"
             commit = dict(
@@ -152,6 +197,7 @@ class RisProcessor:
                 source_artifact_sha256s=sorted(self.references),
             )
             previous = self.store.get(key)
+            publication_start = monotonic()
             if previous:
                 if previous != commit:
                     raise ValueError("RIS batch replay conflict")
@@ -170,6 +216,12 @@ class RisProcessor:
                     input_occurrences=input_rows,
                     batch_logical_occurrences=count,
                     seconds=monotonic() - began,
+                    verification_seconds=verification_seconds,
+                    digest_seconds=digest_seconds,
+                    publication_seconds=monotonic() - publication_start,
+                    oracle_scope_artifacts=artifacts if self.scoped_oracle else sorted(references),
+                    oracle_scope_mode="artifact_filter" if self.scoped_oracle else "baseline_full",
+                    previous_history_scans_in_callback=0,
                 )
             )
         except Exception as error:

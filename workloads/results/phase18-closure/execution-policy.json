@@ -1,0 +1,18 @@
+{
+  "evidence": "ESTIMATE",
+  "registered_date": "2026-10-13",
+  "scope": "12 pinned rrc00 archives; no downloads or VM expansion",
+  "service_approvals": {"1": 1800, "3": 1800},
+  "owner_approval": "Cho phép run 15 phút, cap 1.800 giây",
+  "full_hour_service": "BLOCKED_PENDING_SEPARATE_OWNER_APPROVAL_AFTER_PILOT",
+  "minimum_free_host_and_guest_disk_bytes": 21474836480,
+  "per_run_growth_limit_bytes": 16106127360,
+  "experiment_output_limit_bytes": 53687091200,
+  "guest_memory_bytes": 6442450944,
+  "guest_disk_bytes": 68719476736,
+  "guest_minimum_available_memory_bytes": 536870912,
+  "spark_master": "local[2]",
+  "spark_driver_heap": "2g",
+  "offline_oracle_runtime_cap_seconds": 3600,
+  "instructor_approval": "NOT_VERIFIED"
+}
