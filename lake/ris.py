@@ -34,12 +34,12 @@ class EventStore:
         return f"_ris_commits/v1/{key}.json"
 
     def get(self, key):
-        from botocore.exceptions import ClientError
-
         key = self.key(key)
         if self.root:
             path = self.root / key
             return json.loads(path.read_text()) if path.exists() else None
+        from botocore.exceptions import ClientError
+
         try:
             response = s3_client(self.config).get_object(
                 Bucket=self.config.bucket, Key=self.config.object_key(key)
@@ -55,8 +55,6 @@ class EventStore:
         return json.loads(encoded)
 
     def put(self, key, value):
-        from botocore.exceptions import ClientError
-
         encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
         if len(encoded) > 1024**2:
             raise ValueError("RIS commit metadata bound")
@@ -78,6 +76,8 @@ class EventStore:
             finally:
                 temporary.unlink(missing_ok=True)
             return
+        from botocore.exceptions import ClientError
+
         try:
             s3_client(self.config).put_object(
                 Bucket=self.config.bucket,

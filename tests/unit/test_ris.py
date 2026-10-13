@@ -215,3 +215,25 @@ def test_progress_report_excludes_runtime_uuid_and_payload():
     result = progress_snapshot(progress)
     assert json.loads(json.dumps(result))["batch_id"] == 2
     assert "id" not in result
+
+
+def test_local_store_does_not_require_s3_dependency(tmp_path, monkeypatch):
+    import builtins
+
+    from lake.ris import EventStore
+
+    original_import = builtins.__import__
+
+    def no_s3_import(name, *args, **kwargs):
+        if name.startswith(("boto3", "botocore")):
+            raise ModuleNotFoundError("S3 extras unavailable in offline CI")
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", no_s3_import)
+    store = EventStore(root=tmp_path)
+    assert store.get("owned/missing") is None
+    store.put("owned/batch", {"count": 1})
+    store.put("owned/batch", {"count": 1})
+    assert store.get("owned/batch") == {"count": 1}
+    with pytest.raises(ValueError, match="conflict"):
+        store.put("owned/batch", {"count": 2})

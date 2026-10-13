@@ -40,12 +40,20 @@ and exact CI are reported in the handoff; do not substitute an older CI run.
 
 ## I1–I9 evidence levels
 
-Final implementation regressions: `make check` **983 passed** (13.97 s,
-lint/format passed), `make api-test` **80 passed** (0.64 s, one existing
-Starlette warning), `make spark-test` **73 passed** (102.49 s). Relative to
-the reviewed 954/80/71 baseline, this adds 29 unit and two Spark tests;
+Final implementation regressions: `make check` **984 passed** (12.99 s,
+lint/format passed), `make api-test` **80 passed** (0.61 s, one existing
+Starlette warning), `make spark-test` **73 passed** (98.21 s). Relative to
+the reviewed 954/80/71 baseline, this adds 30 unit and two Spark tests;
 the five opt-in real-service tests are separate, not normal CI evidence. Those
 five tests also passed on the exact implementation commit in 75.91 seconds.
+
+The initial pushed CI quality/Spark jobs at `490a248` failed: local RIS metadata reads
+unnecessarily imported optional `botocore`. This was corrected by deferring S3
+imports until remote-mode dispatch, with an independent offline test blocking
+all boto imports. No remote publication, data schema, identity policy or measured
+source-run output changed. The 75.91-second service receipt and real-source run
+remain explicitly bound to `314897f`; final regression/CI include this additive
+dependency fix, rather than relabeling earlier measurements as a new execution.
 
 | Invariant | Level | Scope / limitation |
 |---|---|---|

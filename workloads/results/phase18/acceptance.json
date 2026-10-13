@@ -28,16 +28,24 @@
     "matched batch/query evaluation and larger-resource cap"
   ],
   "tests": {
-    "unit": 983,
-    "unit_seconds": 13.97,
+    "unit": 984,
+    "unit_seconds": 12.99,
     "api": 80,
     "spark": 73,
-    "spark_seconds": 102.49,
-    "api_seconds": 0.64,
+    "spark_seconds": 98.21,
+    "api_seconds": 0.61,
     "actual_service_owned": 5,
     "actual_service_owned_seconds": 75.91,
     "normal_ci_downloads_real_data": false
   },
   "ci_receipt": "Verify exact final pushed documentation SHA in handoff; fixture CI is not full RIS workload",
+  "initial_ci_failure": {
+    "commit": "490a248fd28daf52498eafa9c4298a0b7fc99892",
+    "run_url": "https://github.com/kongwoang/ConfigStream/actions/runs/38327930676",
+    "conclusion": "failure",
+    "cause": "local EventStore imported optional botocore before local-mode dispatch",
+    "correction": "S3 imports only in remote mode; offline dependency-blocking regression added",
+    "measured_service_projection_changed": false
+  },
   "no_raw_data_committed": true
 }
