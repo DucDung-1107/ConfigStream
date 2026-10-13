@@ -17,6 +17,9 @@ from workloads.rpki_resources import ResourceSampler, directory_bytes
 def approve_execution(policy, files, seconds):
     if policy.get("service_approvals", {}).get(str(files)) != seconds:
         raise ValueError("RIS selected service runtime lacks explicit owner approval")
+    attempt = policy.get("three_archive_attempt")
+    if files == 3 and attempt and attempt.get("retry") != "OWNER_APPROVED_SAME_CAP_RETRY":
+        raise ValueError("RIS another three-archive attempt requires new owner approval")
     if (
         policy.get("minimum_free_host_and_guest_disk_bytes") != 20 * 1024**3
         or policy.get("per_run_growth_limit_bytes") != 15 * 1024**3

@@ -5,6 +5,15 @@
   "service_approvals": {"1": 1800, "3": 1800},
   "owner_approval": "Cho phép run 15 phút, cap 1.800 giây",
   "full_hour_service": "BLOCKED_PENDING_SEPARATE_OWNER_APPROVAL_AFTER_PILOT",
+  "three_archive_attempt": {
+    "evidence": "MEASURED_SERVICE",
+    "status": "FAIL_JAVA_HEAP_AT_FINAL_DIGEST",
+    "runtime_seconds": 1007.2597453329945,
+    "approved_runtime_cap_seconds": 1800,
+    "retry": "OWNER_APPROVED_SAME_CAP_RETRY",
+    "retry_owner_approval": "Cho phép retry 15 phút, cap 1.800 giây",
+    "retry_runtime_cap_seconds": 1800
+  },
   "minimum_free_host_and_guest_disk_bytes": 21474836480,
   "per_run_growth_limit_bytes": 16106127360,
   "experiment_output_limit_bytes": 53687091200,

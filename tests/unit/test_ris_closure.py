@@ -146,7 +146,13 @@ def test_expanded_service_caps_require_explicit_approval():
     from benchmarks.ris_service import approve_execution
 
     policy = json.loads(Path("workloads/results/phase18-closure/execution-policy.json").read_text())
-    approve_execution(policy, 3, 1800)
+    original = {key: value for key, value in policy.items() if key != "three_archive_attempt"}
+    approve_execution(original, 3, 1800)
+    blocked = original | {"three_archive_attempt": {"retry": "PENDING_APPROVAL"}}
+    with pytest.raises(ValueError, match="approval"):
+        approve_execution(blocked, 3, 1800)
+    approved_retry = policy | {"three_archive_attempt": {"retry": "OWNER_APPROVED_SAME_CAP_RETRY"}}
+    approve_execution(approved_retry, 3, 1800)
     with pytest.raises(ValueError, match="approval"):
         approve_execution(policy, 12, 3600)
     with pytest.raises(ValueError, match="approval"):
