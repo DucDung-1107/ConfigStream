@@ -1,0 +1,21 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "PREREGISTERED_AND_MEASURED_CELL_STATUS",
+  "cells": {
+    "E1": "CONSOLIDATED: prior real windows, newly rerun service-free regressions and owned negative controls",
+    "E2T": "PASS_REFERENCE: cached accepted content/ordinal-edge lookup, no new mining",
+    "E2R": "PASS: matched R1/R2/R3, 3 builds/configuration and 3 warm query cycles/build",
+    "E2D": "PARTIAL: previous same-projection component costs/reconstruction; standalone matched repeats NOT_RUN",
+    "E2B": "PARTIAL: prior exact accepted log/query/storage; new 15/60 matched trials NOT_RUN",
+    "E3T": "PASS_REFERENCE: no throughput ranking required",
+    "E3R": "NOT_RUN: matched full14-day B0/B2/B3; normalized direct-Parquet pilot only",
+    "E3D": "NOT_RUN: full-object matched B0/B1/B2/B3; normalized4096-row pilot only",
+    "E3B": "NOT_RUN: matched nested engines and paced 0.5/1/2x; normalized5-minute direct-Parquet pilot only",
+    "E4": "CONSOLIDATED: exact prior DNS evidence/uncertainty controls; not authoritative zone/configuration change"
+  }
+}

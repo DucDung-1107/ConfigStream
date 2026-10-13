@@ -212,6 +212,10 @@ def rpki_queries(mode, oracle, days, output, cycle, check):
 
 
 def rpki(mode, output, check):
+    import pyarrow as arrow
+
+    arrow.set_cpu_count(2)
+    arrow.set_io_thread_count(2)
     summary = json.loads(Path(".cache/phase17/oracle/summary.json").read_text())
     days = [item["date"] for item in summary["days"]]
     if len(days) != 14:
@@ -247,6 +251,9 @@ def rpki(mode, output, check):
 def pilot(mode, output, check):
     import pyarrow as arrow
     import pyarrow.parquet as parquet
+
+    arrow.set_cpu_count(2)
+    arrow.set_io_thread_count(2)
 
     selections = {
         "rpki": (Path(".cache/phase17/oracle/members/2026-09-01.parquet"), None),
@@ -347,6 +354,9 @@ def main():
         engine="PyArrow19.0.1/SQLite" if args.suite == "rpki" else "PyArrow19.0.1",
         sqlite_version=sqlite3.sqlite_version,
         pyarrow_version=importlib.metadata.version("pyarrow"),
+        arrow_cpu_pool_threads=2,
+        arrow_io_pool_threads=2,
+        sqlite_query_threads=1,
         timing="worker start through build, exact comparison and query cycles; parser excluded",
         cache="fresh process, OS cache uncontrolled; query cycles reused process",
         source_manifests="workloads/results/phase20/experiment-registration.json",

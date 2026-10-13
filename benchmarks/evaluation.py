@@ -4,6 +4,7 @@ import hashlib
 import json
 import random
 from itertools import zip_longest
+from math import isfinite
 from statistics import median
 
 
@@ -20,7 +21,7 @@ def randomized_order(configurations, repeats=3, seed=42):
 
 
 def statistics(values):
-    if not values or any(value < 0 for value in values):
+    if not values or any(not isfinite(value) or value < 0 for value in values):
         raise ValueError("Missing or negative measured duration")
     return dict(individual=values, median=median(values), minimum=min(values), maximum=max(values))
 
@@ -37,6 +38,12 @@ def preference(full_bytes, candidate_bytes, full_queries, candidate_queries, *, 
         )
     if any(len(values) < 3 for values in (*full_queries.values(), *candidate_queries.values())):
         return dict(status="INSUFFICIENT_REPETITIONS", analytical_saving=saving)
+    if any(
+        not isfinite(value) or value < 0
+        for values in (*full_queries.values(), *candidate_queries.values())
+        for value in values
+    ):
+        raise ValueError("Invalid measured query duration")
     if any(value <= 0 for values in full_queries.values() for value in values):
         raise ValueError("Zero reconstruction/query denominator")
     ratios = {

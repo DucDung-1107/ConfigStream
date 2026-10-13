@@ -1,0 +1,12 @@
+{
+  "id": "P20-CPU-CONTROL-AUDIT-20261014",
+  "date": "2026-10-14",
+  "old_rule": "Registered 2 local analytical threads; first harness did not explicitly constrain PyArrow CPU/IO pool",
+  "new_rule": "Same limit enforced with set_cpu_count(2)/set_io_thread_count(2); SQLite remains1 thread",
+  "reason": "Code audit detected unspecified native pool, not an identity defect. Initial timings cannot certify registered CPU control.",
+  "threshold_or_source_change": false,
+  "affected": "normalized pilot and E2R local builds/query measurements",
+  "consequence": "Preserve initial timings and exactness evidence as qualified, exclude initial timings from final preference decisions; repeat all9 comparable runs in new namespaces.",
+  "approval": "Within existing bounded local development/validation authorization, no service expansion or cap/VM increase",
+  "heavy_matrix": "Still pending separate owner approval"
+}

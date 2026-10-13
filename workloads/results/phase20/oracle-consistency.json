@@ -1,0 +1,14 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "input_artifacts": "source-manifest-validation.json",
+  "resource_bounds": "experiment-registration.json",
+  "timing_boundary": "See measured per-run boundaries; historical timings retain original definitions",
+  "evidence": "MEASURED_AND_REUSED_ORACLES",
+  "new_checks": "Source28checksums; every14 RPKI tuple set and13EXCEPT changes exact; complete Arrow pilot projections; Terraform10k content hashes and3683exactedges",
+  "rpki": "Independent CSV/SQLite oracle unchanged and read-only, frozen day set checksums rechecked every worker",
+  "ris": "Previously accepted fullhour Level3 required projection, pinned parser acceptance qualified; events ledger private",
+  "dns": "Previously accepted independent normalization/grouping, shared PyArrow codec; no causal DNS truth",
+  "terraform": "Text-v1 semantic diff still reference only, not independent HCL truth",
+  "missing_extra_conflicts": 0,
+  "scope_of_zero": "Completed exact comparisons only; unrun service/rate cells have no invented result"
+}

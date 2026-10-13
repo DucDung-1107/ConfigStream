@@ -1,0 +1,32 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "HISTORICAL_REFERENCE",
+  "new_service_tests": 0,
+  "rpki": {
+    "source": "../phase17-closure/checkpoint-recovery-validation.json",
+    "scope": "8 owned callback fault points + invalid transport, 9 prior service fixtures; not full14-day fault injection"
+  },
+  "ris": {
+    "source": "../phase18-finalization/full-hour-validation.json",
+    "mode": "retained-history finalization, not source replay",
+    "elapsed_seconds": 337.03808133408893,
+    "peak_sampled_rss_bytes": 2224193536,
+    "source_events_republished": 0,
+    "checkpoint_unchanged": true,
+    "previous_failed_run_preserved": true,
+    "scope": "15 prior owned actual-service fixtures; no power-loss/failover/multiwriter claim"
+  },
+  "dns": {
+    "source": "../phase19/validation.json",
+    "real_source_replay_rows": 256,
+    "additional_logical_rows": 0,
+    "elapsed_seconds": 39.85011333,
+    "scope": "14 prior service fixtures, real identical retry and immutable inventory; no whole-object real-source fault matrix"
+  },
+  "failure_detection_and_restart_component_seconds": "NOT_MEASURED; do not treat complete fixture/recovery elapsed as isolated restart cost"
+}

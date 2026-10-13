@@ -1,0 +1,34 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "CLAIM_EVIDENCE_MAP",
+  "K1": {
+    "supported": "Scoped identity/multiplicity/completeness and committed publication correctness under declared failure model",
+    "sources": [
+      "correctness-matrix.json",
+      "recovery-results.json"
+    ],
+    "unsupported": "cross-system ACID, power-loss durability, multiwriter consensus"
+  },
+  "K2": {
+    "supported": "New matched E2R representation/query results; transparent inventory costs and preserved negative DNS reuse",
+    "sources": [
+      "rpki-representations.json",
+      "storage-inventory.json",
+      "../phase19/representation-costs.json"
+    ],
+    "unsupported": "matched batch-stream ranking, full four-workload comparative performance, horizontal scalability"
+  },
+  "K3": {
+    "supported": "Common preservation principles with distinct domain-specific completeness/multiplicity/uncertainty constraints",
+    "sources": [
+      "correctness-matrix.json",
+      "../phase19/acceptance.json"
+    ],
+    "unsupported": "universal state machine, causal operator edits, authoritative DNS zone or complete BGP state"
+  }
+}

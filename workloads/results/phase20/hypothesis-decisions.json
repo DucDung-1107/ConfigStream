@@ -1,0 +1,33 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "MEASURED_AND_QUALIFIED_HYPOTHESIS_DECISIONS",
+  "H1": {
+    "decision": "SUPPORTED_WITHIN_TESTED_SCOPE",
+    "sources": [
+      "correctness-matrix.json",
+      "regression-validation.json"
+    ],
+    "limit": "Declared owned callback/replay failure model and accepted real windows, not arbitrary distributed failures"
+  },
+  "H2": {
+    "decision": "SUPPORTED_WITHIN_TESTED_SCOPE",
+    "sources": [
+      "rpki-representations.json"
+    ],
+    "finding": "R2 and R3 meet >=20% analytical byte saving and <=2x median time for every registered E2R query",
+    "limit": "Snappy canonical-tuple evaluation projection, SQLite validation-inclusive local queries; not universal or all-in deployed storage preference"
+  },
+  "H3": {
+    "decision": "NOT_RUN",
+    "sources": [
+      "budget-proposal.json",
+      "evaluation-matrix.json"
+    ],
+    "finding": "No new physical1x paced RIS trial or measured drain ratio; existing unpaced/recovered results cannot substitute"
+  }
+}

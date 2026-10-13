@@ -1,0 +1,19 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "SHA256_REPRODUCIBILITY",
+  "files": {
+    "benchmarks/evaluation.py": "f5c586802d2729c79eb444305b5007e466e5a088108f6f845a3939974a8747b9",
+    "benchmarks/phase20.py": "44866ddc90877def7112dc18fc80490868b59918228019d309d329d0dc6ead87",
+    "benchmarks/phase20_report.py": "7238bebf3b5e2062ef7d5be3ca6c1677e500fad36810be9aba2da6d4d8690bae",
+    "benchmarks/terraform_reference.py": "6e320aefb4934074cb1568d0fbe589e27810468bb2b54b7b3590e1eff7566d47",
+    "workloads/results/phase15/experiment-matrix.json": "9ff8155e9a97947e21b7828a466d6d7a69dfc4cddf91a6ca8d3dfda4e8ebc1ba",
+    "workloads/results/phase20/experiment-registration.json": "a1c2d619e2ec6dc297f29cc4cfe9add4654311cee298c4aa5af72f19d7c04fe1"
+  },
+  "trial_execution_sha": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "terraform_helper": "Working-tree evaluation helper at execution; exact source SHA recorded, production code unchanged"
+}

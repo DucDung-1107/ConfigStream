@@ -1,0 +1,32 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "MEASURED_AND_HISTORICAL_NEGATIVE_RESULTS",
+  "new_attempts": [
+    {
+      "path": ".cache/phase20/pilot/rpki-2.log",
+      "status": "BOOTSTRAP_FAILURE",
+      "reason": "Resolving virtualenv interpreter symlink dropped environment; missing PyArrow; fixed .absolute(), failed namespace retained",
+      "performance_use": "EXCLUDED; no measured projection run"
+    }
+  ],
+  "dns_prior": {
+    "source": "../phase19/representation-costs.json",
+    "extra_reuse_bytes": 2207468,
+    "interpretation": "Not storage saving; component-only, not standalone deployments"
+  },
+  "ris_prior": {
+    "source": "../phase18-finalization/root-cause-analysis.json",
+    "owner_interrupt": "Separate SIGINT attempt preserved",
+    "oom": "Separate global hash aggregation memory exhaustion; bounded reconciliation recovered retained history",
+    "corrected_shuffle_written_bytes": 6639241276,
+    "corrected_reported_disk_spill_bytes": 0,
+    "interpretation": "Shuffle cost not hidden; disk-only persistence not called spill, not a matched speedup"
+  },
+  "new_correctness_failures": "None in completed accepted trials; failed bootstrap excluded from timing medians",
+  "missing": "Import/startup, task CPU/physical IO and network-wire bytes NOT_MEASURED; full service-rate repetitions NOT_RUN"
+}

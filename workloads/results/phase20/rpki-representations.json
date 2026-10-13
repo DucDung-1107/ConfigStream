@@ -1,0 +1,1974 @@
+{
+  "cache": "OS uncontrolled, three warm cycles per fresh-process build; build warms inputs",
+  "configurations": {
+    "R1": {
+      "analytical_bytes": 47756423,
+      "build_seconds": {
+        "individual": [
+          3.3079307089792565,
+          3.834115582983941,
+          3.9912363330367953
+        ],
+        "maximum": 3.9912363330367953,
+        "median": 3.834115582983941,
+        "minimum": 3.3079307089792565
+      },
+      "elapsed_seconds": {
+        "individual": [
+          40.89172445901204,
+          46.45111362496391,
+          43.24594120809343
+        ],
+        "maximum": 46.45111362496391,
+        "median": 43.24594120809343,
+        "minimum": 40.89172445901204
+      },
+      "parquet_files": 40,
+      "queries": {
+        "all_days": {
+          "build_median_statistics": {
+            "individual": [
+              8.01860133302398,
+              8.541133458027616,
+              8.22211320803035
+            ],
+            "maximum": 8.541133458027616,
+            "median": 8.22211320803035,
+            "minimum": 8.01860133302398
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "warm_cycles_by_build": [
+            [
+              7.949430708074942,
+              8.01860133302398,
+              8.41622491599992
+            ],
+            [
+              9.32967941602692,
+              8.277005249983631,
+              8.541133458027616
+            ],
+            [
+              8.152453041053377,
+              8.400811167084612,
+              8.22211320803035
+            ]
+          ]
+        },
+        "asn_transitions": {
+          "build_median_statistics": {
+            "individual": [
+              1.2617794589605182,
+              1.2458515419857576,
+              1.2692686249502003
+            ],
+            "maximum": 1.2692686249502003,
+            "median": 1.2617794589605182,
+            "minimum": 1.2458515419857576
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "warm_cycles_by_build": [
+            [
+              1.244287749985233,
+              1.3112211669795215,
+              1.2617794589605182
+            ],
+            [
+              1.4861487499438226,
+              1.2458515419857576,
+              1.2298052499536425
+            ],
+            [
+              1.2692686249502003,
+              1.3965175410266966,
+              1.2550136669306085
+            ]
+          ]
+        },
+        "daily_transitions": {
+          "build_median_statistics": {
+            "individual": [
+              1.235265832976438,
+              1.2888940830016509,
+              1.5426107499515638
+            ],
+            "maximum": 1.5426107499515638,
+            "median": 1.2888940830016509,
+            "minimum": 1.235265832976438
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "warm_cycles_by_build": [
+            [
+              1.235265832976438,
+              1.2821471670176834,
+              1.2204897500341758
+            ],
+            [
+              1.4791722500231117,
+              1.2888940830016509,
+              1.242098291986622
+            ],
+            [
+              1.7897727499948815,
+              1.5426107499515638,
+              1.238889459054917
+            ]
+          ]
+        },
+        "membership": {
+          "build_median_statistics": {
+            "individual": [
+              0.3822497919900343,
+              0.3878829999594018,
+              0.4283240840304643
+            ],
+            "maximum": 0.4283240840304643,
+            "median": 0.3878829999594018,
+            "minimum": 0.3822497919900343
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "warm_cycles_by_build": [
+            [
+              0.3822497919900343,
+              0.43490966700483114,
+              0.3785391669953242
+            ],
+            [
+              0.5656112909782678,
+              0.3878829999594018,
+              0.3816803749650717
+            ],
+            [
+              0.3845925839850679,
+              0.4505895000183955,
+              0.4283240840304643
+            ]
+          ]
+        },
+        "selected_day": {
+          "build_median_statistics": {
+            "individual": [
+              0.5741147500229999,
+              0.5594819579273462,
+              0.5838346659438685
+            ],
+            "maximum": 0.5838346659438685,
+            "median": 0.5741147500229999,
+            "minimum": 0.5594819579273462
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "warm_cycles_by_build": [
+            [
+              0.6348920000018552,
+              0.5741147500229999,
+              0.5627431249013171
+            ],
+            [
+              0.7218632500153035,
+              0.558166416012682,
+              0.5594819579273462
+            ],
+            [
+              0.6412080000154674,
+              0.5838346659438685,
+              0.5636863749241456
+            ]
+          ]
+        }
+      },
+      "retained_scratch_bytes": [
+        58454016,
+        58454016,
+        58454016
+      ]
+    },
+    "R2": {
+      "analytical_bytes": 3555516,
+      "build_seconds": {
+        "individual": [
+          1.6433531669899821,
+          1.8380783330649137,
+          1.796759832999669
+        ],
+        "maximum": 1.8380783330649137,
+        "median": 1.796759832999669,
+        "minimum": 1.6433531669899821
+      },
+      "elapsed_seconds": {
+        "individual": [
+          39.43171725003049,
+          40.41181374993175,
+          41.09239520900883
+        ],
+        "maximum": 41.09239520900883,
+        "median": 40.41181374993175,
+        "minimum": 39.43171725003049
+      },
+      "parquet_files": 27,
+      "queries": {
+        "all_days": {
+          "build_median_statistics": {
+            "individual": [
+              8.098594584036618,
+              8.425054041901603,
+              8.347714624949731
+            ],
+            "maximum": 8.425054041901603,
+            "median": 8.347714624949731,
+            "minimum": 8.098594584036618
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "warm_cycles_by_build": [
+            [
+              8.098594584036618,
+              8.219780292012729,
+              8.02262237505056
+            ],
+            [
+              8.59373233304359,
+              8.18354104203172,
+              8.425054041901603
+            ],
+            [
+              8.110524083022028,
+              8.347714624949731,
+              8.942909959005192
+            ]
+          ]
+        },
+        "asn_transitions": {
+          "build_median_statistics": {
+            "individual": [
+              1.2577764579327777,
+              1.3080209590261802,
+              1.396941207931377
+            ],
+            "maximum": 1.396941207931377,
+            "median": 1.3080209590261802,
+            "minimum": 1.2577764579327777
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "warm_cycles_by_build": [
+            [
+              1.3085872910451144,
+              1.222909125033766,
+              1.2577764579327777
+            ],
+            [
+              1.3098334589740261,
+              1.3080209590261802,
+              1.2332768749911338
+            ],
+            [
+              1.315777541953139,
+              1.396941207931377,
+              1.48532433307264
+            ]
+          ]
+        },
+        "daily_transitions": {
+          "build_median_statistics": {
+            "individual": [
+              1.2541822500061244,
+              1.2316971250111237,
+              1.2355101250577718
+            ],
+            "maximum": 1.2541822500061244,
+            "median": 1.2355101250577718,
+            "minimum": 1.2316971250111237
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "warm_cycles_by_build": [
+            [
+              1.5242925840429962,
+              1.2154347080504522,
+              1.2541822500061244
+            ],
+            [
+              1.2316971250111237,
+              1.2438199159223586,
+              1.2267897910205647
+            ],
+            [
+              1.2355101250577718,
+              1.227419542032294,
+              1.5059885419905186
+            ]
+          ]
+        },
+        "membership": {
+          "build_median_statistics": {
+            "individual": [
+              0.4040319579653442,
+              0.40428062493447214,
+              0.39793566695880145
+            ],
+            "maximum": 0.40428062493447214,
+            "median": 0.4040319579653442,
+            "minimum": 0.39793566695880145
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "warm_cycles_by_build": [
+            [
+              0.3949357499368489,
+              0.4040319579653442,
+              0.4083280829945579
+            ],
+            [
+              0.40428062493447214,
+              0.41625324997585267,
+              0.40376258303876966
+            ],
+            [
+              0.39793566695880145,
+              0.39664395805448294,
+              0.4129383750259876
+            ]
+          ]
+        },
+        "selected_day": {
+          "build_median_statistics": {
+            "individual": [
+              0.5771377079654485,
+              0.5855179170612246,
+              0.5926804170012474
+            ],
+            "maximum": 0.5926804170012474,
+            "median": 0.5855179170612246,
+            "minimum": 0.5771377079654485
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "warm_cycles_by_build": [
+            [
+              0.5771377079654485,
+              0.5876562499906868,
+              0.5729522500187159
+            ],
+            [
+              0.5973233749391511,
+              0.5855179170612246,
+              0.5848997079301625
+            ],
+            [
+              0.5922656669281423,
+              0.5926804170012474,
+              0.6525737079791725
+            ]
+          ]
+        }
+      },
+      "retained_scratch_bytes": [
+        58576896,
+        58576896,
+        58576896
+      ]
+    },
+    "R3": {
+      "analytical_bytes": 6954890,
+      "build_seconds": {
+        "individual": [
+          1.7819961659843102,
+          1.8599088329356164,
+          1.8375218330183998
+        ],
+        "maximum": 1.8599088329356164,
+        "median": 1.8375218330183998,
+        "minimum": 1.7819961659843102
+      },
+      "elapsed_seconds": {
+        "individual": [
+          39.77973783307243,
+          39.29475625010673,
+          39.514226124971174
+        ],
+        "maximum": 39.77973783307243,
+        "median": 39.514226124971174,
+        "minimum": 39.29475625010673
+      },
+      "parquet_files": 28,
+      "queries": {
+        "all_days": {
+          "build_median_statistics": {
+            "individual": [
+              8.31656262499746,
+              8.062383332988247,
+              8.155227583018132
+            ],
+            "maximum": 8.31656262499746,
+            "median": 8.155227583018132,
+            "minimum": 8.062383332988247
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "warm_cycles_by_build": [
+            [
+              8.31656262499746,
+              8.611298999981955,
+              7.924618749995716
+            ],
+            [
+              8.32462258299347,
+              8.062383332988247,
+              7.942898416076787
+            ],
+            [
+              8.076177791925147,
+              8.155227583018132,
+              8.235250083031133
+            ]
+          ]
+        },
+        "asn_transitions": {
+          "build_median_statistics": {
+            "individual": [
+              1.2877705830615014,
+              1.2325097909197211,
+              1.2421280420385301
+            ],
+            "maximum": 1.2877705830615014,
+            "median": 1.2421280420385301,
+            "minimum": 1.2325097909197211
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "warm_cycles_by_build": [
+            [
+              1.2710896249627694,
+              1.2877705830615014,
+              1.30968487507198
+            ],
+            [
+              1.2971147079952061,
+              1.2325097909197211,
+              1.2225723749725148
+            ],
+            [
+              1.2381158750504255,
+              1.268046416924335,
+              1.2421280420385301
+            ]
+          ]
+        },
+        "daily_transitions": {
+          "build_median_statistics": {
+            "individual": [
+              1.230919499997981,
+              1.2273190000560135,
+              1.2399821250000969
+            ],
+            "maximum": 1.2399821250000969,
+            "median": 1.230919499997981,
+            "minimum": 1.2273190000560135
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "warm_cycles_by_build": [
+            [
+              1.230919499997981,
+              1.2207317090360448,
+              1.2545936669921502
+            ],
+            [
+              1.2254612080287188,
+              1.2337269999552518,
+              1.2273190000560135
+            ],
+            [
+              1.2238919999217615,
+              1.336832542088814,
+              1.2399821250000969
+            ]
+          ]
+        },
+        "membership": {
+          "build_median_statistics": {
+            "individual": [
+              0.3813957079546526,
+              0.40409974998328835,
+              0.3872198339086026
+            ],
+            "maximum": 0.40409974998328835,
+            "median": 0.3872198339086026,
+            "minimum": 0.3813957079546526
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "warm_cycles_by_build": [
+            [
+              0.3812007079832256,
+              0.3813957079546526,
+              0.3899672089610249
+            ],
+            [
+              0.40409974998328835,
+              0.3795610830420628,
+              0.41030125005636364
+            ],
+            [
+              0.38342670793645084,
+              0.42670724994968623,
+              0.3872198339086026
+            ]
+          ]
+        },
+        "selected_day": {
+          "build_median_statistics": {
+            "individual": [
+              0.5734737920574844,
+              0.5831842499319464,
+              0.5929662080015987
+            ],
+            "maximum": 0.5929662080015987,
+            "median": 0.5831842499319464,
+            "minimum": 0.5734737920574844
+          },
+          "exact_correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "warm_cycles_by_build": [
+            [
+              0.5727962499950081,
+              0.5734737920574844,
+              0.5756567500066012
+            ],
+            [
+              0.5831842499319464,
+              0.561589916003868,
+              0.5984552910085768
+            ],
+            [
+              0.5715629579499364,
+              0.5929662080015987,
+              0.5951402500504628
+            ]
+          ]
+        }
+      },
+      "retained_scratch_bytes": [
+        58466304,
+        58466304,
+        58466304
+      ]
+    }
+  },
+  "correctness": "exact ordered comparison every day/cycle; all query outputs agree",
+  "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+  "experiment": "E2R",
+  "input_manifest": "source-manifest-validation.json",
+  "matched_processing_rank": "NOT_APPLICABLE: representation comparison, not B0 versus B3",
+  "policy": "experiment-registration.json",
+  "preference_decisions": {
+    "R2": {
+      "analytical_saving": 0.9255489465783482,
+      "paired_query_ratios_by_repetition": {
+        "all_days": [
+          1.0099759606058967,
+          0.9864093663099348,
+          1.0152760505409617
+        ],
+        "asn_transitions": [
+          0.9968274954871763,
+          1.0499011438725123,
+          1.1005875198295285
+        ],
+        "daily_transitions": [
+          1.0153136406145924,
+          0.9556232286695555,
+          0.8009215060225435
+        ],
+        "membership": [
+          1.056984114659447,
+          1.042274667816807,
+          0.929052747196206
+        ],
+        "selected_day": [
+          1.005265424625177,
+          1.0465358333096764,
+          1.0151511233802437
+        ]
+      },
+      "query_median_ratios": {
+        "all_days": 1.0152760505409617,
+        "asn_transitions": 1.0366478466084372,
+        "daily_transitions": 0.9585815788528136,
+        "membership": 1.0416335802487675,
+        "selected_day": 1.0198621739604632
+      },
+      "status": "PREFERRED"
+    },
+    "R3": {
+      "analytical_saving": 0.8543674428882582,
+      "paired_query_ratios_by_repetition": {
+        "all_days": [
+          1.0371587611852393,
+          0.943947705841149,
+          0.991865153967122
+        ],
+        "asn_transitions": [
+          1.0205987852444478,
+          0.9892910586723911,
+          0.9786171481921448
+        ],
+        "daily_transitions": [
+          0.9964814594053941,
+          0.9522264212725394,
+          0.8038204874684238
+        ],
+        "membership": [
+          0.9977656389793302,
+          1.0418083546471073,
+          0.9040346978972628
+        ],
+        "selected_day": [
+          0.9988835716805919,
+          1.0423647119782156,
+          1.0156406301139511
+        ]
+      },
+      "query_median_ratios": {
+        "all_days": 0.991865153967122,
+        "asn_transitions": 0.9844256325600851,
+        "daily_transitions": 0.9550199013493371,
+        "membership": 0.9982902935914474,
+        "selected_day": 1.0157973643920193
+      },
+      "status": "PREFERRED"
+    }
+  },
+  "process_import_startup_seconds": "NOT_MEASURED; worker elapsed excludes module import",
+  "query_timing": "Parquet reads + SQLite materialization + exact output/independent validation",
+  "trials": [
+    {
+      "analytical_bytes": 47756423,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 3.3079307089792565,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 40.89172445901204,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R1",
+      "parquet_files": 40,
+      "private_output_bytes": 106214559,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 7.949430708074942
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.6348920000018552
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3822497919900343
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.235265832976438
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.244287749985233
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.01860133302398
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5741147500229999
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.43490966700483114
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2821471670176834
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.3112211669795215
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.41622491599992
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5627431249013171
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3785391669953242
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2204897500341758
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2617794589605182
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 1,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58454016,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 47756423,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 3.834115582983941,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 46.45111362496391,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R1",
+      "parquet_files": 40,
+      "private_output_bytes": 106214877,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 9.32967941602692
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.7218632500153035
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.5656112909782678
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.4791722500231117
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.4861487499438226
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.277005249983631
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.558166416012682
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3878829999594018
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2888940830016509
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2458515419857576
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.541133458027616
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5594819579273462
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3816803749650717
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.242098291986622
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2298052499536425
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 2,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58454016,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 47756423,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 3.9912363330367953,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 43.24594120809343,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R1",
+      "parquet_files": 40,
+      "private_output_bytes": 106214726,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.152453041053377
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.6412080000154674
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3845925839850679
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.7897727499948815
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2692686249502003
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.400811167084612
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5838346659438685
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.4505895000183955
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.5426107499515638
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.3965175410266966
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.22211320803035
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5636863749241456
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.4283240840304643
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.238889459054917
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2550136669306085
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 3,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58454016,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 3555516,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.6433531669899821,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 39.43171725003049,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R2",
+      "parquet_files": 27,
+      "private_output_bytes": 62136254,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.098594584036618
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5771377079654485
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3949357499368489
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.5242925840429962
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.3085872910451144
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.219780292012729
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5876562499906868
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.4040319579653442
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2154347080504522
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.222909125033766
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.02262237505056
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5729522500187159
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.4083280829945579
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2541822500061244
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2577764579327777
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 1,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58576896,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 3555516,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.8380783330649137,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 40.41181374993175,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R2",
+      "parquet_files": 27,
+      "private_output_bytes": 62136249,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.59373233304359
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5973233749391511
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.40428062493447214
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2316971250111237
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.3098334589740261
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.18354104203172
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5855179170612246
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.41625324997585267
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2438199159223586
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.3080209590261802
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.425054041901603
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5848997079301625
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.40376258303876966
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2267897910205647
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2332768749911338
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 2,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58576896,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 3555516,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.796759832999669,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 41.09239520900883,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R2",
+      "parquet_files": 27,
+      "private_output_bytes": 62136524,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.110524083022028
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5922656669281423
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.39793566695880145
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2355101250577718
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.315777541953139
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.347714624949731
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5926804170012474
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.39664395805448294
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.227419542032294
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.396941207931377
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.942909959005192
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.6525737079791725
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.4129383750259876
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.5059885419905186
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.48532433307264
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 3,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58576896,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 6954890,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.7819961659843102,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 39.77973783307243,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R3",
+      "parquet_files": 28,
+      "private_output_bytes": 65425027,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.31656262499746
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5727962499950081
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3812007079832256
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.230919499997981
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2710896249627694
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.611298999981955
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5734737920574844
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3813957079546526
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2207317090360448
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2877705830615014
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 7.924618749995716
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5756567500066012
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3899672089610249
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2545936669921502
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.30968487507198
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 1,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58466304,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 6954890,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.8599088329356164,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 39.29475625010673,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R3",
+      "parquet_files": 28,
+      "private_output_bytes": 65425033,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.32462258299347
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5831842499319464
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.40409974998328835
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2254612080287188
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2971147079952061
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.062383332988247
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.561589916003868
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3795610830420628
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2337269999552518
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2325097909197211
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 7.942898416076787
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5984552910085768
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.41030125005636364
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2273190000560135
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2225723749725148
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 2,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58466304,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    },
+    {
+      "analytical_bytes": 6954890,
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.8375218330183998,
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+      "elapsed_seconds": 39.514226124971174,
+      "engine": "PyArrow19.0.1/SQLite",
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "mode": "R3",
+      "parquet_files": 28,
+      "private_output_bytes": 65425033,
+      "pyarrow_version": "19.0.1",
+      "queries": [
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.076177791925147
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5715629579499364
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.38342670793645084
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2238919999217615
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 1,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2381158750504255
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.155227583018132
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5929662080015987
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.42670724994968623
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.336832542088814
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 2,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.268046416924335
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+          "query_id": "all_days",
+          "seconds": 8.235250083031133
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+          "query_id": "selected_day",
+          "seconds": 0.5951402500504628
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+          "query_id": "membership",
+          "seconds": 0.3872198339086026
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+          "query_id": "daily_transitions",
+          "seconds": 1.2399821250000969
+        },
+        {
+          "correctness": "PASS",
+          "cycle": 3,
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+          "query_id": "asn_transitions",
+          "seconds": 1.2421280420385301
+        }
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "repetition": 3,
+      "resources": "resources.json",
+      "runtime_cap_seconds": 900,
+      "scratch_retained_bytes": 58466304,
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "sqlite_version": "3.53.1",
+      "status": "PASS",
+      "suite": "rpki",
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded"
+    }
+  ]
+}

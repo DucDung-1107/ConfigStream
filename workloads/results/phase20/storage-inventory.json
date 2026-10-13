@@ -1,0 +1,64 @@
+{
+  "evidence": "MEASURED_READ_ONLY",
+  "at": "2026-10-13T21:10:24.709312+00:00",
+  "retained_service_inventory": {
+    "rpki": {
+      "evidence": "MEASURED_READ_ONLY_RETAINED_INVENTORY",
+      "prefix": "phase17-closure/44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+      "topic": "temporal.rpki.fixture.44d52ae9-a2e6-4f88-bf48-d77107f85df0",
+      "source_archives_once_bytes": 63816988,
+      "minio_object_content_bytes": 1648876130,
+      "minio_objects": 1169,
+      "object_listing_sha256": "8929665d5aa041e4fd2aad6d921557c974c106a38d372344c1851d9ae6ad6383",
+      "checkpoint_content_bytes": 106951,
+      "checkpoint_allocated_bytes": 1425408,
+      "broker": {
+        "apparent_bytes": 988861218,
+        "allocated_bytes": 947363840
+      },
+      "accounted_component_content_bytes": 2701661287,
+      "minio_backend_allocation": "NOT_MEASURED",
+      "global_broker_images_service_files": "OUTSIDE_SELECTED_BOUNDARY",
+      "logical_correctness": "Previously accepted; listing is not a new full identity validation"
+    },
+    "ris": {
+      "evidence": "MEASURED_READ_ONLY_RETAINED_INVENTORY",
+      "prefix": "phase18-closure/24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+      "topic": "temporal.ris.source.v1.24ef7626-8ac9-4978-b2e8-6e6bfc0bd6c8",
+      "source_archives_once_bytes": 73771296,
+      "minio_object_content_bytes": 896868378,
+      "minio_objects": 1094,
+      "object_listing_sha256": "da0beac8be864531c066067c62ff08a7f8c725d5c1c17c1c4b3a598c4c28a375",
+      "checkpoint_content_bytes": 91481,
+      "checkpoint_allocated_bytes": 1671168,
+      "broker": {
+        "apparent_bytes": 3485957043,
+        "allocated_bytes": 3444146176
+      },
+      "accounted_component_content_bytes": 4456688198,
+      "minio_backend_allocation": "NOT_MEASURED",
+      "global_broker_images_service_files": "OUTSIDE_SELECTED_BOUNDARY",
+      "logical_correctness": "Previously accepted; listing is not a new full identity validation"
+    },
+    "dns": {
+      "evidence": "MEASURED_READ_ONLY_RETAINED_INVENTORY",
+      "prefix": "phase19/d1ccfc95-1c76-4f45-90d5-c02d2cfe35af",
+      "topic": "temporal.dns.source.v1.d1ccfc95-1c76-4f45-90d5-c02d2cfe35af",
+      "source_archives_once_bytes": 98828670,
+      "minio_object_content_bytes": 539562365,
+      "minio_objects": 406,
+      "object_listing_sha256": "fbbf41eb2e1f8aadce1a8697cb1d71ea002a6a54759fffbccfc153829cb719b4",
+      "checkpoint_content_bytes": 64079,
+      "checkpoint_allocated_bytes": 1179648,
+      "broker": {
+        "apparent_bytes": 2039525808,
+        "allocated_bytes": 1997791232
+      },
+      "accounted_component_content_bytes": 2677980922,
+      "minio_backend_allocation": "NOT_MEASURED",
+      "global_broker_images_service_files": "OUTSIDE_SELECTED_BOUNDARY",
+      "logical_correctness": "Previously accepted; listing is not a new full identity validation"
+    }
+  },
+  "mutation": false
+}

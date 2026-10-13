@@ -1,0 +1,42 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "input_artifacts": "source-manifest-validation.json",
+  "resource_bounds": "experiment-registration.json",
+  "timing_boundary": "See measured per-run boundaries; historical timings retain original definitions",
+  "evidence": "PASS_OFFLINE_AND_LOCAL",
+  "commands": [
+    {
+      "command": "make check",
+      "passed": 1090,
+      "seconds": 13.34,
+      "lint_format": "PASS",
+      "scope": "Owned unit/domain/evaluation fixtures; no external downloads"
+    },
+    {
+      "command": "make api-test",
+      "passed": 80,
+      "seconds": 0.58,
+      "warnings": 1
+    },
+    {
+      "command": "make spark-test",
+      "passed": 107,
+      "seconds": 176.14,
+      "scope": "Service-free transformations, no full real workloads"
+    },
+    {
+      "command": ".venv/bin/python -m pytest tests/unit/test_evaluation.py -q",
+      "passed": 11,
+      "seconds": 0.54
+    }
+  ],
+  "new_actual_service_tests": 0,
+  "prior_service_counts": {
+    "rpki": 9,
+    "ris": 15,
+    "dns": 14
+  },
+  "prior_service_scope": "Reused phase-local evidence only, do not sum overlap or claim rerun",
+  "production_files_changed": [],
+  "external_source_in_CI": false
+}

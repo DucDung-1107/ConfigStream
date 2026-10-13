@@ -1,0 +1,55 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "registration": "experiment-registration.json",
+  "resource_bounds": "experiment-registration.json#controls",
+  "input_artifacts": "source-manifest-validation.json",
+  "scope": "Selected accepted windows only; cached private sources, no new downloads",
+  "phase21_started": false,
+  "evidence": "REUSED_ACCEPTED_REAL_WINDOW_PLUS_NEW_OFFLINE",
+  "H1": "SUPPORTED_WITHIN_TESTED_SCOPE",
+  "new_campaign": "current unit/API/Spark regressions and 11 evaluation fixtures, including falsified unsafe payload dedup",
+  "new_actual_service_fault_tests": 0,
+  "roles": {
+    "terraform": {
+      "versions": 10188,
+      "incarnations": 6505,
+      "edges": 3683,
+      "source": "terraform-reference.json",
+      "proof": "New read-only content hashes/ordinal adjacency equal accepted ledger; no Git mining",
+      "limitations": "text-v1 diff reference not independent HCL semantic oracle"
+    },
+    "rpki": {
+      "source_rows": 5062923,
+      "states": 14,
+      "boundaries": 13,
+      "transitions": 12016,
+      "source": "../phase17-closure/acceptance.json",
+      "new_exact": "R1/R2/R3, three builds and three cycles, every daily set/transition tuple; no state gap policy changed"
+    },
+    "ris": {
+      "occurrences": 4725156,
+      "repeated_fingerprints": 118172,
+      "exclusions": 57,
+      "source": "../phase18-finalization/full-hour-validation.json",
+      "qualification": "Previously accepted retained-history recovery, Level3 required attributes; not new ingestion or universal BGP validity"
+    },
+    "dns": {
+      "raw_rows": 2234863,
+      "common_groups": 144883,
+      "descriptive_differences": 4091,
+      "strict_eligible": 0,
+      "source": "../phase19/acceptance.json",
+      "qualification": "No complete entity coverage or DNS deletion/causal inference; no real proven_empty"
+    }
+  },
+  "perturbation_scope": "Applicable owned retry/conflict/disorder/timestamp/partial/gap/parser/provenance/commit-checkpoint cases in existing regression suites. Prior actual-service evidence remains separately scoped, not relabeled new tests.",
+  "unsafe_control": {
+    "evidence": "PASS_OFFLINE",
+    "distinct_source_ids": 2,
+    "equal_payloads": 1,
+    "unsafe_retained": 1,
+    "expected_correct_retained": 2,
+    "result": "FALSIFIED"
+  },
+  "missing_extra_conflict": "Zero within completed exact comparisons; no fabricated results for pending E3 cells"
+}

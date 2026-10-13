@@ -1,0 +1,71 @@
+{
+  "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a",
+  "input_artifacts": "source-manifest-validation.json",
+  "resource_bounds": "experiment-registration.json",
+  "timing_boundary": "See measured per-run boundaries; historical timings retain original definitions",
+  "evidence": "MEASURED_BOUNDED_EVALUATION",
+  "decision": "CONDITIONAL PASS — VALID COMPARISONS WITH OPEN MATRIX GATES",
+  "starting_sha": "51a1ff6c8e1c4d20ef3e020aa026710d6d05f06a",
+  "entry": "CONDITIONAL GO — BOUNDED EVALUATION",
+  "registered_before_trials": true,
+  "threshold_amendments": [],
+  "completed": [
+    "28 pinned source hashes/sizes",
+    "9 normalized direct-Parquet pilot trials",
+    "9 matched E2R builds,3querycycles/build",
+    "Terraform accepted content/ordinal-edge lookup reference",
+    "Read-only Kafka/MinIO/checkpoint inventories",
+    "Current service-free domain/evaluation regressions"
+  ],
+  "E2R": {
+    "correctness": "exact ordered tuples for all14states and all13boundary projections, every accepted trial; all query hashes agree",
+    "R2_analytical_saving_percent": 92.55489465783482,
+    "R3_analytical_saving_percent": 85.43674428882582,
+    "preference_rule": "Both pass >=20% bytes AND <=2x median on every registered E2R query"
+  },
+  "partial": [
+    "E2D prior exact component/reuse comparison, no standalone matched repetitions",
+    "E2B prior accepted exact log/query evidence, no new matched repeated query trials"
+  ],
+  "pending": [
+    "Matched B0/B1/B2/B3 processing configurations",
+    "RIS physical paced0.5/1/2x and drain tests",
+    "Remaining standalone DNS/RIS storage/query repetitions",
+    "Process import/startup/CPU/physical-query-I/O measurement"
+  ],
+  "hypotheses": {
+    "H1": "SUPPORTED_WITHIN_TESTED_SCOPE",
+    "H2": "SUPPORTED_WITHIN_TESTED_SCOPE",
+    "H3": "NOT_RUN"
+  },
+  "source_restrictions": "Private sources/normalized ledgers only; safe aggregate/code/ownedfixtures published; attribution preserved",
+  "instructor_approval": "NOT_VERIFIED",
+  "heavy_budget_approval": "REQUESTED_PENDING; neither full-hour replay nor fullheavy matrix started",
+  "new_actual_service_tests": 0,
+  "regression": {
+    "unit_quality": 1090,
+    "api": 80,
+    "spark": 107,
+    "focused_evaluation": 11,
+    "skipped_service_tests": "Not counted; new service campaign not invoked"
+  },
+  "negative_results": "DNS reuse +2207468bytes preserved; prior interruptedRIS and independentaggregationOOM preserved; new virtualenv bootstrap failure retained",
+  "claim_limits": [
+    "No matched streaming superiority",
+    "No cold OS-cache claim",
+    "No horizontal scaling",
+    "No DNS causal edit/deletion or complete BGP state",
+    "H2localnormalized representation, not universal or all-in deployed preference"
+  ],
+  "phase21_readiness": "NOT_READY for fullmatrix paper conclusions; validbounded evidence may be reviewed, no Phase21 begun",
+  "final_delivery_ci": "Exact pushed SHA and workflow conclusion verified separately in final handoff",
+  "documents": [
+    "phase20-experiment-registration.md",
+    "phase20-common-correctness.md",
+    "phase20-storage-query.md",
+    "phase20-processing.md",
+    "phase20-cross-domain-analysis.md",
+    "phase20-threats-to-validity.md",
+    "phase20-acceptance.md"
+  ]
+}

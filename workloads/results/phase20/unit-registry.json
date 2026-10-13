@@ -1,0 +1,29 @@
+{
+  "evidence": "REGISTERED_UNITS",
+  "code_commit": "38e54140e5cd108f82dd6627ef9f4611f0af743d",
+  "units": {
+    "logical_version_count": "accepted ordinal Git versions, not deployments",
+    "rpki_source_rows": "original scoped CSV authorization rows, not operator actions",
+    "rpki_complete_states": "complete comparable scoped daily states",
+    "rpki_transition_tuples": "derived canonical additions/removals, not native commands",
+    "dns_raw_measurements": "original artifact/row-group/row observations",
+    "dns_address_groups": "qualified four-field daily observed address groups",
+    "dns_descriptive_value_differences": "observed value-set difference, not authoritative configuration edit",
+    "ris_native_occurrences": "peer-prefix source-coordinate events; preserve distinct equal-looking payloads",
+    "kafka_serialized_value_bytes": "ACK-bound value bytes, not network wire bytes",
+    "parquet_physical_bytes": "file or object content bytes, not backend filesystem overhead",
+    "checkpoint_allocated_bytes": "filesystem allocated bytes only if measured; else NOT_MEASURED",
+    "elapsed_wall_seconds": "specified boundaries; never callback-only time relabeled all-in",
+    "accepted_logical_occurrences_per_second": "distinct RIS IDs / stream-ready to final validated commit incl drain",
+    "source_time_occurrences_per_second": "historical hour occurrence count / 3600 source seconds, not achieved throughput",
+    "drain_ratio": "post-producer to final validated commit seconds / producer seconds"
+  },
+  "forbidden": [
+    "pooling four workload rates",
+    "Spark input chunks/s relabeled native events/s",
+    "missing DNS group = deletion",
+    "RPKI removals = operator commands",
+    "source-time age = operational latency"
+  ],
+  "unmeasured": "NOT_MEASURED, NOT_RUN or N/A, never invented zero"
+}

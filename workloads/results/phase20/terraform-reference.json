@@ -1,0 +1,29 @@
+{
+  "accepted_versions": 10188,
+  "adjacent_pairs": 3683,
+  "correctness": "PASS",
+  "evidence": "MEASURED_LOCAL_REFERENCE",
+  "incarnations": 6505,
+  "limitations": "No raw-from-normalized reconstruction, deployments or speed ranking",
+  "logical_utf8_history_bytes": 12278085,
+  "missing_edges": 0,
+  "output_sha256": "a8bb1551755c05967f53426c3913cdbb7663c6902e5f2a3ede62478e73623ba5",
+  "preparation_seconds": 0.21365887497086078,
+  "query": "content hash + version and adjacent-pair metadata for selected incarnation",
+  "query_parameter": "old snapshot of first lexicographic accepted ordinal edge",
+  "re_mining": false,
+  "timing": "load/validation separately; reused-process lookup cycles, OS cache uncontrolled",
+  "unexpected_edges": 0,
+  "warm_query_seconds": {
+    "individual": [
+      0.00008491706103086472,
+      0.00007612502668052912,
+      0.00007204106077551842
+    ],
+    "maximum": 0.00008491706103086472,
+    "median": 0.00007612502668052912,
+    "minimum": 0.00007204106077551842
+  },
+  "code_commit": "adc1b3c",
+  "code_binding": "Uncommitted evaluation-only helper, SHA256 recorded in evaluation artifact audit before delivery; no production changes"
+}

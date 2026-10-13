@@ -1,0 +1,25 @@
+{
+  "version": "phase20-queries-v1",
+  "before_timing": "RPKI parameters frozen in experiment-registration before trials; Terraform exact symbolic parameter fixed before its first lookup",
+  "rpki": {
+    "all_days": "All 14 accepted daily canonical sets in date order",
+    "selected_day": "2026-09-14 full canonical membership projection",
+    "membership": "First lexicographic canonical tuple of 2026-09-01, queried on 2026-09-14",
+    "daily_transitions": "All thirteen consecutive boundaries, exact added/removed tuple sets and counts",
+    "asn_transitions": "All thirteen boundaries, exact transition tuples aggregated by ASN/action"
+  },
+  "terraform": {
+    "lookup": "Old snapshot of first lexicographic accepted ordinal edge; content hash, all incarnation version ordinals and adjacent edge metadata",
+    "reference": "workloads/results/terrads/ground-truth-edges.csv",
+    "scope": "Existing accepted history, no Git mining or new diff semantics"
+  },
+  "dns_ris_matched_queries": "NOT_RUN: required parameters must be registered before those future matched trials",
+  "protocol": {
+    "repetitions": 3,
+    "seed": 42,
+    "cache": "Fresh process/build and warm cycles separately; no OS cache eviction",
+    "required_query_preference": "Every registered E2R query must pass exactness and <=2x median time",
+    "bytes_read": "NOT_MEASURED: do not infer physical I/O from file sizes",
+    "process_import_startup": "NOT_MEASURED in first bounded workers; included timing begins after imports"
+  }
+}
