@@ -319,7 +319,7 @@ def main():
         for mode, repetition in order:
             target = args.output / f"{mode}-{repetition}"
             command = [
-                str(Path(".venv/bin/python").resolve()),
+                str(Path(".venv/bin/python").absolute()),
                 "-m",
                 "benchmarks.phase20",
                 "--suite",
