@@ -27,6 +27,8 @@ def approve_execution(policy, files, seconds):
 
 
 def progress_snapshot(progress):
+    if hasattr(progress, "json"):
+        progress = json.loads(progress.json)
     return dict(
         batch_id=progress["batchId"],
         num_input_rows=progress["numInputRows"],
@@ -36,6 +38,27 @@ def progress_snapshot(progress):
             for item in progress["sources"]
         ],
     )
+
+
+def kafka_offsets(value, topic):
+    from schemas.ris import validate_topic
+
+    validate_topic(topic)
+    if isinstance(value, str):
+        if len(value) > 16384:
+            raise ValueError("RIS offset metadata bound")
+        value = json.loads(value)
+    if not isinstance(value, dict) or set(value) != {topic}:
+        raise ValueError("RIS offset topic binding mismatch")
+    partitions = value[topic]
+    if not isinstance(partitions, dict) or not 1 <= len(partitions) <= 2:
+        raise ValueError("RIS offset partition bound")
+    if any(
+        not isinstance(key, str) or not key.isdecimal() or type(offset) is not int or offset < 0
+        for key, offset in partitions.items()
+    ):
+        raise ValueError("RIS invalid source offset")
+    return partitions
 
 
 def main():
@@ -215,7 +238,7 @@ def main():
                     for partition in metadata.topics[result["topic"]].partitions
                 }
                 progress = result["spark_progress"][-1]["sources"][0]
-                ends = json.loads(progress["end_offset"])[result["topic"]]
+                ends = kafka_offsets(progress["end_offset"], result["topic"])
                 result["broker_high_watermarks"] = highs
                 result["spark_end_offsets"] = ends
                 result["final_broker_lag"] = sum(
@@ -343,6 +366,7 @@ def main():
         guest.stop.set()
         guest.thread.join(timeout=20)
         result["elapsed_seconds"] = monotonic() - began
+        result["batches"] = processor.metrics
         result["resource_failure"] = resources.failure
         result["guest_failure"] = guest.failure
         result["peak_sampled_tree_rss_bytes"] = max(

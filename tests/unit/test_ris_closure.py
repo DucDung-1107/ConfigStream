@@ -169,6 +169,36 @@ def test_legacy_physical_paths_keep_supported_versions(tmp_path, version):
         store.committed_path(commit | {"format_version": "unregistered"}, "owned")
 
 
+def test_spark4_progress_uses_json_not_python_offset_repr():
+    from benchmarks.ris_service import kafka_offsets, progress_snapshot
+
+    topic = "temporal.ris.source.v1.owned"
+
+    class Progress(dict):
+        @property
+        def json(self):
+            return json.dumps(
+                {
+                    "batchId": 1,
+                    "numInputRows": 2,
+                    "durationMs": {"addBatch": 3},
+                    "sources": [
+                        {
+                            "startOffset": {topic: {"0": 0, "1": 1}},
+                            "endOffset": {topic: {"0": 0, "1": 3}},
+                        }
+                    ],
+                }
+            )
+
+    snapshot = progress_snapshot(Progress())
+    assert kafka_offsets(snapshot["sources"][0]["end_offset"], topic) == {"0": 0, "1": 3}
+    assert kafka_offsets(json.dumps({topic: {"0": 0}}), topic) == {"0": 0}
+    for value in ({"wrong": {"0": 1}}, {topic: {"0": True}}, {topic: {"0": -1}}):
+        with pytest.raises(ValueError):
+            kafka_offsets(value, topic)
+
+
 @pytest.mark.parametrize(
     "number,raw,expected",
     [
