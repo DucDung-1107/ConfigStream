@@ -122,6 +122,22 @@ def test_independent_group_oracle_owned(tmp_path):
     assert summary["status_codes"] == {"0": 3, "65535": 1, "3": 1, "65533": 1}
 
 
+def test_dns_source_offset_representations():
+    import json
+
+    from messaging.dns import source_offsets
+
+    topic = "temporal.dns.source.v1.owned"
+    encoded = {topic: {"0": 32, "1": 0}}
+    assert (
+        source_offsets(encoded, topic)
+        == source_offsets(json.dumps(encoded), topic)
+        == encoded[topic]
+    )
+    with pytest.raises(ValueError):
+        source_offsets({"wrong": {"0": 32}}, topic)
+
+
 @pytest.mark.parametrize(
     "change", ["wrong_hash", "bad_coordinate", "unknown_time", "precision", "false_empty"]
 )

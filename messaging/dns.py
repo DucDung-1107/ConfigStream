@@ -13,6 +13,21 @@ def validate_topic(topic):
         raise ValueError("Unregistered DNS topic")
 
 
+def source_offsets(value, topic):
+    validate_topic(topic)
+    if isinstance(value, str):
+        value = json.loads(value)
+    if not isinstance(value, dict) or set(value) != {topic} or not isinstance(value[topic], dict):
+        raise ValueError("DNS source offset topic binding mismatch")
+    result = value[topic]
+    if not 1 <= len(result) <= 2 or any(
+        not key.isdecimal() or type(offset) is not int or offset < 0
+        for key, offset in result.items()
+    ):
+        raise ValueError("DNS source offset partition/value mismatch")
+    return result
+
+
 def ensure_topic(config, topic):
     from confluent_kafka import KafkaException
     from confluent_kafka.admin import AdminClient, NewTopic

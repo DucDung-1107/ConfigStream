@@ -74,7 +74,7 @@ def main():
     from lake.config import LakeConfig
     from lake.dns import DnsStore, read_source_completion
     from messaging.config import KafkaConfig
-    from messaging.dns import ensure_topic, publish
+    from messaging.dns import ensure_topic, publish, source_offsets
     from spark.common.config import SparkConfig
     from spark.common.runtime import create_session
     from spark.dns import DnsProcessor, committed_raw, start_query
@@ -193,9 +193,9 @@ def main():
                     )[1]
                     for key in partitions
                 }
-                ends = json.loads(result["last_progress"]["sources"][0]["endOffset"])[
-                    result["topic"]
-                ]
+                ends = source_offsets(
+                    result["last_progress"]["sources"][0]["endOffset"], result["topic"]
+                )
                 result["final_kafka_lag"] = sum(highs[key] - ends.get(key, -1) for key in highs)
                 if highs != ends:
                     raise ValueError("DNS final broker/checkpoint offsets disagree")
