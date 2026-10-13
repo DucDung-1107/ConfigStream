@@ -35,6 +35,11 @@ def summarize_rpki(root):
             "asn_transitions",
         }:
             raise ValueError("Required query omitted from preference evaluation")
+        if any(
+            trial.get("arrow_cpu_pool_threads") != 2 or trial.get("arrow_io_pool_threads") != 2
+            for trial in selected
+        ):
+            raise ValueError("Uncontrolled native Arrow pools; exclude from final preference")
         by_query = {}
         for query_id in sorted(query_ids):
             values = [
@@ -176,11 +181,15 @@ def resource_summary(roots):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--private", type=Path, default=Path(".cache/phase20"))
+    parser.add_argument("--rpki-dir", type=Path)
+    parser.add_argument("--pilot-dir", type=Path)
     args = parser.parse_args()
+    rpki_root = args.rpki_dir or args.private / "rpki-cpu2"
+    pilot_root = args.pilot_dir or args.private / "pilot-cpu2"
     reports = dict(
-        rpki=summarize_rpki(args.private / "rpki"),
-        pilot=summarize_pilot(args.private / "pilot-v2"),
-        resources=resource_summary([args.private / "rpki", args.private / "pilot-v2"]),
+        rpki=summarize_rpki(rpki_root),
+        pilot=summarize_pilot(pilot_root),
+        resources=resource_summary([rpki_root, pilot_root]),
     )
     print(json.dumps(reports, sort_keys=True))
 

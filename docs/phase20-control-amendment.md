@@ -14,3 +14,16 @@ This is a targeted benchmark-control repair, not a favorable post-hoc threshold
 amendment or authorization for new full-window service ingestion.
 
 [Decision](../workloads/results/phase20/control-amendment.json).
+
+## P20-QUERY-BOUNDARY-AUDIT — same date
+
+The first workers timed independent external-oracle comparison inside query cost.
+This can mask an alternative's latency ratio. Preserve those values as qualified
+and separate reconstruction/query/output materialization from exact independent
+verification in the final matched repeats. Apply the unchanged 2x rule to the
+candidate query only; do not skip any oracle comparison. Query parameters, source,
+identity, compression and 20% threshold are unchanged. Command launch timing now
+also records import/startup-inclusive completion separately.
+This repairs a cost-boundary defect, not a favorable threshold change. Same
+bounded local authorization/caps, no new service experiment or resource expansion.
+[Decision](../workloads/results/phase20/query-boundary-amendment.json).

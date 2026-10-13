@@ -10,7 +10,12 @@ from contextlib import contextmanager
 from pathlib import Path
 from time import monotonic
 
-from benchmarks.evaluation import exact_encoding_digest, randomized_order, summary_digest
+from benchmarks.evaluation import (
+    encoding_digest,
+    exact_encoding_digest,
+    randomized_order,
+    summary_digest,
+)
 from benchmarks.rpki_service import GuestGuard
 from workloads.rpki_resources import ResourceSampler, directory_bytes
 
@@ -146,15 +151,29 @@ def rpki_queries(mode, oracle, days, output, cycle, check):
     database = connection(output / f"scratch-{cycle}.sqlite", check)
     database.execute("CREATE TABLE state(encoding BLOB PRIMARY KEY) WITHOUT ROWID")
     query_results = []
+    validation_seconds = 0.0
+    target = oracle_rows(oracle, days[0]).fetchone()[0]
+
+    def verify(callback):
+        nonlocal validation_seconds
+        started = monotonic()
+        value = callback()
+        validation_seconds += monotonic() - started
+        return value
 
     def run(query_id, query):
         began = monotonic()
+        validation_before = validation_seconds
         value = query()
+        total = monotonic() - began
+        validation = validation_seconds - validation_before
         query_results.append(
             dict(
                 query_id=query_id,
                 cycle=cycle,
-                seconds=monotonic() - began,
+                seconds=total - validation,
+                validation_seconds=validation,
+                total_seconds=total,
                 correctness="PASS",
                 output_sha256=summary_digest(value),
             )
@@ -162,24 +181,33 @@ def rpki_queries(mode, oracle, days, output, cycle, check):
 
     def state(index):
         reconstruct(database, mode, index, output, check)
-        return exact_encoding_digest(
-            database.execute("SELECT encoding FROM state ORDER BY encoding"),
-            oracle_rows(oracle, days[index]),
-            check,
+        actual = encoding_digest(
+            database.execute("SELECT encoding FROM state ORDER BY encoding"), check
         )
+        expected = verify(
+            lambda: exact_encoding_digest(
+                database.execute("SELECT encoding FROM state ORDER BY encoding"),
+                oracle_rows(oracle, days[index]),
+                check,
+            )
+        )
+        if actual != expected:
+            raise ValueError("Reconstructed output digest mismatch")
+        return actual
 
     run("all_days", lambda: [state(index) for index in range(len(days))])
     run("selected_day", lambda: state(len(days) - 1))
 
     def membership():
         reconstruct(database, mode, len(days) - 1, output, check)
-        target = oracle_rows(oracle, days[0]).fetchone()[0]
         actual = database.execute(
             "SELECT count(*) FROM state WHERE encoding=?", (target,)
         ).fetchone()[0]
-        expected = oracle.execute(
-            "SELECT count(*) FROM members WHERE day=? AND encoding=?", (days[-1], target)
-        ).fetchone()[0]
+        expected = verify(
+            lambda: oracle.execute(
+                "SELECT count(*) FROM members WHERE day=? AND encoding=?", (days[-1], target)
+            ).fetchone()[0]
+        )
         if actual != expected:
             raise ValueError("Membership query mismatch")
         return actual
@@ -191,18 +219,20 @@ def rpki_queries(mode, oracle, days, output, cycle, check):
         for index in range(1, len(days)):
             for action in ("added", "removed"):
                 observed = encodings(output / f"{action}-{index}.parquet", check)
-                expected = delta_rows(oracle, days[index], days[index - 1], action)
                 if by_asn:
-                    from itertools import zip_longest
-
-                    for actual, reference in zip_longest(observed, expected):
-                        if actual is None or reference is None or actual != reference:
-                            raise ValueError("Transition tuple mismatch")
+                    for actual in observed:
                         asn = json.loads(actual[0])[1]
                         key = f"{asn}:{action}"
                         result[key] = result.get(key, 0) + 1
                 else:
-                    result[f"{index}:{action}"] = exact_encoding_digest(observed, expected, check)
+                    result[f"{index}:{action}"] = encoding_digest(observed, check)
+                verify(
+                    lambda index=index, action=action: exact_encoding_digest(
+                        encodings(output / f"{action}-{index}.parquet", check),
+                        delta_rows(oracle, days[index], days[index - 1], action),
+                        check,
+                    )
+                )
         return result
 
     run("daily_transitions", transitions)
@@ -339,8 +369,19 @@ def main():
                 str(repetition),
             ]
             with (args.output / f"{mode}-{repetition}.log").open("w") as log:
+                launched = monotonic()
                 subprocess.run(
                     command, stdout=log, stderr=subprocess.STDOUT, timeout=cap + 45, check=True
+                )
+                (args.output / f"{mode}-{repetition}.launch.json").write_text(
+                    json.dumps(
+                        dict(
+                            command_start_to_exit_seconds=monotonic() - launched,
+                            includes_import_startup=True,
+                            mode=mode,
+                            repetition=repetition,
+                        )
+                    )
                 )
         return
     result = dict(

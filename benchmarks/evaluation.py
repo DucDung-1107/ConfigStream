@@ -79,3 +79,16 @@ def summary_digest(value):
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+
+
+def encoding_digest(rows, check=lambda: None):
+    checksum = hashlib.sha256(b"rpki-set-v1\n")
+    count = 0
+    for count, (encoding,) in enumerate(rows, 1):
+        if isinstance(encoding, str):
+            encoding = encoding.encode()
+        checksum.update(len(encoding).to_bytes(4, "big"))
+        checksum.update(encoding)
+        if count % 8192 == 0:
+            check()
+    return dict(rows=count, set_digest=checksum.hexdigest())

@@ -1,0 +1,1471 @@
+{
+  "qualification": "Exactness and registered pools pass; timings combine query+external oracle, excluded from final latency preference",
+  "rpki_trials": [
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R2",
+      "repetition": 1,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.539096915978007,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 8.128964833100326,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5915992079535499,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.4194528330117464,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.2186554999789223,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.202837958931923,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 8.093781957984902,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5894670000998303,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.39472737500909716,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.1928891250863671,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.2057034169556573,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 8.024815916083753,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5983731659362093,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.4327500000363216,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.2023744159378111,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.212793792015873,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 3555516,
+      "parquet_files": 27,
+      "scratch_retained_bytes": 58576896,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 38.836070041987114,
+      "private_output_bytes": 62136253
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R3",
+      "repetition": 3,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.6897129999706522,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 8.154166124993935,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5707717500627041,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.38961712503805757,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.2027404580730945,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.2254998330026865,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.970039875013754,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5678295420948416,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.3822875409387052,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.20382733293809,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.207971499999985,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 7.945675249909982,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5669357919832692,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.38062312500551343,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.1951167499646544,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2143427080009133,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 6954890,
+      "parquet_files": 28,
+      "scratch_retained_bytes": 58466304,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 38.73312883393373,
+      "private_output_bytes": 65425029
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R1",
+      "repetition": 1,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 3.259047625004314,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 7.955069583025761,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5997909579891711,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.3747252910397947,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.2173530419822782,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.2223346249666065,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.984881500015035,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.573018291965127,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.37844749994110316,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.2096809580689296,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.20780754100997,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 7.926627709064633,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5653091249987483,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.36936683394014835,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.1984107919270173,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2042657079873607,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 47756423,
+      "parquet_files": 40,
+      "scratch_retained_bytes": 58454016,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 40.06534441700205,
+      "private_output_bytes": 106214283
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R3",
+      "repetition": 2,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.6816502501023933,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 7.9700245000422,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.577101374976337,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.3917632920201868,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.198236915981397,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.194857000024058,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.869174583000131,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5619752500206232,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.38228200003504753,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.185090292012319,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.2023987909778953,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 8.022894499939866,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.6991188750835136,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.394281042041257,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.361847750027664,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2599953330354765,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 6954890,
+      "parquet_files": 28,
+      "scratch_retained_bytes": 58466304,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 38.742893415968865,
+      "private_output_bytes": 65425032
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R2",
+      "repetition": 3,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.541535333963111,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 8.269730125088245,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.6205293330131099,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.4066705839941278,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.275853541912511,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.3154327910160646,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.987779500079341,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.6023618750041351,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.39115358400158584,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.1842490829294547,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.2157631249865517,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 7.978389582945965,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5753475000383332,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.38590908295009285,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.2091185830067843,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2039064581040293,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 3555516,
+      "parquet_files": 27,
+      "scratch_retained_bytes": 58576896,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 38.966969666071236,
+      "private_output_bytes": 62136250
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R2",
+      "repetition": 2,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.5534547910792753,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 8.07051612494979,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5794315409148112,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.3918028339976445,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.1978478329256177,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.208808249910362,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.995260292082094,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5760844169417396,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.39942195801995695,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.3052302079740912,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.3341374159790576,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 8.316936458926648,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.6016009170562029,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.4009702500188723,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.2146313330158591,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2161745419725776,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 3555516,
+      "parquet_files": 27,
+      "scratch_retained_bytes": 58576896,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 39.130734791979194,
+      "private_output_bytes": 62136251
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R1",
+      "repetition": 3,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 3.1390819170046598,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 7.97275349998381,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5747062090085819,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.37243012501858175,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.1905017079552636,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.2070615000557154,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.863452750025317,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5579680830705911,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.37427045800723135,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.2002832920989022,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.19910608290229,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 8.025813707965426,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5758130419999361,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.37549704092089087,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.2081654589856043,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2150165840284899,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 47756423,
+      "parquet_files": 40,
+      "scratch_retained_bytes": 58454016,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 39.79166770807933,
+      "private_output_bytes": 106214281
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R1",
+      "repetition": 2,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 3.2449029170675203,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 7.857394540915266,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5836495000403374,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.38826645794324577,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.1753966249525547,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.1874345410615206,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.811132707982324,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5670814589830115,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.38142400002107024,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.21117091702763,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.2583794590318576,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 7.944170084083453,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5607814589748159,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.37211700004991144,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.2088187499903142,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.1947761670453474,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 47756423,
+      "parquet_files": 40,
+      "scratch_retained_bytes": 58454016,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 42.14969941589516,
+      "private_output_bytes": 106214547
+    },
+    {
+      "status": "PASS",
+      "code_commit": "4b6cca6d7aa6598d6fe7b1aaebe6c860b622f40b",
+      "suite": "rpki",
+      "mode": "R3",
+      "repetition": 1,
+      "evidence": "MEASURED_REAL_SOURCE_NORMALIZED",
+      "runtime_cap_seconds": 900,
+      "engine": "PyArrow19.0.1/SQLite",
+      "sqlite_version": "3.53.1",
+      "pyarrow_version": "19.0.1",
+      "arrow_cpu_pool_threads": 2,
+      "arrow_io_pool_threads": 2,
+      "sqlite_query_threads": 1,
+      "timing": "worker start through build, exact comparison and query cycles; parser excluded",
+      "cache": "fresh process, OS cache uncontrolled; query cycles reused process",
+      "source_manifests": "workloads/results/phase20/experiment-registration.json",
+      "resources": "resources.json",
+      "argv_mode": "isolated private local-only output",
+      "build_seconds": 1.6908428330207244,
+      "queries": [
+        {
+          "query_id": "all_days",
+          "cycle": 1,
+          "seconds": 8.041932624997571,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 1,
+          "seconds": 0.5689791670301929,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 1,
+          "seconds": 0.39251954096835107,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 1,
+          "seconds": 1.2095731659792364,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 1,
+          "seconds": 1.2851367919938639,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 2,
+          "seconds": 7.959418958984315,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 2,
+          "seconds": 0.5774404159747064,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 2,
+          "seconds": 0.3898101659724489,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 2,
+          "seconds": 1.2189067500876263,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 2,
+          "seconds": 1.217273083049804,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        },
+        {
+          "query_id": "all_days",
+          "cycle": 3,
+          "seconds": 7.8707573330029845,
+          "correctness": "PASS",
+          "output_sha256": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b"
+        },
+        {
+          "query_id": "selected_day",
+          "cycle": 3,
+          "seconds": 0.5701047499896958,
+          "correctness": "PASS",
+          "output_sha256": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846"
+        },
+        {
+          "query_id": "membership",
+          "cycle": 3,
+          "seconds": 0.3832654590951279,
+          "correctness": "PASS",
+          "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+        },
+        {
+          "query_id": "daily_transitions",
+          "cycle": 3,
+          "seconds": 1.2291827501030639,
+          "correctness": "PASS",
+          "output_sha256": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3"
+        },
+        {
+          "query_id": "asn_transitions",
+          "cycle": 3,
+          "seconds": 1.2334023750154302,
+          "correctness": "PASS",
+          "output_sha256": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d"
+        }
+      ],
+      "analytical_bytes": 6954890,
+      "parquet_files": 28,
+      "scratch_retained_bytes": 58466304,
+      "expected_set_digests": [
+        "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+        "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+        "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+        "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+        "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+        "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+        "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+        "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+        "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+        "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+        "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+        "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+        "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+        "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5"
+      ],
+      "reconstruction": "exact sorted tuple comparison for every day, every cycle",
+      "elapsed_seconds": 38.58472579193767,
+      "private_output_bytes": 65424866
+    }
+  ],
+  "resources": {
+    "evidence": "MEASURED_LOCAL",
+    "runs": [
+      {
+        "run": "R1-1",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 246251520,
+        "minimum_host_free_disk_bytes": 642292572160,
+        "minimum_guest_free_disk_bytes": 32308301824,
+        "minimum_guest_available_ram_bytes": 4659048448,
+        "peak_sampled_output_bytes": 114693943,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R1-2",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 229294080,
+        "minimum_host_free_disk_bytes": 642844405760,
+        "minimum_guest_free_disk_bytes": 32308334592,
+        "minimum_guest_available_ram_bytes": 4642217984,
+        "peak_sampled_output_bytes": 125730367,
+        "host_sample_count": 21,
+        "guest_sample_count": 5,
+        "failures": []
+      },
+      {
+        "run": "R1-3",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 251117568,
+        "minimum_host_free_disk_bytes": 642740867072,
+        "minimum_guest_free_disk_bytes": 32308658176,
+        "minimum_guest_available_ram_bytes": 4623982592,
+        "peak_sampled_output_bytes": 117205679,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R2-1",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 243875840,
+        "minimum_host_free_disk_bytes": 642218246144,
+        "minimum_guest_free_disk_bytes": 32308297728,
+        "minimum_guest_available_ram_bytes": 4634955776,
+        "peak_sampled_output_bytes": 80269244,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R2-2",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 242548736,
+        "minimum_host_free_disk_bytes": 642601431040,
+        "minimum_guest_free_disk_bytes": 32308563968,
+        "minimum_guest_available_ram_bytes": 4648914944,
+        "peak_sampled_output_bytes": 78447036,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R2-3",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 242663424,
+        "minimum_host_free_disk_bytes": 642667220992,
+        "minimum_guest_free_disk_bytes": 32308568064,
+        "minimum_guest_available_ram_bytes": 4583677952,
+        "peak_sampled_output_bytes": 81369252,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R3-1",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 244367360,
+        "minimum_host_free_disk_bytes": 642467741696,
+        "minimum_guest_free_disk_bytes": 32308391936,
+        "minimum_guest_available_ram_bytes": 4652802048,
+        "peak_sampled_output_bytes": 76658546,
+        "host_sample_count": 19,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R3-2",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 245399552,
+        "minimum_host_free_disk_bytes": 642402861056,
+        "minimum_guest_free_disk_bytes": 32308355072,
+        "minimum_guest_available_ram_bytes": 4586430464,
+        "peak_sampled_output_bytes": 73083890,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      },
+      {
+        "run": "R3-3",
+        "suite": "rpki-cpu2",
+        "peak_sampled_process_tree_rss_bytes": 204357632,
+        "minimum_host_free_disk_bytes": 642528968704,
+        "minimum_guest_free_disk_bytes": 32308449280,
+        "minimum_guest_available_ram_bytes": 4640604160,
+        "peak_sampled_output_bytes": 84436350,
+        "host_sample_count": 20,
+        "guest_sample_count": 4,
+        "failures": []
+      }
+    ],
+    "allocation_changes": false,
+    "task_spill_cpu": "NOT_MEASURED: these workers use PyArrow/SQLite, no Spark JVM",
+    "peak_scope": "sampled worker tree only; container RSS separately in environment manifest"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "P20-QUERY-BOUNDARY-AUDIT-20261014",
+  "date": "2026-10-14",
+  "old_rule": "First registered worker query_seconds included external independent oracle comparison",
+  "new_rule": "Separate candidate reconstruction/query/output materialization from independent exact verification; report both, apply frozen <=2x preference to query execution only",
+  "reason": "Frozen evaluation requires independently auditable cost components; common oracle overhead can mask candidate latency ratio. Verified harness inclusion, not a source/identity defect.",
+  "source_threshold_query_change": false,
+  "affected": "All E2R query timing comparisons; preserve previous values as qualified, repeat matched builds/queries in new local namespace",
+  "approval": "Targeted repair/revalidation under bounded local authorization; unchanged runtime caps/resources, no service replay or expansion",
+  "new_run_directory": ".cache/phase20/rpki-final"
+}
