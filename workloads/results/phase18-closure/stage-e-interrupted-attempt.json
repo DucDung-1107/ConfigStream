@@ -1,0 +1,40 @@
+{
+  "query_id": "5f937f78-ac0d-4b4c-a5f6-242cd734852f",
+  "code_commit": "5cd86c001612e59bbf9225c4423fe21c69a1fee1",
+  "elapsed_seconds": 1344.255987541983,
+  "runtime_cap_seconds": 7200,
+  "peak_sampled_tree_rss_bytes": 2716172288,
+  "minimum_guest_free_disk_bytes": 40485605376,
+  "minimum_guest_available_memory_bytes": 4554166272,
+  "failure_category": "Py4JError",
+  "resource_failure": null,
+  "guest_failure": null,
+  "evidence": "MEASURED_SERVICE",
+  "status": "INTERRUPTED_NOT_ACCEPTED",
+  "scope": "Read-only metadata audit after owner-requested sleep interruption; not exact full-window readback",
+  "acknowledged_archives": 3,
+  "acknowledged_occurrences": 1303847,
+  "acknowledged_chunks": 10188,
+  "acknowledged_value_bytes": 949148969,
+  "committed_batches": 41,
+  "committed_physical_row_claims": 1292704,
+  "selected_parquet_files": 164,
+  "selected_parquet_object_bytes": 245689583,
+  "selected_object_prefix_bytes": 246294957,
+  "checkpoint_bytes": 37908,
+  "archive_accounting_descriptor_objects": 0,
+  "exclusion_sidecar_objects": 0,
+  "window_descriptor_present": false,
+  "latest_acknowledged_checkpoint_batch": 40,
+  "broker_high_watermarks": {
+    "0": 0,
+    "1": 10188
+  },
+  "checkpoint_committed_end_offsets": {
+    "0": 0,
+    "1": 10100
+  },
+  "broker_lag_from_last_acknowledged_checkpoint_chunks": 88,
+  "termination_context": "SIGINT sent to verified experiment PID at owner sleep request; signal_handler.cancelAllJobs reentrant Py4J errors followed by InterruptedException and StackOverflowError. No pre-interruption correctness mismatch or OOM identified; root cause of shutdown stack trace not proven.",
+  "new_attempt_requires_explicit_approval": true
+}

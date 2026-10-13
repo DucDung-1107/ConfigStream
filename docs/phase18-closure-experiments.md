@@ -167,6 +167,31 @@ timeout extension is authorized. Actual host/guest resources must pass preflight
 The driver writes an isolated UUID, topic, checkpoint and MinIO prefix in its
 registered plan before publishing. Approval is not evidence of Stage E success.
 
+## Interrupted Stage E and separately approved new attempt — 2026-10-13
+
+The first Stage E run (`5f937f78-ac0d-4b4c-a5f6-242cd734852f`, code
+`5cd86c001612e59bbf9225c4423fe21c69a1fee1`) was interrupted with SIGINT at the
+owner's request to sleep the computer. Its retained result reports 1,344.256
+seconds and `Py4JError`; shutdown includes a reentrant Py4J call from Spark's
+signal handler, `InterruptedException` and `StackOverflowError`. No earlier
+correctness mismatch or heap exhaustion was identified; this is not proof of the
+shutdown stack trace's root cause. It is not an accepted complete window.
+
+Read-only metadata audit found 41 commits claiming 1,292,704 rows, 164 Parquet
+objects / 245,689,583 bytes, no archive accounting/exclusion sidecars and no
+window descriptor. Kafka acknowledged all 1,303,847 events of the first three
+archives, but the last acknowledged Spark checkpoint lagged by 88 chunks. These
+are metadata claims, not a new exact logical readback. All objects, checkpoints,
+topics and logs are retained; [interruption evidence](../workloads/results/phase18-closure/stage-e-interrupted-attempt.json)
+is separate from the previously accepted fifteen-minute experiment.
+
+After an explicit question specifying a new 7,200-second attempt, the owner
+replied “lại đi”. One fresh isolated Stage E attempt is therefore authorized,
+not an automatic retry or an asserted resume of the stopped process. Unchanged
+VM/heap/guards and cached independent oracle apply. Bounded owned-fixture recovery
+tests and a fresh resource/source preflight must pass first. No additional attempt
+or timeout extension is implied.
+
 ## Rights and attribution
 
 Source: RIPE NCC / RIPE RIS, twelve pinned `rrc00` archives. The

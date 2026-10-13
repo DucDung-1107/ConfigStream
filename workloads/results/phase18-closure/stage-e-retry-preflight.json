@@ -1,0 +1,26 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "date": "2026-10-13",
+  "guest": {
+    "guest_free_disk_bytes": 40483295232,
+    "guest_available_memory_bytes": 4754575360
+  },
+  "host_free_disk_bytes": 659432771584,
+  "private_experiment_bytes": 5391336860,
+  "verified_cached_archives": 12,
+  "independent_oracle_level": 3,
+  "owned_actual_service_tests": {
+    "passed": 14,
+    "elapsed_seconds": 134.84
+  },
+  "vm": {
+    "cpus": 2,
+    "memory": 6442450944,
+    "disk": 68719476736
+  },
+  "spark_driver_heap": "2g",
+  "runtime_cap_seconds": 7200,
+  "output_directory": ".cache/phase18-closure/service-hour-v2; verified fresh",
+  "previous_run_retained": true,
+  "new_download_bytes": 0
+}
