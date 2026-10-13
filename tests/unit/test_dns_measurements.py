@@ -111,7 +111,7 @@ def test_original_coordinates_oracle_and_typed_version(tmp_path):
         "unknown",
     ]
     assert actual[0].time_descriptor().precision == "second"
-    assert actual[0].rtt_hex == 0.25.hex()
+    assert actual[0].rtt_hex == "0x1.0000000000000p-2"
 
 
 def test_independent_group_oracle_owned(tmp_path):
