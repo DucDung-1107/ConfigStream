@@ -6,7 +6,7 @@ from hashlib import sha256
 from pathlib import Path
 
 from schemas.temporal.provenance import Artifact
-from workloads.ris_oracle import build, window_ledger
+from workloads.ris_oracle import build, reuse_verified, window_ledger
 
 
 def test_cross_archive_repeats_are_not_per_file_sum(tmp_path):
@@ -25,6 +25,10 @@ def test_cross_archive_repeats_are_not_per_file_sum(tmp_path):
             revision="owned-v1",
         )
         build(source, artifact, output / filename, source_id="owned")
+        cached = tmp_path / f"reused-{index}"
+        assert (
+            reuse_verified(source, artifact, output / filename, cached)["accepted_occurrences"] == 4
+        )
     summary = window_ledger(output, files)
     assert summary["accepted_occurrences"] == 8
     assert summary["distinct_occurrence_ids"] == 8

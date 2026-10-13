@@ -133,6 +133,15 @@ def test_independent_reference_has_no_production_imports():
     assert all(not name.startswith(("processing", "schemas", "mrtparse")) for name in modules)
 
 
+def test_pathlimit_is_frozen_opaque_not_invented_semantics():
+    assert decode_attribute(192, 21, bytes.fromhex("0100000002"), 4, False) == {
+        "flag": 192,
+        "type": {21: "AS_PATHLIMIT"},
+        "length": 5,
+        "value": "01 00 00 00 02",
+    }
+
+
 def test_expanded_service_caps_require_explicit_approval():
     from benchmarks.ris_service import approve_execution
 

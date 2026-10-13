@@ -134,6 +134,7 @@ ATTRIBUTE_LABELS = {
     16: "EXTENDED COMMUNITIES",
     17: "AS4_PATH",
     18: "AS4_AGGREGATOR",
+    21: "AS_PATHLIMIT",
     32: "LARGE_COMMUNITY",
     35: "Only to Customer",
 }
@@ -214,7 +215,7 @@ def decode_attribute(flags, number, raw, as_width, addpath):
         decoded["nlri" if number == 14 else "withdrawn_routes"] = prefix_objects(
             value.take(value.remaining()), family, addpath
         )
-    elif number in {6, 35, 255}:
+    elif number in {6, 21, 35, 255}:
         decoded = value.take(value.remaining()).hex(" ")
     else:
         raise ValueError(f"Independent attribute family unsupported: {number}")

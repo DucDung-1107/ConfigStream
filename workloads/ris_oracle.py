@@ -268,6 +268,69 @@ def event_arrow_schema():
     )
 
 
+def reuse_verified(path, artifact, previous, target, *, check=lambda: None):
+    """Reuse completed level-3 evidence unaffected by the type-21 coverage addition."""
+    import pyarrow.parquet as parquet
+
+    verify_artifact_file(path, artifact)
+    summary = json.loads((previous / "summary.json").read_text())
+    reference = RisReference.model_validate_json((previous / "reference.json").read_text())
+    if (
+        summary.get("oracle_level") != 3
+        or summary.get("attribute_type_counts", {}).get("21", 0)
+        or summary.get("artifact") != artifact.model_dump(mode="json")
+        or reference.manifest.artifacts[0] != artifact
+    ):
+        raise ValueError("RIS cache not eligible for controlled oracle reuse")
+    digest, count = sha256(), 0
+    for batch in parquet.ParquetFile(previous / "events.parquet").iter_batches(batch_size=4096):
+        check()
+        for row in batch.to_pylist():
+            digest.update(json.dumps(row, sort_keys=True, separators=(",", ":")).encode() + b"\n")
+            count += 1
+    if (count, digest.hexdigest()) != (
+        summary["accepted_occurrences"],
+        summary["source_order_projection_sha256"],
+    ):
+        raise ValueError("RIS cached independent projection checksum mismatch")
+    exclusions = json.loads((previous / "exclusions.json").read_text())
+    if len(exclusions) != reference.manifest.excluded_records:
+        raise ValueError("RIS cached exclusion accounting mismatch")
+    target.symlink_to(previous.resolve(), target_is_directory=True)
+    return summary
+
+
+def verify_pinned_accounting(summary, exclusions):
+    """Bind both new and reused source ledgers to the immutable accepted framing audit."""
+    framing = json.loads(Path("workloads/results/phase18/framing-validation.json").read_text())
+    previous = next(
+        item
+        for item in framing["archives"]
+        if item["artifact"]["sha256"] == summary["artifact"]["sha256"]
+    )
+    for key in ("framed_records", "update_messages", "decompressed_bytes", "framing_sha256"):
+        if summary[key] != previous[key]:
+            raise ValueError("RIS pinned framing evidence disagreement")
+    original = json.loads(Path("workloads/results/phase18/parser-exclusions.json").read_text())
+    expected = [
+        (
+            row["byte_offset"],
+            row["all_record_index"],
+            row["record_type"],
+            row["subtype"],
+            row["category"],
+        )
+        for row in original["records"]
+        if row["artifact_sha256"] == summary["artifact"]["sha256"]
+    ]
+    actual = [
+        (row["byte_offset"], row["all_record_index"], row["type"], row["subtype"], row["category"])
+        for row in exclusions
+    ]
+    if sorted(actual) != sorted(expected):
+        raise ValueError("RIS pinned exclusion coordinates/categories disagreement")
+
+
 def window_ledger(output, files, *, check=lambda: None):
     """Exact disk-backed union; repeats are calculated over the entire selected window."""
     import pyarrow.parquet as parquet
@@ -370,6 +433,7 @@ def main():
     arguments.add_argument("--cache", type=Path, default=Path(".cache/phase13"))
     arguments.add_argument("--output", type=Path, required=True)
     arguments.add_argument("--max-seconds", type=int, choices=[1800, 3600], default=3600)
+    arguments.add_argument("--verified-cache", type=Path)
     options = arguments.parse_args()
     began = monotonic()
     options.output.mkdir(parents=True, exist_ok=False)
@@ -405,8 +469,22 @@ def main():
             bytes=item["artifact_bytes"],
         )
         check()
-        result = build(
-            options.cache / item["file"], artifact, options.output / item["file"], check=check
+        previous = options.verified_cache / item["file"] if options.verified_cache else None
+        if previous and (previous / "summary.json").exists():
+            result = reuse_verified(
+                options.cache / item["file"],
+                artifact,
+                previous,
+                options.output / item["file"],
+                check=check,
+            )
+        else:
+            result = build(
+                options.cache / item["file"], artifact, options.output / item["file"], check=check
+            )
+        verify_pinned_accounting(
+            result,
+            json.loads((options.output / item["file"] / "exclusions.json").read_text()),
         )
         print(json.dumps(result, sort_keys=True), flush=True)
     print(
