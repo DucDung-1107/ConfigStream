@@ -132,7 +132,7 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00", ch
             if error:
                 try:
                     minimal = extract(kind, subtype, body)
-                    eligible = len(minimal[3]) if minimal is not None else 0
+                    eligible = len(minimal[3]) if minimal is not None else None
                     oracle_excluded_decodable += minimal is not None
                 except (ValueError, KeyError):
                     eligible = None
@@ -203,6 +203,7 @@ def build(path, artifact, output, *, source_id="ripe-ris", collector="rrc00", ch
             writer.write_table(table)
         database.commit()
         summary = dict(
+            evidence="PASS_OFFLINE" if source_id == "owned" else "MEASURED_REAL_SOURCE",
             artifact=artifact.model_dump(),
             framed_records=records,
             accepted_records=records - excluded,
@@ -331,7 +332,7 @@ def verify_pinned_accounting(summary, exclusions):
         raise ValueError("RIS pinned exclusion coordinates/categories disagreement")
 
 
-def window_ledger(output, files, *, check=lambda: None):
+def window_ledger(output, files, *, check=lambda: None, evidence="MEASURED_REAL_SOURCE"):
     """Exact disk-backed union; repeats are calculated over the entire selected window."""
     import pyarrow.parquet as parquet
 
@@ -390,7 +391,7 @@ def window_ledger(output, files, *, check=lambda: None):
             )
         ]
         result = dict(
-            evidence="MEASURED_REAL_SOURCE",
+            evidence=evidence,
             oracle_level=3,
             archive_count=len(files),
             accepted_occurrences=total,
