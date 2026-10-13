@@ -2,7 +2,9 @@
 
 import argparse
 import json
+import os
 import subprocess
+import sys
 import threading
 from dataclasses import replace
 from hashlib import sha256
@@ -64,6 +66,384 @@ def kafka_offsets(value, topic):
     ):
         raise ValueError("RIS invalid source offset")
     return partitions
+
+
+def finalize_history(
+    session,
+    store,
+    query_id,
+    expected,
+    references,
+    summaries,
+    exclusions,
+    *,
+    inventory_sha256,
+    partitions=64,
+    check=lambda: None,
+    fault=lambda point: None,
+    publish_completion=True,
+):
+    """Read immutable events; publish completion only after exact source and query checks."""
+    from pyspark.sql import functions as functions
+
+    from analytics.ris import event_summary, peer_activity, provenance, query_events
+    from lake.ris import metadata_digest, publish_accounting, publish_window, read_window
+    from schemas.ris import RisReference
+    from spark.ris import projection_digest, source_order_digest, verified_committed_events
+
+    def inventory_check():
+        check()
+        inventory = sorted(store.inventory(query_id), key=lambda item: item["batch_id"])
+        if metadata_digest(inventory) != inventory_sha256:
+            raise ValueError("RIS recovery committed inventory mismatch")
+
+    inventory_check()
+    if (
+        not 1 <= len(references) <= 12
+        or set(references) != set(summaries)
+        or set(references) != set(exclusions)
+    ):
+        raise ValueError("RIS recovery source selection mismatch")
+    for artifact, reference in references.items():
+        if reference.manifest.artifacts[0].sha256 != artifact:
+            raise ValueError("RIS recovery artifact binding mismatch")
+        stored = RisReference.model_validate(store.get(f"sources/{reference.manifest.manifest_id}"))
+        if stored != reference or summaries[artifact].get("oracle_level") != 3:
+            raise ValueError("RIS recovery pinned provenance/oracle mismatch")
+    sealed = read_window(store, query_id) if store.get(f"windows/{query_id}") is not None else None
+    report = {"mode": "retained committed history finalization", "reconciliation": {}}
+    previous_partitions = session.conf.get("spark.sql.shuffle.partitions")
+    session.conf.set("spark.sql.shuffle.partitions", str(partitions))
+    try:
+        with verified_committed_events(
+            session,
+            store,
+            query_id,
+            expected,
+            partitions=partitions,
+            metrics=report["reconciliation"],
+        ) as logical:
+            inventory_check()
+            source_began = monotonic()
+            for artifact, summary in summaries.items():
+                source = logical.where(functions.col("artifact_sha256") == artifact)
+                if (
+                    source.count() != summary["accepted_occurrences"]
+                    or source_order_digest(source) != summary["source_order_projection_sha256"]
+                ):
+                    raise ValueError("RIS recovery source-order projection mismatch")
+                check()
+            report["source_verification_seconds"] = monotonic() - source_began
+            digest_began = monotonic()
+            count, digest = projection_digest(logical)
+            report["projection_digest_seconds"] = monotonic() - digest_began
+            if sealed is not None and (count, digest) != (
+                sealed["logical_occurrences"],
+                sealed["projection_sha256"],
+            ):
+                raise ValueError("RIS recovery sealed projection mismatch")
+            query_began = monotonic()
+            report["query_summary"] = event_summary(logical)
+            if report["query_summary"] != event_summary(expected):
+                raise ValueError("RIS recovery historical queries mismatch")
+            for left, right in ((logical, expected), (expected, logical)):
+                if peer_activity(left).exceptAll(peer_activity(right)).limit(1).count():
+                    raise ValueError("RIS recovery peer query mismatch")
+            probe = expected.orderBy("logical_record_id").first()
+            if probe is not None:
+                for arguments in (
+                    {"prefix": probe.prefix},
+                    {"start": probe.source_seconds, "end": probe.source_seconds + 60},
+                ):
+                    if (
+                        query_events(logical, **arguments).count()
+                        != query_events(expected, **arguments).count()
+                    ):
+                        raise ValueError("RIS recovery interval/prefix query mismatch")
+                if (
+                    provenance(logical, probe.logical_record_id).first()
+                    != provenance(expected, probe.logical_record_id).first()
+                ):
+                    raise ValueError("RIS recovery coordinate query mismatch")
+            inventory_check()
+            report["query_validation_seconds"] = monotonic() - query_began
+            report.update(
+                logical_occurrences=count,
+                projection_sha256=digest,
+                exact_missing_identities=0,
+                exact_unexpected_identities=0,
+            )
+            if not publish_completion:
+                report["mode"] = "read-only retained history verification"
+                return report
+            fault("before_accounting")
+            metadata_began = monotonic()
+            report["source_accounting"] = []
+            for artifact, reference in references.items():
+                descriptor = publish_accounting(
+                    store, reference, summaries[artifact], exclusions[artifact]
+                )
+                report["source_accounting"].append(descriptor.model_dump(mode="json"))
+                fault("after_accounting")
+                check()
+            inventory_check()
+            fault("before_window")
+            report["window_descriptor"] = publish_window(
+                store, query_id, list(references), count, digest
+            )
+            report["metadata_publication_seconds"] = monotonic() - metadata_began
+            report.update(
+                logical_occurrences=count,
+                projection_sha256=digest,
+                exact_missing_identities=0,
+                exact_unexpected_identities=0,
+            )
+            return report
+    finally:
+        session.conf.set("spark.sql.shuffle.partitions", previous_partitions)
+
+
+def checkpoint_digest(path):
+    digest = sha256()
+    if not path.is_dir():
+        raise ValueError("RIS recovery checkpoint missing")
+    for entry in sorted(path.rglob("*")):
+        if entry.is_file():
+            digest.update(str(entry.relative_to(path)).encode() + b"\0")
+            with entry.open("rb") as stream:
+                for block in iter(lambda: stream.read(1024 * 1024), b""):
+                    digest.update(block)
+    return digest.hexdigest()
+
+
+def approve_recovery(policy, previous, checkpoint):
+    from uuid import UUID
+
+    from lake.ris import safe_key
+
+    query_id = previous["query_id"]
+    UUID(query_id)
+    safe_key(previous["lake_prefix"])
+    if (
+        policy.get("authorization") != "OWNER_APPROVED_ONE_FINALIZATION_ONLY"
+        or policy.get("query_id") != query_id
+        or policy.get("lake_prefix") != previous["lake_prefix"]
+        or previous["lake_prefix"] != f"phase18-closure/{query_id}"
+        or policy.get("mode") != "finalization_only"
+        or policy.get("source_selection") != previous["source_selection"]
+        or len(previous["source_selection"]) not in {1, 3, 12}
+        or len(set(previous["source_selection"])) != len(previous["source_selection"])
+        or (
+            len(previous["source_selection"]) != 12
+            and policy.get("publish_completion") is not False
+        )
+        or type(policy.get("max_seconds")) is not int
+        or not 1 <= policy["max_seconds"] <= 7200
+        or policy.get("checkpoint_sha256") != checkpoint_digest(checkpoint)
+        or previous.get("broker_high_watermarks") != previous.get("spark_end_offsets")
+        or previous.get("final_broker_lag") != 0
+    ):
+        raise ValueError("RIS recovery authorization/checkpoint/source binding mismatch")
+    commits = [
+        int(path.name) for path in (checkpoint / "commits").iterdir() if path.name.isdecimal()
+    ]
+    if not commits:
+        raise ValueError("RIS recovery checkpoint has no acknowledged batch")
+    last = max(commits)
+    offset = (checkpoint / "offsets" / str(last)).read_text().splitlines()
+    if (
+        len(offset) != 3
+        or kafka_offsets(offset[-1], previous["topic"]) != previous["spark_end_offsets"]
+    ):
+        raise ValueError("RIS recovery checkpoint offset mismatch")
+    from pydantic import TypeAdapter
+
+    from schemas.temporal.base import Digest
+
+    TypeAdapter(Digest).validate_python(policy.get("inventory_sha256"))
+    return last
+
+
+def finalize_main():
+    parser = argparse.ArgumentParser(
+        description="Authorized retained-history finalization; never ingests"
+    )
+    parser.add_argument("--finalize-only", action="store_true", required=True)
+    parser.add_argument("--previous", type=Path, required=True)
+    parser.add_argument("--approval", type=Path, required=True)
+    parser.add_argument("--oracle", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--read-only", action="store_true")
+    options = parser.parse_args()
+    previous = json.loads((options.previous / "result.json").read_text())
+    policy = json.loads(options.approval.read_text())
+    checkpoint = options.previous / "checkpoint"
+    last_batch = approve_recovery(policy, previous, checkpoint)
+    if policy.get("publish_completion") is not (not options.read_only):
+        raise ValueError("RIS recovery publication mode lacks explicit authorization")
+    if options.output.exists():
+        parser.error("Fresh recovery evidence directory required")
+    pinned = json.loads(
+        Path("workloads/results/phase18-closure/occurrence-ledger-validation.json").read_text()
+    )
+    selection = json.loads(Path("workloads/results/dataset-feasibility/bgp.json").read_text())[
+        "artifacts"
+    ][: len(previous["source_selection"])]
+    if previous["source_selection"] != [item["sha256"] for item in selection]:
+        raise ValueError("RIS recovery requires exact pinned source window")
+    from schemas.ris import RisReference
+
+    references, summaries, exclusions, paths = {}, {}, {}, []
+    frozen_errors = json.loads(
+        Path("workloads/results/phase18/parser-exclusions.json").read_text()
+    )["records"]
+    for item, frozen in zip(selection, pinned["archives"][: len(selection)], strict=True):
+        root = options.oracle / item["file"]
+        reference = RisReference.model_validate_json((root / "reference.json").read_text())
+        summary = json.loads((root / "summary.json").read_text())
+        if reference.manifest.artifacts[0].sha256 != item["sha256"] or any(
+            summary.get(key) != value for key, value in frozen.items()
+        ):
+            raise ValueError(
+                "RIS recovery oracle metadata differs from frozen independent evidence"
+            )
+        references[item["sha256"]] = reference
+        summaries[item["sha256"]] = summary
+        exclusions[item["sha256"]] = json.loads((root / "exclusions.json").read_text())
+        fields = (
+            "artifact_sha256",
+            "byte_offset",
+            "all_record_index",
+            "category",
+            "fully_framed",
+            "subtype",
+        )
+        actual_errors = [
+            tuple(row[key] for key in fields) + (row["type"], row["independent_eligible_prefixes"])
+            for row in exclusions[item["sha256"]]
+        ]
+        expected_errors = [
+            tuple(row[key] for key in fields)
+            + (row["record_type"], row["minimal_oracle_prefix_occurrences"])
+            for row in frozen_errors
+            if row["artifact_sha256"] == item["sha256"]
+        ]
+        if sorted(actual_errors) != sorted(expected_errors):
+            raise ValueError("RIS recovery exclusion ledger differs from frozen source coordinates")
+        paths.append(str((root / "events.parquet").resolve(strict=True)))
+    options.output.mkdir(parents=True)
+    from benchmarks.rpki_service import GuestGuard
+    from lake.config import LakeConfig
+    from lake.ris import EventStore
+    from spark.common.config import SparkConfig
+    from spark.common.runtime import create_session
+    from spark.ris import event_schema
+
+    lake = replace(LakeConfig.from_env(), prefix=previous["lake_prefix"])
+    runtime = options.output / "runtime"
+    runtime.mkdir()
+    (runtime / "ivy").symlink_to(Path(".cache/spark/ivy").resolve(), target_is_directory=True)
+    events = options.output / "events"
+    events.mkdir()
+    os.environ["PYSPARK_SUBMIT_ARGS"] = (
+        "--conf spark.eventLog.enabled=true --conf spark.eventLog.compress=false "
+        f"--conf spark.eventLog.dir={events.resolve().as_uri()} pyspark-shell"
+    )
+    began = monotonic()
+    report = dict(
+        status="FAIL",
+        mode="retained-history recovery, not fresh ingestion",
+        query_id=previous["query_id"],
+        last_checkpoint_batch=last_batch,
+        code_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+    )
+    write_summary(options.output / "registered-plan.json", policy | report)
+    session = create_session(
+        SparkConfig(runtime_dir=runtime, lake=lake, master="local[2]", driver_memory="2g"),
+        kafka=False,
+    )
+    guest = GuestGuard(session, options.output)
+    resources = ResourceSampler(options.output, session)
+    timer = threading.Timer(
+        max(0, policy["max_seconds"] - (monotonic() - began)), session.sparkContext.cancelAllJobs
+    )
+    timer.daemon = True
+
+    def check():
+        resources.check()
+        guest.check()
+        if monotonic() - began >= policy["max_seconds"]:
+            raise RuntimeError("RIS recovery preregistered cap exceeded")
+        if checkpoint_digest(checkpoint) != policy["checkpoint_sha256"]:
+            raise ValueError("RIS retained checkpoint changed")
+
+    timer.start()
+    guest.thread.start()
+    try:
+        with resources:
+            check()
+            report.update(
+                finalize_history(
+                    session,
+                    EventStore(config=lake),
+                    previous["query_id"],
+                    session.read.schema(event_schema()).parquet(*paths),
+                    references,
+                    summaries,
+                    exclusions,
+                    inventory_sha256=policy["inventory_sha256"],
+                    check=check,
+                    publish_completion=not options.read_only,
+                )
+            )
+            check()
+            report["status"] = "PASS_RETAINED_HISTORY_FINALIZATION"
+    except Exception as error:
+        report["failure_category"] = type(error).__name__
+        raise
+    finally:
+        timer.cancel()
+        guest.stop.set()
+        guest.thread.join(timeout=20)
+        report.update(
+            elapsed_seconds=monotonic() - began,
+            resource_failure=resources.failure,
+            guest_failure=guest.failure,
+            peak_sampled_tree_rss_bytes=max(
+                (row["process_tree_rss_bytes"] for row in resources.samples), default=None
+            ),
+            checkpoint_unchanged=checkpoint_digest(checkpoint) == policy["checkpoint_sha256"],
+            minimum_guest_free_disk_bytes=min(
+                (row["guest_free_disk_bytes"] for row in guest.samples), default=None
+            ),
+            minimum_guest_available_memory_bytes=min(
+                (row["guest_available_memory_bytes"] for row in guest.samples), default=None
+            ),
+        )
+        write_summary(options.output / "result.json", report)
+        session.stop()
+        tasks = []
+        for path in events.rglob("events_*"):
+            if path.is_file():
+                with path.open() as stream:
+                    for line in stream:
+                        event = json.loads(line)
+                        if event.get("Event") == "SparkListenerTaskEnd":
+                            tasks.append(event.get("Task Metrics", {}))
+        report["task_metrics"] = {
+            "scope": "all finalization jobs including physical digests and queries",
+            "tasks": len(tasks),
+            "memory_spilled_bytes": sum(row.get("Memory Bytes Spilled", 0) for row in tasks),
+            "disk_spilled_bytes": sum(row.get("Disk Bytes Spilled", 0) for row in tasks),
+            "shuffle_written_bytes": sum(
+                row.get("Shuffle Write Metrics", {}).get("Shuffle Bytes Written", 0)
+                for row in tasks
+            ),
+            "maximum_task_execution_memory_bytes": max(
+                (row.get("Peak Execution Memory", 0) for row in tasks), default=None
+            ),
+        }
+        write_summary(options.output / "result.json", report)
 
 
 def main():
@@ -138,21 +518,16 @@ def main():
         batches=[],
     )
     write_summary(options.output / "registered-plan.json", result)
-    from analytics.ris import event_summary, peer_activity, provenance, query_events
     from benchmarks.rpki_service import GuestGuard
     from lake.client import ensure_bucket, s3_client
     from lake.config import LakeConfig
-    from lake.ris import EventStore, publish_accounting, publish_window
+    from lake.ris import EventStore
     from messaging.config import KafkaConfig
     from messaging.ris import ensure_topic, publish
     from spark.common.config import SparkConfig
     from spark.common.runtime import create_session
     from spark.ris import (
         RisProcessor,
-        committed_events,
-        exact_projection,
-        projection_digest,
-        source_order_digest,
         start_query,
     )
 
@@ -253,74 +628,34 @@ def main():
                     raise ValueError("RIS final selected-topic lag is nonzero")
             finally:
                 consumer.close()
-            validation_start = monotonic()
-            logical = committed_events(session, store, identity, processor.expected).cache()
-            try:
-                exact_projection(logical, processor.expected, complete=True).count()
-                from pyspark.sql import functions as functions
+            from lake.ris import metadata_digest
 
-                result["source_accounting"] = []
-                for item, summary in zip(artifacts, oracle_summaries, strict=True):
-                    source = logical.where(functions.col("artifact_sha256") == item["sha256"])
-                    digest = source_order_digest(source)
-                    if digest != summary["source_order_projection_sha256"]:
-                        raise ValueError("RIS committed archive source-order digest mismatch")
-                    exclusions = json.loads(
-                        (options.oracle / item["file"] / "exclusions.json").read_text()
-                    )
-                    descriptor = publish_accounting(
-                        store, references[item["sha256"]], summary, exclusions
-                    )
-                    result["source_accounting"].append(descriptor.model_dump(mode="json"))
-                count, digest = projection_digest(logical)
-                result["window_descriptor"] = publish_window(
-                    store, identity, [item["sha256"] for item in artifacts], count, digest
+            validation_start = monotonic()
+            result.update(
+                finalize_history(
+                    session,
+                    store,
+                    identity,
+                    processor.expected,
+                    references,
+                    {
+                        item["sha256"]: summary
+                        for item, summary in zip(artifacts, oracle_summaries, strict=True)
+                    },
+                    {
+                        item["sha256"]: json.loads(
+                            (options.oracle / item["file"] / "exclusions.json").read_text()
+                        )
+                        for item in artifacts
+                    },
+                    inventory_sha256=metadata_digest(
+                        sorted(store.inventory(identity), key=lambda item: item["batch_id"])
+                    ),
+                    check=check,
                 )
-                result["query_summary"] = event_summary(logical)
-                expected_summary = event_summary(processor.expected)
-                if result["query_summary"] != expected_summary:
-                    raise ValueError("RIS historical aggregate queries disagree with oracle")
-                if (
-                    peer_activity(logical)
-                    .exceptAll(peer_activity(processor.expected))
-                    .limit(1)
-                    .count()
-                ):
-                    raise ValueError("RIS peer activity query mismatch")
-                probe = processor.expected.orderBy("logical_record_id").first()
-                source_start = min(
-                    int(item[0])
-                    for summary in oracle_summaries
-                    for item in summary["events_per_minute"]
-                )
-                source_end = (
-                    max(
-                        int(item[0])
-                        for summary in oracle_summaries
-                        for item in summary["events_per_minute"]
-                    )
-                    + 60
-                )
-                for arguments in (
-                    {"start": source_start, "end": source_end},
-                    {"prefix": probe.prefix},
-                ):
-                    if (
-                        query_events(logical, **arguments).count()
-                        != query_events(processor.expected, **arguments).count()
-                    ):
-                        raise ValueError("RIS interval/prefix query mismatch")
-                if (
-                    provenance(logical, probe.logical_record_id).first()
-                    != provenance(processor.expected, probe.logical_record_id).first()
-                ):
-                    raise ValueError("RIS coordinate/provenance query mismatch")
-                result["query_agreement"] = "exact selected projection plus aggregate queries"
-                result["exact_missing_identities"] = 0
-                result["exact_unexpected_identities"] = 0
-                result["validation_seconds"] = monotonic() - validation_start
-            finally:
-                logical.unpersist()
+            )
+            result["mode"] = "actual Kafka-Spark-MinIO"
+            result["validation_seconds"] = monotonic() - validation_start
             check()
             client = s3_client(lake)
             sizes = []
@@ -393,4 +728,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    finalize_main() if "--finalize-only" in sys.argv else main()

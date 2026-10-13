@@ -1,6 +1,7 @@
 """Native append-only occurrences with exact oracle validation and committed logical reads."""
 
 import json
+from contextlib import contextmanager
 from hashlib import sha256
 from time import monotonic
 from uuid import UUID
@@ -69,6 +70,92 @@ def exact_projection(actual, expected, *, complete=False):
     return distinct
 
 
+def reconciliation_input(actual, expected, partitions=64):
+    """Co-locate each identity across both inputs, including incorrect artifact bindings."""
+    from pyspark.sql import functions as functions
+
+    if type(partitions) is not int or not 2 <= partitions <= 256:
+        raise ValueError("RIS reconciliation partition bound")
+    columns = list(EventRow.model_fields)
+    tagged = (
+        actual.select(*columns)
+        .withColumn("_origin", functions.lit(0))
+        .unionByName(expected.select(*columns).withColumn("_origin", functions.lit(1)))
+    )
+    return tagged.repartition(partitions, "logical_record_id").sortWithinPartitions(
+        "logical_record_id"
+    )
+
+
+def reconcile_sorted(rows):
+    """One full projection and constant flags per identity; never buffer a duplicate group."""
+    previous = None
+    exemplar = None
+    actual_seen = expected_seen = conflict = False
+
+    def outcome():
+        status = (
+            "conflict"
+            if conflict
+            else "accepted"
+            if actual_seen and expected_seen
+            else "unexpected"
+            if actual_seen
+            else "missing"
+        )
+        return (*exemplar, status)
+
+    for row in rows:
+        projection, origin = tuple(row[:-1]), row[-1]
+        identity = projection[0]
+        if origin not in (0, 1) or not isinstance(identity, str):
+            raise ValueError("RIS invalid reconciliation input")
+        if previous is not None and identity < previous:
+            raise ValueError("RIS reconciliation requires sorted identities")
+        if identity != previous:
+            if exemplar is not None:
+                yield outcome()
+            previous, exemplar = identity, projection
+            actual_seen = expected_seen = conflict = False
+        elif projection != exemplar:
+            conflict = True
+        actual_seen = actual_seen or origin == 0
+        expected_seen = expected_seen or origin == 1
+    if exemplar is not None:
+        yield outcome()
+
+
+@contextmanager
+def bounded_projection(actual, expected, *, complete=True, partitions=64, metrics=None):
+    """Exact full-row comparison with spillable sorting and disk-only validated output."""
+    from pyspark import StorageLevel
+    from pyspark.sql.types import StringType, StructField, StructType
+
+    began = monotonic()
+    ordered = reconciliation_input(actual, expected, partitions)
+    schema = StructType([*event_schema().fields, StructField("_status", StringType(), False)])
+    checked = actual.sparkSession.createDataFrame(
+        ordered.rdd.mapPartitions(reconcile_sorted), schema
+    ).persist(StorageLevel.DISK_ONLY)
+    try:
+        counts = {row._status: row["count"] for row in checked.groupBy("_status").count().collect()}
+        if metrics is not None:
+            metrics.update(
+                partitions=partitions,
+                counts=counts,
+                reconciliation_seconds=monotonic() - began,
+            )
+        if counts.get("conflict", 0):
+            raise ValueError("RIS occurrence identity conflict")
+        if counts.get("unexpected", 0):
+            raise ValueError("RIS unexpected/conflicting source projection")
+        if complete and counts.get("missing", 0):
+            raise ValueError("RIS missing source occurrences")
+        yield checked.where("_status = 'accepted'").select(*EventRow.model_fields)
+    finally:
+        checked.unpersist(blocking=True)
+
+
 def ordered_rows(frame, columns, *, partition_rows=32768):
     from pyspark import StorageLevel
     from pyspark.sql import functions as functions
@@ -108,11 +195,11 @@ def projection_digest(frame, *, partition_rows=32768):
     return count, digest.hexdigest()
 
 
-def committed_events(session, store, query_id, expected):
+def committed_physical_events(session, store, query_id):
     commits = store.inventory(query_id)
     if not commits:
         return session.createDataFrame([], event_schema())
-    frames = []
+    paths = []
     for commit in commits:
         if commit.get("format_version") == "ris-1.1":
             for manifest_id in commit["provenance_ids"]:
@@ -128,11 +215,22 @@ def committed_events(session, store, query_id, expected):
         count, digest = projection_digest(frame)
         if count != commit["logical_records"] or digest != commit["projection_sha256"]:
             raise ValueError("RIS committed physical projection corruption")
-        frames.append(frame)
-    combined = frames[0]
-    for frame in frames[1:]:
-        combined = combined.unionByName(frame)
-    return exact_projection(combined, expected)
+        paths.append(store.committed_path(commit, query_id))
+    return session.read.schema(event_schema()).parquet(*paths)
+
+
+def committed_events(session, store, query_id, expected):
+    return exact_projection(committed_physical_events(session, store, query_id), expected)
+
+
+@contextmanager
+def verified_committed_events(session, store, query_id, expected, *, partitions=64, metrics=None):
+    began = monotonic()
+    physical = committed_physical_events(session, store, query_id)
+    if metrics is not None:
+        metrics["physical_readback_seconds"] = monotonic() - began
+    with bounded_projection(physical, expected, partitions=partitions, metrics=metrics) as logical:
+        yield logical
 
 
 def source_order_digest(frame, *, partition_rows=32768):
@@ -150,16 +248,14 @@ def completed_events(session, store, query_id, expected):
     from lake.ris import read_window
 
     descriptor = read_window(store, query_id)
-    result = exact_projection(
-        committed_events(session, store, query_id, expected), expected, complete=True
-    )
-    count, digest = projection_digest(result)
-    if (count, digest) != (
-        descriptor["logical_occurrences"],
-        descriptor["projection_sha256"],
-    ):
-        raise ValueError("RIS complete-window physical projection mismatch")
-    return result
+    with verified_committed_events(session, store, query_id, expected) as result:
+        count, digest = projection_digest(result)
+        if (count, digest) != (
+            descriptor["logical_occurrences"],
+            descriptor["projection_sha256"],
+        ):
+            raise ValueError("RIS complete-window physical projection mismatch")
+        return result
 
 
 class RisProcessor:

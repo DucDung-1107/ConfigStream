@@ -13,6 +13,70 @@ import pytest
 pytestmark = pytest.mark.lake_integration
 
 
+def test_actual_retained_finalization_interruption(service_session, tmp_path):
+    from benchmarks.ris_service import finalize_history
+    from lake.client import ensure_bucket
+    from lake.config import LakeConfig
+    from lake.ris import EventStore, metadata_digest, read_window
+    from spark.ris import event_schema
+    from tests.unit.test_ris import owned_rows
+    from tests.unit.test_ris_closure import accounting_fixture
+
+    reference, summary, exclusions = accounting_fixture()
+    _, rows = owned_rows()
+    expected = service_session.createDataFrame(
+        [tuple(row.model_dump().values()) for row in rows], event_schema()
+    )
+    ordered = sorted(rows, key=lambda row: (row.byte_offset, row.expansion_ordinal))
+    summary["source_order_projection_sha256"] = sha256(
+        b"".join(
+            json.dumps(row.model_dump(), sort_keys=True, separators=(",", ":")).encode() + b"\n"
+            for row in ordered
+        )
+    ).hexdigest()
+    query = str(uuid4())
+    config = replace(LakeConfig.from_env(), prefix=f"phase18-finalization-fixture/{query}")
+    ensure_bucket(config)
+    store = EventStore(config=config)
+    store.put(f"sources/{reference.manifest.manifest_id}", reference.model_dump(mode="json"))
+    path = store.path(f"{query}/00000000000000000000")
+    expected.write.parquet(path)
+    commit = dict(
+        format_version="ris-1.1",
+        query_id=query,
+        batch_id=0,
+        path=path,
+        logical_records=4,
+        projection_sha256="4a4c5f1bc228e15f37f852d0e70df5fb87e6c80f35504194aa87d51c5ee5479a",
+        provenance_ids=[reference.manifest.manifest_id],
+        source_artifact_sha256s=[rows[0].artifact_sha256],
+    )
+    store.put(f"batches/{query}/00000000000000000000", commit)
+    arguments = dict(
+        session=service_session,
+        store=store,
+        query_id=query,
+        expected=expected,
+        references={rows[0].artifact_sha256: reference},
+        summaries={rows[0].artifact_sha256: summary},
+        exclusions={rows[0].artifact_sha256: exclusions},
+        inventory_sha256=metadata_digest([commit]),
+        partitions=4,
+    )
+
+    def fault(point):
+        if point == "after_accounting":
+            raise RuntimeError("owned finalization interruption")
+
+    with pytest.raises(RuntimeError, match="owned finalization"):
+        finalize_history(**arguments, fault=fault)
+    assert store.get(f"windows/{query}") is None
+    report = finalize_history(**arguments)
+    assert report["logical_occurrences"] == 4
+    assert finalize_history(**arguments)["window_descriptor"] == read_window(store, query)
+    assert store.inventory(query) == [commit]
+
+
 @pytest.fixture(scope="module")
 def service_session(tmp_path_factory):
     if os.environ.get("RUN_PHASE18_SERVICES") != "1":
