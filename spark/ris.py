@@ -169,7 +169,7 @@ def ordered_rows(frame, columns, *, partition_rows=32768):
     if partitions > 4096:
         raise ValueError("RIS digest partition count bound")
     ordered = frame.repartitionByRange(partitions, *columns).sortWithinPartitions(*columns)
-    ordered.persist(StorageLevel.MEMORY_AND_DISK)
+    ordered.persist(StorageLevel.DISK_ONLY)
     try:
         maximum = (
             ordered.groupBy(functions.spark_partition_id())

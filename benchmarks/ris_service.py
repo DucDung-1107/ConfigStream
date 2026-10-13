@@ -82,6 +82,7 @@ def finalize_history(
     check=lambda: None,
     fault=lambda point: None,
     publish_completion=True,
+    audit=None,
 ):
     """Read immutable events; publish completion only after exact source and query checks."""
     from pyspark.sql import functions as functions
@@ -111,7 +112,10 @@ def finalize_history(
         if stored != reference or summaries[artifact].get("oracle_level") != 3:
             raise ValueError("RIS recovery pinned provenance/oracle mismatch")
     sealed = read_window(store, query_id) if store.get(f"windows/{query_id}") is not None else None
-    report = {"mode": "retained committed history finalization", "reconciliation": {}}
+    report = {} if audit is None else audit
+    report.update(
+        mode="retained committed history finalization", reconciliation={}, source_checks=[]
+    )
     previous_partitions = session.conf.get("spark.sql.shuffle.partitions")
     session.conf.set("spark.sql.shuffle.partitions", str(partitions))
     try:
@@ -132,6 +136,13 @@ def finalize_history(
                     or source_order_digest(source) != summary["source_order_projection_sha256"]
                 ):
                     raise ValueError("RIS recovery source-order projection mismatch")
+                report["source_checks"].append(
+                    {
+                        "artifact_sha256": artifact,
+                        "accepted_occurrences": summary["accepted_occurrences"],
+                        "source_order_projection_sha256": summary["source_order_projection_sha256"],
+                    }
+                )
                 check()
             report["source_verification_seconds"] = monotonic() - source_began
             digest_began = monotonic()
@@ -394,6 +405,7 @@ def finalize_main():
                     inventory_sha256=policy["inventory_sha256"],
                     check=check,
                     publish_completion=not options.read_only,
+                    audit=report,
                 )
             )
             check()
