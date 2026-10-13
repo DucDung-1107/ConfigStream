@@ -1,0 +1,69 @@
+{
+  "evidence": "QUALIFIED_ORACLE",
+  "scope": "Evidence levels are scoped, not universal guarantees or all-hour service proof",
+  "invariants": [
+    {
+      "id": "I1",
+      "name": "Provenance",
+      "status": "PASS_INTEGRATION",
+      "scope": "12 pinned sources independently audited; accepted three-archive service window with 14 durable exclusions; owned wrong/missing source fixtures",
+      "limitation": "Full-hour committed source descriptors not yet published"
+    },
+    {
+      "id": "I2",
+      "name": "Replay identity",
+      "status": "PASS_INTEGRATION",
+      "scope": "Owned actual broker/checkpoint retries and sealed-window suppression; exact older-coordinate conflicts rejected",
+      "limitation": "No full-hour real-source replay acceptance"
+    },
+    {
+      "id": "I3",
+      "name": "Multiplicity",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "12-source exact union has 4,725,156 distinct IDs; 118,172 repeats preserved; actual cross-archive equal-payload owned fixture",
+      "limitation": "Full-hour event-service union not yet accepted"
+    },
+    {
+      "id": "I4",
+      "name": "Completeness",
+      "status": "QUALIFIED",
+      "scope": "12 complete source ledgers; accepted fifteen-minute complete-window descriptor; failed initial attempt remained unsealed",
+      "limitation": "Full-hour committed window still requires separately authorized service acceptance"
+    },
+    {
+      "id": "I5",
+      "name": "Temporal honesty",
+      "status": "PASS_REAL_WINDOW",
+      "scope": "Original seconds/microseconds and source precision retained in 12-source independent projection; historical/replay time separated",
+      "limitation": "Not physical event latency, operator intent or routing state"
+    },
+    {
+      "id": "I6",
+      "name": "Committed visibility",
+      "status": "PASS_INTEGRATION",
+      "scope": "Actual MinIO missing/corrupt sources, sidecars, physical files and manifests rejected; uncommitted partial outputs excluded",
+      "limitation": "Owned fault fixtures; not power-loss/multiwriter durability"
+    },
+    {
+      "id": "I7",
+      "name": "History reproduction",
+      "status": "QUALIFIED",
+      "scope": "12-source level-3 exact projection; accepted fifteen-minute level-4 committed service projection and queries",
+      "limitation": "Full-hour service history not yet accepted"
+    },
+    {
+      "id": "I8",
+      "name": "Error accounting",
+      "status": "PASS_INTEGRATION",
+      "scope": "All 57 exact framed exclusions audited; 14 committed and verified in accepted three-archive window; isolated absent/conflicting sidecars rejected",
+      "limitation": "No full-hour published exclusion/window inventory yet; disposition remains pinned parser policy"
+    },
+    {
+      "id": "I9",
+      "name": "Compatibility",
+      "status": "PASS_LOCAL",
+      "scope": "1023 unit/quality, 80 API, 80 Spark regression tests; original Terraform/RPKI code/layout unchanged",
+      "limitation": "Prior external dataset services not reprocessed; owned RIS integration is separate"
+    }
+  ]
+}

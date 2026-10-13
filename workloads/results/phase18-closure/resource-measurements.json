@@ -1,0 +1,39 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "service_lifecycle": "Kafka/MinIO and Lima were stopped after initial validation, then restarted for the explicitly approved retry; volumes retained. Final state is reported at handoff.",
+  "environment": {
+    "host": "Apple M3 Pro, approximately 18 GiB physical RAM",
+    "vm_cpus": 2,
+    "vm_memory_bytes": 6442450944,
+    "vm_disk_bytes": 68719476736,
+    "guest_usable_memory_bytes": 6189654016,
+    "spark_master": "local[2]",
+    "spark_driver_heap": "2g",
+    "spark_version": "4.0.2",
+    "kafka_image": "apache/kafka:4.1.2",
+    "kafka_memory_limit_bytes": 1610612736,
+    "minio_image": "configstream-minio:RELEASE.2025-10-15T17-29-55Z",
+    "minio_memory_limit_bytes": 805306368
+  },
+  "selected_five_minute": {
+    "peak_sampled_tree_rss_bytes": 2411872256,
+    "min_guest_free_disk_bytes": 44114825216,
+    "min_guest_available_memory_bytes": 4479889408,
+    "elapsed_seconds": 293.4944736249745
+  },
+  "failed_fifteen_minute": {
+    "peak_sampled_tree_rss_bytes": 2873704448,
+    "min_guest_free_disk_bytes": 42910162944,
+    "min_guest_available_memory_bytes": 4529483776,
+    "elapsed_seconds": 1007.2597453329945,
+    "runtime_cap_seconds": 1800,
+    "sampled_guard_failure": false,
+    "java_heap_exhaustion": true
+  },
+  "limitations": [
+    "Sampled RSS is not JVM heap high-water mark",
+    "Java heap OOM occurred despite host/guest safety thresholds remaining satisfied",
+    "Full-hour service budgets cannot be accepted from source-only oracle"
+  ],
+  "infrastructure_changes": "Existing services/VM started, private credentials restored; no RAM/disk expansion, installs, volume deletion or external downloads"
+}

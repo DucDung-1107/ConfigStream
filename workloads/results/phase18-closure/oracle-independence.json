@@ -1,0 +1,37 @@
+{
+  "evidence": "QUALIFIED_ORACLE",
+  "levels": {
+    "L1": "Independent complete framing/coordinates, 12 archives",
+    "L2": "Independent wire occurrence extraction and identity, 12 archives",
+    "L3": "Independent required attribute values, historical digest and fingerprint, 12 archives",
+    "L4": "Requires exact actual committed service projection; scope reported in service artifacts"
+  },
+  "decoder": "workloads/ris_reference.py; imports neither production expansion nor mrtparse",
+  "shared_contracts": [
+    "Historical JSON enum labels/shape and fingerprint serialization",
+    "Pinned parser accept/exclude disposition",
+    "Declared source/counting/identity policy"
+  ],
+  "attribute_values": "Independently read from bounded raw wire boundaries",
+  "opaque_attributes": [
+    "AS_PATHLIMIT type 21",
+    "Only-to-Customer type 35",
+    "unknown type 255",
+    "Extended-community integer values without every subtype interpretation"
+  ],
+  "limits": [
+    "Not a complete BGP validator",
+    "Zero independently extracted prefixes does not establish malformed message",
+    "No routing-state or global causal claim"
+  ],
+  "exclusions": {
+    "count": 57,
+    "fully_framed": true,
+    "type": 16,
+    "subtype": 4,
+    "category": "parser_body_error:Insufficient buffer 0 < 1 byte",
+    "independent_eligible_prefixes": 0,
+    "disposition": "Excluded from accepted occurrence denominator, retained in durable sidecars"
+  },
+  "negative_fixture_evidence": "Manually authored UPDATE, MP, ADD-PATH, attributes and malformed boundaries; checksums literal/independently specified"
+}

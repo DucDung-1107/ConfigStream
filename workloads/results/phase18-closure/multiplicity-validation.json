@@ -1,0 +1,22 @@
+{
+  "evidence": "MEASURED_REAL_SOURCE",
+  "scope": "12 archive exact disk-backed window union",
+  "accepted_occurrences": 4725156,
+  "distinct_occurrence_ids": 4725156,
+  "distinct_fingerprints": 4606984,
+  "repeats_beyond_first": 118172,
+  "within_archive_repeats": 118172,
+  "cross_archive_additional_repeats": 0,
+  "cross_archive_repeated_keys": 0,
+  "definition": "repeats = count(occurrences) - count(distinct fingerprint), over selected union; fingerprint includes source seconds",
+  "deduplication_key": "source occurrence identity, NEVER descriptive fingerprint",
+  "owned_cross_archive_fixture": {
+    "evidence": "PASS_OFFLINE",
+    "occurrences": 8,
+    "distinct_fingerprints": 2,
+    "repeats": 6,
+    "within_archive_repeats": 4,
+    "cross_archive_additional_repeats": 2
+  },
+  "source_retries": "Actual broker/checkpoint owned fixtures reported separately; not natural fingerprint repeats"
+}

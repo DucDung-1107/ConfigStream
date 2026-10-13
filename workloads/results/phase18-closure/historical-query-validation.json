@@ -1,0 +1,22 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "stage": "C",
+  "query_id": "be257a8a-d3e9-4505-b806-98403e985e80",
+  "independent_sqlite_window_ledger_sha256": "57fc8f9b4ebb3b2fff8e59de11ed898e19f5325508dc5032c5dea7cfba670685",
+  "aggregate_status": "PASS",
+  "occurrences": 1303847,
+  "actions": {
+    "announcement": 1239742,
+    "withdrawal": 64105
+  },
+  "peers": 98,
+  "prefixes": 116707,
+  "repeats_beyond_first": 31283,
+  "source_minute_histogram_sha256": "91e3f3425a6945fbc8845bf3e11bd0bcb7d7922e3c9124edd227d2b6b22ec43d",
+  "exact_projection_missing_identities": 0,
+  "exact_projection_unexpected_identities": 0,
+  "prefix_probe_and_provenance_lookup": "Passed in actual driver against independent complete reference projection; detailed external values remain private",
+  "query_timing_seconds": null,
+  "query_timing_reason": "103.618 seconds includes final readback/validation and queries, not a separately measured query latency",
+  "full_hour_service_query_status": "NOT_RUN; full-hour source SQL characterization is separate"
+}

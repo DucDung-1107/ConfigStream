@@ -1,0 +1,55 @@
+{
+  "evidence": "PASS_LOCAL",
+  "implementation_commit": "7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8",
+  "commands": [
+    {
+      "command": "make check",
+      "passed": 1023,
+      "seconds": 13.85,
+      "includes": "ruff lint/format and unit tests"
+    },
+    {
+      "command": "make api-test",
+      "passed": 80,
+      "seconds": 0.58,
+      "warnings": 1
+    },
+    {
+      "command": "make spark-test",
+      "passed": 80,
+      "seconds": 111.84
+    },
+    {
+      "command": "RUN_PHASE18_SERVICES=1 python -m pytest tests/phase18_integration -q",
+      "passed": 14,
+      "seconds": 127.95,
+      "evidence": "MEASURED_SERVICE",
+      "scope": "owned isolated fixtures, not full-hour"
+    }
+  ],
+  "phase18_baseline": {
+    "unit": 984,
+    "api": 80,
+    "spark": 73,
+    "actual_service_owned_fixtures": 5
+  },
+  "added_tests": {
+    "unit": 39,
+    "api": 0,
+    "spark": 7,
+    "actual_service_owned_fixtures": 9
+  },
+  "implementation_ci": {
+    "sha": "7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8",
+    "run_url": "https://github.com/kongwoang/ConfigStream/actions/runs/38348594755",
+    "conclusion": "success",
+    "unit": 1023,
+    "api": 80,
+    "spark": 80,
+    "live_source_or_service_experiment": false
+  },
+  "delivery_ci": "Exact documentation/evidence commit and CI are verified in the final agent handoff; no self-referential artifact hash",
+  "independent_source_validation": "Complete accepted projection, source coordinates and exact window union; pinned exclusions retain qualified disposition",
+  "full_window_service_validation": "BLOCKED, never inferred from CI or broker lag",
+  "evidence_integrity": "Phase 13–18 historical artifacts unchanged; new artifacts contain only aggregate counts, references/digests and owned fixtures"
+}

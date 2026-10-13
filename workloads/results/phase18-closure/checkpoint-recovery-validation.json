@@ -1,0 +1,111 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "implementation_commit": "9293b318091afcdcb96cd2ba5f5c24ade4a9b8b9",
+  "distinct_tests": 14,
+  "latest_full_run_passed": 14,
+  "latest_full_run_seconds": 127.95,
+  "latest_full_run_command": "RUN_PHASE18_SERVICES=1 python -m pytest tests/phase18_integration -q",
+  "cases": [
+    {
+      "id": "before_output",
+      "status": "PASS_INTEGRATION",
+      "scope": "owned broker/checkpoint/MinIO fixture"
+    },
+    {
+      "id": "partial_output",
+      "status": "PASS_INTEGRATION",
+      "scope": "owned uncommitted output invisible"
+    },
+    {
+      "id": "before_commit",
+      "status": "PASS_INTEGRATION",
+      "scope": "owned callback interruption and retry"
+    },
+    {
+      "id": "after_commit_before_checkpoint",
+      "status": "PASS_INTEGRATION",
+      "scope": "owned checkpoint restart, identical logical IDs"
+    },
+    {
+      "id": "missing_source",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "corrupt_source",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "missing_parquet",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "corrupt_parquet",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "missing_exclusions",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "conflicting_exclusions",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "missing_batch",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "missing_window",
+      "status": "PASS_INTEGRATION",
+      "scope": "UUID-isolated owned actual MinIO fixture; fail-closed read"
+    },
+    {
+      "id": "invalid_transport",
+      "status": "PASS_INTEGRATION",
+      "scope": "owned actual broker; explicit rejection"
+    },
+    {
+      "id": "cross_archive_replay_window_interruption_and_sealed_retry",
+      "status": "PASS_INTEGRATION",
+      "scope": "owned 8 native IDs / 2 fingerprints, 12 preseal physical rows; postseal retries leave fixed inventory unchanged"
+    }
+  ],
+  "prior_attempts": [
+    {
+      "evidence": "FAIL",
+      "tests_failed": 13,
+      "seconds": 14.23,
+      "reason": "Wrong existing MinIO environment at startup; authentication prerequisite, corrected without volume reset"
+    },
+    {
+      "evidence": "MEASURED_SERVICE",
+      "tests_passed": 13,
+      "seconds": 128.02,
+      "reason": "Credentials restored; first complete baseline rerun"
+    },
+    {
+      "evidence": "MEASURED_SERVICE",
+      "tests_passed": 1,
+      "seconds": 21.87,
+      "reason": "Additional cross-archive case, not double-counted as new after reruns"
+    },
+    {
+      "evidence": "MEASURED_SERVICE",
+      "tests_passed": 1,
+      "seconds": 22.7,
+      "reason": "Same cross-archive case extended with sealed retry"
+    }
+  ],
+  "limits": [
+    "Owned fixtures, not full-hour real-source failure injection",
+    "Callback exceptions, not power loss or broker failover",
+    "Single writer, no global Kafka/Spark/MinIO transaction"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "evidence": "QUALIFIED_ORACLE",
+  "decision": "CONDITIONAL PASS — FULL SERVICE OR ORACLE QUALIFICATION REMAINS",
+  "starting_commit": "64a29734e84c37561555fad5ddb0cf6951414557",
+  "implementation_commit": "7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8",
+  "stages": {
+    "A": "PASS_INTEGRATION",
+    "B": "PASS_SELECTED_WINDOW",
+    "C": "PASS_SELECTED_WINDOW_LEVEL_4",
+    "D": "PASS_REAL_WINDOW_LEVEL_3",
+    "E": "BLOCKED"
+  },
+  "source_archives_verified": 12,
+  "framed_records": 2300578,
+  "accepted_body_records": 2300521,
+  "update_messages": 2291545,
+  "non_update_control_records": 8976,
+  "excluded_body_records": 57,
+  "accepted_source_occurrences": 4725156,
+  "source_oracle_missing_or_unexpected": 0,
+  "fingerprint_keys": 4606984,
+  "repeats_beyond_first": 118172,
+  "maximum_fully_accepted_service_archives": 3,
+  "maximum_fully_accepted_service_source_minutes": 15,
+  "three_archive_pre_failure_checks": {
+    "evidence": "MEASURED_SERVICE",
+    "acked_occurrences": 1303847,
+    "final_broker_lag": 0,
+    "complete_bidirectional_projection_check": "completed before source-accounting publication and later final digest failure",
+    "source_order_checks_passed": 3,
+    "durable_exclusions": 14,
+    "complete_window_descriptor": false,
+    "qualification": "Not a fully accepted fifteen-minute window"
+  },
+  "full_hour_service": "NOT_RUN; separate runtime approval requested after successful pilot",
+  "invariant_artifact": "invariant-coverage.json",
+  "independent_oracle_artifact": "occurrence-ledger-validation.json",
+  "actual_service_artifact": "service-validation.json",
+  "recovery_artifact": "checkpoint-recovery-validation.json",
+  "regression": {
+    "unit": 1023,
+    "api": 80,
+    "spark": 80,
+    "actual_service_owned_fixtures": 14
+  },
+  "remaining_gates": [
+    "Separate full-hour runtime approval based on measured successful fifteen-minute pilot",
+    "All twelve committed source/exclusion/window inventories and historical queries under approved cap",
+    "Instructor approval and any additional external raw/normalized publication rights"
+  ],
+  "phase19_readiness": "NOT_READY; do not start automatically",
+  "phase20_started": false,
+  "raw_external_git_publication": false,
+  "new_source_download_bytes": 0,
+  "vm_expansion": false,
+  "scope_reduction_trigger": "If bounded finalization still cannot complete safely, retain bounded native-event evidence and postpone full-hour service claims; never discard legitimate occurrences or weaken the oracle",
+  "accepted_three_archive_retry": {
+    "evidence": "MEASURED_SERVICE",
+    "code_commit": "7d2c90e2bf2dc1de456d4bb584e51d8aded4ada8",
+    "elapsed_seconds": 1056.3525007499848,
+    "logical_occurrences": 1303847,
+    "missing_identities": 0,
+    "unexpected_identities": 0,
+    "final_broker_lag": 0,
+    "durable_exclusions": 14,
+    "projection_sha256": "a2a0910bd20441aaf9a12c863c558b5f2b4c05198e932b95d49199fd79a151b3",
+    "complete_window_descriptor": true,
+    "artifact": "three-archive-validation.json"
+  }
+}

@@ -1,0 +1,400 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "execution_provenance": {
+      "service-five": {
+        "code_commit": "02a9e2476171d30ea663ede7aef2cdca5a3805a3",
+        "code_hashes": {
+          "benchmarks/ris_service.py": "133182aef0a8d73df42ac00a6842b57728d5f7fe9307a206603f144978a1b826",
+          "lake/ris.py": "5f5988b8e38fbbabccd4112dd7f1efebb3e2acb866dc48fccacfedef00ea1149",
+          "messaging/ris.py": "f97a1988f880f56314439c58f6b71598a85f03789580c94b1fef1b860bc52687",
+          "processing/ris.py": "22b37f7970c712ff3b62eff7b61cd648bd0c5492c1c6fccfe3468dc8c1325c54",
+          "schemas/ris.py": "eeaf85ec17337aeab7351bcb73fb1174d96a04d0ebce1b99283b439d26ebefa9",
+          "spark/ris.py": "56193b3dc342c846a1d536d5edff9b7e037e79e17dee8b43c0c91b6c0b8c9fe9"
+        },
+        "execution_policy_sha256": "3d5becf4ef501e837a8590e70cb01f69f9c74927a97c05bb5086de28a66725e2",
+        "resource_policy": {
+          "free_disk_bytes": 21474836480,
+          "guest_available_memory_bytes": 536870912,
+          "per_run_growth_bytes": 16106127360,
+          "total_host_experiment_bytes": 53687091200,
+          "tree_rss_bytes": 12884901888
+        }
+      },
+      "service-five-v2": {
+        "code_commit": "9cb1b7a9f81b4d5db2463d25ae68065600b00b42",
+        "code_hashes": {
+          "benchmarks/ris_service.py": "0ad902a04ae00fa15af8f30c4154d538869bc7753509e2292f65b9061e2b4a94",
+          "lake/ris.py": "5f5988b8e38fbbabccd4112dd7f1efebb3e2acb866dc48fccacfedef00ea1149",
+          "messaging/ris.py": "f97a1988f880f56314439c58f6b71598a85f03789580c94b1fef1b860bc52687",
+          "processing/ris.py": "22b37f7970c712ff3b62eff7b61cd648bd0c5492c1c6fccfe3468dc8c1325c54",
+          "schemas/ris.py": "eeaf85ec17337aeab7351bcb73fb1174d96a04d0ebce1b99283b439d26ebefa9",
+          "spark/ris.py": "56193b3dc342c846a1d536d5edff9b7e037e79e17dee8b43c0c91b6c0b8c9fe9"
+        },
+        "execution_policy_sha256": "3d5becf4ef501e837a8590e70cb01f69f9c74927a97c05bb5086de28a66725e2",
+        "resource_policy": {
+          "free_disk_bytes": 21474836480,
+          "guest_available_memory_bytes": 536870912,
+          "per_run_growth_bytes": 16106127360,
+          "total_host_experiment_bytes": 53687091200,
+          "tree_rss_bytes": 12884901888
+        }
+      },
+      "service-fifteen": {
+        "code_commit": "be5dee3bdaa4c69865dda1a8ce734c388d30b7d6",
+        "code_hashes": {
+          "benchmarks/ris_service.py": "0ad902a04ae00fa15af8f30c4154d538869bc7753509e2292f65b9061e2b4a94",
+          "lake/ris.py": "5f5988b8e38fbbabccd4112dd7f1efebb3e2acb866dc48fccacfedef00ea1149",
+          "messaging/ris.py": "f97a1988f880f56314439c58f6b71598a85f03789580c94b1fef1b860bc52687",
+          "processing/ris.py": "22b37f7970c712ff3b62eff7b61cd648bd0c5492c1c6fccfe3468dc8c1325c54",
+          "schemas/ris.py": "eeaf85ec17337aeab7351bcb73fb1174d96a04d0ebce1b99283b439d26ebefa9",
+          "spark/ris.py": "6f286f702985318ecd5d81bae931f9a1b560d23691cfdef914ee4ba9f2a9056b"
+        },
+        "execution_policy_sha256": "3d5becf4ef501e837a8590e70cb01f69f9c74927a97c05bb5086de28a66725e2",
+        "resource_policy": {
+          "free_disk_bytes": 21474836480,
+          "guest_available_memory_bytes": 536870912,
+          "per_run_growth_bytes": 16106127360,
+          "total_host_experiment_bytes": 53687091200,
+          "tree_rss_bytes": 12884901888
+        }
+      }
+    },
+  "selected_five_minute": {
+    "status": "PASS_SELECTED_WINDOW",
+    "code_commit": "9cb1b7a9f81b4d5db2463d25ae68065600b00b42",
+    "query_id": "58ec6278-3665-4f55-9fc4-9e6e3b2fba9c",
+    "source_selection": [
+      "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d"
+    ],
+    "input_source_bytes": 6043608,
+    "input_mrt_bytes": 34706880,
+    "elapsed_seconds": 293.4944736249745,
+    "runtime_cap_seconds": 1800,
+    "oracle_mode": "baseline_full",
+    "resource_failure": null,
+    "guest_failure": null,
+    "final_broker_lag": 0,
+    "exact_missing_identities": 0,
+    "exact_unexpected_identities": 0,
+    "commits": 12,
+    "physical_rows": 370141,
+    "parquet_files": 48,
+    "committed_parquet_bytes": 70024542,
+    "object_prefix_bytes": 70184848,
+    "source_sidecar_bytes": 3211,
+    "selected_broker_log_bytes": 311758009,
+    "checkpoint_bytes": 10947,
+    "peak_sampled_tree_rss_bytes": 2411872256,
+    "minimum_guest_free_disk_bytes": 44114825216,
+    "minimum_guest_available_memory_bytes": 4479889408,
+    "window_descriptor": {
+      "completeness": "selected_archives_not_routing_state",
+      "format_version": "ris-window-1.0",
+      "inventory_sha256": "f8aedfa1fe6f76d8734bd1482260fd7b5428789345167c9bcaec3c0a4e9c9c3b",
+      "logical_occurrences": 370141,
+      "projection_sha256": "ae6b5480b0ddb568c0b5efe466d84eeb11f8548c29a0c0f259473164ca3f4fbd",
+      "query_id": "58ec6278-3665-4f55-9fc4-9e6e3b2fba9c",
+      "sources": {
+        "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d": "7c1e83b6aa45043ceb0f0024a290e62d3ed9c27f4bcebaf89fe55c6faefbc992"
+      }
+    },
+    "query_summary": {
+      "actions": {
+        "announcement": 349085,
+        "withdrawal": 21056
+      },
+      "events_per_minute": [
+        {
+          "count": 131108,
+          "minute": 1788220800
+        },
+        {
+          "count": 53630,
+          "minute": 1788220860
+        },
+        {
+          "count": 63090,
+          "minute": 1788220920
+        },
+        {
+          "count": 69888,
+          "minute": 1788220980
+        },
+        {
+          "count": 52425,
+          "minute": 1788221040
+        }
+      ],
+      "occurrences": 370141,
+      "peers": 98,
+      "prefixes": 64607,
+      "repeated_fingerprints_beyond_first": 11351
+    },
+    "validation_seconds": 28.969142833026126,
+    "acknowledged": [
+      {
+        "acknowledged_occurrences": 370141,
+        "elapsed_seconds": 149.6899663329823,
+        "messages": 2892,
+        "resumed_from_event": 0,
+        "serialized_value_bytes": 269418671
+      }
+    ],
+    "source_accounting": [
+      {
+        "accepted_occurrences": 370141,
+        "accepted_records": 187475,
+        "archive_selection_time": {
+          "end": "2026-09-01T00:05:00Z",
+          "kind": "interval",
+          "precision": "second",
+          "role": "observation",
+          "start": "2026-09-01T00:00:00Z"
+        },
+        "artifact_sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+        "canonicalization_version": "ris-wire-v1",
+        "collector": "rrc00",
+        "completeness": "selected_archive_under_pinned_policy",
+        "counting_policy_version": "feasibility-v1",
+        "excluded_records": 5,
+        "exclusion_sha256": "73dd670c9025a59f612c6ac139a759b7f0475cd24fcf053f72b39c02b46c9bcf",
+        "format_version": "ris-accounting-1.0",
+        "framed_records": 187480,
+        "framing_sha256": "57430f365614a96e709251a20d8ebd492674c52f2a5815711150cd4b76891489",
+        "non_event_records": 758,
+        "oracle_level": 3,
+        "parser_version": "mrtparse-2.2.0",
+        "provenance_manifest_id": "f190fdc7c3c9cf6ed6041d7f22030c14c96bea6cd291064620904616fa82ddaa",
+        "source_order_projection_sha256": "360db3704903d30cd175894ab91eb582745ed13c103318f61add9c2fa7ee9f7d",
+        "update_messages": 186717
+      }
+    ],
+    "callback_timing": {
+      "seconds": {
+        "sum": 105.82001079490874,
+        "minimum": 3.993083499954082,
+        "maximum": 14.516375083941966
+      },
+      "verification_seconds": {
+        "sum": 14.055599916144274,
+        "minimum": 0.94558770803269,
+        "maximum": 2.1597880830522627
+      },
+      "digest_seconds": {
+        "sum": 6.452287291991524,
+        "minimum": 0.3746191250393167,
+        "maximum": 0.8541382919065654
+      },
+      "publication_seconds": {
+        "sum": 5.987669123802334,
+        "minimum": 0.31975491694174707,
+        "maximum": 1.4682407910004258
+      }
+    },
+    "batches": 12
+  },
+  "failed_five_minute_attempt": {
+    "status": "FAIL",
+    "code_commit": "02a9e2476171d30ea663ede7aef2cdca5a3805a3",
+    "query_id": "cc802b93-4521-445f-93d4-5b617ec470d2",
+    "source_selection": [
+      "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d"
+    ],
+    "input_source_bytes": 6043608,
+    "input_mrt_bytes": 34706880,
+    "elapsed_seconds": 256.4266475000186,
+    "runtime_cap_seconds": 1800,
+    "oracle_mode": "baseline_full",
+    "failure_category": "JSONDecodeError",
+    "resource_failure": null,
+    "guest_failure": null,
+    "peak_sampled_tree_rss_bytes": 2040414208,
+    "minimum_guest_free_disk_bytes": 44463316992,
+    "minimum_guest_available_memory_bytes": 4615098368,
+    "acknowledged": [
+      {
+        "acknowledged_occurrences": 370141,
+        "elapsed_seconds": 145.73677916603629,
+        "messages": 2892,
+        "resumed_from_event": 0,
+        "serialized_value_bytes": 269418671
+      }
+    ],
+    "source_accounting": [],
+    "callback_timing": {},
+    "batches": 0
+  },
+  "fifteen_minute_attempt": {
+    "status": "FAIL",
+    "code_commit": "be5dee3bdaa4c69865dda1a8ce734c388d30b7d6",
+    "query_id": "ec80de2e-ff5d-478b-aaf8-893e5d46a544",
+    "source_selection": [
+      "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+      "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+      "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66"
+    ],
+    "input_source_bytes": 20396504,
+    "input_mrt_bytes": 119496540,
+    "elapsed_seconds": 1007.2597453329945,
+    "runtime_cap_seconds": 1800,
+    "oracle_mode": "baseline_full",
+    "failure_category": "Py4JJavaError",
+    "resource_failure": null,
+    "guest_failure": null,
+    "final_broker_lag": 0,
+    "peak_sampled_tree_rss_bytes": 2873704448,
+    "minimum_guest_free_disk_bytes": 42910162944,
+    "minimum_guest_available_memory_bytes": 4529483776,
+    "acknowledged": [
+      {
+        "acknowledged_occurrences": 370141,
+        "elapsed_seconds": 143.67565016599838,
+        "messages": 2892,
+        "resumed_from_event": 0,
+        "serialized_value_bytes": 269418671
+      },
+      {
+        "acknowledged_occurrences": 431043,
+        "elapsed_seconds": 162.84937395795714,
+        "messages": 3368,
+        "resumed_from_event": 0,
+        "serialized_value_bytes": 313322349
+      },
+      {
+        "acknowledged_occurrences": 502663,
+        "elapsed_seconds": 196.05329054198228,
+        "messages": 3928,
+        "resumed_from_event": 0,
+        "serialized_value_bytes": 366407949
+      }
+    ],
+    "source_accounting": [
+      {
+        "accepted_occurrences": 370141,
+        "accepted_records": 187475,
+        "archive_selection_time": {
+          "end": "2026-09-01T00:05:00Z",
+          "kind": "interval",
+          "precision": "second",
+          "role": "observation",
+          "start": "2026-09-01T00:00:00Z"
+        },
+        "artifact_sha256": "2f6c7a5af25b310f3cef4118e4b8f9acf2b7896f3a00b040f7ef4e662ec1ea8d",
+        "canonicalization_version": "ris-wire-v1",
+        "collector": "rrc00",
+        "completeness": "selected_archive_under_pinned_policy",
+        "counting_policy_version": "feasibility-v1",
+        "excluded_records": 5,
+        "exclusion_sha256": "73dd670c9025a59f612c6ac139a759b7f0475cd24fcf053f72b39c02b46c9bcf",
+        "format_version": "ris-accounting-1.0",
+        "framed_records": 187480,
+        "framing_sha256": "57430f365614a96e709251a20d8ebd492674c52f2a5815711150cd4b76891489",
+        "non_event_records": 758,
+        "oracle_level": 3,
+        "parser_version": "mrtparse-2.2.0",
+        "provenance_manifest_id": "f190fdc7c3c9cf6ed6041d7f22030c14c96bea6cd291064620904616fa82ddaa",
+        "source_order_projection_sha256": "360db3704903d30cd175894ab91eb582745ed13c103318f61add9c2fa7ee9f7d",
+        "update_messages": 186717
+      },
+      {
+        "accepted_occurrences": 431043,
+        "accepted_records": 194128,
+        "archive_selection_time": {
+          "end": "2026-09-01T00:10:00Z",
+          "kind": "interval",
+          "precision": "second",
+          "role": "observation",
+          "start": "2026-09-01T00:05:00Z"
+        },
+        "artifact_sha256": "c95df3be22f1f085df2a69cd990acf8f76da6cbb553b98480ba7cc365d71d2e1",
+        "canonicalization_version": "ris-wire-v1",
+        "collector": "rrc00",
+        "completeness": "selected_archive_under_pinned_policy",
+        "counting_policy_version": "feasibility-v1",
+        "excluded_records": 5,
+        "exclusion_sha256": "51153b5dc6601ef47d129219c296a634370aa000bb034ae3facfe6d3f60242a9",
+        "format_version": "ris-accounting-1.0",
+        "framed_records": 194133,
+        "framing_sha256": "431f9d353513cdf3ecef1aedd74e429845cad083e0804dd57b686b7774f633bb",
+        "non_event_records": 731,
+        "oracle_level": 3,
+        "parser_version": "mrtparse-2.2.0",
+        "provenance_manifest_id": "3759320e21b76d37d2c1e56382b9522a7c9cacdf7b78588c3d4ff67e41625d13",
+        "source_order_projection_sha256": "92441fbfd1f56c10add7c36e00896239989147cbbf6947f5a21b932e031466e1",
+        "update_messages": 193397
+      },
+      {
+        "accepted_occurrences": 502663,
+        "accepted_records": 250144,
+        "archive_selection_time": {
+          "end": "2026-09-01T00:15:00Z",
+          "kind": "interval",
+          "precision": "second",
+          "role": "observation",
+          "start": "2026-09-01T00:10:00Z"
+        },
+        "artifact_sha256": "53cd80fb1ac22cc79eaf766db45955ff8d63d4424c26584ed14de33a1ad19a66",
+        "canonicalization_version": "ris-wire-v1",
+        "collector": "rrc00",
+        "completeness": "selected_archive_under_pinned_policy",
+        "counting_policy_version": "feasibility-v1",
+        "excluded_records": 4,
+        "exclusion_sha256": "5c03adab5f83da42969801ac37119c03cbc858db35d4e94983858a5699e840bd",
+        "format_version": "ris-accounting-1.0",
+        "framed_records": 250148,
+        "framing_sha256": "c6887d7535e8269ea183c7a01c1a000b8d0bfa250d49a598a9eb690454f53ab0",
+        "non_event_records": 760,
+        "oracle_level": 3,
+        "parser_version": "mrtparse-2.2.0",
+        "provenance_manifest_id": "95cbe3271f660feb9db474da62581201acc615c2ca98114396303535ef715cd1",
+        "source_order_projection_sha256": "cf8811eea115a966f5f2279de8b33fb5df4c2e4e6c100e465cbc43db9841c5f6",
+        "update_messages": 249384
+      }
+    ],
+    "callback_timing": {
+      "seconds": {
+        "sum": 415.3924062488368,
+        "minimum": 3.7744860829552636,
+        "maximum": 16.59469691698905
+      },
+      "verification_seconds": {
+        "sum": 109.04832604469266,
+        "minimum": 2.264878584071994,
+        "maximum": 4.132816083962098
+      },
+      "digest_seconds": {
+        "sum": 20.247922626440413,
+        "minimum": 0.0997402920620516,
+        "maximum": 1.1229787908960134
+      },
+      "publication_seconds": {
+        "sum": 16.461720043676905,
+        "minimum": 0.27342241699807346,
+        "maximum": 1.5892370829824358
+      }
+    },
+    "batches": 42
+  },
+  "fifteen_minute_failure_root": "Java heap space in task-result-getter during whole-window ordered toLocalIterator digest; 2-GiB heap, 2 shuffle partitions, AQE disabled. NOT a successful completed window.",
+  "fifteen_minute_post_failure_read_only_inventory": {
+    "commits": 42,
+    "declared_physical_rows": 1303847,
+    "parquet_bytes": 247864779,
+    "parquet_files": 168,
+    "object_prefix_bytes": 248434093,
+    "source_sidecar_bytes": 9190,
+    "durable_exclusions": 14,
+    "window_descriptor_present": false,
+    "evidence": "MEASURED_SERVICE",
+    "qualification": "Metadata counts alone are not renewed complete physical acceptance"
+  },
+  "full_hour_service": {
+    "evidence": "BLOCKED",
+    "reason": "Separate runtime authorization absent; successful fifteen-minute retry supports preregistration but does not itself authorize full-hour execution"
+  },
+  "performance_comparison": {
+    "evidence": "NOT_RUN",
+    "reason": "No matched before/after repetitions or matched batch baseline; callback timers are wall-time, physical Spark I/O/shuffle/spill not instrumented"
+  },
+  "source_velocity_definition": "Historical occurrences / fixed selected source-time seconds; separate from measured producer or pipeline throughput"
+}

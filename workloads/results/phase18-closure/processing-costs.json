@@ -1,0 +1,88 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "runs": [
+    {
+      "code_commit": "9cb1b7a9f81b4d5db2463d25ae68065600b00b42",
+      "archives": 1,
+      "status": "PASS_SELECTED_WINDOW",
+      "whole_elapsed_seconds": 293.4944736249745,
+      "callback_count": 12,
+      "callback_timing": {
+        "seconds": {
+          "sum": 105.82001079490874,
+          "minimum": 3.993083499954082,
+          "maximum": 14.516375083941966
+        },
+        "verification_seconds": {
+          "sum": 14.055599916144274,
+          "minimum": 0.94558770803269,
+          "maximum": 2.1597880830522627
+        },
+        "digest_seconds": {
+          "sum": 6.452287291991524,
+          "minimum": 0.3746191250393167,
+          "maximum": 0.8541382919065654
+        },
+        "publication_seconds": {
+          "sum": 5.987669123802334,
+          "minimum": 0.31975491694174707,
+          "maximum": 1.4682407910004258
+        }
+      },
+      "producer_acknowledged_occurrences": 370141,
+      "producer_value_bytes": 269418671,
+      "producer_seconds": 149.6899663329823,
+      "acknowledged_occurrences_per_producer_second": 2472.7175045027993,
+      "final_broker_lag": 0
+    },
+    {
+      "code_commit": "be5dee3bdaa4c69865dda1a8ce734c388d30b7d6",
+      "archives": 3,
+      "status": "FAIL",
+      "whole_elapsed_seconds": 1007.2597453329945,
+      "callback_count": 42,
+      "callback_timing": {
+        "seconds": {
+          "sum": 415.3924062488368,
+          "minimum": 3.7744860829552636,
+          "maximum": 16.59469691698905
+        },
+        "verification_seconds": {
+          "sum": 109.04832604469266,
+          "minimum": 2.264878584071994,
+          "maximum": 4.132816083962098
+        },
+        "digest_seconds": {
+          "sum": 20.247922626440413,
+          "minimum": 0.0997402920620516,
+          "maximum": 1.1229787908960134
+        },
+        "publication_seconds": {
+          "sum": 16.461720043676905,
+          "minimum": 0.27342241699807346,
+          "maximum": 1.5892370829824358
+        }
+      },
+      "producer_acknowledged_occurrences": 1303847,
+      "producer_value_bytes": 949148969,
+      "producer_seconds": 502.5783146659378,
+      "acknowledged_occurrences_per_producer_second": 2594.3160736385194,
+      "final_broker_lag": 0
+    }
+  ],
+  "normal_callback_prior_committed_history_scans": 0,
+  "scan_qualification": "Code-path/timer instrumentation; not measured Spark physical I/O. Full oracle and final physical readback still expensive.",
+  "task_input_bytes": null,
+  "shuffle_bytes": null,
+  "spill_bytes": null,
+  "missing_metric_reason": "Spark task I/O counters not instrumented; never substitute zero",
+  "capacity_fix": {
+    "evidence": "PASS_LOCAL",
+    "method": "32,768 target rows / range partition, 131,072 maximum rows, 4,096 maximum partitions, no prefetch, unchanged ordered JSON SHA",
+    "real_fifteen_minute_retry": "PASS_SELECTED_WINDOW; see three-archive-validation.json"
+  },
+  "before_after_speedup": {
+    "evidence": "NOT_RUN",
+    "reason": "No matched repetitions; negative first fifteen-minute result retained"
+  }
+}

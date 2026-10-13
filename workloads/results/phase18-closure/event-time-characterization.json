@@ -1,0 +1,374 @@
+{
+  "evidence": "MEASURED_REAL_SOURCE",
+  "scope": "historical source-time, 12 selected five-minute files, NOT achieved streaming throughput",
+  "fixed_window_seconds": 3600,
+  "occurrences": 4725156,
+  "mean_occurrences_per_source_second": 1312.5433333333333,
+  "peak_occurrences_per_minute": 181868,
+  "burst_ratio_peak_to_mean_minute": 2.3093586751421538,
+  "burst_ratio_definition": "max minute occurrences / (total selected occurrences / 60)",
+  "unique_peers": 98,
+  "unique_prefixes": 211670,
+  "minutes": [
+    {
+      "announcement": 126786,
+      "minute": 1788220800,
+      "occurrences": 131108,
+      "withdrawal": 4322
+    },
+    {
+      "announcement": 49267,
+      "minute": 1788220860,
+      "occurrences": 53630,
+      "withdrawal": 4363
+    },
+    {
+      "announcement": 58874,
+      "minute": 1788220920,
+      "occurrences": 63090,
+      "withdrawal": 4216
+    },
+    {
+      "announcement": 64853,
+      "minute": 1788220980,
+      "occurrences": 69888,
+      "withdrawal": 5035
+    },
+    {
+      "announcement": 49305,
+      "minute": 1788221040,
+      "occurrences": 52425,
+      "withdrawal": 3120
+    },
+    {
+      "announcement": 119962,
+      "minute": 1788221100,
+      "occurrences": 123592,
+      "withdrawal": 3630
+    },
+    {
+      "announcement": 63291,
+      "minute": 1788221160,
+      "occurrences": 68062,
+      "withdrawal": 4771
+    },
+    {
+      "announcement": 85022,
+      "minute": 1788221220,
+      "occurrences": 88890,
+      "withdrawal": 3868
+    },
+    {
+      "announcement": 54886,
+      "minute": 1788221280,
+      "occurrences": 58892,
+      "withdrawal": 4006
+    },
+    {
+      "announcement": 86032,
+      "minute": 1788221340,
+      "occurrences": 91607,
+      "withdrawal": 5575
+    },
+    {
+      "announcement": 124551,
+      "minute": 1788221400,
+      "occurrences": 129374,
+      "withdrawal": 4823
+    },
+    {
+      "announcement": 122495,
+      "minute": 1788221460,
+      "occurrences": 126543,
+      "withdrawal": 4048
+    },
+    {
+      "announcement": 57022,
+      "minute": 1788221520,
+      "occurrences": 60497,
+      "withdrawal": 3475
+    },
+    {
+      "announcement": 123450,
+      "minute": 1788221580,
+      "occurrences": 127969,
+      "withdrawal": 4519
+    },
+    {
+      "announcement": 53946,
+      "minute": 1788221640,
+      "occurrences": 58280,
+      "withdrawal": 4334
+    },
+    {
+      "announcement": 52113,
+      "minute": 1788221700,
+      "occurrences": 55166,
+      "withdrawal": 3053
+    },
+    {
+      "announcement": 47311,
+      "minute": 1788221760,
+      "occurrences": 51033,
+      "withdrawal": 3722
+    },
+    {
+      "announcement": 121845,
+      "minute": 1788221820,
+      "occurrences": 125875,
+      "withdrawal": 4030
+    },
+    {
+      "announcement": 45060,
+      "minute": 1788221880,
+      "occurrences": 49153,
+      "withdrawal": 4093
+    },
+    {
+      "announcement": 38623,
+      "minute": 1788221940,
+      "occurrences": 42262,
+      "withdrawal": 3639
+    },
+    {
+      "announcement": 42784,
+      "minute": 1788222000,
+      "occurrences": 46628,
+      "withdrawal": 3844
+    },
+    {
+      "announcement": 87305,
+      "minute": 1788222060,
+      "occurrences": 91278,
+      "withdrawal": 3973
+    },
+    {
+      "announcement": 79705,
+      "minute": 1788222120,
+      "occurrences": 83723,
+      "withdrawal": 4018
+    },
+    {
+      "announcement": 44492,
+      "minute": 1788222180,
+      "occurrences": 47123,
+      "withdrawal": 2631
+    },
+    {
+      "announcement": 61589,
+      "minute": 1788222240,
+      "occurrences": 64434,
+      "withdrawal": 2845
+    },
+    {
+      "announcement": 51842,
+      "minute": 1788222300,
+      "occurrences": 56251,
+      "withdrawal": 4409
+    },
+    {
+      "announcement": 154698,
+      "minute": 1788222360,
+      "occurrences": 163475,
+      "withdrawal": 8777
+    },
+    {
+      "announcement": 46140,
+      "minute": 1788222420,
+      "occurrences": 50309,
+      "withdrawal": 4169
+    },
+    {
+      "announcement": 47948,
+      "minute": 1788222480,
+      "occurrences": 52503,
+      "withdrawal": 4555
+    },
+    {
+      "announcement": 42503,
+      "minute": 1788222540,
+      "occurrences": 46283,
+      "withdrawal": 3780
+    },
+    {
+      "announcement": 60999,
+      "minute": 1788222600,
+      "occurrences": 64711,
+      "withdrawal": 3712
+    },
+    {
+      "announcement": 128043,
+      "minute": 1788222660,
+      "occurrences": 133713,
+      "withdrawal": 5670
+    },
+    {
+      "announcement": 60976,
+      "minute": 1788222720,
+      "occurrences": 66392,
+      "withdrawal": 5416
+    },
+    {
+      "announcement": 44659,
+      "minute": 1788222780,
+      "occurrences": 47980,
+      "withdrawal": 3321
+    },
+    {
+      "announcement": 40286,
+      "minute": 1788222840,
+      "occurrences": 43119,
+      "withdrawal": 2833
+    },
+    {
+      "announcement": 132661,
+      "minute": 1788222900,
+      "occurrences": 137023,
+      "withdrawal": 4362
+    },
+    {
+      "announcement": 39941,
+      "minute": 1788222960,
+      "occurrences": 44399,
+      "withdrawal": 4458
+    },
+    {
+      "announcement": 38268,
+      "minute": 1788223020,
+      "occurrences": 41605,
+      "withdrawal": 3337
+    },
+    {
+      "announcement": 55124,
+      "minute": 1788223080,
+      "occurrences": 58414,
+      "withdrawal": 3290
+    },
+    {
+      "announcement": 55656,
+      "minute": 1788223140,
+      "occurrences": 59077,
+      "withdrawal": 3421
+    },
+    {
+      "announcement": 140594,
+      "minute": 1788223200,
+      "occurrences": 145791,
+      "withdrawal": 5197
+    },
+    {
+      "announcement": 42429,
+      "minute": 1788223260,
+      "occurrences": 46305,
+      "withdrawal": 3876
+    },
+    {
+      "announcement": 79734,
+      "minute": 1788223320,
+      "occurrences": 87022,
+      "withdrawal": 7288
+    },
+    {
+      "announcement": 60457,
+      "minute": 1788223380,
+      "occurrences": 65887,
+      "withdrawal": 5430
+    },
+    {
+      "announcement": 62966,
+      "minute": 1788223440,
+      "occurrences": 67726,
+      "withdrawal": 4760
+    },
+    {
+      "announcement": 128245,
+      "minute": 1788223500,
+      "occurrences": 132474,
+      "withdrawal": 4229
+    },
+    {
+      "announcement": 56808,
+      "minute": 1788223560,
+      "occurrences": 60521,
+      "withdrawal": 3713
+    },
+    {
+      "announcement": 53840,
+      "minute": 1788223620,
+      "occurrences": 57767,
+      "withdrawal": 3927
+    },
+    {
+      "announcement": 67313,
+      "minute": 1788223680,
+      "occurrences": 72204,
+      "withdrawal": 4891
+    },
+    {
+      "announcement": 134626,
+      "minute": 1788223740,
+      "occurrences": 139495,
+      "withdrawal": 4869
+    },
+    {
+      "announcement": 45801,
+      "minute": 1788223800,
+      "occurrences": 49753,
+      "withdrawal": 3952
+    },
+    {
+      "announcement": 62795,
+      "minute": 1788223860,
+      "occurrences": 66942,
+      "withdrawal": 4147
+    },
+    {
+      "announcement": 64802,
+      "minute": 1788223920,
+      "occurrences": 69822,
+      "withdrawal": 5020
+    },
+    {
+      "announcement": 65918,
+      "minute": 1788223980,
+      "occurrences": 69717,
+      "withdrawal": 3799
+    },
+    {
+      "announcement": 175071,
+      "minute": 1788224040,
+      "occurrences": 181868,
+      "withdrawal": 6797
+    },
+    {
+      "announcement": 82577,
+      "minute": 1788224100,
+      "occurrences": 89083,
+      "withdrawal": 6506
+    },
+    {
+      "announcement": 66161,
+      "minute": 1788224160,
+      "occurrences": 70648,
+      "withdrawal": 4487
+    },
+    {
+      "announcement": 51855,
+      "minute": 1788224220,
+      "occurrences": 56816,
+      "withdrawal": 4961
+    },
+    {
+      "announcement": 116387,
+      "minute": 1788224280,
+      "occurrences": 120953,
+      "withdrawal": 4566
+    },
+    {
+      "announcement": 43699,
+      "minute": 1788224340,
+      "occurrences": 48586,
+      "withdrawal": 4887
+    }
+  ]
+}
