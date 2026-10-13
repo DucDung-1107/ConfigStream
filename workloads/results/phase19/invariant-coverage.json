@@ -7,5 +7,5 @@
   "I6": {"statuses": ["PASS_INTEGRATION"], "scope": "Owned missing/corrupt metadata, raw Parquet, group/value/window tests; committed physical readers validate projection checksums"},
   "I7": {"statuses": ["PASS_REAL_SOURCE", "PASS_INTEGRATION"], "scope": "Exact per-source raw/group/contributor and common-group difference maps; remote reused-value reconstruction; no zone-state claim"},
   "I8": {"statuses": ["PASS_REAL_SOURCE", "PASS_OFFLINE"], "scope": "All selected rows accounted for; non-address is not an error, 65533 unknown, synthetic timeout/proven-empty controls, no real proven-empty inference"},
-  "I9": {"statuses": ["PASS_OFFLINE", "PASS_LOCAL"], "scope": "1079 unit, 80 API, 106 Spark; original schemas/paths/checkpoints unchanged; no old full-volume pipeline replay was required"}
+  "I9": {"statuses": ["PASS_OFFLINE", "PASS_LOCAL"], "scope": "1079 unit, 80 API, 107 Spark; original schemas/paths/checkpoints unchanged; no old full-volume pipeline replay was required"}
 }

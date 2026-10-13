@@ -34,7 +34,7 @@ is zero; this restriction is preserved, not waived to obtain acceptance.
 | Physical storage | 538,543,164 Parquet bytes, 160 files; after additive window metadata 539,562,365 object-content bytes; checkpoint 64,079 bytes after replay |
 | Reuse cost | Full components 448,045,122 bytes versus reused components 450,252,590 bytes: **reuse is 2,207,468 bytes larger**, not a storage saving |
 | Batch baseline | Independent same-projection source path completed in 302.21 s, process RSS 1,048,477,696 bytes; includes different integrity/SQLite/validation work, not a matched speed comparison |
-| Regression | 1,079 unit/quality, 80 API and 106 Spark tests passed; existing Terraform/RPKI/RIS contracts unchanged |
+| Regression | 1,079 unit/quality, 80 API and 107 Spark tests passed; existing Terraform/RPKI/RIS contracts unchanged |
 | Rights | Verified CC BY-NC-SA 4.0 private noncommercial research use and required acknowledgment; no external rows published; instructor approval NOT_VERIFIED |
 
 The first sample's offset-form failure and the initial destroyed Kafka-admin future
