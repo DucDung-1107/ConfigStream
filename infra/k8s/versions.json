@@ -1,0 +1,21 @@
+{
+  "k3s": "v1.35.9+k3s1",
+  "kubectl": "v1.35.9",
+  "helm": "v3.19.2",
+  "kustomize": "v5.7.1",
+  "buildkit": "v0.25.1",
+  "strimzi_chart": "0.51.0",
+  "kafka": "4.1.1",
+  "spark": "4.0.2",
+  "python": "3.12.13",
+  "uv": "0.12.21",
+  "spark_arm64_image": "spark:4.0.2-scala2.13-java21-python3-ubuntu@sha256:ddf38559b2520671eb73a66a0c43185cc9e6b015aa944fcac32e5e05f610edd5",
+  "strimzi_arm64_image": "quay.io/strimzi/operator:0.51.0@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034",
+  "kafka_arm64_image": "quay.io/strimzi/kafka:0.51.0-kafka-4.1.1@sha256:3c35c34d09747086b1115989613a25feae161fa6deb0abc9c54b54016eae3a27",
+  "elasticsearch_arm64_image": "docker.elastic.co/elasticsearch/elasticsearch:9.5.5@sha256:35c5cab56b4f04452bf82ab52638d14ada25c1abdeb5abd096157f9d75ec55c5",
+  "minio": "configstream-minio:RELEASE.2025-10-15T17-29-55Z",
+  "minio_source_commit": "9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a",
+  "minio_existing_arm64_config_digest": "sha256:d7e63edec474da65538fc734b98204d634ad6cfbaedea200ebaf735b9f869a91",
+  "application_image": "Built from an explicit clean source commit, tagged by full SHA and imported locally; deployment imageIDs recorded. Never latest.",
+  "kafka_environment_difference": "Strimzi0.51.0 Kafka4.1.2 image does not exist; supported4.1.1 chosen for new owned-fixture cluster only. Original4.1.2 experiment environment remains untouched. Wire/serializer compatibility must pass actual fixture transport."
+}

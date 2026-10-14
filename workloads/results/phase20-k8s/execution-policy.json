@@ -1,0 +1,23 @@
+{
+  "evidence": "OWNER_APPROVED_PREREGISTRATION",
+  "starting_sha": "787dec817657c14944997429f4b27a28ab3d2245",
+  "owner_reply": "Duyệt VM riêng và bounded fixtures",
+  "vm_name": "configstream-k8s",
+  "vm_cpus": 3,
+  "vm_memory_bytes": 6442450944,
+  "vm_disk_bytes": 51539607552,
+  "maximum_wall_seconds": 7200,
+  "maximum_new_allocated_bytes": 16106127360,
+  "minimum_host_guest_free_disk_bytes": 21474836480,
+  "minimum_guest_available_memory_bytes": 536870912,
+  "minimum_host_memory_pressure_free_percent": 15,
+  "growth_definition": "Allocated bytes in new Lima VM directory, downloaded tooling/images and private20K experiment output. A sparse48GiB VM disk is measured by allocated blocks, not logical length. Guest disk usage is monitored independently; do not double-count guest blocks inside the host VM disk.",
+  "wall_definition": "First software-install/VM mutation through installation, image build and bounded fixture acceptance; start stored in exclusive private execution receipt. Quota wait occurred before start.",
+  "source_scope": "Project-owned fixtures only; no private source replay/download",
+  "profiles": "Core first; Elasticsearch/API only after measured request/usage budget passes. Dashboard excluded, optional multi-node documentation only.",
+  "protected": "Original Lima k VM, all accepted Kafka/MinIO volumes/topics/prefixes/checkpoints, private source archives/ledgers and Phase13-20 evidence",
+  "stop": "Resource/time/correctness failure cancels only current owned job; retain new failure evidence, no automatic timeout increase, VM resize or source replay",
+  "quota": "Check actual current session rate limits at safe stages; stop with10percent or less remaining and resume after confirmed refill. Do not start a bounded long service stage if quota interruption would consume its wall cap.",
+  "kubernetes_claim": "Single-node LinuxARM64 local demonstration; no HA, node-loss durability, broker failover or horizontal scaling",
+  "phase21": "NOT_STARTED"
+}
