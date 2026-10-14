@@ -48,6 +48,15 @@ spec:
       log.retention.hours: 24
       log.retention.bytes: 268435456
       log.segment.bytes: 16777216
+  entityOperator:
+    topicOperator:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 250m
+          memory: 384Mi
 ---
 apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic

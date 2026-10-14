@@ -92,7 +92,9 @@ class Guard:
                     if vm_root.exists()
                     else None
                 )
-                if self.guest_ready and state and state["status"] == "Running":
+                if self.guest_ready and (not state or state["status"] != "Running"):
+                    raise RuntimeError("Guest resource sampling unavailable")
+                if self.guest_ready:
                     disk = guest(["df", "-B1", "/"], timeout=20).splitlines()[-1].split()
                     memory = guest(["free", "-b"], timeout=20).splitlines()[1].split()
                     sample.update(
@@ -118,7 +120,7 @@ class Guard:
             self.stop.wait(5)
 
     def check(self):
-        if self.failure:
+        if self.failure or monotonic() - self.started > 7200:
             raise RuntimeError("Kubernetes safety sampling/limit failed; stop owned execution")
 
 

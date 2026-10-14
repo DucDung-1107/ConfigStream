@@ -1,0 +1,20 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "status": "RESOURCE_GUARD_STOP",
+  "scope": "Initial image build; no source events published",
+  "aggregate_seconds_at_guard": 1103.0943267917028,
+  "observed_allocated_bytes_at_guard": 16136364032,
+  "limit_bytes": 16106127360,
+  "new_growth_includes": "Dedicated VM, downloaded tooling/private output and pinned Ubuntu host cache",
+  "minimum_guest_memory_bytes": 3313491968,
+  "minimum_guest_disk_bytes": 36828020736,
+  "minimum_host_memory_free_percent": 33,
+  "buildkit_stop": "SIGTERM requested; export completed during graceful shutdown; image existence is not budget acceptance",
+  "application_image_source_sha": "1cf49c4bdb40719e197385b0b119ebb5405c43e0",
+  "built_manifest": "sha256:0c3ed9e98254d85fa19120626d2f0c3cf1d625431990a9b7b751458fdd5c3b0f",
+  "runtime_fix_image": "NOT_BUILT",
+  "old_vm_data": "UNCHANGED",
+  "original_unix_socket_failure_seconds": 14.84183683397714,
+  "platform_ready_aggregate_seconds": 711.2242251608986,
+  "retry_growth_amendment": "PENDING_OWNER_REPLY"
+}

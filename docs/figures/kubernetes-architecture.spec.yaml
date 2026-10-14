@@ -1,0 +1,63 @@
+meta:
+  profile: default
+  theme: tech-blue
+  source: generated
+  layout: horizontal
+  canvas: 1440x800
+  title: ConfigStream single-node Kubernetes - platform accepted, application paths pending
+nodes:
+  - id: title
+    label: "ConfigStream: one ARM64 K3s node - no HA / no multi-node claim"
+    type: text
+    bounds: {x: 48, y: 40, width: 1296, height: 40}
+    style: {fontSize: 20, align: left}
+  - id: legend
+    label: "READY = measured core. Dashed arrows = intended application paths, NOT executed acceptance."
+    type: text
+    bounds: {x: 48, y: 96, width: 1296, height: 32}
+    style: {fontSize: 16, align: left}
+  - id: fixture
+    label: "Owned fixture producer\ncs-processing\nNOT RUN"
+    type: service
+    bounds: {x: 48, y: 160, width: 208, height: 104}
+  - id: kafka
+    label: "Kafka / Strimzi\ncs-infra - READY\nRF1 / persistent local PVC"
+    type: queue
+    bounds: {x: 320, y: 160, width: 208, height: 104}
+  - id: driver
+    label: "Streaming driver pod\ncs-processing\nNOT RUN"
+    type: service
+    bounds: {x: 592, y: 160, width: 208, height: 104}
+  - id: executor
+    label: "Separate executor pod\nNative K8s scheduling\nNOT RUN"
+    type: service
+    bounds: {x: 592, y: 336, width: 208, height: 104}
+  - id: minio
+    label: "MinIO / Parquet\ncs-infra - READY\nHistorical output / PVC"
+    type: database
+    bounds: {x: 864, y: 160, width: 208, height: 104}
+  - id: batch
+    label: "Native Spark batch\nRead committed history\nNOT RUN"
+    type: service
+    bounds: {x: 864, y: 336, width: 208, height: 104}
+  - id: search
+    label: "Elasticsearch metadata\ncs-app\nNOT DEPLOYED"
+    type: database
+    bounds: {x: 1136, y: 336, width: 208, height: 104}
+  - id: api
+    label: "FastAPI read-only access\ncs-app\nNOT DEPLOYED"
+    type: service
+    bounds: {x: 1136, y: 512, width: 208, height: 104}
+  - id: ui
+    label: "Future visualization\nSeparate UI phase\nNOT IMPLEMENTED"
+    type: service
+    bounds: {x: 1136, y: 688, width: 208, height: 104}
+edges:
+  - {from: fixture, to: kafka, type: optional}
+  - {from: kafka, to: driver, type: optional}
+  - {from: driver, to: executor, type: optional}
+  - {from: driver, to: minio, type: optional}
+  - {from: minio, to: batch, type: optional}
+  - {from: batch, to: search, type: optional}
+  - {from: search, to: api, type: optional}
+  - {from: api, to: ui, type: optional}

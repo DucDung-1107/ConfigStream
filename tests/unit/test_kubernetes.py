@@ -1,4 +1,7 @@
+import sys
 from pathlib import Path
+from time import monotonic
+from types import SimpleNamespace
 from unittest.mock import Mock
 
 import pytest
@@ -12,20 +15,51 @@ ROOT = Path(__file__).resolve().parents[2]
 
 @pytest.mark.parametrize("master,mode", [("local[2]", "cluster"), ("k8s://server", "client")])
 def test_native_submission_rejects_local_or_client(monkeypatch, tmp_path, master, mode):
-    import pyspark
-
     monkeypatch.setattr("spark.common.runtime.check_runtime", lambda: None)
-    monkeypatch.setattr(
-        pyspark,
-        "SparkConf",
-        lambda: Mock(
+    pyspark = SimpleNamespace(
+        SparkContext=SimpleNamespace(_ensure_initialized=lambda: None),
+        SparkConf=lambda: Mock(
             get=lambda name, default: {"spark.master": master, "spark.submit.deployMode": mode}.get(
                 name, default
             )
         ),
     )
+    monkeypatch.setitem(sys.modules, "pyspark", pyspark)
+    monkeypatch.setitem(sys.modules, "pyspark.sql", SimpleNamespace(SparkSession=Mock()))
     with pytest.raises(RuntimeError, match="Kubernetes cluster"):
         create_session(SparkConfig(runtime_dir=tmp_path), from_submit=True)
+
+
+def test_native_submission_does_not_override_master_or_heap(monkeypatch, tmp_path):
+    monkeypatch.setattr("spark.common.runtime.check_runtime", lambda: None)
+    builder = Mock()
+    builder.appName.return_value = builder
+    builder.config.return_value = builder
+    session = Mock(version="4.0.2")
+    builder.getOrCreate.return_value = session
+    submitted = Mock(
+        get=lambda name, default: {
+            "spark.master": "k8s://https://kubernetes.default.svc:443",
+            "spark.submit.deployMode": "cluster",
+        }.get(name, default)
+    )
+    monkeypatch.setitem(
+        sys.modules,
+        "pyspark",
+        SimpleNamespace(
+            SparkConf=lambda: submitted,
+            SparkContext=SimpleNamespace(_ensure_initialized=lambda: None),
+        ),
+    )
+    monkeypatch.setitem(
+        sys.modules, "pyspark.sql", SimpleNamespace(SparkSession=SimpleNamespace(builder=builder))
+    )
+    assert create_session(SparkConfig(runtime_dir=tmp_path), from_submit=True) is session
+    builder.master.assert_not_called()
+    assert not any(
+        call.args[0] in {"spark.driver.memory", "spark.jars.packages"}
+        for call in builder.config.call_args_list
+    )
 
 
 def test_manifests_never_embed_credentials_or_public_admin_services():
@@ -53,3 +87,34 @@ def test_spark_rbac_is_namespaced_and_has_no_secrets_access():
     assert role["metadata"]["namespace"] == "cs-processing"
     assert "secrets" not in role["rules"][0]["resources"]
     assert "*" not in role["rules"][0]["verbs"]
+
+
+def test_allocated_growth_guard_fails_closed(monkeypatch, tmp_path):
+    from infra.k8s.scripts import bootstrap
+
+    monkeypatch.setenv("LIMA_HOME", str(tmp_path))
+    monkeypatch.setattr(bootstrap, "allocated_bytes", lambda path: 16 * 1024**3)
+    monkeypatch.setattr(
+        bootstrap.shutil, "disk_usage", lambda path: SimpleNamespace(free=100 * 1024**3)
+    )
+    monkeypatch.setattr(bootstrap, "command", lambda args: "free percentage: 50%")
+    guard = bootstrap.Guard(monotonic())
+    guard.sample()
+    assert guard.failure
+    with pytest.raises(RuntimeError, match="safety"):
+        guard.check()
+
+
+def test_missing_guest_sampling_fails_closed(monkeypatch, tmp_path):
+    from infra.k8s.scripts import bootstrap
+
+    monkeypatch.setenv("LIMA_HOME", str(tmp_path))
+    monkeypatch.setattr(bootstrap, "allocated_bytes", lambda path: 0)
+    monkeypatch.setattr(
+        bootstrap.shutil, "disk_usage", lambda path: SimpleNamespace(free=100 * 1024**3)
+    )
+    monkeypatch.setattr(bootstrap, "command", lambda args: "free percentage: 50%")
+    guard = bootstrap.Guard(monotonic())
+    guard.guest_ready = True
+    guard.sample()
+    assert guard.failure

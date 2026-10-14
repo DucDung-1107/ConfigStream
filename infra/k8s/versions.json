@@ -3,6 +3,8 @@
   "kubectl": "v1.35.9",
   "helm": "v3.19.2",
   "kustomize": "v5.7.1",
+  "kubeconform_ci": "v0.7.0",
+  "strimzi_chart_sha256": "1ec8bbffe5e40d645635ace9c439ac54b39639af243bae6ce5b1f9eabfc07e9b",
   "buildkit": "v0.25.1",
   "strimzi_chart": "0.51.0",
   "kafka": "4.1.1",

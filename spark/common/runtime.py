@@ -56,8 +56,9 @@ def create_session(
         os.environ.setdefault("SPARK_LOCAL_IP", "127.0.0.1")
         os.environ.setdefault("SPARK_LOCAL_HOSTNAME", "localhost")
     else:
-        from pyspark import SparkConf
+        from pyspark import SparkConf, SparkContext
 
+        SparkContext._ensure_initialized()
         submitted = SparkConf()
         if (
             not submitted.get("spark.master", "").startswith("k8s://")

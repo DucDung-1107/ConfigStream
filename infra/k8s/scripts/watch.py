@@ -2,9 +2,10 @@
 
 import json
 import os
+import subprocess
 from time import monotonic, sleep
 
-from bootstrap import LIMA_HOME, PRIVATE, Guard, time_epoch
+from bootstrap import LIMA_HOME, PRIVATE, ROOT, Guard, guest, time_epoch
 
 
 def main():
@@ -20,7 +21,25 @@ def main():
             (PRIVATE / "resource-watch.json").write_text(
                 json.dumps(dict(samples=guard.samples, failure=guard.failure))
             )
-        raise RuntimeError("Campaign guard failed: stop current owned execution")
+        environment = {**os.environ, "KUBECONFIG": str(PRIVATE / "kubeconfig")}
+        for resource in ("jobs", "pods"):
+            subprocess.run(
+                [
+                    str(ROOT / ".tools/k8s/kubectl"),
+                    "delete",
+                    resource,
+                    "-n",
+                    "cs-processing",
+                    "-l",
+                    "configstream-owned=phase20k",
+                    "--wait=false",
+                ],
+                env=environment,
+                timeout=30,
+                check=False,
+            )
+        guest(["sudo", "pkill", "-TERM", "-x", "buildkitd"], timeout=30)
+        raise RuntimeError("Campaign guard failed; stopped owned jobs/build only, retained PVCs")
     finally:
         guard.stop.set()
         guard.thread.join(timeout=45)

@@ -65,6 +65,9 @@ def main():
     guard = json.loads((private / "resource-watch.json").read_text())
     if guard["failure"] or not guard["samples"]:
         raise RuntimeError("Fail-closed resource sampling unavailable")
+    measured_epoch = receipt["started_epoch"] + guard["samples"][-1]["seconds"]
+    if not 0 <= time() - measured_epoch <= 15:
+        raise RuntimeError("Resource sample stale; live guard required")
     spec = pod_spec(args.image, spark=args.mode != "seed")
     container = spec["containers"][0]
     if args.mode == "seed":

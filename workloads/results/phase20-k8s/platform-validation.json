@@ -1,0 +1,146 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "scope": "Read-only single-node platform/core; no application acceptance",
+  "node_count": 1,
+  "node": "configstream-k8s",
+  "architecture": "arm64",
+  "kubelet_version": "v1.35.9+k3s1",
+  "container_runtime": "containerd://2.2.7-k3s1",
+  "allocatable": {
+    "cpu": "2500m",
+    "ephemeral-storage": "26688504Ki",
+    "hugepages-1Gi": "0",
+    "hugepages-2Mi": "0",
+    "hugepages-32Mi": "0",
+    "hugepages-64Ki": "0",
+    "memory": "4471488Ki",
+    "pods": "110"
+  },
+  "pods": [
+    {
+      "namespace": "cs-infra",
+      "name": "configstream-entity-operator-dfcfdf657-2pr5s",
+      "containers": [
+        {
+          "name": "topic-operator",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "quay.io/strimzi/operator@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034"
+        }
+      ]
+    },
+    {
+      "namespace": "cs-infra",
+      "name": "configstream-single-0",
+      "containers": [
+        {
+          "name": "kafka",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "quay.io/strimzi/kafka@sha256:3c35c34d09747086b1115989613a25feae161fa6deb0abc9c54b54016eae3a27"
+        }
+      ]
+    },
+    {
+      "namespace": "cs-infra",
+      "name": "minio-0",
+      "containers": [
+        {
+          "name": "minio",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "sha256:a69ef790966af4e1781073f8030d3d8caa996ef6c8b4446c3095ab77dcaedf3f"
+        }
+      ]
+    },
+    {
+      "namespace": "cs-infra",
+      "name": "strimzi-cluster-operator-8cb5dd8bc-hcrvh",
+      "containers": [
+        {
+          "name": "strimzi-cluster-operator",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "quay.io/strimzi/operator@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "coredns-b644fd95b-nlw89",
+      "containers": [
+        {
+          "name": "coredns",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "docker.io/rancher/mirrored-coredns-coredns@sha256:7efd3c635b03efd68c4e8398fc45f0d993d0e9ab016f72c1cefb0fd6d01aa286"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "local-path-provisioner-d9d8769b6-nqctj",
+      "containers": [
+        {
+          "name": "local-path-provisioner",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "docker.io/rancher/local-path-provisioner@sha256:e757967a5ec338f6a9b371c5a9688bedaa8c3578ea3dd4db329ea0084be0a86f"
+        }
+      ]
+    },
+    {
+      "namespace": "kube-system",
+      "name": "metrics-server-7f4b6d9bd7-2xgfq",
+      "containers": [
+        {
+          "name": "metrics-server",
+          "ready": true,
+          "restarts": 0,
+          "image_id": "docker.io/rancher/mirrored-metrics-server@sha256:d9862115e7c7881280d3d75ca26bda8ffc0fc213315979575bf23ce9826205c0"
+        }
+      ]
+    }
+  ],
+  "persistent_claims": [
+    {
+      "namespace": "cs-infra",
+      "name": "data-configstream-single-0",
+      "phase": "Bound",
+      "storage": {
+        "storage": "2Gi"
+      },
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "storage_class": "local-path"
+    },
+    {
+      "namespace": "cs-infra",
+      "name": "data-minio-0",
+      "phase": "Bound",
+      "storage": {
+        "storage": "2Gi"
+      },
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "storage_class": "local-path"
+    },
+    {
+      "namespace": "cs-processing",
+      "name": "fixture-evidence",
+      "phase": "Pending",
+      "storage": {},
+      "access_modes": [
+        "ReadWriteOnce"
+      ],
+      "storage_class": "local-path"
+    }
+  ],
+  "read_only_integration_tests": 3,
+  "dns_minio_health": "PASS_INTEGRATION",
+  "spark_pods": "NOT_RUN",
+  "api": "NOT_RUN",
+  "visualization": "NOT_IMPLEMENTED"
+}

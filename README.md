@@ -13,6 +13,16 @@ a network automation framework or a frontend-first application.
 
 ## Current status
 
+Phase 20 is a **conditional comparative evaluation**, with accepted bounded
+matched pilots and explicit unexecuted full-rate cells; see the
+[evaluation acceptance](docs/phase20-acceptance.md). Terraform, RPKI, RIS and DNS
+retain distinct temporal roles. Phase 20K has a real single-node K3s/Kafka/MinIO
+core, but native Spark/API/recovery acceptance remains pending after a build
+storage guard stopped the campaign; see [Kubernetes acceptance](docs/phase20-k8s-acceptance.md).
+No dashboard or Phase 21 implementation has begun.
+
+### Historical Phase 13 baseline
+
 Phase 13 Round 1 adds a [23-source feasibility survey](docs/phase13-dataset-survey.md),
 [bounded real-data measurements](docs/phase13-feasibility-methodology.md), and a
 [conditional Terraform/RPKI/DNS/RIS shortlist](docs/phase13-shortlist-decision.md).
