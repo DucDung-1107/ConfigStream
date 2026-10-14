@@ -1,5 +1,6 @@
 """Build/deploy only the approved static dashboard in the dedicated K3s VM."""
 
+import argparse
 import json
 import os
 import subprocess
@@ -25,6 +26,9 @@ def check(measurement):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--host-static-build", action="store_true")
+    args = parser.parse_args()
     os.environ["LIMA_HOME"] = str(LIMA_HOME)
     os.environ["KUBECONFIG"] = str(PRIVATE / "kubeconfig")
     if command(["git", "status", "--porcelain"]).strip():
@@ -35,7 +39,7 @@ def main():
     receipt = dict(
         source_sha=revision,
         image=f"configstream-dashboard:{revision}",
-        mode="static-owned-dashboard",
+        mode="host-static-build" if args.host_static_build else "container-static-build",
         started_epoch=time(),
         build_cap_seconds=1800,
         status="RUNNING",
@@ -46,13 +50,14 @@ def main():
     (directory / "receipt.json").write_text(json.dumps(receipt, indent=2))
     archive = directory / "source.tar"
     command(["git", "archive", "--format=tar", "-o", str(archive), revision, "frontend"])
-    command(["limactl", "copy", str(archive), f"{VM}:/tmp/dashboard-source.tar"])
+    guest_directory = f"/tmp/configstream-dashboard-{directory.name}"
+    command(["limactl", "copy", str(archive), f"{VM}:/tmp/dashboard-{directory.name}.tar"])
     guest(
         [
             "sh",
             "-c",
-            "mkdir -p /tmp/configstream-dashboard && "
-            "tar -xf /tmp/dashboard-source.tar -C /tmp/configstream-dashboard",
+            f"mkdir -p {guest_directory} && "
+            f"tar -xf /tmp/dashboard-{directory.name}.tar -C {guest_directory}",
         ]
     )
     try:
@@ -106,6 +111,32 @@ def main():
     thread = threading.Thread(target=monitor, daemon=True)
     thread.start()
     try:
+        if args.host_static_build:
+            receipt["host_node_version"] = command(["node", "--version"]).strip()
+            with (directory / "host-build.log").open("x") as output:
+                for stage in ("typecheck", "test", "build"):
+                    process = subprocess.Popen(
+                        ["npm", "run", stage],
+                        cwd=ROOT / "frontend",
+                        stdout=output,
+                        stderr=subprocess.STDOUT,
+                    )
+                    if process.wait(timeout=300) != 0 or receipt.get("guard_failure"):
+                        raise RuntimeError("Guarded host static build failed")
+            output_archive = directory / "static-output.tar"
+            command(["tar", "-cf", str(output_archive), "-C", str(ROOT / "frontend"), "out"])
+            command(
+                ["limactl", "copy", str(output_archive), f"{VM}:/tmp/static-{directory.name}.tar"]
+            )
+            guest(
+                [
+                    "tar",
+                    "-xf",
+                    f"/tmp/static-{directory.name}.tar",
+                    "-C",
+                    guest_directory + "/frontend",
+                ]
+            )
         with (directory / "build.log").open("x") as output:
             process = subprocess.Popen(
                 [
@@ -119,9 +150,15 @@ def main():
                     "--frontend",
                     "dockerfile.v0",
                     "--local",
-                    "context=/tmp/configstream-dashboard/frontend",
+                    "context=" + guest_directory + "/frontend",
                     "--local",
-                    "dockerfile=/tmp/configstream-dashboard/frontend",
+                    "dockerfile=" + guest_directory + "/frontend",
+                    "--opt",
+                    "filename=Dockerfile.runtime"
+                    if args.host_static_build
+                    else "filename=Dockerfile",
+                    "--opt",
+                    f"build-arg:SOURCE_SHA={revision}",
                     "--output",
                     f"type=image,name=docker.io/library/{receipt['image']},push=false",
                 ],
