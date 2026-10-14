@@ -40,7 +40,8 @@ def main():
         [
             "sh",
             "-c",
-            "mkdir -p /tmp/configstream-closure-current && tar -xf /tmp/closure-source.tar -C /tmp/configstream-closure-current",
+            "mkdir -p /tmp/configstream-closure-current && "
+            "tar -xf /tmp/closure-source.tar -C /tmp/configstream-closure-current",
         ]
     )
     try:
@@ -52,7 +53,11 @@ def main():
                     "sudo",
                     "sh",
                     "-c",
-                    "PATH=/var/lib/rancher/k3s/data/current/bin:$PATH nohup buildkitd --oci-worker=false --containerd-worker=true --containerd-worker-addr /run/k3s/containerd/containerd.sock --containerd-worker-namespace k8s.io > /tmp/closure-buildkit-current.log 2>&1 < /dev/null &",
+                    "PATH=/var/lib/rancher/k3s/data/current/bin:$PATH nohup buildkitd "
+                    "--oci-worker=false --containerd-worker=true "
+                    "--containerd-worker-addr /run/k3s/containerd/containerd.sock "
+                    "--containerd-worker-namespace k8s.io "
+                    "> /tmp/closure-buildkit-current.log 2>&1 < /dev/null &",
                 ]
             )
             for _attempt in range(30):
