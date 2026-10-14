@@ -1,0 +1,11 @@
+{
+  "date_utc": "2026-10-14",
+  "authorization": "Existing explicit owner permission to optimize/resize the dedicated configstream-k8s VM persists; original Lima k remains protected",
+  "old_profile": {"cpus": 3, "memory_gib": 7, "disk_gib": 48},
+  "new_profile": {"cpus": 3, "memory_gib": 6, "disk_gib": 48},
+  "reason": "Guard stopped first image attempt after three samples above16MiB/s new host swap-out; guest still had3527MiB available. Reserve additional host RAM; no causal claim that the build alone caused swapping.",
+  "build_strategy": "Guarded source typecheck/test/static export on the existing host, then pinned ARM64 Nginx runtime packaging; full source Dockerfile remains available",
+  "unchanged_guards": "20GiB host/guest disk;512MiB guest available;15% host free; three consecutive5s new swap-out samples above16MiB/s stop;1800s build cap",
+  "preservation": "Stop/edit/start only dedicated VM, no PVC/data/checkpoint/source deletion; retain failed receipts and logs",
+  "frontend_memory_limit_mib": 128
+}
