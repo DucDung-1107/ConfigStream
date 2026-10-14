@@ -17,6 +17,7 @@ From a clean committed source and an idle resource-safe host:
 export PATH="$PWD/.tools/lima/bin:$PWD/.tools/k8s:$PATH"
 export LIMA_HOME="$HOME/.configstream-k8s-lima"
 export KUBECONFIG="$PWD/.cache/phase20-k8s/kubeconfig"
+(cd frontend && npm ci)
 .venv/bin/python infra/k8s/scripts/deploy_dashboard.py --host-static-build
 kubectl rollout status deployment/dashboard -n cs-app --timeout=120s
 kubectl get pods -n cs-app

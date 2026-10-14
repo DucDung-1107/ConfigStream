@@ -57,6 +57,20 @@ unmocked API demo and new12.290-second guarded packaging attempt. Earlier runtim
 receipts remain intact. The final configuration table disables local page-search;
 asset/date filters search on the server and page-local sorting is explicitly labeled.
 
+## Final CI harness correction
+
+Release candidate `fbb322c31d2edf16afb9cb54292b2b428db29a42` failed the stricter
+console gate:18 browser tests passed, one failed because the service-free Node
+static fixture rejected HEAD requests with405. Actual browser request tracing
+reproduced HEAD requests on every static route; the real K3s Nginx path already
+accepted them. The fixture now returns identical headers with no body for HEAD,
+still rejects write methods, and a new independent HTTP test covers this rule.
+Twenty browser tests passed with CI-mode Chromium locally. This is a test-server
+correction only; the deployed application/source bundle/image stays unchanged.
+The failed CI and successful1128-unit/80-API/109-Spark jobs remain recorded in
+[CI closure](../workloads/results/phase20v/ci-closure-validation.json). Final
+release still requires successful CI on the new exact pushed SHA.
+
 The initial full-container build stopped on host swap guard. Runtime Dockerignore
 failure, port-forward race, premature screenshots and favicon404 were corrected,
 not erased. The accepted lightweight build uses host Node26.5.0; the full Node24

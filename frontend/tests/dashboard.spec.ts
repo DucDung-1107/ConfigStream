@@ -38,6 +38,16 @@ const routes: [[string, string], ...[string, string][]] = [
   ["/experiments/", "Experiments"],
   ["/operations/", "Pipeline & Operations"],
 ];
+test("static routes support bodyless HEAD and reject writes", async ({
+  request,
+}) => {
+  const head = await request.head("/");
+  expect(head.status()).toBe(200);
+  expect(await head.body()).toHaveLength(0);
+  expect(head.headers()["content-type"]).toContain("text/html");
+  const write = await request.post("/");
+  expect(write.status()).toBe(405);
+});
 for (const [path, title] of routes) {
   test(`${title} navigation, evidence and accessibility`, async ({ page }) => {
     await page.goto(path);

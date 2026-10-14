@@ -1,0 +1,48 @@
+{
+  "schema_version": "phase20v-ci-closure-1",
+  "date_utc": "2026-10-14",
+  "runtime_code_commit": "cceeb827dc59771d324ed5615a699e966b2d051b",
+  "evidence_type": "PASS_LOCAL",
+  "rejected_release": {
+    "sha": "fbb322c31d2edf16afb9cb54292b2b428db29a42",
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38560295986",
+    "conclusion": "failure",
+    "jobs": {
+      "unit_quality": 1128,
+      "api": 80,
+      "spark": 109,
+      "infrastructure": "success",
+      "frontend_data": 13,
+      "browser_passed": 18,
+      "browser_failed": 1
+    },
+    "cause": "Strict console test observed repeated405 responses; actual request tracing independently identified HEAD on all seven static routes. Node service-free fixture only allowedGET. Production Nginx accepts staticHEAD and actual Kubernetes browser suite passed.",
+    "scientific_history_affected": false
+  },
+  "repair": {
+    "files": [
+      "frontend/tests/serve.mjs",
+      "frontend/tests/dashboard.spec.ts"
+    ],
+    "behavior": "HEAD returns same static content headers without body; writes stay denied; console errors remain strict",
+    "production_image_changed": false
+  },
+  "corrected_local_runs": [
+    {
+      "mode": "CI=true service-free Chromium",
+      "browser_passed": 20,
+      "skipped": 0,
+      "seconds": 13.2
+    },
+    {
+      "mode": "Actual K3s frontend with routed API/fault fixtures",
+      "browser_passed": 20,
+      "skipped": 0,
+      "seconds": 14.3
+    }
+  ],
+  "typecheck": "PASS",
+  "format": "PASS",
+  "frontend_data_passed": 13,
+  "final_pushed_ci": "Required exact SHA; immutable run reference reported in final handoff after push; this artifact does not claim a pending run passed"
+}

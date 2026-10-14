@@ -16,8 +16,8 @@ const types = {
 };
 createServer(async (request, response) => {
   try {
-    if (request.method !== "GET") {
-      response.writeHead(405).end();
+    if (!["GET", "HEAD"].includes(request.method)) {
+      response.writeHead(405, { Allow: "GET, HEAD" }).end();
       return;
     }
     const url = new URL(request.url, "http://127.0.0.1");
@@ -34,7 +34,11 @@ createServer(async (request, response) => {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
         })
-        .end(Buffer.from(await upstream.arrayBuffer()));
+        .end(
+          request.method === "HEAD"
+            ? undefined
+            : Buffer.from(await upstream.arrayBuffer()),
+        );
       return;
     }
     const path = resolve(
@@ -51,12 +55,17 @@ createServer(async (request, response) => {
     response
       .writeHead(200, {
         "Content-Type": types[extname(path)] ?? "application/octet-stream",
+        "Content-Length": data.length,
       })
-      .end(data);
+      .end(request.method === "HEAD" ? undefined : data);
   } catch {
     response
       .writeHead(503, { "Content-Type": "application/json" })
-      .end(JSON.stringify({ error: "Unavailable" }));
+      .end(
+        request.method === "HEAD"
+          ? undefined
+          : JSON.stringify({ error: "Unavailable" }),
+      );
   }
 }).listen(13000, "127.0.0.1", () =>
   console.log("Static dashboard ready on127.0.0.1:13000"),
