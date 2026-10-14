@@ -142,6 +142,7 @@ def main():
             "spark.executor.memoryOverhead": "384m",
             "spark.executor.instances": "1",
             "spark.kubernetes.executor.deleteOnTermination": "false",
+            "spark.kubernetes.driver.ownPersistentVolumeClaim": "false",
             "spark.executor.cores": "1",
             "spark.pyspark.python": "/opt/configstream/.venv/bin/python",
             "spark.kubernetes.submission.waitAppCompletion": "true",

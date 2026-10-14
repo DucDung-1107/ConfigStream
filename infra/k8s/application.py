@@ -88,6 +88,7 @@ def run(mode):
             )
             monitor_query(query, available_now=True)
             (evidence_dir() / "query-id").write_text(str(query.id))
+            (evidence_dir() / "stream-progress.json").write_text(json.dumps(query.recentProgress))
         elif mode == "roles":
             from roles import run_roles
 
@@ -101,21 +102,56 @@ def run(mode):
             if count != 2:
                 raise RuntimeError("Owned fixture must reconstruct exactly two version identities")
             actual = {
-                row.snapshot_id: (row.version, row.normalized_content, row.normalized_hash)
+                row.snapshot_id: (
+                    row.asset_id,
+                    row.version,
+                    row.event_time,
+                    row.ingest_time,
+                    row.raw_hash,
+                    row.normalized_hash,
+                    row.normalization_version,
+                    row.normalized_content,
+                )
                 for row in frame.select(
-                    "snapshot_id", "version", "normalized_content", "normalized_hash"
+                    "snapshot_id",
+                    "asset_id",
+                    "version",
+                    "event_time",
+                    "ingest_time",
+                    "raw_hash",
+                    "normalized_hash",
+                    "normalization_version",
+                    "normalized_content",
                 ).collect()
             }
+            timestamp = datetime(2026, 1, 1)
             expected = {
-                f"k8s-owned-v{version}": (version, content, sha256(content.encode()).hexdigest())
+                f"k8s-owned-v{version}": (
+                    "k8s-owned-router",
+                    version,
+                    timestamp,
+                    timestamp,
+                    sha256(content.encode()).hexdigest(),
+                    sha256(content.encode()).hexdigest(),
+                    "text-v1",
+                    content,
+                )
                 for version, content in ((1, "timeout=10\n"), (2, "timeout=20\n"))
             }
             if actual != expected:
                 raise RuntimeError("Independent owned fixture projection disagrees")
+            diffs = read_committed(session, config.lake, "processed/diffs", query_id=query_id)
+            if diffs.count() != 1:
+                raise RuntimeError("Owned adjacent-version analytical query disagrees")
+            pair = diffs.select("old_snapshot_id", "new_snapshot_id", "asset_id").first()
+            if tuple(pair) != ("k8s-owned-v1", "k8s-owned-v2", "k8s-owned-router"):
+                raise RuntimeError("Owned version pairing is not adjacent source identity")
             result = {
                 "mode": "native-kubernetes-batch",
                 "master": session.sparkContext.master,
                 "snapshots": count,
+                "exact_projection": "PASS",
+                "adjacent_diffs": 1,
                 "query_id": query_id,
             }
             (evidence_dir() / "batch-result.json").write_text(json.dumps(result))
