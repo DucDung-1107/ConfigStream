@@ -1,4 +1,4 @@
-import { chromium } from "@playwright/test";
+import { chromium, expect } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
@@ -17,6 +17,24 @@ for (const [name, width, height] of [
   ["reference-mobile", 390, 844],
 ]) {
   await page.setViewportSize({ width, height });
+  await expect(page.locator(".recharts-area-area").first()).toBeVisible();
+  await expect
+    .poll(() => page.locator(".recharts-area-area").first().getAttribute("d"))
+    .toMatch(/^M/);
+  await expect
+    .poll(() =>
+      page
+        .locator(".recharts-wrapper")
+        .first()
+        .evaluate((element) =>
+          [...element.querySelectorAll("clipPath rect")].every(
+            (rectangle) =>
+              Number(rectangle.getAttribute("width")) >=
+              element.getBoundingClientRect().width - 20,
+          ),
+        ),
+    )
+    .toBe(true);
   await page.screenshot({
     path: fileURLToPath(new URL(`${name}.png`, directory)),
   });

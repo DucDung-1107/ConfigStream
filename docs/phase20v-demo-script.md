@@ -27,3 +27,13 @@ All aggregate screens remain available with private historical files offline.
 Missing bundle/backend produces unavailable/empty states instead of fabricated
 success. Rehearsal is accepted only after executing these interactions through
 the actual Kubernetes frontend Service; record that run separately from mocked CI.
+
+## Executed rehearsal
+
+Actual K3s dashboard at localhost13080 passed all seven steps on October14,2026:
+two API versions/one adjacent diff, source-day/minute-range controls, owned-ID
+copy, DNS uncertainty, measured-processing/negative-result tabs and fresh API
+READY. Responsive menu and controlled empty/error states passed with zero
+unexpected console errors. See [unmocked receipt](../workloads/results/phase20v/demo-rehearsal.json)
+and [screenshots](phase20v-visual-review.md). Timings are single sequential page
+observations, not cold-cache performance or new ingestion throughput.

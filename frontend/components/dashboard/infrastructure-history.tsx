@@ -145,6 +145,7 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
                 data={rows}
                 title="Configuration metadata"
                 commit={commit}
+                serverPage
               />
               <div className="flex items-center justify-end gap-3">
                 <span className="text-xs text-muted-foreground">

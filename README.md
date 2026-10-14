@@ -22,7 +22,10 @@ readback, Elasticsearch/FastAPI and owned-fixture recovery. See
 [Kubernetes acceptance](docs/phase20-k8s-acceptance.md). This is not HA or full-data replay.
 The [Phase 20V dashboard](docs/phase20v-acceptance.md) implements the actual
 shadcn/ui dashboard-01 reference and runs on K3s with verified aggregates and
-read-only configuration metadata. Phase 21 has not begun.
+read-only configuration metadata. Desktop/tablet/mobile screenshots,19 browser
+tests and an actual configuration/API rehearsal passed; access through
+`kubectl port-forward -n cs-app svc/dashboard 13080:8080 --address 127.0.0.1`.
+See the [seven-step demo](docs/phase20v-demo-script.md). Phase 21 has not begun.
 
 ### Historical Phase 13 baseline
 
@@ -594,7 +597,7 @@ See [exact rules, hash semantics, version pairing, and limitations](docs/config-
 | 9 — complete | Read-only metadata FastAPI, bounded cursors, safe errors, HTTP end-to-end/rebuild acceptance |
 | 10 — complete | Public configuration baselines, controlled histories, historical Spark analytics, measured local replay |
 | 11 — complete | Observed public Git histories, empirical calibration, external-validity assessment |
-| Future / optional | Additional corpus validation, dashboard, collectors or deployment; not implemented |
+| Subsequent research phases | See current status: four evidence roles, bounded evaluation, Kubernetes and dashboard; no Phase21 |
 
 Python 3.12, Pydantic, pytest, Ruff, Kafka, optional confluent-kafka, and PySpark 4.0.2
 form the current stack alongside optional MinIO/Parquet history and Elasticsearch

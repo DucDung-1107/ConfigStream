@@ -1,0 +1,178 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "PASS_INTEGRATION",
+  "reviewed": true,
+  "review_method": "Actual Chrome screenshots individually inspected against pinned dashboard-01; no substituted template",
+  "screenshots": [
+    {
+      "path": "docs/screenshots/phase20v/dns-desktop.png",
+      "sha256": "80a571040dfbe3d455216cfcea1cd7dc85c18a3aa9fd0c36e31ee61e5dc3e992"
+    },
+    {
+      "path": "docs/screenshots/phase20v/empty-filter.png",
+      "sha256": "984b9aad3ba87e98a8b448ffc3f803839fc398ae18a6fcaca35ae0a5d31485bd"
+    },
+    {
+      "path": "docs/screenshots/phase20v/evidence-detail.png",
+      "sha256": "5a42a7685aac41b88fdd36f1411aebaa248c6d2aed5b5cb803869e21e8513b66"
+    },
+    {
+      "path": "docs/screenshots/phase20v/evidence-error.png",
+      "sha256": "a04dfc2f21fa8afc86bbfc705138c792c0e79521b824f39170b67bda3f0f1c55"
+    },
+    {
+      "path": "docs/screenshots/phase20v/experiments-desktop.png",
+      "sha256": "ceac87c83b2c0fae46c3b74d329a5dda7b2e788824d8e752ec2215ad4ebc6249"
+    },
+    {
+      "path": "docs/screenshots/phase20v/history-desktop.png",
+      "sha256": "d5ce51dee48d93d637af03d29fb336c82446cbfaca9220b582a69a3c4ed803d6"
+    },
+    {
+      "path": "docs/screenshots/phase20v/operations-desktop.png",
+      "sha256": "6fb8f95e444b6cd8d69e54b94527fd6094493bf12ea5ae8535a780d66ae5415e"
+    },
+    {
+      "path": "docs/screenshots/phase20v/overview-desktop.png",
+      "sha256": "ebb001495938531b4da5be7b5dbf8f20940951ab0cfff43990e7e9a56f46f17e"
+    },
+    {
+      "path": "docs/screenshots/phase20v/overview-mobile.png",
+      "sha256": "6b8b58b0fdb403c7e383d44f95ed9303eebe7236f5695ff195205956fc297047"
+    },
+    {
+      "path": "docs/screenshots/phase20v/overview-tablet.png",
+      "sha256": "b41d71790b6f8c20617bd325ec6d633506ff47f16ba12f073c21796a77f69ed6"
+    },
+    {
+      "path": "docs/screenshots/phase20v/reference-desktop.png",
+      "sha256": "c61da2c6c41066e41c5edb60076365201e87ed0dd3cfb7d52d7d8f19b235528a"
+    },
+    {
+      "path": "docs/screenshots/phase20v/reference-mobile.png",
+      "sha256": "5e54b6fe1ea3bc45e26204c1a1b31da4931fdf78a51a5fbf155e10f5a99eb477"
+    },
+    {
+      "path": "docs/screenshots/phase20v/ris-desktop.png",
+      "sha256": "3dc14c0c8a243bedef9f0b0ba0ee80ed2ae1a798ae97cd7e2b3e871d8ca7b0f5"
+    },
+    {
+      "path": "docs/screenshots/phase20v/rpki-desktop.png",
+      "sha256": "fcf532ce2acb7e725ed1157b0e16e410c23eb8b32d21ac1175048500a016b907"
+    }
+  ],
+  "viewport_checks": [
+    {
+      "route": "/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.27892229199999996,
+      "overflow": false
+    },
+    {
+      "route": "/history/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 1.1095939160000001,
+      "overflow": false
+    },
+    {
+      "route": "/rpki/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.15913895900000033,
+      "overflow": false
+    },
+    {
+      "route": "/ris/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.1581478750000001,
+      "overflow": false
+    },
+    {
+      "route": "/dns/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.13778054199999998,
+      "overflow": false
+    },
+    {
+      "route": "/experiments/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.1498795,
+      "overflow": false
+    },
+    {
+      "route": "/operations/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.42053037499999985,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "viewport": [
+        768,
+        1024
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "viewport": [
+        390,
+        844
+      ],
+      "overflow": false
+    }
+  ],
+  "unexpected_page_console_errors": [],
+  "controlled_error_responses": [
+    {
+      "url": "http://127.0.0.1:13080/research/v1/catalog.json",
+      "status": 503,
+      "intentional_error_fixture": true
+    }
+  ],
+  "checklist": {
+    "reference_shell": true,
+    "consistent_spacing": true,
+    "neutral_palette": true,
+    "native_units_not_summed": true,
+    "mobile_sidebar_functional": true,
+    "no_page_overflow": true,
+    "controlled_table_scrolling": true,
+    "readable_source_qualifiers": true,
+    "no_fabricated_live_telemetry": true,
+    "empty_error_detail_screens": true
+  },
+  "corrected_defects": [
+    "Mobile chart header crowding",
+    "Chart ARIA roles",
+    "Missing tab panels",
+    "Nested main landmark",
+    "Missing favicon",
+    "Premature history screenshot before API readiness",
+    "Reference capture before SVG clip animation completion"
+  ],
+  "limitations": "Seven selected automated axe rule scans and screenshot/keyboard review, not formal accessibility certification; reference mobile screenshot is viewport height, application captures are full page"
+}

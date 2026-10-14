@@ -1,0 +1,35 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "PASS_LOCAL",
+  "unit_quality": {
+    "passed": 1128,
+    "seconds": 14.5
+  },
+  "api": {
+    "passed": 80,
+    "seconds": 0.59,
+    "warnings": 1
+  },
+  "frontend": {
+    "vitest_passed": 13,
+    "browser_passed": 19,
+    "browser_skipped": 0,
+    "typecheck": "PASS",
+    "format": "PASS",
+    "static_build": "PASS"
+  },
+  "spark": {
+    "previous_phase20v_ci_passed": 109,
+    "final_delivery_recheck": "Required final pushed CI, not counted as a new local Spark run"
+  },
+  "intermediate_ci": {
+    "sha": "2ce82f37a721a8640f780b2eb3eba966ba237269",
+    "url": "https://github.com/kongwoang/ConfigStream/actions/runs/38540652171",
+    "conclusion": "success"
+  },
+  "final_ci_policy": "Release requires GitHub CI success on exact final delivery SHA; final run SHA/URL/conclusion are reported after push in final handoff to avoid self-referential commit hashes",
+  "actual_service_scope": "Unmocked Kubernetes frontend/API demonstration, not replay of external source windows"
+}

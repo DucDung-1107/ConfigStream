@@ -142,6 +142,10 @@ test("configuration search applies server-side asset and date bounds", async ({
   await expect(page.getByText(/No matching evidence/)).toBeVisible();
 });
 test("server cursor pagination is honored", async ({ page }) => {
+  await page.goto("/history/");
+  await expect(page.getByLabel("Search records", { exact: true })).toHaveCount(
+    0,
+  );
   await page.unroute("**/api/v1/**");
   await page.route("**/api/v1/**", (route) => {
     const second = new URL(route.request().url()).searchParams.has("cursor");

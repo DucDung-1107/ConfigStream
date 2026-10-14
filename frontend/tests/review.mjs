@@ -65,6 +65,9 @@ for (const [name, path, title] of routes) {
     await expect(page.getByRole("dialog")).toContainText("k8s-owned-v2");
     await page.keyboard.press("Escape");
     await page.getByRole("tab", { name: "Versions", exact: true }).click();
+    await expect(
+      page.getByRole("button", { name: "k8s-owned-v1", exact: true }),
+    ).toBeVisible();
   }
   if (name === "operations") {
     await page.getByRole("button", { name: "Check API now" }).click();
@@ -84,6 +87,28 @@ for (const [name, path, title] of routes) {
     ready_seconds: (performance.now() - started) / 1000,
     overflow,
   });
+  if (name === "overview" || name === "ris") {
+    await page.getByLabel("RIS time window").click();
+    await page.getByRole("option", { name: "First 5 minutes" }).click();
+    await expect(page.getByLabel("RIS time window")).toContainText(
+      "First 5 minutes",
+    );
+  }
+  if (name === "rpki") {
+    await page.getByLabel("RPKI observation day").click();
+    await page.getByRole("option", { name: "2026-09-01", exact: true }).click();
+    await expect(
+      page.getByText("No previous selected day", { exact: true }),
+    ).toHaveCount(2);
+  }
+  if (name === "experiments") {
+    await page.getByRole("tab", { name: "Matched processing" }).click();
+    await expect(
+      page.getByRole("heading", { name: "Matched normalized-core trials" }),
+    ).toBeVisible();
+    await page.getByRole("tab", { name: "Negative findings" }).click();
+    await expect(page.getByText("2,207,468", { exact: false })).toBeVisible();
+  }
 }
 for (const [name, width, height] of [
   ["tablet", 768, 1024],

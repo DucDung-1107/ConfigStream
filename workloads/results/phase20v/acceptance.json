@@ -1,0 +1,39 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "PASS_INTEGRATION",
+  "decision": "PASS — REFERENCE-DRIVEN DASHBOARD AND KUBERNETES DEMO VALIDATED",
+  "local_gates": "PASS",
+  "release_condition": "Exact final pushed CI must succeed; final handoff records its immutable SHA and URL",
+  "gates": {
+    "reference_license": "PASS",
+    "source_bound_metrics": "PASS",
+    "seven_screens": "PASS",
+    "responsive_visual_review": "PASS",
+    "accessibility_selected_checks": "PASS",
+    "browser_interactions": "PASS",
+    "actual_kubernetes_frontend": "PASS",
+    "actual_api_configuration_demo": "PASS",
+    "privacy": "PASS",
+    "prior_domain_semantics_preserved": "PASS"
+  },
+  "evidence": [
+    "reference-and-license.json",
+    "evidence-binding.json",
+    "interaction-tests.json",
+    "visual-review.json",
+    "demo-rehearsal.json",
+    "kubernetes-deployment.json",
+    "resource-measurements.json",
+    "regression-validation.json"
+  ],
+  "remaining_gates": [
+    "Full Phase20 heavy/replay matrix remains CONDITIONAL; RIS H3 NOT_RUN",
+    "Instructor approval remains unverified",
+    "Source redistribution restrictions unchanged",
+    "Public exposure/authentication and multi-node HA not accepted"
+  ],
+  "next_phase_started": false
+}

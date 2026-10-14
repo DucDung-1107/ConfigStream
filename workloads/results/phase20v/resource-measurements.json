@@ -1,0 +1,105 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "MEASURED_SERVICE",
+  "build_attempts": [
+    {
+      "id": "033eb63c-2495-4700-ab26-7e2461026c07",
+      "source_sha": "2ce82f37a721a8640f780b2eb3eba966ba237269",
+      "status": "FAIL",
+      "error": "Dashboard image build failed",
+      "guard_failure": "Sustained new host swap-out",
+      "elapsed_seconds": 109.44333910942078,
+      "host_node_version": null,
+      "sampled_min_guest_memory_bytes": 3686936576,
+      "sampled_min_host_free_percent": 33,
+      "new_host_swapout_delta_bytes": 712245248,
+      "guest_allocated_growth_bytes": 114667520
+    },
+    {
+      "id": "4abde77a-ebd5-45ed-8a93-085624f41b52",
+      "source_sha": "80d703acfd8a02ec2608e7f9f2ff8d8b92f27869",
+      "status": "PASS_DEPLOYMENT_ONLY",
+      "error": null,
+      "guard_failure": null,
+      "elapsed_seconds": 32.821462631225586,
+      "host_node_version": "v26.5.0",
+      "sampled_min_guest_memory_bytes": 3201691648,
+      "sampled_min_host_free_percent": 32,
+      "new_host_swapout_delta_bytes": 9502720,
+      "guest_allocated_growth_bytes": 5427200
+    },
+    {
+      "id": "ba4c579e-b02d-427a-b524-8ed3c71b6989",
+      "source_sha": "8411a609d4030d8bfd5959011edd9979056c9358",
+      "status": "FAIL",
+      "error": "Dashboard image build failed",
+      "guard_failure": null,
+      "elapsed_seconds": 7.398500680923462,
+      "host_node_version": "v26.5.0",
+      "sampled_min_guest_memory_bytes": 3760820224,
+      "sampled_min_host_free_percent": 30,
+      "new_host_swapout_delta_bytes": 532676608,
+      "guest_allocated_growth_bytes": 0
+    },
+    {
+      "id": "dead7013-ac64-449c-b264-f4d8d346a2ea",
+      "source_sha": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+      "status": "PASS_DEPLOYMENT_ONLY",
+      "error": null,
+      "guard_failure": null,
+      "elapsed_seconds": 10.824004888534546,
+      "host_node_version": "v26.5.0",
+      "sampled_min_guest_memory_bytes": 2987126784,
+      "sampled_min_host_free_percent": 40,
+      "new_host_swapout_delta_bytes": 0,
+      "guest_allocated_growth_bytes": 3194880
+    },
+    {
+      "id": "f9aff035-0043-4451-8d13-949683a64345",
+      "source_sha": "da73a8b42d75b155b3bc772b91aac927077b6496",
+      "status": "PASS_DEPLOYMENT_ONLY",
+      "error": null,
+      "guard_failure": null,
+      "elapsed_seconds": 12.322038888931274,
+      "host_node_version": "v26.5.0",
+      "sampled_min_guest_memory_bytes": 3037224960,
+      "sampled_min_host_free_percent": 34,
+      "new_host_swapout_delta_bytes": 0,
+      "guest_allocated_growth_bytes": 3018752
+    }
+  ],
+  "host": {
+    "physical_memory_bytes": 19327352832,
+    "free_disk_observed_bytes": 621034680320
+  },
+  "vm": {
+    "cpus": 3,
+    "memory_gib": 6,
+    "disk_gib": 48,
+    "free_disk_observed_bytes": 25786048512,
+    "available_memory_observed_bytes": 2972741632
+  },
+  "frontend": {
+    "pod": "dashboard-5bc85bffd9-rvnbw",
+    "working_set_sample_mib": 2,
+    "cpu_sample_millicores": 1,
+    "restarts": 0,
+    "true_peak_rss": "NOT_MEASURED",
+    "static_directory_allocated_kib": 2092,
+    "javascript_total_uncompressed_bytes": 1309050,
+    "aggregate_bundle_bytes": 52866
+  },
+  "sampling_limits": "Build samples5s; kubectl top is working-set/sample not process RSS or instantaneous peak; shared host pressure cannot be attributed only to build",
+  "guards": {
+    "free_disk_gib": 20,
+    "guest_available_memory_mib": 512,
+    "host_free_percent": 15,
+    "sustained_new_swap_mib_per_second": 16,
+    "consecutive_samples": 3
+  },
+  "resource_amendment": "resource-profile-amendment.json",
+  "negative_attempts_preserved": true
+}

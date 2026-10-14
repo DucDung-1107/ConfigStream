@@ -1,0 +1,216 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "MEASURED_SERVICE",
+  "status": "PASS",
+  "cluster": {
+    "name": "configstream-k8s",
+    "architecture": "arm64",
+    "kubelet": "v1.35.9+k3s1",
+    "allocatable": {
+      "cpu": "2500m",
+      "ephemeral-storage": "26688504Ki",
+      "hugepages-1Gi": "0",
+      "hugepages-2Mi": "0",
+      "hugepages-32Mi": "0",
+      "hugepages-64Ki": "0",
+      "memory": "4471552Ki",
+      "pods": "110"
+    },
+    "ready": "True"
+  },
+  "vm": {
+    "cpus": 3,
+    "memory_gib": 6,
+    "disk_gib": 48
+  },
+  "deployment": {
+    "name": "dashboard",
+    "namespace": "cs-app",
+    "ready": 1,
+    "containers": [
+      {
+        "name": "dashboard",
+        "image": "configstream-dashboard:2da7f00a88db0c378685d1314c728fd5e69fbc22",
+        "resources": {
+          "limits": {
+            "cpu": "500m",
+            "memory": "128Mi"
+          },
+          "requests": {
+            "cpu": "50m",
+            "memory": "32Mi"
+          }
+        },
+        "securityContext": {
+          "allowPrivilegeEscalation": false,
+          "capabilities": {
+            "drop": [
+              "ALL"
+            ]
+          },
+          "readOnlyRootFilesystem": true
+        }
+      }
+    ],
+    "service_account_token": false
+  },
+  "pods": [
+    {
+      "name": "api-5c7b88759d-krv9c",
+      "namespace": "cs-app",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "api",
+          "ready": true,
+          "restarts": 1,
+          "imageID": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        }
+      ]
+    },
+    {
+      "name": "dashboard-5bc85bffd9-rvnbw",
+      "namespace": "cs-app",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "dashboard",
+          "ready": true,
+          "restarts": 0,
+          "imageID": "sha256:05dede813814ffe448910579be7c6389605d21869a121a29f2cea691186721a8"
+        }
+      ]
+    },
+    {
+      "name": "elasticsearch-0",
+      "namespace": "cs-app",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "elasticsearch",
+          "ready": true,
+          "restarts": 1,
+          "imageID": "docker.elastic.co/elasticsearch/elasticsearch@sha256:35c5cab56b4f04452bf82ab52638d14ada25c1abdeb5abd096157f9d75ec55c5"
+        }
+      ]
+    },
+    {
+      "name": "configstream-entity-operator-dfcfdf657-2pr5s",
+      "namespace": "cs-infra",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "topic-operator",
+          "ready": true,
+          "restarts": 3,
+          "imageID": "quay.io/strimzi/operator@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034"
+        }
+      ]
+    },
+    {
+      "name": "configstream-single-0",
+      "namespace": "cs-infra",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "kafka",
+          "ready": true,
+          "restarts": 1,
+          "imageID": "quay.io/strimzi/kafka@sha256:3c35c34d09747086b1115989613a25feae161fa6deb0abc9c54b54016eae3a27"
+        }
+      ]
+    },
+    {
+      "name": "minio-0",
+      "namespace": "cs-infra",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "minio",
+          "ready": true,
+          "restarts": 1,
+          "imageID": "sha256:a69ef790966af4e1781073f8030d3d8caa996ef6c8b4446c3095ab77dcaedf3f"
+        }
+      ]
+    },
+    {
+      "name": "strimzi-cluster-operator-8cb5dd8bc-hcrvh",
+      "namespace": "cs-infra",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "strimzi-cluster-operator",
+          "ready": true,
+          "restarts": 5,
+          "imageID": "quay.io/strimzi/operator@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034"
+        }
+      ]
+    },
+    {
+      "name": "closure-inspector",
+      "namespace": "cs-processing",
+      "phase": "Succeeded",
+      "containers": [
+        {
+          "name": "fixture",
+          "ready": false,
+          "restarts": 0,
+          "imageID": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-742722a13906e656-exec-1",
+      "namespace": "cs-processing",
+      "phase": "Succeeded",
+      "containers": [
+        {
+          "name": "spark-kubernetes-executor",
+          "ready": false,
+          "restarts": 0,
+          "imageID": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-delivery01-3b5beda13906d1b7-driver",
+      "namespace": "cs-processing",
+      "phase": "Succeeded",
+      "containers": [
+        {
+          "name": "spark-kubernetes-executor",
+          "ready": false,
+          "restarts": 0,
+          "imageID": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-delivery01-8b2w8",
+      "namespace": "cs-processing",
+      "phase": "Succeeded",
+      "containers": [
+        {
+          "name": "spark-kubernetes-driver",
+          "ready": false,
+          "restarts": 0,
+          "imageID": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        }
+      ]
+    }
+  ],
+  "image_manifest_sha256": "b91589b3d80cb829e54e08dc95f958795d8c99ba1b29ebccbb040828d33a2842",
+  "image_reported_size": "25.2 MiB",
+  "service": "cs-app/dashboard ClusterIP port8080",
+  "verified_local_access": "http://127.0.0.1:13080/",
+  "api_readiness": "PASS actual same-origin request",
+  "manifest_checks": "Kustomize render plus Kubernetes server dry-run PASS; Linux CI schema/Helm workflow checked separately",
+  "credentials_in_frontend": false,
+  "private_mounts": false,
+  "public_exposure": false,
+  "failure_model": "Single-node local; RF1/local-path/internal HTTP; no HA or node-loss guarantee",
+  "spark_evidence": "Recorded accepted20K.1 driver/executor receipts; not new Spark run for UI"
+}

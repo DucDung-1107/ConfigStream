@@ -1,0 +1,120 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "MEASURED_SERVICE",
+  "status": "PASS",
+  "base": "http://127.0.0.1:13080",
+  "captured_at": "2026-10-14T11:24:42.164Z",
+  "measurements": [
+    {
+      "route": "/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.27892229199999996,
+      "overflow": false
+    },
+    {
+      "route": "/history/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 1.1095939160000001,
+      "overflow": false
+    },
+    {
+      "route": "/rpki/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.15913895900000033,
+      "overflow": false
+    },
+    {
+      "route": "/ris/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.1581478750000001,
+      "overflow": false
+    },
+    {
+      "route": "/dns/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.13778054199999998,
+      "overflow": false
+    },
+    {
+      "route": "/experiments/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.1498795,
+      "overflow": false
+    },
+    {
+      "route": "/operations/",
+      "viewport": [
+        1440,
+        900
+      ],
+      "ready_seconds": 0.42053037499999985,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "viewport": [
+        768,
+        1024
+      ],
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "viewport": [
+        390,
+        844
+      ],
+      "overflow": false
+    }
+  ],
+  "page_errors": [],
+  "failed_responses": [
+    {
+      "url": "http://127.0.0.1:13080/research/v1/catalog.json",
+      "status": 503,
+      "intentional_error_fixture": true
+    }
+  ],
+  "expected_error_state_console_messages": 1,
+  "real_configuration_versions": 2,
+  "real_adjacent_diff": 1,
+  "real_api_probe": "READY",
+  "mobile_navigation": "PASS",
+  "safe_identifier_copy": "PASS",
+  "error_and_empty_states": "PASS",
+  "executed_interactions": [
+    "All seven routes",
+    "RIS first-five-minute range",
+    "RPKI first accepted day/no prior selected state",
+    "Configuration two versions/adjacent diff identity inspection",
+    "Matched-processing and negative-findings tabs",
+    "Real API readiness",
+    "Responsive sidebar",
+    "Owned source ID copy",
+    "Empty filter",
+    "Controlled unavailable aggregate"
+  ],
+  "timing_boundary": "Sequential page navigation through readiness/font wait, history interaction and screenshot; single run, not cold cache or performance benchmark",
+  "private_sources_required": false
+}

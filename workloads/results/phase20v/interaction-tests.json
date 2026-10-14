@@ -1,0 +1,222 @@
+{
+  "date_utc": "2026-10-14",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "runtime_code_commit": "2da7f00a88db0c378685d1314c728fd5e69fbc22",
+  "scope": "Phase20V read-only dashboard; approved aggregates and owned fixtures only",
+  "evidence_type": "PASS_INTEGRATION",
+  "execution": "Real deployed ARM64 Kubernetes frontend with deterministic routed API/fault fixtures",
+  "browser": "Chrome via Playwright 1.64.0",
+  "tests": [
+    {
+      "title": "Overview navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 789
+        }
+      ]
+    },
+    {
+      "title": "Infrastructure History navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 540
+        }
+      ]
+    },
+    {
+      "title": "RPKI States navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 609
+        }
+      ]
+    },
+    {
+      "title": "RIS Events navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 653
+        }
+      ]
+    },
+    {
+      "title": "DNS Measurements navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 554
+        }
+      ]
+    },
+    {
+      "title": "Experiments navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 621
+        }
+      ]
+    },
+    {
+      "title": "Pipeline & Operations navigation, evidence and accessibility",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 522
+        }
+      ]
+    },
+    {
+      "title": "mobile sidebar changes route and closes sheet",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 1256
+        }
+      ]
+    },
+    {
+      "title": "tablet overview retains bounded layout",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 318
+        }
+      ]
+    },
+    {
+      "title": "complete table filtering, sorting and pagination",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 377
+        }
+      ]
+    },
+    {
+      "title": "source day and source-minute range filters work",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 1316
+        }
+      ]
+    },
+    {
+      "title": "configuration search applies server-side asset and date bounds",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 505
+        }
+      ]
+    },
+    {
+      "title": "server cursor pagination is honored",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 545
+        }
+      ]
+    },
+    {
+      "title": "owned source identity detail and keyboard close",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 2169
+        }
+      ]
+    },
+    {
+      "title": "DNS qualifiers and unexecuted H3 remain explicit",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 477
+        }
+      ]
+    },
+    {
+      "title": "missing and corrupt evidence fail closed and retry",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 493
+        }
+      ]
+    },
+    {
+      "title": "fresh API health and API failure do not display previous success",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 515
+        }
+      ]
+    },
+    {
+      "title": "navigation and console remain clean",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 807
+        }
+      ]
+    },
+    {
+      "title": "health becomes stale at the declared freshness boundary",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 335
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "startTime": "2026-10-14T10:03:03.406Z",
+    "duration": 14202.604,
+    "expected": 19,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "unmocked_rehearsal_separate": true,
+  "accessibility": {
+    "scanned_routes": 7,
+    "axe_rules": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa"
+    ],
+    "reported_violations": 0,
+    "certification": false
+  },
+  "actual_kubernetes_services_not_redeployed_by_tests": true
+}
