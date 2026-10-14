@@ -1,40 +1,34 @@
 # Demonstration contract
 
-## Current truthful demonstration
-
-Show one Ready K3s node, CoreDNS/metrics-server/local-path, the Strimzi KRaft
-broker/controller, MinIO and Bound infrastructure PVCs. Show internal DNS/MinIO
-health and namespaced RBAC checks. **Do not present this as a completed data pipeline.**
-
-The platform read-only tests are reproducible without private sources:
+Show one Ready ARM64 K3s node, Ready Kafka/MinIO/ES/API, Bound PVCs, completed
+native Spark drivers and separate executors, real streaming/batch results,
+selected offsets/immutable commits and verified API queries. All values are
+clearly labeled owned fixtures, not advertised as private real-source traffic.
 
 ```sh
 export KUBECONFIG="$PWD/.cache/phase20-k8s/kubeconfig"
-CONFIGSTREAM_K8S_TESTS=read-only .venv/bin/pytest tests/kubernetes
+.tools/k8s/kubectl port-forward -n cs-app svc/api 18800:8000 --address 127.0.0.1
+# Another shell with the same explicit kubeconfig:
+CONFIGSTREAM_K8S_TESTS=read-only .venv/bin/pytest tests/kubernetes/test_platform.py
+CONFIGSTREAM_K8S_TESTS=closure .venv/bin/pytest tests/kubernetes/test_application.py
+curl -fsS 'http://127.0.0.1:18800/api/v1/snapshots?asset_id=k8s-owned-router'
+curl -fsS 'http://127.0.0.1:18800/api/v1/assets/k8s-owned-router/latest-snapshot'
 ```
 
-They do not inject faults, publish source events or count Spark success.
+These tests assert previously executed workflows; they do not themselves inject
+faults. See [deployment](kubernetes-deployment.md) and [recovery](kubernetes-recovery.md).
 
-## Intended application demonstration, not executed
+Four owned roles: eight Terraform Git versions (not deployments), seven RPKI rows/
+two complete states, four RIS occurrences/two fingerprints/one exclusion, six DNS
+measurements/two groups/entity coverage unknown. No unified config-change claim.
 
-Seed independently specified owned snapshots plus an identical retry. Execute
-native cluster-mode streaming with separate driver/executor pods. Validate exact
-committed snapshots and batch reconstruction. Then validate configuration metadata
-in Elasticsearch and an actual read-only FastAPI business query. Repeat bounded
-RPKI/RIS/DNS fixtures without replacing their domain semantics.
+## Open visualization/course gate
 
-All private/full datasets remain excluded. Synthetic fixtures are clearly labeled;
-no synthetic values may be advertised as a real-source dashboard.
-
-## Visualization gate
-
-No dashboard/frontend is implemented or deployed. Swagger is not end-to-end
-visualization. The future service contract is a separately deployed read-only
-client of verified metadata/projections with explicit configuration, authorization
-observation, routing occurrence and DNS measurement labels. It must display scope,
-provenance, completeness/uncertainty and timing qualifiers and must not expose
-raw private rows or imply DNS/RIS configuration causality.
+No dashboard/frontend is implemented. Swagger is not end-to-end visualization.
+The future independently deployed read-only UI must expose scope, provenance,
+source time and completeness/uncertainty qualifiers. Existing configuration API
+does not imply all four domain histories are served.
 
 The [IT4043E guideline](https://datalab.vn/teaching/it4043e-big-data-storage-and-processing)
-requires visualization as well as ingestion/processing/storage. That course gate
-remains open. No dashboard implementation or Phase 21 is authorized by this phase.
+also requires visualization. Instructor review and full course acceptance remain
+open. No dashboard, private benchmark or Phase 21 begins automatically.

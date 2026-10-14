@@ -1,0 +1,16 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "scope": "Dedicated owned-fixture campaigns only; historical receipts untouched",
+  "attempts": [
+    {"stage": "original20K", "cause": "Workspace UNIX socket path too long", "elapsed_seconds": 14.842, "disposition": "FAILED; short separate Lima home used"},
+    {"stage": "original20K build", "cause": "15GiB growth guard exceeded", "elapsed_seconds": 1103.094, "disposition": "FAILED; retained original receipt and image evidence"},
+    {"stage": "20K.1 build startup", "cause": "BuildKit client before daemon socket readiness", "disposition": "FAILED; readiness poll added"},
+    {"stage": "20K.1 initial6GiB", "cause": "Three consecutive samples exceeded16MiB/s new host swap-out", "disposition": "GUARD_STOP;5GiB build then measured7GiB service profile", "causality": "No claim that VM size alone caused host swapping"},
+    {"stage": "stream p01", "cause": "Runtime incorrectly rejected official inner client-mode driver entrypoint", "disposition": "FAILED before query; Kubernetes master/pod-bound native gate corrected"},
+    {"stage": "stream p02 cleanup", "cause": "Namespaced service deletecollection denied", "disposition": "Commit succeeded; narrow RBAC cleanup fixed, PVC ownership disabled"},
+    {"stage": "recovery r02 telemetry", "cause": "UUID in Spark progress JSON not serializable", "disposition": "Post-query job FAILED; progress.json serialization used, separate recovery r03 PASS"},
+    {"stage": "roles domains01", "cause": "Temporary Kafka AdminClient destroyed before asynchronous topic creation completed", "disposition": "FAILED; retained client, new isolated domains02 PASS"},
+    {"stage": "late reporting guard20k1-delivery", "cause": "Missing limactl PATH caused fail-closed sampling; old stop routine also deleted completed owned jobs/pods", "disposition": "DEFECT_FIXED; preflight tools before receipt, stop active jobs/pods only; two regression tests added", "preserved": "PVCs, checkpoints, Kafka/MinIO/ES objects, private logs and captured pod/image/application inventories intact", "loss": "Historical completed pod objects no longer live; captured inventories retained", "revalidation": "New native batch delivery01 created separate driver/executor and exact readback PASS; nine live acceptance assertions rerun PASS"}
+  ],
+  "limitations": "Failed jobs are not counted as accepted runs; no private source ingestion or old evidence-volume deletion"
+}

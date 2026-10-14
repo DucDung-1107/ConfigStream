@@ -119,3 +119,65 @@ def test_missing_guest_sampling_fails_closed(monkeypatch, tmp_path):
     guard.guest_ready = True
     guard.sample()
     assert guard.failure
+
+
+@pytest.mark.parametrize(
+    "value,expected", [("512Mi", 536870912), ("200m", 0.2), ("1000n", 0.000001)]
+)
+def test_kubernetes_usage_units(monkeypatch, value, expected):
+    monkeypatch.syspath_prepend(str(ROOT / "infra/k8s/scripts"))
+    from observe import quantity
+
+    assert quantity(value) == pytest.approx(expected)
+
+
+@pytest.mark.parametrize("state", ["stale", "failed", "wrong_policy", "outside"])
+def test_closure_campaign_fails_closed_without_fresh_authorization(monkeypatch, tmp_path, state):
+    import json
+    from time import time
+
+    monkeypatch.syspath_prepend(str(ROOT / "infra/k8s/scripts"))
+    import safety
+
+    monkeypatch.setattr(safety, "CAMPAIGNS", tmp_path / "authorized")
+    directory = tmp_path / ("outside" if state == "outside" else "authorized/run")
+    directory.mkdir(parents=True)
+    policy = json.loads(safety.POLICY.read_text())
+    (directory / "receipt.json").write_text(
+        json.dumps({"decision_id": "wrong" if state == "wrong_policy" else policy["decision_id"]})
+    )
+    (directory / "resources.json").write_text(
+        json.dumps(
+            {
+                "failure": state == "failed",
+                "samples": [{"epoch": time() - (100 if state == "stale" else 0)}],
+            }
+        )
+    )
+    with pytest.raises(RuntimeError):
+        safety.validate_live_campaign(directory)
+
+
+def test_safety_stop_preserves_completed_pod_evidence(monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "infra/k8s/scripts"))
+    from safety import active_owned_names
+
+    items = [
+        {"metadata": {"name": phase}, "status": {"phase": phase}}
+        for phase in ("Pending", "Running", "Unknown", "Succeeded", "Failed")
+    ]
+    assert active_owned_names("pods", items) == ["Pending", "Running", "Unknown"]
+
+
+def test_safety_stop_preserves_completed_job_evidence(monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "infra/k8s/scripts"))
+    from safety import active_owned_names
+
+    assert active_owned_names(
+        "jobs",
+        [
+            {"metadata": {"name": "active"}, "status": {"active": 1}},
+            {"metadata": {"name": "succeeded"}, "status": {"succeeded": 1}},
+            {"metadata": {"name": "failed"}, "status": {"failed": 1}},
+        ],
+    ) == ["active"]

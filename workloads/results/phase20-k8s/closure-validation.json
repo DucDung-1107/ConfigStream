@@ -1,0 +1,11 @@
+{
+  "evidence": "PASS_LOCAL_AND_MEASURED_SERVICE",
+  "application_source_sha": "d24e7c460905d0d01f3edd8c119d0440a681ff8c",
+  "service_free_local": {"unit_passed": 1121, "unit_seconds": 14.20, "api_passed": 80, "api_seconds": 0.58, "api_warnings": 1, "spark": "FINAL_CI_REQUIRED"},
+  "actual_kubernetes_read_only_assertions": {"platform_passed": 3, "platform_seconds": 0.22, "application_passed": 6, "application_seconds": 0.43, "skipped_counted_as_passed": false},
+  "service_scope": "Assertions inspect executed native owned-fixture workflows, commits, recovery, persistence and API; no private sources",
+  "regressions": "Unit/API include existing Terraform/RPKI/RIS/DNS contracts; full Spark109 baseline verified separately on final delivery CI",
+  "ci_at_file_creation": "PENDING_EXACT_PUSHED_DELIVERY_SHA",
+  "ci_is_service_free": true,
+  "self_binding": "Delivery SHA is the commit containing this file; final SHA/Actions URL/conclusion verified after push in final report, not fabricated inside a self-referential commit"
+}

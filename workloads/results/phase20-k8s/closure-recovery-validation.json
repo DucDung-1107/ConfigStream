@@ -1,0 +1,61 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "owned_scope": "Isolated disposable fixtures only",
+  "commit_before_ack": {
+    "marker": {
+      "batch_id": 0,
+      "fault": "after_commit"
+    },
+    "query_id": "262e527c-df8f-4811-8d68-9ff6fb9b11f5",
+    "checkpoint_commit_ack_present": false
+  },
+  "recovered": {
+    "mode": "native-kubernetes-batch",
+    "master": "k8s://https://kubernetes.default.svc:443",
+    "snapshots": 2,
+    "exact_projection": "PASS",
+    "adjacent_diffs": 1,
+    "query_id": "262e527c-df8f-4811-8d68-9ff6fb9b11f5"
+  },
+  "integrity": {
+    "uncommitted": "PASS_INVISIBLE",
+    "missing": {
+      "status": "PASS_REJECTED",
+      "error_class": "AnalysisException"
+    },
+    "corrupt": {
+      "status": "PASS_REJECTED",
+      "error_class": "Py4JJavaError"
+    },
+    "conflicting_commit": "PASS_CONDITIONAL_REJECTION",
+    "accepted_original_unchanged": true
+  },
+  "source_replay": {
+    "physical_config_deliveries": 6,
+    "logical_versions": 2,
+    "adjacent_diffs": 1,
+    "selected_offset_end": 6,
+    "final_selected_lag": 0,
+    "basis": "Kafka latest offset6 equals Spark replay progress end/latest offset6"
+  },
+  "kafka_minio_restart": {
+    "identical_object_sha256_inventory": true,
+    "objects_verified": 20,
+    "kafka_end_offset_preserved": 3
+  },
+  "elasticsearch_restart": {
+    "api_snapshots_after_restart": 2,
+    "pod_uid_changed": true
+  },
+  "service_tests": {
+    "platform_read_only_passed": 3,
+    "application_read_only_passed": 6,
+    "skipped_counted_as_passed": false
+  },
+  "limitations": [
+    "Callback failure, not power loss",
+    "RF1, no broker failover",
+    "local-path PVC, no node-loss durability",
+    "Legacy configuration format1.0 protected by exact fixture validator, not a new per-file checksum format"
+  ]
+}

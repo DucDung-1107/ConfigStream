@@ -16,9 +16,10 @@ a network automation framework or a frontend-first application.
 Phase 20 is a **conditional comparative evaluation**, with accepted bounded
 matched pilots and explicit unexecuted full-rate cells; see the
 [evaluation acceptance](docs/phase20-acceptance.md). Terraform, RPKI, RIS and DNS
-retain distinct temporal roles. Phase 20K has a real single-node K3s/Kafka/MinIO
-core, but native Spark/API/recovery acceptance remains pending after a build
-storage guard stopped the campaign; see [Kubernetes acceptance](docs/phase20-k8s-acceptance.md).
+retain distinct temporal roles. Phase 20K.1 has passed real single-node Kubernetes
+application acceptance: Kafka → native Spark driver/executor → MinIO, batch
+readback, Elasticsearch/FastAPI and owned-fixture recovery. See
+[Kubernetes acceptance](docs/phase20-k8s-acceptance.md). This is not HA or full-data replay.
 No dashboard or Phase 21 implementation has begun.
 
 ### Historical Phase 13 baseline
@@ -39,7 +40,7 @@ normalization/diff logic and YAML rules to publish deterministic Alerts to Kafka
 Pairing uses **asset_id + adjacent versions**, not previous-row arrival order.
 Optional **MinIO/Parquet history is authoritative**. Phase 8 adds Elasticsearch
 as a rebuildable metadata-only search projection. Phase 9 adds a thin read-only
-FastAPI metadata API. Dashboard and Kubernetes remain planned. Invalid input
+FastAPI metadata API. Dashboard remains planned; Kubernetes acceptance is described above. Invalid input
 produces safe diagnostics, not a DLQ.
 
 Phase 10 adds [public baseline provenance](docs/datasets.md), controlled
@@ -607,6 +608,6 @@ and uncertain DNS measurements retain distinct semantics and accepted evidence.
 [Phase20 acceptance](docs/phase20-acceptance.md) is **CONDITIONAL PASS**:
 matched RPKI representations and27 three-repeat normalized-core engine trials
 passed; full production comparisons and paced RIS capacity remain unexecuted.
-Source ledgers stay private, public CI uses owned fixtures. Kubernetes20K is a
-separate deployment acceptance task; no cluster or dashboard success is implied.
+Source ledgers stay private, public CI uses owned fixtures. Kubernetes20K.1 is a
+separate accepted single-node owned-fixture deployment; dashboard remains unimplemented.
 Do not begin Phase21 automatically.

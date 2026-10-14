@@ -1,0 +1,819 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "application_source_sha": "d24e7c460905d0d01f3edd8c119d0440a681ff8c",
+  "application_manifest": "sha256:59e650a218b1f4e6f76459fb15ee56bbbe18963f5d61020dcec2de8d23889192",
+  "configuration": {
+    "mode": "native-kubernetes-batch",
+    "master": "k8s://https://kubernetes.default.svc:443",
+    "snapshots": 2,
+    "exact_projection": "PASS",
+    "adjacent_diffs": 1,
+    "query_id": "007bab65-c6c5-4575-adad-e49d1893a24b"
+  },
+  "four_roles": {
+    "terraform": {
+      "status": "PASS_INTEGRATION",
+      "query_id": "65e66db9-6559-4aa9-8206-2b62e4241a57",
+      "topic": "config.terraform-fixture.dbce3599-49fa-4d2d-85fa-ce84cca563e3",
+      "logical_versions": 8,
+      "physical_deliveries": 9
+    },
+    "rpki": {
+      "status": "PASS_INTEGRATION",
+      "query_id": "d1ea7b05-c03d-4cf4-8397-93b90c74d83e",
+      "topic": "temporal.rpki.fixture.d1ea7b05-c03d-4cf4-8397-93b90c74d83e",
+      "logical_source_rows": 7,
+      "states": [
+        3,
+        3
+      ]
+    },
+    "ris": {
+      "status": "PASS_INTEGRATION",
+      "query_id": "ffb3ebe1-52b4-4dd7-8857-35a606e9d981",
+      "topic": "temporal.ris.source.v1.ffb3ebe1-52b4-4dd7-8857-35a606e9d981",
+      "logical_occurrences": 4,
+      "distinct_fingerprints": 2,
+      "recovery_after_commit": true,
+      "oracle": {
+        "framed_records": 3,
+        "excluded_records": 1,
+        "accepted_occurrences": 4,
+        "framing_sha256": "80657a2aac4da411d983ae2eb68174a7979c66787ce55cabd33f26ae5ff0895f",
+        "source_order_projection_sha256": "2c783ae377357486b7c29de61bde2716bc65efee648856ed4a638926cdb8dfde",
+        "oracle_level": 3
+      },
+      "accounting_window_published": true
+    },
+    "dns": {
+      "status": "PASS_INTEGRATION",
+      "query_id": "13deac80-37f9-4731-86ae-b92e89f631ca",
+      "topic": "temporal.dns.source.v1.13deac80-37f9-4731-86ae-b92e89f631ca",
+      "logical_source_rows": 6,
+      "groups": 2,
+      "entity_coverage": "unknown",
+      "oracle": {
+        "source_rows": 6,
+        "selected_address_rows": 2,
+        "address_groups": 2,
+        "raw_projection_sha256": "915e2856837bd7539878ade18c1db474300a228cd00e0ebb233568b22ec4b4bd",
+        "source_order_sha256": "e261271d358729e6e0166b91c0130817a04e50b2e8a1541295a25a3e7a8a8ded",
+        "group_projection_sha256": "ae5c14222833d15717edb8c984021f5246b7ec6c8551d3ba7af4cd1a092e03b4",
+        "real_proven_empty_rows": 0
+      }
+    }
+  },
+  "api": {
+    "health": "PASS",
+    "readiness": "PASS",
+    "snapshots": 2,
+    "diffs": 1,
+    "latest_version": 2,
+    "scope": "Existing configuration metadata API only"
+  },
+  "node_count": 1,
+  "node_info": {
+    "architecture": "arm64",
+    "bootID": "d53d0524-da1f-43ff-924f-1ca0da907893",
+    "containerRuntimeVersion": "containerd://2.2.7-k3s1",
+    "kernelVersion": "7.0.0-28-generic",
+    "kubeProxyVersion": "",
+    "kubeletVersion": "v1.35.9+k3s1",
+    "machineID": "cc5707c4c3754c6e93dcb347db590963",
+    "operatingSystem": "linux",
+    "osImage": "Ubuntu 26.04 LTS",
+    "systemUUID": "48a738f2-2e3e-3945-ad0b-16f43e16a8b9"
+  },
+  "allocatable": {
+    "cpu": "2500m",
+    "ephemeral-storage": "26688504Ki",
+    "hugepages-1Gi": "0",
+    "hugepages-2Mi": "0",
+    "hugepages-32Mi": "0",
+    "hugepages-64Ki": "0",
+    "memory": "5501696Ki",
+    "pods": "110"
+  },
+  "pods": [
+    {
+      "name": "api-5c7b88759d-krv9c",
+      "namespace": "cs-app",
+      "uid": "a1a450af-60e1-4e85-9609-c97aebe78c21",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "elasticsearch-0",
+      "namespace": "cs-app",
+      "uid": "3b3fd472-841f-4053-a776-693d2d9e2fba",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 0,
+          "image_id": "docker.elastic.co/elasticsearch/elasticsearch@sha256:35c5cab56b4f04452bf82ab52638d14ada25c1abdeb5abd096157f9d75ec55c5",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "configstream-entity-operator-dfcfdf657-2pr5s",
+      "namespace": "cs-infra",
+      "uid": "f5102957-23a8-4952-86f8-8b227e933646",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 2,
+          "image_id": "quay.io/strimzi/operator@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "configstream-single-0",
+      "namespace": "cs-infra",
+      "uid": "b26452e0-d4f0-4105-af47-85ac7ccad669",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 0,
+          "image_id": "quay.io/strimzi/kafka@sha256:3c35c34d09747086b1115989613a25feae161fa6deb0abc9c54b54016eae3a27",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "minio-0",
+      "namespace": "cs-infra",
+      "uid": "3cb31214-c013-4e9d-8737-96f869dd8dc4",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 0,
+          "image_id": "sha256:a69ef790966af4e1781073f8030d3d8caa996ef6c8b4446c3095ab77dcaedf3f",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "strimzi-cluster-operator-8cb5dd8bc-hcrvh",
+      "namespace": "cs-infra",
+      "uid": "6d7eed24-59f0-4ad4-ab27-ed9e167e0b8e",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 2,
+          "image_id": "quay.io/strimzi/operator@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "closure-inspector",
+      "namespace": "cs-processing",
+      "uid": "9c126981-3c9b-41fa-9477-4b9df7e6c045",
+      "phase": "Running",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": true,
+          "restarts": 0,
+          "image_id": "sha256:ea12c22bf7dd28e1e264982d7c237ab84fc5be8133850aaaa8f6822eaa171210",
+          "exit_code": null
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-2d2762a138d627d5-exec-1",
+      "namespace": "cs-processing",
+      "uid": "58d81819-55c9-4987-9620-259d49b2857a",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-4e3126f6b2f64755a37ee3e7c65ef730",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-3e5bdca138d06cbe-exec-1",
+      "namespace": "cs-processing",
+      "uid": "2743c5d9-e4c4-434a-8a23-44a444ab4fd7",
+      "phase": "Failed",
+      "spark_role": "executor",
+      "application_id": "spark-9298d78049304df488d3951010365ac0",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 137
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-3e5bdca138d06cbe-exec-2",
+      "namespace": "cs-processing",
+      "uid": "e76bceeb-3d8b-4d8f-a714-eece3d7d6e30",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-9298d78049304df488d3951010365ac0",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-665ccea138bb56a5-exec-1",
+      "namespace": "cs-processing",
+      "uid": "0840e4af-afbe-467a-8a94-5f5df1f58c69",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-7a71d9681b14402a9567ce1e26a833ae",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-84f436a138ae51c8-exec-1",
+      "namespace": "cs-processing",
+      "uid": "f0add4c6-bb13-463c-8feb-0a24b5889170",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-325d580d906c426e8e5f6d9b218fff70",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:ea12c22bf7dd28e1e264982d7c237ab84fc5be8133850aaaa8f6822eaa171210",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-87cf39a138b6a982-exec-1",
+      "namespace": "cs-processing",
+      "uid": "92ffcf56-e686-4499-a070-d7b106b3643e",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-79df65d585094e5994c4931af244508c",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-88a7afa138b30966-exec-1",
+      "namespace": "cs-processing",
+      "uid": "3f00125f-9ff7-414f-a958-2f097432557b",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-eaad98422af9494b824f2e3c30fe5cf7",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-a4bf85a138becd0f-exec-1",
+      "namespace": "cs-processing",
+      "uid": "17cff7cc-22d9-4286-993a-5c957ce1dafa",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-d04829d7daed4c689917885df0a221e8",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-bb36caa138cc3797-exec-1",
+      "namespace": "cs-processing",
+      "uid": "cb86e23e-02db-49ab-9ec9-6bbe79ff01a6",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-13c6eeac720644f3a9e86a95cd0641d6",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:ea3e6d94fb3a8395bf0a74ab284b9e933759b6aada42bc1726f604bc38913400",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-d14bc4a138d59733-exec-1",
+      "namespace": "cs-processing",
+      "uid": "713af303-2dee-4edd-9fb4-031de2c8bea8",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-4c4284fa4773439d9f8d5ad4976f355b",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-deab25a138c3aff1-exec-1",
+      "namespace": "cs-processing",
+      "uid": "94cd8c52-6b18-47cb-885a-0d14121937c8",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-7fb8ed7d533742899bc97d1ab9f2563f",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "configstreamstreaming-eaa458a138b4ddf9-exec-1",
+      "namespace": "cs-processing",
+      "uid": "ea0e9d12-6f5c-400e-a617-dd0897bb4ef1",
+      "phase": "Succeeded",
+      "spark_role": "executor",
+      "application_id": "spark-ddae9106daed418f9218b277a621fb29",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-p01-36dfbba138b2f542-driver",
+      "namespace": "cs-processing",
+      "uid": "07a5ff21-3d83-4e86-893d-56da0fe807b1",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-eaad98422af9494b824f2e3c30fe5cf7",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-p01-5jd7t",
+      "namespace": "cs-processing",
+      "uid": "d52709b9-74b8-4217-af69-abe9aca824be",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-replay03-baf68ba138d614ca-driver",
+      "namespace": "cs-processing",
+      "uid": "93d45d77-344d-4a37-a0c1-a3dc8cf661df",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-4e3126f6b2f64755a37ee3e7c65ef730",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-replay03-hfz4p",
+      "namespace": "cs-processing",
+      "uid": "1dc1b9f7-a799-42e1-a09f-055a305e5adc",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-serving01-8e681ca138c39c3c-driver",
+      "namespace": "cs-processing",
+      "uid": "d6e76e2f-20d1-4aa0-b9fb-c4a4cf3a57c3",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-7fb8ed7d533742899bc97d1ab9f2563f",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-batch-serving01-97j2b",
+      "namespace": "cs-processing",
+      "uid": "91a342fe-2cd3-4376-8fb7-24131f81c841",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-fail-stream-r01-c4dbeaa138b4cb07-driver",
+      "namespace": "cs-processing",
+      "uid": "f9a0a51a-6981-4f11-b32d-b00e643494a4",
+      "phase": "Failed",
+      "spark_role": "driver",
+      "application_id": "spark-ddae9106daed418f9218b277a621fb29",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "name": "cs-fail-stream-r01-f75l4",
+      "namespace": "cs-processing",
+      "uid": "5e5aee2f-6151-4c2b-981b-21a5fe96856e",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-integrity-r01-fcb1c7a138beba2e-driver",
+      "namespace": "cs-processing",
+      "uid": "0e09c23f-c8ff-4089-a30b-9e03878c1221",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-d04829d7daed4c689917885df0a221e8",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-integrity-r01-hznrs",
+      "namespace": "cs-processing",
+      "uid": "9395bf6f-123b-47db-a0fc-e2ddaf530339",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-roles-domains01-bce61ea138cc2427-driver",
+      "namespace": "cs-processing",
+      "uid": "6b252eb7-10aa-4c14-a474-583b8abe7915",
+      "phase": "Failed",
+      "spark_role": "driver",
+      "application_id": "spark-13c6eeac720644f3a9e86a95cd0641d6",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:ea3e6d94fb3a8395bf0a74ab284b9e933759b6aada42bc1726f604bc38913400",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "name": "cs-roles-domains01-r9mx5",
+      "namespace": "cs-processing",
+      "uid": "dfe6163a-a2e8-43d6-9cb4-a1c836435077",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:ea3e6d94fb3a8395bf0a74ab284b9e933759b6aada42bc1726f604bc38913400",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-roles-domains02-51a84aa138d058e0-driver",
+      "namespace": "cs-processing",
+      "uid": "3a0f9fe5-d885-4103-a72d-a172204359de",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-9298d78049304df488d3951010365ac0",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-roles-domains02-nnx7t",
+      "namespace": "cs-processing",
+      "uid": "59feb54a-0550-45f7-940e-30c5f90f49a0",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-seed-p01-thjpz",
+      "namespace": "cs-processing",
+      "uid": "83dc7cf3-e10f-4f68-a5bf-74dd727ce747",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:0f6b399c06e0a0fe7a821891c1dab1f86e879537c88de456eb6cfc92c99e7fa4",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-seed-replay01-lwvrv",
+      "namespace": "cs-processing",
+      "uid": "04053226-775f-409c-98d9-e732acb6923e",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-p01-3203f0a138a27138-driver",
+      "namespace": "cs-processing",
+      "uid": "ef2d5b16-cf23-4899-bbdb-dd838ce2044d",
+      "phase": "Failed",
+      "spark_role": "driver",
+      "application_id": "spark-a9f4c89007e14be4960f1e31fa19ad98",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:0f6b399c06e0a0fe7a821891c1dab1f86e879537c88de456eb6cfc92c99e7fa4",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-p01-q2dxn",
+      "namespace": "cs-processing",
+      "uid": "8cadc88d-e5b8-4753-ad38-0ea212d3aaeb",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:0f6b399c06e0a0fe7a821891c1dab1f86e879537c88de456eb6cfc92c99e7fa4",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-p02-0c8d56a138ae3d0d-driver",
+      "namespace": "cs-processing",
+      "uid": "4eb6ad7c-48ae-4658-b0a0-05ff82506b57",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-325d580d906c426e8e5f6d9b218fff70",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:ea12c22bf7dd28e1e264982d7c237ab84fc5be8133850aaaa8f6822eaa171210",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-p02-w9qfq",
+      "namespace": "cs-processing",
+      "uid": "e8094868-cd10-43a3-969a-61403f357d3c",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:ea12c22bf7dd28e1e264982d7c237ab84fc5be8133850aaaa8f6822eaa171210",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-r02-08fd7ea138b69571-driver",
+      "namespace": "cs-processing",
+      "uid": "2079c892-fec0-46c0-87ad-a3112418dce0",
+      "phase": "Failed",
+      "spark_role": "driver",
+      "application_id": "spark-79df65d585094e5994c4931af244508c",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 1
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-r02-49s47",
+      "namespace": "cs-processing",
+      "uid": "6533d4e0-29c7-4db0-9692-25be82c7015f",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:db03a9a4d542f957cc32312698b554aa05381041c0d03045bd32a8d7acc1487a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-r03-1ae277a138bb42e2-driver",
+      "namespace": "cs-processing",
+      "uid": "49ab7636-6239-4bc3-a1e4-0c90f62b7c9b",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-7a71d9681b14402a9567ce1e26a833ae",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-r03-h7ktp",
+      "namespace": "cs-processing",
+      "uid": "5b986b2f-c7f6-4d8c-b561-acbfd8a5220f",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:325f198f4db8b7ea7a4548418c40f30ff0a48e227ea6bace9ea6c5592a75c09a",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-replay02-4fb8n",
+      "namespace": "cs-processing",
+      "uid": "4bc09cd5-a14a-4166-ac0b-224339d423ff",
+      "phase": "Succeeded",
+      "spark_role": null,
+      "application_id": null,
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    },
+    {
+      "name": "cs-stream-replay02-8b2ec3a138d58396-driver",
+      "namespace": "cs-processing",
+      "uid": "957d628d-e8ca-42cd-9f7b-d60862baf025",
+      "phase": "Succeeded",
+      "spark_role": "driver",
+      "application_id": "spark-4c4284fa4773439d9f8d5ad4976f355b",
+      "containers": [
+        {
+          "ready": false,
+          "restarts": 0,
+          "image_id": "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba",
+          "exit_code": 0
+        }
+      ]
+    }
+  ]
+}

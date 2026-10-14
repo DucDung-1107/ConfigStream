@@ -1,0 +1,52 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "scope": "Accepted7GiB campaign sampled through reporting; initial swap failure separate",
+  "vm": {
+    "cpus": 3,
+    "memory_gib": 7,
+    "disk_gib": 48
+  },
+  "host_ram_bytes": 19327352832,
+  "guest_disk_min_free_bytes": 26092679168,
+  "guest_min_available_memory_bytes": 1164099584,
+  "host_min_free_memory_percent": 42,
+  "new_swapout_bytes": 0,
+  "maximum_new_swapout_bytes_per_second": 0,
+  "maximum_accounted_allocated_bytes": 27156049920,
+  "campaign_observed_elapsed_seconds": 4524.371128797531,
+  "pod_peak_sampled_working_set_bytes": 4699242496,
+  "pod_peak_sampled_cpu_cores": 1.384932439,
+  "metric_definition": "Sum cs-* pod Kubernetes working sets and CPU metrics sampled5s; not processRSS/true instantaneous peak",
+  "guard_failure": null,
+  "storage": {
+    "typed_roles": {
+      "objects": 95,
+      "bytes": 411397,
+      "parquet_objects": 39,
+      "parquet_bytes": 185416,
+      "metadata_bytes": 20554
+    },
+    "disposable_or_other_owned": {
+      "objects": 32,
+      "bytes": 149271,
+      "parquet_objects": 9,
+      "parquet_bytes": 29996,
+      "metadata_bytes": 2427
+    },
+    "recovery": {
+      "objects": 10,
+      "bytes": 46962,
+      "parquet_objects": 3,
+      "parquet_bytes": 11253,
+      "metadata_bytes": 644
+    },
+    "main": {
+      "objects": 14,
+      "bytes": 62264,
+      "parquet_objects": 4,
+      "parquet_bytes": 14690,
+      "metadata_bytes": 885
+    }
+  },
+  "native_pipeline_scope": "Owned fixtures, not full private datasets"
+}

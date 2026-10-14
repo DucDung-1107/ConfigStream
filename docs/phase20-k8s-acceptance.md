@@ -1,61 +1,79 @@
-# Phase 20K acceptance
+# Phase 20K.1 Kubernetes application and recovery acceptance
 
 ## Decision
 
-**PARTIAL — MANIFESTS OR PLATFORM ONLY**
+**PASS — REAL KUBERNETES DEPLOYMENT VALIDATED**
 
-A real single-node K3s/Kafka/MinIO core runs, but native Kubernetes Spark
-ingestion/batch, API serving and restart/checkpoint recovery remain unverified.
-The build campaign crossed its allocated-growth guard. A successful image export
-during graceful shutdown does not satisfy the budget or prove application operation.
+Scope: one local ARM64 node, owned fixtures, native driver/executor execution,
+persistent pod restarts and single-writer callback/checkpoint recovery.
+This is not HA, node-loss durability, a full private-data replay, a completed
+dashboard or blanket course acceptance.
 
-Phase 20 was fully pushed first at `787dec817657c14944997429f4b27a28ab3d2245`;
-[exact Phase 20 CI](https://github.com/kongwoang/ConfigStream/actions/runs/38483498938)
-succeeded with 1,104 unit, 80 API and 109 Spark tests. Its comparative decision
-remains conditional; no unexecuted rate matrix is promoted to PASS.
+The original Phase 20K result was **PARTIAL** after its build crossed the old
+15-GiB growth guard. Original [acceptance receipt](../workloads/results/phase20-k8s/acceptance.json),
+[resource failure](../workloads/results/phase20-k8s/resource-failure.json) and prior
+measurements remain immutable. The owner subsequently authorized resource
+adjustments through a [dated amendment](../workloads/results/phase20-k8s/closure-policy-amendment.json).
 
-## Measured boundary
+## Exact executed scope
 
-- Dedicated node `configstream-k8s`, K3s v1.35.9+k3s1, Linux ARM64.
-- VM 3 CPUs / 6 GiB / 48 GiB; original 2-CPU/6-GiB/64-GiB VM unchanged.
-- Strimzi 0.51.0 / Kafka 4.1.1 RF1, MinIO source-built pinned release.
-- Kafka, MinIO, operator/entity operator, CoreDNS, metrics-server/local-path Ready.
-- Two infrastructure PVCs Bound; fixture PVC awaiting a scheduled consumer.
-- Internal DNS/MinIO health and namespaced least-privilege checks passed.
-- Three opt-in **read-only platform** tests passed; zero executed application
-  Kubernetes pipeline/recovery tests. Skipped opt-in tests are not passed tests.
-- Server-side manifest/CRD dry-run, Kustomize build and Helm lint passed.
-- Service-free local regression: 1,112 unit and 80 API tests passed; runtime/guard-focused
-  tests passed. Post-change full Spark regression and final CI must be verified
-  against the exact delivery workflow; they are not local Kubernetes acceptance.
+Dedicated Lima `configstream-k8s`: 3 CPUs / 7 GiB / 48 GiB, K3s v1.35.9+k3s1,
+one Ready ARM64 node. Original Lima `k` remains 2 CPUs / 6 GiB / 64 GiB.
+Strimzi 0.51.0/Kafka 4.1.1 RF1, pinned MinIO, Spark 4.0.2/Java 21/Python 3.12.13,
+Elasticsearch 9.5.5 and existing FastAPI ran on Kubernetes.
 
-Initial socket-path bootstrap failure: 14.842 seconds, no VM created. Resume used
-a short separate Lima home and retained the original clock. Platform became Ready
-at 711.224 aggregate seconds. At 1,103.094 seconds growth was 16,136,364,032 bytes
-against a 16,106,127,360-byte limit. Guest memory/disk floors did not fail.
+Accepted application source: `d24e7c460905d0d01f3edd8c119d0440a681ff8c`;
+image manifest `sha256:59e650a218b1f4e6f76459fb15ee56bbbe18963f5d61020dcec2de8d23889192`.
+Delivery documentation/test SHA is distinct from the executable image SHA.
 
-## Open gates
+Configuration: exact two normalized EventRow projections, one adjacent diff.
+Three initial deliveries plus three replay deliveries produced six physical
+rows but still two logical versions; selected final Kafka lag zero.
+Native Spark batch validated all normalized declared fields, not just row counts.
 
-Explicit owner approval for one bounded build/test retry with an additive growth
-amendment is pending. The original 7,200-second cap is not reset or extended.
-The Dockerfile has a proposed cache/layer reduction and the native submit adapter
-has an offline-tested JVM-config fix; the corrected image is not built.
+Actual Terraform/RPKI/RIS/DNS owned workflows passed: 8/7/4/6 logical records
+respectively. RIS retained four occurrences despite only two fingerprints and
+published its one source exclusion/window accounting. DNS retained unknown entity
+coverage. Fixture scope is not another full real-source validation.
 
-Required future checks: actual driver/executor lifecycle, exact Kafka-to-MinIO
-history, batch output, transport offsets/lag, persistence/recovery/corruption,
-four-role owned fixtures, ES/API, resource evidence and exact final CI.
-Visualization, multi-node/HA and instructor approval remain separate open gates.
+## Persistence, integrity and resources
 
-## Evidence
+Kafka/MinIO pod replacement preserved twenty selected object SHA-256s and offset
+three; ES replacement preserved API query results. Commit-before-checkpoint
+failure/restart passed. Missing/corrupt/uncommitted cloned history failed closed;
+conditional conflicting commit was rejected. See [recovery](kubernetes-recovery.md).
 
-- [Execution policy](../workloads/results/phase20-k8s/execution-policy.json)
-- [Platform inventory](../workloads/results/phase20-k8s/platform-validation.json)
-- [Resource failure](../workloads/results/phase20-k8s/resource-failure.json)
+Accepted campaign sampled `cs-*` working-set peak 4,699,242,496 bytes, CPU peak
+1.385 cores, zero new host swap-out, guest available RAM minimum 1,164,099,584
+bytes, free disk minimum 26,092,679,168 bytes. Observed campaign through reporting
+4,524.371 seconds; not an isolated throughput benchmark. Caches/earlier attempts
+are included in accounted allocation. No production-memory/scalability inference.
+
+## Validation and remaining gates
+
+Local service-free regression: 1,121 unit / 80 API tests; actual read-only
+Kubernetes acceptance: three platform plus six application tests, all passed.
+Full Spark regression and delivery CI are bound separately in
+[closure validation](../workloads/results/phase20-k8s/closure-validation.json).
+Skipped opt-in tests are never counted as passed.
+
+Final delivery CI is service-free; it does not execute Kubernetes or private data.
+Final SHA/run URL/conclusion are verified after pushing and reported in the final
+agent report/private CI receipt; a file cannot encode its own Git commit SHA.
+Dashboard, instructor review, production TLS/least privilege, multi-node topology,
+remote storage and full course-guideline acceptance remain open. No Phase 21.
+
+## Evidence and runbooks
+
+- [Application](../workloads/results/phase20-k8s/closure-application-validation.json)
+- [Recovery](../workloads/results/phase20-k8s/closure-recovery-validation.json)
+- [Resources](../workloads/results/phase20-k8s/closure-resource-measurements.json)
+- [Negative attempts](../workloads/results/phase20-k8s/closure-negative-attempts.json)
+- [Closure decision](../workloads/results/phase20-k8s/closure-acceptance.json)
 - [Architecture](kubernetes-architecture.md), [deployment](kubernetes-deployment.md)
-- [Operations](kubernetes-operations.md), [recovery](kubernetes-recovery.md)
-- [Security](kubernetes-security.md), [demo](kubernetes-demo.md)
+- [Operations](kubernetes-operations.md), [security](kubernetes-security.md)
+- [Demonstration](kubernetes-demo.md)
 
-Previous accepted evidence is preserved. No private dataset benchmark, dashboard
-or Phase 21 work has begun. **Vietnamese:** Đã có cụm K3s thật và Kafka/MinIO chạy;
-chưa nghiệm thu pipeline Spark/API. Guard storage đã dừng build, chờ duyệt budget
-trước retry; không gọi đây là PASS hay triển khai HA.
+**Vietnamese:** Máy hiện tại chạy được stack Kubernetes thật, Spark có driver/
+executor riêng, pipeline/batch/API và recovery fixture đạt. Không gọi single-node
+là HA; chưa có dashboard và chưa chạy lại dữ liệu nghiên cứu đầy đủ.

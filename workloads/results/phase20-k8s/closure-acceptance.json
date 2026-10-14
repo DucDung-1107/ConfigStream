@@ -1,0 +1,20 @@
+{
+  "evidence": "MEASURED_SERVICE",
+  "date_utc": "2026-10-14",
+  "decision": "PASS — REAL KUBERNETES DEPLOYMENT VALIDATED",
+  "starting_sha": "d69183544d7d6937d507bfee43efa35e7f1afbd3",
+  "application_source_sha": "d24e7c460905d0d01f3edd8c119d0440a681ff8c",
+  "ci_gate": "Exact pushed delivery CI must succeed; pending at file creation, checked in final report",
+  "topology": {"nodes": 1, "architecture": "arm64", "vm_cpus": 3, "vm_ram_gib": 7, "vm_disk_gib": 48, "ha": false},
+  "executed_gates": {"native_driver_and_separate_executor": "PASS", "kafka_spark_minio_exact_fixture": "PASS", "native_batch": "PASS", "api_verified_query": "PASS", "kafka_minio_es_pod_restart": "PASS", "commit_before_checkpoint_recovery": "PASS", "logical_source_replay": "PASS", "missing_corrupt_uncommitted_fixture": "PASS_REJECTED", "four_domain_owned_compatibility": "PASS", "accepted7GiB_resource_guard": "PASS"},
+  "identity_scope": {"configuration_versions": 2, "adjacent_diffs": 1, "physical_deliveries_after_replay": 6, "final_selected_kafka_lag": 0},
+  "receipts": ["closure-policy-amendment.json", "closure-application-validation.json", "closure-recovery-validation.json", "closure-resource-measurements.json", "closure-negative-attempts.json", "closure-validation.json"],
+  "historical_partial_result_preserved": true,
+  "dashboard": "NOT_IMPLEMENTED",
+  "instructor_approval": "NOT_VERIFIED",
+  "full_course_acceptance": "NOT_CLAIMED",
+  "private_full_data_replay": "NOT_RUN",
+  "external_server": "NOT_REQUIRED_FOR_TESTED_LOCAL_PROFILE",
+  "limitations": ["single-node local-path; no node-loss durability", "RF1; no Kafka failover", "callback/pod tests; no power loss", "trusted internal HTTP/PLAINTEXT", "configuration API only; not all-domain serving", "earlier completed pod objects deleted by guard defect; inventories/logs retained and exact native readback revalidated", "no horizontal scaling or production HA claim"],
+  "stop_after": "Phase20K.1; no dashboard or Phase21"
+}

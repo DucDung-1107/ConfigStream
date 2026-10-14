@@ -4,7 +4,7 @@ meta:
   source: generated
   layout: horizontal
   canvas: 1440x800
-  title: ConfigStream single-node Kubernetes - platform accepted, application paths pending
+  title: ConfigStream single-node Kubernetes - application and recovery accepted
 nodes:
   - id: title
     label: "ConfigStream: one ARM64 K3s node - no HA / no multi-node claim"
@@ -12,12 +12,12 @@ nodes:
     bounds: {x: 48, y: 40, width: 1296, height: 40}
     style: {fontSize: 20, align: left}
   - id: legend
-    label: "READY = measured core. Dashed arrows = intended application paths, NOT executed acceptance."
+    label: "Solid = executed owned fixtures. Dashed = future UI. VM 3 CPU / 7 GiB / 48 GiB; no HA."
     type: text
     bounds: {x: 48, y: 96, width: 1296, height: 32}
     style: {fontSize: 16, align: left}
   - id: fixture
-    label: "Owned fixture producer\ncs-processing\nNOT RUN"
+    label: "Owned fixture producer\ncs-processing\nEXECUTED"
     type: service
     bounds: {x: 48, y: 160, width: 208, height: 104}
   - id: kafka
@@ -25,11 +25,11 @@ nodes:
     type: queue
     bounds: {x: 320, y: 160, width: 208, height: 104}
   - id: driver
-    label: "Streaming driver pod\ncs-processing\nNOT RUN"
+    label: "Streaming driver pod\ncs-processing\nEXECUTED"
     type: service
     bounds: {x: 592, y: 160, width: 208, height: 104}
   - id: executor
-    label: "Separate executor pod\nNative K8s scheduling\nNOT RUN"
+    label: "Separate executor pod\nNative K8s scheduling\nEXECUTED"
     type: service
     bounds: {x: 592, y: 336, width: 208, height: 104}
   - id: minio
@@ -37,15 +37,15 @@ nodes:
     type: database
     bounds: {x: 864, y: 160, width: 208, height: 104}
   - id: batch
-    label: "Native Spark batch\nRead committed history\nNOT RUN"
+    label: "Native Spark batch\nRead committed history\nEXACT PASS"
     type: service
     bounds: {x: 864, y: 336, width: 208, height: 104}
   - id: search
-    label: "Elasticsearch metadata\ncs-app\nNOT DEPLOYED"
+    label: "Elasticsearch metadata\ncs-app\nREADY / VERIFIED"
     type: database
     bounds: {x: 1136, y: 336, width: 208, height: 104}
   - id: api
-    label: "FastAPI read-only access\ncs-app\nNOT DEPLOYED"
+    label: "FastAPI read-only access\ncs-app\nREADY / VERIFIED"
     type: service
     bounds: {x: 1136, y: 512, width: 208, height: 104}
   - id: ui
@@ -53,11 +53,11 @@ nodes:
     type: service
     bounds: {x: 1136, y: 688, width: 208, height: 104}
 edges:
-  - {from: fixture, to: kafka, type: optional}
-  - {from: kafka, to: driver, type: optional}
-  - {from: driver, to: executor, type: optional}
-  - {from: driver, to: minio, type: optional}
-  - {from: minio, to: batch, type: optional}
-  - {from: batch, to: search, type: optional}
-  - {from: search, to: api, type: optional}
+  - {from: fixture, to: kafka, type: primary}
+  - {from: kafka, to: driver, type: primary}
+  - {from: driver, to: executor, type: primary}
+  - {from: driver, to: minio, type: primary}
+  - {from: minio, to: batch, type: primary}
+  - {from: batch, to: search, type: primary}
+  - {from: search, to: api, type: primary}
   - {from: api, to: ui, type: optional}

@@ -2,42 +2,32 @@
 
 ## Verified local controls
 
-- All application services are ClusterIP; local K3s access is 127.0.0.1:16443.
-- A separate Lima home and no host source mounts isolate prior private evidence.
-- K3s is started with secrets encryption and kubeconfig mode 0600.
-- Credentials are generated privately, sent to Kubernetes via stdin and never
-  included in Git, images or ConfigMaps. Administrative kubeconfig remains private.
-- Spark Role is namespaced to `cs-processing`, limited to pods/services/configmaps.
-  Real impersonated checks permit processing pod creation and deny infrastructure
-  Secret reads/default-namespace pod creation.
-- Namespace Pod Security: infra baseline; processing/application restricted v1.35.
-- MinIO drops capabilities, runs nonroot, has no ServiceAccount token.
-- NetworkPolicy restricts ingress to labeled internal namespaces; this is not
-  fine-grained egress isolation or a production zero-trust claim.
+Separate Lima home/no private mounts; encrypted K3s Secrets; private mode-0600
+kubeconfig. Services are ClusterIP, accessed through localhost port-forward.
+Credentials are generated privately and applied via stdin, absent from Git,
+images and ConfigMaps. API never receives administrative credentials.
 
-## Explicit local limitations
+Spark's namespaced Role manages necessary pods/services/configmaps only;
+cleanup requires service `deletecollection`, not PVC deletion.
+`spark.kubernetes.driver.ownPersistentVolumeClaim=false`. No app cluster-admin.
+Infra Pod Security is baseline; processing/app restricted v1.35, nonroot and
+capability drop. NetworkPolicy restricts namespace ingress.
 
-Kafka uses trusted internal PLAINTEXT without client authentication in the owned,
-single-node fixture profile. MinIO uses internal HTTP. Neither is public. Production
-TLS/SASL, per-bucket users/policies, narrow egress and read-only serving credentials
-need separate validation. The fixture processing Secret currently carries MinIO
-administrative credentials; it is not a general production least-privilege claim.
-No application pod has cluster-admin. Only the private bootstrap operator uses
-cluster administration for installation.
+API `cs-api` has `read`/`view_index_metadata` on `cs20k1-*` and cluster
+`monitor` for health. Bootstrap/index writer is separate from the API.
 
-Serving Secrets/RBAC and Elasticsearch/API controls are not accepted because
-those services have not been deployed. A dashboard must consume approved read-only
-projections, not administrative S3/Kafka access.
+## Limitations and publication
 
-## Supply chain and publication
+Owned Kafka is trusted internal PLAINTEXT; S3/ES internal HTTP. Processing has
+administrative fixture MinIO credentials; index bootstrap is privileged.
+Production TLS/SASL, per-bucket users, narrow egress and credential rotation
+require separate validation. This is not comprehensive zero trust.
 
-Use checksum-verified pinned CLI releases, exact Strimzi chart hash and recorded
-Linux ARM64 image references. The MinIO image is source-built from the pinned
-release/commit already used by the project; MinIO is AGPLv3, not an unrestricted
-proprietary redistribution artifact. Preserve source/license and corresponding
-source obligations when distributing an image. Elasticsearch licensing is not
-equivalent to Apache Spark/Kafka; record distribution terms before publishing images.
+CLI/chart checksums and ARM64 images are pinned in `versions.json`. Source-built
+MinIO is AGPLv3: preserve corresponding-source/license obligations on distribution.
+Elasticsearch terms differ from Apache Spark/Kafka. Builds use a clean Git archive
+and locked dependencies, never private caches/checkpoints/third-party rows.
 
-No private third-party raw files, normalized rows, checkpoints, payload logs or
-credentials are committed. Owned synthetic fixtures are distinguished from real
-source results. Instructor approval and full course acceptance are not assumed.
+Public outputs contain owned fixtures, code, aggregates and digests only.
+Instructor approval/source redistribution rights are not inferred from Kubernetes
+acceptance. The future UI must use approved read-only projections.

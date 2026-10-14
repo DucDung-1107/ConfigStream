@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 from time import sleep, time
@@ -23,6 +24,18 @@ from bootstrap import (
 
 POLICY = ROOT / "workloads/results/phase20-k8s/closure-policy-amendment.json"
 CAMPAIGNS = ROOT / ".cache/phase20-k8s-closure"
+
+
+def active_owned_names(resource, items):
+    if resource == "jobs":
+        return [
+            item["metadata"]["name"] for item in items if item.get("status", {}).get("active", 0)
+        ]
+    return [
+        item["metadata"]["name"]
+        for item in items
+        if item.get("status", {}).get("phase") in {"Pending", "Running", "Unknown"}
+    ]
 
 
 def validate_live_campaign(directory):
@@ -67,6 +80,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--campaign")
     args = parser.parse_args()
+    if shutil.which("limactl") is None or not (TOOLS / "kubectl").is_file():
+        raise RuntimeError("Pinned Lima/kubectl tools required before starting a campaign")
     policy = json.loads(POLICY.read_text())
     directory = CAMPAIGNS / (args.campaign or str(uuid4()))
     directory.mkdir(parents=True, exist_ok=False)
@@ -113,21 +128,40 @@ def main():
         if record["failure"]:
             environment = {**os.environ, "KUBECONFIG": str(PRIVATE / "kubeconfig")}
             for resource in ("jobs", "pods"):
-                subprocess.run(
+                inventory = subprocess.run(
                     [
                         str(TOOLS / "kubectl"),
-                        "delete",
+                        "get",
                         resource,
                         "-n",
                         "cs-processing",
                         "-l",
                         "configstream-owned=phase20k",
-                        "--wait=false",
+                        "-o",
+                        "json",
                     ],
                     env=environment,
                     timeout=30,
                     check=False,
+                    capture_output=True,
+                    text=True,
                 )
+                if inventory.returncode == 0:
+                    for name in active_owned_names(resource, json.loads(inventory.stdout)["items"]):
+                        subprocess.run(
+                            [
+                                str(TOOLS / "kubectl"),
+                                "delete",
+                                resource,
+                                name,
+                                "-n",
+                                "cs-processing",
+                                "--wait=false",
+                            ],
+                            env=environment,
+                            timeout=30,
+                            check=False,
+                        )
             subprocess.run(
                 ["limactl", "shell", VM, "--", "sudo", "pkill", "-TERM", "-x", "buildkitd"],
                 timeout=30,
