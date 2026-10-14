@@ -9,7 +9,7 @@ embedded in the contents of its own Git commit.
 
 Entry: clean main `9c2520c06aa3b455577ead9ef16f0a820e1e804d`,
 [baseline CI](https://github.com/kongwoang/ConfigStream/actions/runs/38521108108).
-Runtime source `2da7f00a88db0c378685d1314c728fd5e69fbc22`; later delivery changes
+Final runtime source `cceeb827dc59771d324ed5615a699e966b2d051b`; later delivery changes
 are measurement scripts, manifests, reviewed screenshots and reports, not altered
 business logic. The actual runtime image is pinned in the frontend manifest.
 
@@ -50,6 +50,12 @@ business logic. The actual runtime image is pinned in the frontend manifest.
 [regression](../workloads/results/phase20v/regression-validation.json),
 [deployment](../workloads/results/phase20v/kubernetes-deployment.json),
 [resources/negative attempts](../workloads/results/phase20v/resource-measurements.json).
+
+[Additive final delivery](../workloads/results/phase20v/final-delivery-validation.json)
+records the final runtime and current14 screenshot checksums,19 tests in14.0s,
+unmocked API demo and new12.290-second guarded packaging attempt. Earlier runtime
+receipts remain intact. The final configuration table disables local page-search;
+asset/date filters search on the server and page-local sorting is explicitly labeled.
 
 The initial full-container build stopped on host swap guard. Runtime Dockerignore
 failure, port-forward race, premature screenshots and favicon404 were corrected,

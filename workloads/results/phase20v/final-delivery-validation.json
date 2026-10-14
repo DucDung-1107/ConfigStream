@@ -1,0 +1,245 @@
+{
+  "schema_version": "phase20v-final-delivery-1",
+  "evidence_type": "MEASURED_SERVICE",
+  "status": "PASS_KUBERNETES_UI_AND_API",
+  "captured_at": "2026-10-14T11:56:15.304Z",
+  "runtime_code_commit": "cceeb827dc59771d324ed5615a699e966b2d051b",
+  "build": {
+    "source_sha": "cceeb827dc59771d324ed5615a699e966b2d051b",
+    "image": "configstream-dashboard:cceeb827dc59771d324ed5615a699e966b2d051b",
+    "mode": "host-static-build",
+    "started_epoch": 1791978501.63164,
+    "build_cap_seconds": 1800,
+    "status": "PASS_DEPLOYMENT_ONLY",
+    "samples": [
+      {
+        "epoch": 1791978501.795686,
+        "host_memory_free_percent": 41,
+        "host_free_disk_bytes": 618456395776,
+        "host_swapout_total_bytes": 877255770112,
+        "guest_free_disk_bytes": 25784713216,
+        "guest_available_memory_bytes": 2979127296,
+        "allocated_bytes": 27468034048
+      },
+      {
+        "epoch": 1791978507.3062139,
+        "host_memory_free_percent": 37,
+        "host_free_disk_bytes": 618462142464,
+        "host_swapout_total_bytes": 877255770112,
+        "guest_free_disk_bytes": 25784713216,
+        "guest_available_memory_bytes": 2975510528,
+        "allocated_bytes": 27468038144,
+        "new_swapout_bytes_per_second": 0
+      },
+      {
+        "epoch": 1791978512.486989,
+        "host_memory_free_percent": 37,
+        "host_free_disk_bytes": 618456338432,
+        "host_swapout_total_bytes": 877255770112,
+        "guest_free_disk_bytes": 25779159040,
+        "guest_available_memory_bytes": 2926813184,
+        "allocated_bytes": 27470999552,
+        "new_swapout_bytes_per_second": 0
+      }
+    ],
+    "host_node_version": "v26.5.0",
+    "elapsed_seconds": 12.290276050567627
+  },
+  "browser_stats": {
+    "startTime": "2026-10-14T11:52:23.518Z",
+    "duration": 14021.098,
+    "expected": 19,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "review": {
+    "base": "http://127.0.0.1:13080",
+    "captured_at": "2026-10-14T11:52:23.020Z",
+    "measurements": [
+      {
+        "route": "/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 0.29895137499999996,
+        "overflow": false
+      },
+      {
+        "route": "/history/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 1.132432125,
+        "overflow": false
+      },
+      {
+        "route": "/rpki/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 0.16056470800000033,
+        "overflow": false
+      },
+      {
+        "route": "/ris/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 0.1525059159999996,
+        "overflow": false
+      },
+      {
+        "route": "/dns/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 0.16628141700000015,
+        "overflow": false
+      },
+      {
+        "route": "/experiments/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 0.1603035,
+        "overflow": false
+      },
+      {
+        "route": "/operations/",
+        "viewport": [
+          1440,
+          900
+        ],
+        "ready_seconds": 0.1800241659999997,
+        "overflow": false
+      },
+      {
+        "route": "/",
+        "viewport": [
+          768,
+          1024
+        ],
+        "overflow": false
+      },
+      {
+        "route": "/",
+        "viewport": [
+          390,
+          844
+        ],
+        "overflow": false
+      }
+    ],
+    "page_errors": [],
+    "failed_responses": [
+      {
+        "url": "http://127.0.0.1:13080/research/v1/catalog.json",
+        "status": 503,
+        "intentional_error_fixture": true
+      }
+    ],
+    "expected_error_state_console_messages": 1,
+    "real_configuration_versions": 2,
+    "real_adjacent_diff": 1,
+    "real_api_probe": "READY",
+    "mobile_navigation": "PASS",
+    "safe_identifier_copy": "PASS",
+    "error_and_empty_states": "PASS"
+  },
+  "deployment": {
+    "name": "dashboard",
+    "ready": 1,
+    "image": "configstream-dashboard:cceeb827dc59771d324ed5615a699e966b2d051b"
+  },
+  "pod": [
+    {
+      "name": "dashboard-5fc66b6d8b-l58lh",
+      "phase": "Running",
+      "ready": true,
+      "restarts": 0,
+      "imageID": "sha256:f37909516abc9296db8a3fe3965d71d1ebcc70dab8926b6a187339a346a81d9c"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/screenshots/phase20v/dns-desktop.png",
+      "sha256": "a945e1d985603cc9e45b48de84f3508f1f4d829b6aaea610c548d7beaf0d73e1"
+    },
+    {
+      "path": "docs/screenshots/phase20v/empty-filter.png",
+      "sha256": "055bf8706fe912d40336d34182c9623efa4a7d74e82746b2402c3e5e86efc2b1"
+    },
+    {
+      "path": "docs/screenshots/phase20v/evidence-detail.png",
+      "sha256": "6a5ee40404f7593adcc7e5ccb271d11016428f6b9d8b511c886878be119dd4bf"
+    },
+    {
+      "path": "docs/screenshots/phase20v/evidence-error.png",
+      "sha256": "a04dfc2f21fa8afc86bbfc705138c792c0e79521b824f39170b67bda3f0f1c55"
+    },
+    {
+      "path": "docs/screenshots/phase20v/experiments-desktop.png",
+      "sha256": "7bf66e44f99b274bba42e490c3cc59a610a834b882957b692715e9855f59af7c"
+    },
+    {
+      "path": "docs/screenshots/phase20v/history-desktop.png",
+      "sha256": "f7b19c77b201924c43441380cf5f66592eadcb8c9a88c6c9391317976793353f"
+    },
+    {
+      "path": "docs/screenshots/phase20v/operations-desktop.png",
+      "sha256": "08cdda69365e72bd814910f2c2de1a4e64df1ba2a15e4626c80317a5727e1017"
+    },
+    {
+      "path": "docs/screenshots/phase20v/overview-desktop.png",
+      "sha256": "d8cccd2f9b2ced4ddf66b1cb07a87c97c4b74359a029a8be4ed406f0ebdede5e"
+    },
+    {
+      "path": "docs/screenshots/phase20v/overview-mobile.png",
+      "sha256": "12b52a96b8ae7a7eda53931f651f006d79ba6b98ea7f2c3ddbe73397d4e3735d"
+    },
+    {
+      "path": "docs/screenshots/phase20v/overview-tablet.png",
+      "sha256": "8e1847f56ec8d96139cc96b8e13da1e79268a1874f6fd1a3ce4335103fe5bb9e"
+    },
+    {
+      "path": "docs/screenshots/phase20v/reference-desktop.png",
+      "sha256": "c61da2c6c41066e41c5edb60076365201e87ed0dd3cfb7d52d7d8f19b235528a"
+    },
+    {
+      "path": "docs/screenshots/phase20v/reference-mobile.png",
+      "sha256": "5e54b6fe1ea3bc45e26204c1a1b31da4931fdf78a51a5fbf155e10f5a99eb477"
+    },
+    {
+      "path": "docs/screenshots/phase20v/ris-desktop.png",
+      "sha256": "8858cdfae7fb96ad9daf4ce6dacb3329f1b95f06c9aba51fb252bfed5fa96389"
+    },
+    {
+      "path": "docs/screenshots/phase20v/rpki-desktop.png",
+      "sha256": "0e0a9be9a030d35100f75dccfe6c6ff58dad5d5669fbe9b2915c86c94267317b"
+    }
+  ],
+  "image_manifest": "sha256:d30405f0a24b8d7bf9f2c99994fcb4f0667ca70bed2e16de762d74c5cc34e088",
+  "image_size_reported": "25.2 MiB",
+  "resource_sample": {
+    "frontend_working_set_mib": 2,
+    "frontend_cpu_millicores": 1,
+    "true_peak_rss": "NOT_MEASURED"
+  },
+  "access_controls": {
+    "api_write_probe_status": 403,
+    "unregistered_api_probe_status": 404,
+    "directory_listing_probe_status": 404,
+    "shipped_font_notice_status": 200
+  },
+  "final_change": "Server-paginated configuration table omits local search; exact asset/date search is server-side, and page-local sort is explicitly labeled",
+  "preceding_receipts_preserved": "Existing phase20v receipts record the earlier2da7f00 runtime; this additive final delivery records cceeb82 and current screenshots",
+  "private_source_ingestion": false,
+  "release_gate": "Final pushed CI must pass; final handoff reports exact SHA/run URL after push"
+}

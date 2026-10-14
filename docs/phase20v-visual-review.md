@@ -43,3 +43,8 @@ Receipts: [visual/screenshot checksums](../workloads/results/phase20v/visual-rev
 The19 deterministic browser tests route API/fault responses; they are distinct
 from this unmocked configuration/API demonstration. Neither is a new external
 source ingestion or multi-node recovery trial.
+
+The [additive final delivery](../workloads/results/phase20v/final-delivery-validation.json)
+binds the current screenshots and runtime after page-search clarification. Earlier
+review receipts bind their own source revision/screenshots in Git, not new live
+measurements. The final19-test campaign passed in14.0s, with zero skipped tests.

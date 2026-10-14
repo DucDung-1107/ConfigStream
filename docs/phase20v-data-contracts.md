@@ -24,6 +24,8 @@ Configuration metadata uses existing read-only `/api/v1/snapshots`, `/diffs`,
 `k8s-owned-router`. Filters are exact asset ID/UTC dates, request limit ten, cursor
 pagination; Zod rejects raw-content fields or oversized output. Existing API
 limits remain enforced. The browser receives no Kafka/S3/kubeconfig credentials.
+Local search is omitted on server pages, avoiding a misleading first-page search;
+sorting is explicitly page-local. Aggregate tables search the entire bounded export.
 
 Same-origin Nginx proxies permitted GET routes and API health only. Other API
 paths/write methods are denied. Kubernetes metrics and lag are recorded evidence,

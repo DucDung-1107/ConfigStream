@@ -72,3 +72,9 @@ and are labeled RECORDED, not current live measurements.
 See [deployment](../workloads/results/phase20v/kubernetes-deployment.json),
 [resources/attempts](../workloads/results/phase20v/resource-measurements.json) and
 [actual rehearsal](../workloads/results/phase20v/demo-rehearsal.json).
+
+The final source-bound image is `configstream-dashboard:cceeb827dc59771d324ed5615a699e966b2d051b`,
+manifest `sha256:d30405f0a24b8d7bf9f2c99994fcb4f0667ca70bed2e16de762d74c5cc34e088`.
+Its guarded rebuild12.290seconds and actual Ready/1mCPU/2MiB sample, browser
+screenshots and API checks are recorded in the [additive final delivery](../workloads/results/phase20v/final-delivery-validation.json).
+Previous image receipts above remain valid observations, not the final runtime.

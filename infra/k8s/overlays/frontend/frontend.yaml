@@ -37,7 +37,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: dashboard
-          image: configstream-dashboard:2da7f00a88db0c378685d1314c728fd5e69fbc22
+          image: configstream-dashboard:cceeb827dc59771d324ed5615a699e966b2d051b
           imagePullPolicy: Never
           securityContext:
             allowPrivilegeEscalation: false
