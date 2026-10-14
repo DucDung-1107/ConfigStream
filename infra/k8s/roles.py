@@ -57,7 +57,8 @@ def terraform(session, lake, kafka, directory):
         if ConfigSnapshot.model_validate(record["payload"]) != snapshot:
             raise RuntimeError("Terraform existing transport contract changed")
     topic = f"config.terraform-fixture.{uuid4()}"
-    AdminClient(kafka.client_options()).create_topics(
+    admin = AdminClient(kafka.client_options())
+    admin.create_topics(
         [
             NewTopic(
                 topic, num_partitions=1, replication_factor=1, config={"retention.ms": "86400000"}
