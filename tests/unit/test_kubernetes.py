@@ -36,6 +36,7 @@ def test_native_submission_does_not_override_master_or_heap(monkeypatch, tmp_pat
     builder.appName.return_value = builder
     builder.config.return_value = builder
     session = Mock(version="4.0.2")
+    session.sparkContext.master = "k8s://https://kubernetes.default.svc:443"
     builder.getOrCreate.return_value = session
     submitted = Mock(
         get=lambda name, default: {

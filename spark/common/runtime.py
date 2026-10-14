@@ -60,9 +60,17 @@ def create_session(
 
         SparkContext._ensure_initialized()
         submitted = SparkConf()
+        mode = submitted.get("spark.submit.deployMode", "")
+        driver_pod = bool(
+            submitted.get("spark.kubernetes.driver.pod.name", "")
+            and os.environ.get("SPARK_APPLICATION_ID")
+            and os.environ.get("SPARK_DRIVER_BIND_ADDRESS")
+        )
         if (
             not submitted.get("spark.master", "").startswith("k8s://")
-            or submitted.get("spark.submit.deployMode", "") != "cluster"
+            or mode not in {"cluster", "client"}
+            or mode == "client"
+            and not driver_pod
         ):
             raise RuntimeError("Native submission requires Kubernetes cluster mode")
     os.environ["SPARK_LOCAL_DIRS"] = str(runtime / "local")
@@ -105,9 +113,16 @@ def create_session(
         )
     if packages and not from_submit:
         builder = builder.config("spark.jars.packages", ",".join(packages))
-    LOGGER.info("Starting Spark %s on %s (UTC)", SPARK_VERSION, config.master)
+    LOGGER.info(
+        "Starting Spark %s on %s (UTC)",
+        SPARK_VERSION,
+        "native Kubernetes submission" if from_submit else config.master,
+    )
     session = builder.getOrCreate()
     session.sparkContext.setLogLevel("WARN")
+    if from_submit and not session.sparkContext.master.startswith("k8s://"):
+        session.stop()
+        raise RuntimeError("Native runtime unexpectedly selected a non-Kubernetes master")
     if session.version != SPARK_VERSION:
         session.stop()
         raise RuntimeError(f"Spark runtime must match connector version {SPARK_VERSION}")
