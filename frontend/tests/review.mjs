@@ -12,6 +12,9 @@ const page = await browser.newPage({
 });
 const errors = [];
 page.on("pageerror", (error) => errors.push(error.message));
+page.on("console", (message) => {
+  if (message.type() === "error") errors.push(message.text());
+});
 const routes = [
   ["overview", "/", "Overview"],
   ["history", "/history/", "Infrastructure History"],
@@ -35,6 +38,24 @@ for (const [name, path, title] of routes) {
     await expect(
       page.getByRole("button", { name: "k8s-owned-v1", exact: true }),
     ).toBeVisible();
+  if (name === "history") {
+    await page.getByRole("tab", { name: "Adjacent diffs" }).click();
+    await expect(
+      page.getByRole("button", { name: /^diff-/ }).first(),
+    ).toBeVisible();
+    await page
+      .getByRole("button", { name: /^diff-/ })
+      .first()
+      .click();
+    await expect(page.getByRole("dialog")).toContainText("k8s-owned-v1");
+    await expect(page.getByRole("dialog")).toContainText("k8s-owned-v2");
+    await page.keyboard.press("Escape");
+    await page.getByRole("tab", { name: "Versions", exact: true }).click();
+  }
+  if (name === "operations") {
+    await page.getByRole("button", { name: "Check API now" }).click();
+    await expect(page.getByRole("status")).toContainText("LIVE READY");
+  }
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({
     path: fileURLToPath(new URL(`${name}-desktop.png`, directory)),
@@ -114,6 +135,12 @@ await expect(
 await page.screenshot({
   path: fileURLToPath(new URL("evidence-error.png", directory)),
 });
+const expectedUnavailableErrors = errors.filter((message) =>
+  /503|Failed to load resource/.test(message),
+);
+const unexpectedErrors = errors.filter(
+  (message) => !expectedUnavailableErrors.includes(message),
+);
 await writeFile(
   new URL("../../.cache/phase20v/browser-review.json", import.meta.url),
   JSON.stringify(
@@ -121,7 +148,11 @@ await writeFile(
       base,
       captured_at: new Date().toISOString(),
       measurements,
-      page_errors: errors,
+      page_errors: unexpectedErrors,
+      expected_error_state_console_messages: expectedUnavailableErrors.length,
+      real_configuration_versions: 2,
+      real_adjacent_diff: 1,
+      real_api_probe: "READY",
       mobile_navigation: "PASS",
       safe_identifier_copy: "PASS",
       error_and_empty_states: "PASS",

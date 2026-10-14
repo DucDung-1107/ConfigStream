@@ -20,7 +20,9 @@ retain distinct temporal roles. Phase 20K.1 has passed real single-node Kubernet
 application acceptance: Kafka → native Spark driver/executor → MinIO, batch
 readback, Elasticsearch/FastAPI and owned-fixture recovery. See
 [Kubernetes acceptance](docs/phase20-k8s-acceptance.md). This is not HA or full-data replay.
-No dashboard or Phase 21 implementation has begun.
+The [Phase 20V dashboard](docs/phase20v-acceptance.md) implements the actual
+shadcn/ui dashboard-01 reference and runs on K3s with verified aggregates and
+read-only configuration metadata. Phase 21 has not begun.
 
 ### Historical Phase 13 baseline
 
@@ -40,7 +42,7 @@ normalization/diff logic and YAML rules to publish deterministic Alerts to Kafka
 Pairing uses **asset_id + adjacent versions**, not previous-row arrival order.
 Optional **MinIO/Parquet history is authoritative**. Phase 8 adds Elasticsearch
 as a rebuildable metadata-only search projection. Phase 9 adds a thin read-only
-FastAPI metadata API. Dashboard remains planned; Kubernetes acceptance is described above. Invalid input
+FastAPI metadata API. The current research dashboard and Kubernetes acceptance are described above. Invalid input
 produces safe diagnostics, not a DLQ.
 
 Phase 10 adds [public baseline provenance](docs/datasets.md), controlled
@@ -609,5 +611,6 @@ and uncertain DNS measurements retain distinct semantics and accepted evidence.
 matched RPKI representations and27 three-repeat normalized-core engine trials
 passed; full production comparisons and paced RIS capacity remain unexecuted.
 Source ledgers stay private, public CI uses owned fixtures. Kubernetes20K.1 is a
-separate accepted single-node owned-fixture deployment; dashboard remains unimplemented.
+separate accepted single-node owned-fixture deployment. The Phase20V dashboard
+preserves accepted source scopes, units and uncertainty in a read-only presentation.
 Do not begin Phase21 automatically.

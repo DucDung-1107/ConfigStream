@@ -595,7 +595,7 @@ function Content({ screen, catalog }: { screen: Screen; catalog: Catalog }) {
                   String(item.mode),
                   String(item.mode),
                   bytes(Number(item.bytes)),
-                  "14 RPKI days · Snappy tuple projection",
+                  `14 RPKI days · all-in component median ${count(Number(item.all_in_bytes))} bytes`,
                   "EXACT RECONSTRUCTION",
                   String(item.artifact),
                   {
@@ -618,7 +618,7 @@ function Content({ screen, catalog }: { screen: Screen; catalog: Catalog }) {
                 row(
                   `${item.mode}-${item.query}`,
                   `${item.mode} · ${String(item.query).replaceAll("_", " ")}`,
-                  seconds(Number(item.median)),
+                  `${seconds(Number(item.median))} median · ${seconds(Number(item.minimum))}–${seconds(Number(item.maximum))} range`,
                   "Three build medians; warm cycles; OS cache uncontrolled",
                   String(item.status),
                   String(item.artifact),
@@ -782,7 +782,7 @@ function Content({ screen, catalog }: { screen: Screen; catalog: Catalog }) {
             <p>{ops.limits}</p>
             <p>{ops.measurement}</p>
             <p>
-              Dedicated VM: {ops.vm.cpus} CPUs / {ops.vm.memory_gib} GiB RAM /{" "}
+              Recorded VM: {ops.vm.cpus} CPUs / {ops.vm.memory_gib} GiB RAM /{" "}
               {ops.vm.disk_gib} GiB disk.
             </p>
             <p>

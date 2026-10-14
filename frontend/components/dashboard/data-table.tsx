@@ -148,6 +148,12 @@ export function DataTable({
           <SelectTrigger
             aria-label={`Status filter for ${title}`}
             className="w-40"
+            disabled={statuses.length < 2}
+            title={
+              statuses.length < 2
+                ? "Only one recorded status is present in this export"
+                : undefined
+            }
           >
             <SelectValue />
           </SelectTrigger>

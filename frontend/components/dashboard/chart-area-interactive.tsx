@@ -38,7 +38,7 @@ export function ChartAreaInteractive({
   const selected = minutes.slice(0, Number(range));
   return (
     <Card className="@container/card">
-      <CardHeader className="grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]">
+      <CardHeader className="gap-3 has-data-[slot=card-action]:grid-cols-1 sm:has-data-[slot=card-action]:grid-cols-[1fr_auto]">
         <CardTitle>RIS source-time activity</CardTitle>
         <CardDescription>
           rrc00 · September 1, 2026 · native occurrences per minute (UTC)

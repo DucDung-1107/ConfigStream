@@ -22,7 +22,14 @@ Four owned roles: eight Terraform Git versions (not deployments), seven RPKI row
 two complete states, four RIS occurrences/two fingerprints/one exclusion, six DNS
 measurements/two groups/entity coverage unknown. No unified config-change claim.
 
-## Open visualization/course gate
+## Subsequent Phase20V visualization
+
+The reference dashboard is now deployed in `cs-app`; its separate acceptance,
+approved data scopes and seven-step demonstration are in
+[Phase20V](phase20v-acceptance.md) and [demo script](phase20v-demo-script.md).
+The paragraphs below retain the original20K.1 visualization boundary at delivery.
+
+## Original20K.1 visualization/course gate
 
 No dashboard/frontend is implemented. Swagger is not end-to-end visualization.
 The future independently deployed read-only UI must expose scope, provenance,

@@ -1,5 +1,9 @@
 # Reproducible Kubernetes deployment
 
+The subsequent [Phase20V frontend runbook](phase20v-kubernetes-deployment.md)
+adds the read-only dashboard to the existing cluster. Its measured dashboard
+profile is3CPU/6GiB/48GiB; the7GiB figures below bind the earlier20K.1 campaign.
+
 ## Policy and versions
 
 The initial platform campaign failed its old growth guard. Its receipts are

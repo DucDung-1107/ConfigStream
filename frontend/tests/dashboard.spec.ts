@@ -269,3 +269,14 @@ test("navigation and console remain clean", async ({ page }) => {
   }
   expect(errors).toEqual([]);
 });
+
+test("health becomes stale at the declared freshness boundary", async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.goto("/operations/");
+  await page.getByRole("button", { name: "Check API now" }).click();
+  await expect(page.getByRole("status")).toContainText("LIVE READY");
+  await page.clock.fastForward(61000);
+  await expect(page.getByRole("status")).toContainText("STALE previous probe");
+});
