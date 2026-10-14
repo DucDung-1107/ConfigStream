@@ -1,0 +1,23 @@
+{
+  "decision_id": "20K.1-2026-10-14-local-owner-authorization",
+  "date_utc": "2026-10-14",
+  "evidence": "OWNER_AUTHORIZATION",
+  "starting_sha": "d69183544d7d6937d507bfee43efa35e7f1afbd3",
+  "owner_authorization": "Proceed with Phase20K.1 locally; additional CPU/RAM/disk/time and reproducible build-cache cleanup authorized; preserve old evidence",
+  "old_policy": "Initial Phase20K allocated growth15GiB and aggregate7200seconds",
+  "new_policy": "Those are historical limits only, not limits for new20K.1 campaigns. Create new exclusive receipts; never reset or rewrite old receipts/results.",
+  "initial_vm": {"name": "configstream-k8s", "cpus": 3, "memory_gib": 6, "disk_gib": 48},
+  "resize_rule": "Resize dedicated VM only when measured scheduling/memory/disk justify it and host pressure/swap activity remain safe; original k VM is protected",
+  "minimum_host_guest_free_disk_bytes": 21474836480,
+  "minimum_guest_available_memory_bytes": 536870912,
+  "minimum_host_memory_free_percent": 15,
+  "sustained_swap_stop": "Three consecutive samples with new host swap-out rate above16MiB/s; retain historical swap occupancy separately",
+  "sampling_interval_seconds": 5,
+  "job_deadline_seconds": 900,
+  "build_timeout_seconds": 1800,
+  "execution_scope": "Local image builds and bounded project-owned application/integration/recovery fixtures only; no private source replay/dashboard/Phase21",
+  "protected": "Original Lima k VM; accepted topics/volumes/archives/checkpoints/results and earlier namespaces; previous failed image manifest and logs",
+  "cache_cleanup": "Only reproducible BuildKit/temporary source caches in dedicated VM; no data/PVC/image evidence deletion",
+  "external_server": "Investigate only if local inadequacy measured; no paid provisioning/private-data upload/credential transfer without separate authorization",
+  "quota": "Check actual current session quota at safe boundaries; stop near exhaustion and resume after verified refill"
+}

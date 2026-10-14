@@ -55,19 +55,27 @@ def main():
     parser.add_argument("mode", choices=("seed", "stream", "batch"))
     parser.add_argument("--image", required=True)
     parser.add_argument("--run-id", required=True)
+    parser.add_argument("--campaign-directory")
     args = parser.parse_args()
     private = ROOT / ".cache/phase20-k8s"
-    receipt = json.loads((private / "execution-receipt.json").read_text())
-    if time() - receipt["started_epoch"] >= receipt["cap_seconds"]:
-        raise RuntimeError("Registered campaign cap exhausted")
+    if args.campaign_directory:
+        from safety import validate_live_campaign
+
+        validate_live_campaign(args.campaign_directory)
+        deadline = 900
+    else:
+        receipt = json.loads((private / "execution-receipt.json").read_text())
+        if time() - receipt["started_epoch"] >= receipt["cap_seconds"]:
+            raise RuntimeError("Registered campaign cap exhausted")
+        guard = json.loads((private / "resource-watch.json").read_text())
+        if guard["failure"] or not guard["samples"]:
+            raise RuntimeError("Fail-closed resource sampling unavailable")
+        measured_epoch = receipt["started_epoch"] + guard["samples"][-1]["seconds"]
+        if not 0 <= time() - measured_epoch <= 15:
+            raise RuntimeError("Resource sample stale; live guard required")
+        deadline = min(600, int(receipt["cap_seconds"] - (time() - receipt["started_epoch"])))
     if ":latest" in args.image or not args.image.startswith("configstream-k8s:"):
         raise ValueError("Only versioned locally imported fixture application image allowed")
-    guard = json.loads((private / "resource-watch.json").read_text())
-    if guard["failure"] or not guard["samples"]:
-        raise RuntimeError("Fail-closed resource sampling unavailable")
-    measured_epoch = receipt["started_epoch"] + guard["samples"][-1]["seconds"]
-    if not 0 <= time() - measured_epoch <= 15:
-        raise RuntimeError("Resource sample stale; live guard required")
     spec = pod_spec(args.image, spark=args.mode != "seed")
     container = spec["containers"][0]
     if args.mode == "seed":
@@ -154,9 +162,7 @@ def main():
         },
         "spec": {
             "backoffLimit": 0,
-            "activeDeadlineSeconds": min(
-                600, int(receipt["cap_seconds"] - (time() - receipt["started_epoch"]))
-            ),
+            "activeDeadlineSeconds": deadline,
             "template": {"metadata": {"labels": {"configstream-owned": "phase20k"}}, "spec": spec},
         },
     }

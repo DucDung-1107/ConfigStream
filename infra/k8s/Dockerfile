@@ -17,8 +17,7 @@ COPY workloads workloads
 COPY analytics analytics
 COPY benchmarks benchmarks
 COPY rules rules
-COPY infra/k8s/application.py /opt/configstream/application.py
-RUN uv python install 3.12.13 && uv sync --locked --no-dev --extra kafka --extra spark --extra lake --extra search --extra api --extra ris --extra dns \
+RUN uv python install 3.12.13 && uv sync --locked --extra kafka --extra spark --extra lake --extra search --extra api --extra ris --extra dns \
     && rm -rf .venv/lib/python3.12/site-packages/pyspark/jars \
     && ln -s /opt/spark/jars .venv/lib/python3.12/site-packages/pyspark/jars
 RUN /opt/spark/bin/spark-submit --master 'local[1]' \
@@ -31,5 +30,11 @@ ENV PATH=/opt/configstream/.venv/bin:/opt/spark/bin:$PATH \
     PYSPARK_PYTHON=/opt/configstream/.venv/bin/python \
     PYTHONPATH=/opt/configstream
 RUN mkdir /runtime && chmod 1777 /runtime
+COPY infra/k8s/application.py /opt/configstream/application.py
+COPY tests/unit tests/unit
+COPY tests/conftest.py tests/conftest.py
+COPY tests/fixtures/phase16 tests/fixtures/phase16
+COPY tests/fixtures/phase17 tests/fixtures/phase17
+COPY tests/fixtures/phase12 tests/fixtures/phase12
 USER 185
 WORKDIR /opt/configstream

@@ -15,6 +15,11 @@
 !benchmarks/**
 !rules/**
 !infra/k8s/**
+!tests/unit/**
+!tests/conftest.py
+!tests/fixtures/phase16/**
+!tests/fixtures/phase17/**
+!tests/fixtures/phase12/**
 **/__pycache__
 workloads/results
 infra/k8s/private
