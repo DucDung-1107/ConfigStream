@@ -4,6 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ConfigStream · Research evidence",
+  icons: { icon: "/favicon.svg" },
   description:
     "Verified infrastructure history, scoped states, native occurrences and uncertain measurements.",
 };

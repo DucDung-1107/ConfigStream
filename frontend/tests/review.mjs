@@ -11,9 +11,23 @@ const page = await browser.newPage({
   permissions: ["clipboard-read", "clipboard-write"],
 });
 const errors = [];
+const expectedUnavailableErrors = [];
+const failedResponses = [];
+let errorFixtureActive = false;
 page.on("pageerror", (error) => errors.push(error.message));
 page.on("console", (message) => {
-  if (message.type() === "error") errors.push(message.text());
+  if (message.type() !== "error") return;
+  if (errorFixtureActive && /503/.test(message.text()))
+    expectedUnavailableErrors.push(message.text());
+  else errors.push(message.text());
+});
+page.on("response", (response) => {
+  if (response.status() >= 400)
+    failedResponses.push({
+      url: response.url(),
+      status: response.status(),
+      intentional_error_fixture: errorFixtureActive,
+    });
 });
 const routes = [
   ["overview", "/", "Overview"],
@@ -125,6 +139,7 @@ await expect(
 await page.screenshot({
   path: fileURLToPath(new URL("empty-filter.png", directory)),
 });
+errorFixtureActive = true;
 await page.route("**/research/v1/catalog.json", (route) =>
   route.fulfill({ status: 503, body: "unavailable" }),
 );
@@ -135,12 +150,6 @@ await expect(
 await page.screenshot({
   path: fileURLToPath(new URL("evidence-error.png", directory)),
 });
-const expectedUnavailableErrors = errors.filter((message) =>
-  /503|Failed to load resource/.test(message),
-);
-const unexpectedErrors = errors.filter(
-  (message) => !expectedUnavailableErrors.includes(message),
-);
 await writeFile(
   new URL("../../.cache/phase20v/browser-review.json", import.meta.url),
   JSON.stringify(
@@ -148,7 +157,8 @@ await writeFile(
       base,
       captured_at: new Date().toISOString(),
       measurements,
-      page_errors: unexpectedErrors,
+      page_errors: errors,
+      failed_responses: failedResponses,
       expected_error_state_console_messages: expectedUnavailableErrors.length,
       real_configuration_versions: 2,
       real_adjacent_diff: 1,
@@ -161,5 +171,8 @@ await writeFile(
     2,
   ),
 );
-console.log(JSON.stringify({ measurements, page_errors: errors }));
+console.log(
+  JSON.stringify({ measurements, page_errors: errors, failedResponses }),
+);
 await browser.close();
+if (errors.length > 0) process.exitCode = 1;

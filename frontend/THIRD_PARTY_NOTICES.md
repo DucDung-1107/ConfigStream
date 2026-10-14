@@ -3,6 +3,11 @@
 Source: https://github.com/shadcn-ui/ui at 30a58d4498f270af1c1e981a7d78a15cf5740841.
 Adapted components retain the following license. Dependencies retain their own licenses.
 
+Bundled Geist 1.7.2 fonts retain their complete SIL Open Font License 1.1 at
+`public/licenses/geist.txt`. Bundled Tabler 3.49.0 icons retain the package MIT
+notice at `public/licenses/tabler.txt`. These notices are served with the static
+application; fonts are not modified or renamed.
+
 MIT License
 
 Copyright (c) 2023 shadcn

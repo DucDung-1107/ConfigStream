@@ -259,6 +259,9 @@ test("fresh API health and API failure do not display previous success", async (
 test("navigation and console remain clean", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
   await page.goto("/");
   for (const [, title] of routes.slice(1)) {
     await page.getByRole("link", { name: title, exact: true }).click();
