@@ -2,12 +2,19 @@
 
 import argparse
 import json
+import os
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
 
 from spark.common.config import SparkConfig
 from spark.common.runtime import create_session
+
+
+def evidence_dir():
+    directory = Path(os.environ.get("CONFIGSTREAM_DEMO_EVIDENCE_DIR", "/evidence"))
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
 
 
 def run(mode):
@@ -38,13 +45,13 @@ def run(mode):
         with KafkaProducer(KafkaConfig.from_env()) as producer:
             for snapshot in (*snapshots, snapshots[0]):
                 producer.publish(snapshot)
-        Path("/evidence/producer.json").write_text(
+        (evidence_dir() / "producer.json").write_text(
             json.dumps({"acknowledged": producer.delivered, "distinct_versions": 2})
         )
         return
-    session = create_session(config, from_submit=True, kafka=mode == "stream")
+    session = create_session(config, from_submit=True, kafka=mode in {"stream", "fail-stream"})
     try:
-        if mode == "stream":
+        if mode in {"stream", "fail-stream"}:
             from processing.rules import load_rules
             from spark.streaming.kafka_source import read_snapshots
             from spark.streaming.main import monitor_query, start_stateful
@@ -57,6 +64,21 @@ def run(mode):
                 initialize_indices(config.search)
             raw = read_snapshots(session, config)
             classified = classify_records(parse_records(raw))
+            if mode == "fail-stream":
+                from spark.streaming.sinks import lake as sink
+
+                original = sink.write_lake_batch
+
+                def interrupted(batch, batch_id, configuration, counts):
+                    original(batch, batch_id, configuration, counts)
+                    marker = evidence_dir() / "commit-before-ack.json"
+                    if not marker.exists():
+                        marker.write_text(
+                            json.dumps({"batch_id": batch_id, "fault": "after_commit"})
+                        )
+                        raise RuntimeError("Owned commit-before-checkpoint interruption")
+
+                sink.write_lake_batch = interrupted
             query = start_stateful(
                 classified,
                 config,
@@ -65,11 +87,11 @@ def run(mode):
                 raw_records=raw,
             )
             monitor_query(query, available_now=True)
-            Path("/evidence/query-id").write_text(str(query.id))
+            (evidence_dir() / "query-id").write_text(str(query.id))
         else:
             from spark.streaming.sinks.lake import read_committed
 
-            query_id = Path("/evidence/query-id").read_text().strip()
+            query_id = (evidence_dir() / "query-id").read_text().strip()
             frame = read_committed(session, config.lake, "processed/snapshots", query_id=query_id)
             count = frame.count()
             if count != 2:
@@ -92,7 +114,7 @@ def run(mode):
                 "snapshots": count,
                 "query_id": query_id,
             }
-            Path("/evidence/batch-result.json").write_text(json.dumps(result))
+            (evidence_dir() / "batch-result.json").write_text(json.dumps(result))
             if config.search is not None:
                 from search.reindex import rebuild
 
@@ -103,5 +125,5 @@ def run(mode):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("seed", "stream", "batch"))
+    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch"))
     run(parser.parse_args().mode)

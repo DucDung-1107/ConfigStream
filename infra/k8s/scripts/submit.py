@@ -11,7 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[3]
 
 
-def pod_spec(image, *, spark=False):
+def pod_spec(image, *, spark=False, environment="configstream-env"):
     spec = {
         "serviceAccountName": "spark" if spark else "default",
         "automountServiceAccountToken": spark,
@@ -29,7 +29,7 @@ def pod_spec(image, *, spark=False):
                 "image": image,
                 "imagePullPolicy": "Never",
                 "envFrom": [
-                    {"configMapRef": {"name": "configstream-env"}},
+                    {"configMapRef": {"name": environment}},
                     {"secretRef": {"name": "minio-credentials"}},
                 ],
                 "securityContext": {
@@ -52,10 +52,11 @@ def pod_spec(image, *, spark=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("seed", "stream", "batch"))
+    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch"))
     parser.add_argument("--image", required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--campaign-directory")
+    parser.add_argument("--environment", default="configstream-env")
     args = parser.parse_args()
     private = ROOT / ".cache/phase20-k8s"
     if args.campaign_directory:
@@ -76,12 +77,16 @@ def main():
         deadline = min(600, int(receipt["cap_seconds"] - (time() - receipt["started_epoch"])))
     if ":latest" in args.image or not args.image.startswith("configstream-k8s:"):
         raise ValueError("Only versioned locally imported fixture application image allowed")
-    spec = pod_spec(args.image, spark=args.mode != "seed")
+    spec = pod_spec(args.image, spark=args.mode != "seed", environment=args.environment)
     container = spec["containers"][0]
     if args.mode == "seed":
         container["command"] = ["python", "/opt/configstream/application.py", "seed"]
     else:
-        template = dict(apiVersion="v1", kind="Pod", spec=pod_spec(args.image, spark=True))
+        template = dict(
+            apiVersion="v1",
+            kind="Pod",
+            spec=pod_spec(args.image, spark=True, environment=args.environment),
+        )
         template["spec"]["containers"][0]["name"] = "spark-kubernetes-executor"
         template["spec"]["volumes"].append(
             {"name": "template", "configMap": {"name": "spark-template"}}
@@ -136,6 +141,7 @@ def main():
             "spark.driver.memoryOverhead": "384m",
             "spark.executor.memoryOverhead": "384m",
             "spark.executor.instances": "1",
+            "spark.kubernetes.executor.deleteOnTermination": "false",
             "spark.executor.cores": "1",
             "spark.pyspark.python": "/opt/configstream/.venv/bin/python",
             "spark.kubernetes.submission.waitAppCompletion": "true",
