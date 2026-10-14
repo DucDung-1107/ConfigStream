@@ -12,7 +12,7 @@ def drain(query):
     if not query.awaitTermination(360):
         query.stop()
         raise RuntimeError("Owned typed fixture query deadline exceeded")
-    return query.recentProgress
+    return [json.loads(progress.json) for progress in query.recentProgress]
 
 
 def run_roles(session, config, directory):

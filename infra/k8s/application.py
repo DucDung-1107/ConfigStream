@@ -88,7 +88,9 @@ def run(mode):
             )
             monitor_query(query, available_now=True)
             (evidence_dir() / "query-id").write_text(str(query.id))
-            (evidence_dir() / "stream-progress.json").write_text(json.dumps(query.recentProgress))
+            (evidence_dir() / "stream-progress.json").write_text(
+                json.dumps([json.loads(progress.json) for progress in query.recentProgress])
+            )
         elif mode == "roles":
             from roles import run_roles
 
@@ -155,6 +157,11 @@ def run(mode):
                 "query_id": query_id,
             }
             (evidence_dir() / "batch-result.json").write_text(json.dumps(result))
+            if mode == "integrity":
+                from integrity import run as check_integrity
+
+                report = check_integrity(session, config.lake, query_id)
+                (evidence_dir() / "integrity-result.json").write_text(json.dumps(report))
             if config.search is not None:
                 from search.reindex import rebuild
 
@@ -165,5 +172,7 @@ def run(mode):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch", "roles"))
+    parser.add_argument(
+        "mode", choices=("seed", "stream", "fail-stream", "batch", "roles", "integrity")
+    )
     run(parser.parse_args().mode)
