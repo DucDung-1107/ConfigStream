@@ -52,7 +52,7 @@ def pod_spec(image, *, spark=False, environment="configstream-env"):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch"))
+    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch", "roles"))
     parser.add_argument("--image", required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--campaign-directory")

@@ -31,6 +31,7 @@ ENV PATH=/opt/configstream/.venv/bin:/opt/spark/bin:$PATH \
     PYTHONPATH=/opt/configstream
 RUN mkdir /runtime && chmod 1777 /runtime
 COPY infra/k8s/application.py /opt/configstream/application.py
+COPY infra/k8s/roles.py /opt/configstream/roles.py
 COPY tests/unit tests/unit
 COPY tests/conftest.py tests/conftest.py
 COPY tests/fixtures/phase16 tests/fixtures/phase16

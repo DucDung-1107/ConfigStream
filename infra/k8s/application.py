@@ -88,6 +88,10 @@ def run(mode):
             )
             monitor_query(query, available_now=True)
             (evidence_dir() / "query-id").write_text(str(query.id))
+        elif mode == "roles":
+            from roles import run_roles
+
+            run_roles(session, config, evidence_dir())
         else:
             from spark.streaming.sinks.lake import read_committed
 
@@ -125,5 +129,5 @@ def run(mode):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch"))
+    parser.add_argument("mode", choices=("seed", "stream", "fail-stream", "batch", "roles"))
     run(parser.parse_args().mode)
