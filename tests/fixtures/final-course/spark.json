@@ -1,0 +1,42 @@
+{
+  "evidence": "PROJECT_OWNED_EDUCATIONAL_FIXTURE",
+  "events": [
+    ["owned-0", "2026-01-01T00:00:00Z", "peer-a", "announcement", "fp-1", 0],
+    ["owned-1", "2026-01-01T00:00:00Z", "peer-a", "announcement", "fp-1", 63],
+    ["owned-2", "2026-01-01T00:00:00Z", "peer-b", "announcement", "fp-2", 126],
+    ["owned-3", "2026-01-01T00:00:00Z", "peer-b", "withdrawal", "fp-3", 189],
+    ["owned-4", "2026-01-01T00:01:00Z", "peer-a", "announcement", "fp-4", 252],
+    ["owned-5", "2026-01-01T00:01:00Z", "peer-a", "withdrawal", "fp-5", 315],
+    ["owned-6", "2026-01-01T00:01:00Z", "peer-b", "withdrawal", "fp-5", 378],
+    ["owned-7", "2026-01-01T00:01:00Z", "peer-b", "withdrawal", "fp-5", 441]
+  ],
+  "measurements": [
+    ["dns-0", "worker-a", "EXAMPLE.LI.", "nonempty"],
+    ["dns-1", "worker-a", "example.li.", "unknown"],
+    ["dns-2", "worker-a", "OTHER.LI..", "unknown"],
+    ["dns-3", "worker-a", null, "timeout"],
+    ["dns-4", "worker-b", "EXAMPLE.LI.", "nonempty"],
+    ["dns-5", "worker-b", "", "timeout"]
+  ],
+  "expected": {
+    "native_occurrences": 8,
+    "fingerprints": 5,
+    "pivot": [
+      {"minute": "00:00", "announcement": 3, "withdrawal": 1},
+      {"minute": "00:01", "announcement": 1, "withdrawal": 3}
+    ],
+    "unpivot": [
+      {"minute": "00:00", "action": "announcement", "occurrences": 3},
+      {"minute": "00:00", "action": "withdrawal", "occurrences": 1},
+      {"minute": "00:01", "action": "announcement", "occurrences": 1},
+      {"minute": "00:01", "action": "withdrawal", "occurrences": 3}
+    ],
+    "cumulative": [4, 8],
+    "canonical_names": ["example.li", "example.li", "other.li", null, "example.li", null],
+    "unknown_fraction": {"worker-a": 0.5, "worker-b": 0.0},
+    "announcement_ids": ["owned-0", "owned-1", "owned-2", "owned-4"],
+    "pruned_ids": ["owned-0", "owned-1", "owned-2", "owned-3"],
+    "stream_complete_final": [{"action": "announcement", "count": 5}, {"action": "withdrawal", "count": 4}],
+    "stream_update_final": [{"action": "announcement", "count": 5}]
+  }
+}
