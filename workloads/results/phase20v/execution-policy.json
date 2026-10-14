@@ -1,0 +1,16 @@
+{
+  "date_utc": "2026-10-14",
+  "authorization": "Owner Phase20V request authorizes local frontend implementation, real browser validation and deployment into existing K3s; earlier resource allocation authorization persists",
+  "starting_sha": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "scope": "Bounded approved research aggregates, owned fixture drilldowns, existing read-only configuration API, static frontend build and K3s deployment",
+  "vm": {"name": "configstream-k8s", "cpus": 3, "memory_gib": 7, "disk_gib": 48, "change_required": false},
+  "frontend": {"request_cpu_millicores": 50, "request_memory_mib": 32, "limit_memory_mib": 128},
+  "build_cap_seconds_per_attempt": 1800,
+  "minimum_host_guest_disk_gib": 20,
+  "minimum_guest_available_memory_mib": 512,
+  "minimum_host_free_memory_percent": 15,
+  "swap_stop": "Three consecutive5s samples above16MiB/s new swap-out",
+  "no_expired_budget_reuse": true,
+  "protected": "Original Lima k, accepted source caches/data/checkpoints and previous scientific receipts",
+  "excluded": "New full-source ingestion, paid cloud, public exposure, Phase21"
+}

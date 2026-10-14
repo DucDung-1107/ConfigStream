@@ -1,0 +1,1422 @@
+{
+  "schema_version": "dashboard-1",
+  "generated_at": "2026-10-14T09:06:16.176875+00:00",
+  "artifact_commit": "9c2520c06aa3b455577ead9ef16f0a820e1e804d",
+  "artifacts": {
+    "workloads/results/phase20/terraform-reference.json": {
+      "sha256": "87dc162ba97385a506194a20bbb4d15a7777d3116b07daf718f0c49ee4f81ca4",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a"
+    },
+    "workloads/results/phase17-closure/daily-pipeline-validation.json": {
+      "sha256": "a2bc03def829e00f8253a8a686a47e08b1d6338581522b99697f3fc366644bf2",
+      "code_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39"
+    },
+    "workloads/results/phase17-closure/transition-pipeline-validation.json": {
+      "sha256": "37f4679a34433aa4b315eb6db2e74de67e51f6502f5c9cd5ac58badcffe41a3d",
+      "code_commit": "7722df0b5e9619394f0c03c1a070dd769f25ad39"
+    },
+    "workloads/results/phase18-finalization/full-hour-validation.json": {
+      "sha256": "f2f6cd1cb4b744c2afc00dc700ddd03d0c5f08b488472434ac65dd191d38ab10",
+      "code_commit": "496e48f7771dad28c49386fceb452b16e956b490"
+    },
+    "workloads/results/phase18-closure/event-time-characterization.json": {
+      "sha256": "feb60f43b4915029de104589a0afb4d2c630ff78a07bfe89aa99fadc2f3e8400",
+      "code_commit": null
+    },
+    "workloads/results/phase18-closure/multiplicity-validation.json": {
+      "sha256": "0e3abfd2f92873d409811f92a4c28ba41728ac69e4ae8ba9b2daa1963d1312f2",
+      "code_commit": null
+    },
+    "workloads/results/phase19/independent-oracle.json": {
+      "sha256": "eb56a0349125aa233ad45883afffd2260cf86b27a257112ccfbc80e4e6dda4ed",
+      "code_commit": "3ef6f6cb56e1162435f1af4af284de9b2cb86af4"
+    },
+    "workloads/results/phase19/representation-costs.json": {
+      "sha256": "f44ece6a639d2246fd92cbb4d17aac53f07a9fb67d6a399dc78d69dd1b8bb98e",
+      "code_commit": "3ef6f6cb56e1162435f1af4af284de9b2cb86af4"
+    },
+    "workloads/results/phase20/rpki-representations.json": {
+      "sha256": "6920945213e6361dca7b4088f55b6b39990e98999ffdd7076bfd23842fbaa356",
+      "code_commit": null
+    },
+    "workloads/results/phase20/rpki-all-in-storage.json": {
+      "sha256": "75f2dd5e8b3377b320e3189f881c5ceecc86ac8dea86b9b2a99b390eb347c67c",
+      "code_commit": "1305ed8bda1057d5ade1680b762c1adfce7145c0"
+    },
+    "workloads/results/phase20/matched-processing-repetitions.json": {
+      "sha256": "a53bc0dd8f683299ff8f569c59cc213d828f8d724825123a6016beec8d1dba42",
+      "code_commit": "a79c21c8f37e823e29d6c40949cfc3c397804f01"
+    },
+    "workloads/results/phase20/hypothesis-decisions.json": {
+      "sha256": "48fd158a061fb325fa69acae687059c47408491c24e7f4fa8ffaef378c764f4a",
+      "code_commit": "adc1b3c8b7cf1a433e2bbf301a2418cab913265a"
+    },
+    "workloads/results/phase20-k8s/closure-application-validation.json": {
+      "sha256": "96fafc70a349a5b7f790ac394f5b68ded5e827e373dbb66d10892941dd2bf88e",
+      "code_commit": null
+    },
+    "workloads/results/phase20-k8s/closure-resource-measurements.json": {
+      "sha256": "591f6050d0ed7c0b496b2dc63d7845e3654a0120cb0c6918897c2f5d316551ba",
+      "code_commit": null
+    },
+    "workloads/results/phase20-k8s/closure-recovery-validation.json": {
+      "sha256": "cb73598128372612439436a68c9d9bbdef48324368451664377e186c8007c73a",
+      "code_commit": null
+    },
+    "workloads/results/phase20-k8s/closure-final-readback.json": {
+      "sha256": "68d56ab7990a1ab2d45619cade9c249115711b915671eea9508752d91646f9e0",
+      "code_commit": null
+    },
+    "workloads/results/phase18-finalization/root-cause-analysis.json": {
+      "sha256": "c493476767f8aeee68b1aa3a9e3b54f76b5db30d4cc774ea35c7e1bd85abc7b2",
+      "code_commit": null
+    }
+  },
+  "domains": [
+    {
+      "name": "Terraform",
+      "role": "VersionedConfiguration",
+      "count": 10188,
+      "unit": "accepted Git versions",
+      "scope": "375 repositories; accepted TerraDS selection",
+      "artifact": "workloads/results/phase20/terraform-reference.json",
+      "field": "accepted_versions",
+      "qualifier": "Git revisions do not establish deployments.",
+      "evidence": "ACCEPTED REAL-SOURCE AGGREGATE",
+      "status": "ACCEPTED"
+    },
+    {
+      "name": "RPKI",
+      "role": "StateObservation",
+      "count": 14,
+      "unit": "complete daily observations",
+      "scope": "ripencc.tal; 2026-09-01 through 2026-09-14; pinned reference only",
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "field": "complete_days",
+      "qualifier": "Complete scoped observed membership; no operator-operation claim.",
+      "evidence": "ACCEPTED REAL-SOURCE AGGREGATE",
+      "status": "ACCEPTED"
+    },
+    {
+      "name": "RIS",
+      "role": "EventOccurrence",
+      "count": 4725156,
+      "unit": "native event occurrences",
+      "scope": "rrc00 · 2026-09-01 00:00–01:00 UTC",
+      "artifact": "workloads/results/phase18-finalization/full-hour-validation.json",
+      "field": "logical_occurrences",
+      "qualifier": "Accepted through retained-history recovery; UPDATEs do not establish a complete routing table.",
+      "evidence": "ACCEPTED REAL-SOURCE AGGREGATE",
+      "status": "ACCEPTED"
+    },
+    {
+      "name": "DNS",
+      "role": "MeasurementObservation",
+      "count": 2234863,
+      "unit": "raw measurements",
+      "scope": "Two selected .li zonefile-basis objects · 2026-09-01–02",
+      "artifact": "workloads/results/phase19/independent-oracle.json",
+      "field": "raw_source_rows",
+      "qualifier": "Source completeness leaves entity coverage and resolver/vantage unknown.",
+      "evidence": "ACCEPTED REAL-SOURCE AGGREGATE",
+      "status": "ACCEPTED"
+    }
+  ],
+  "rpki_days": [
+    {
+      "date": "2026-09-01",
+      "members": 360226,
+      "status": "COMPLETE",
+      "additions": null,
+      "removals": null,
+      "observation_id": "671c611d80d3c4d7a6e0d9bd855eeb55b612ab002fe43c89310f8dce5db4b246",
+      "set_digest": "accf40b30bcfd206e48ecf14e56e14e14688df25639d1358e8b50b3ca7790ee0",
+      "reconstruction_seconds": 1.725030209054239,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-02",
+      "members": 360506,
+      "status": "COMPLETE",
+      "additions": 717,
+      "removals": 437,
+      "observation_id": "5323bbf14630579808f25abaecc99329bae711b211e4a7af3f5be80dbe39c907",
+      "set_digest": "957b4a1a9ec92a83cef2af1c00c68c921985fdd57ba51f50c4b042f8d5d4bb91",
+      "reconstruction_seconds": 8.182096374919638,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-03",
+      "members": 361033,
+      "status": "COMPLETE",
+      "additions": 825,
+      "removals": 298,
+      "observation_id": "e99282c8226a78790c566848e222aec5e5dfd99334b8b112e809b1459a2fca2e",
+      "set_digest": "588eefbd298d4a60b31b5a6095b5789fb5d7a53cf8bbfe510727f02aebbc15c7",
+      "reconstruction_seconds": 13.651164875016548,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-04",
+      "members": 361241,
+      "status": "COMPLETE",
+      "additions": 808,
+      "removals": 600,
+      "observation_id": "fcf2e49d19ccfdb799522f57f4be94c67fa07bec2e6737fba530117c3e7be56c",
+      "set_digest": "7fc46685343796a9666c7caded59e9de82fb67b1a3821b8765f77e442e5a86cf",
+      "reconstruction_seconds": 29.419273791951127,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-05",
+      "members": 361390,
+      "status": "COMPLETE",
+      "additions": 599,
+      "removals": 450,
+      "observation_id": "1886ef496395a392dbb36983798899cf6bf94f79b189db5f2d65b38f332fc622",
+      "set_digest": "a8b64d6bd01dbb2f3c8177ed5c0f223516a16471169c8dc3a01a1589de1a7422",
+      "reconstruction_seconds": 30.185639582923613,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-06",
+      "members": 361411,
+      "status": "COMPLETE",
+      "additions": 222,
+      "removals": 201,
+      "observation_id": "2834715ec47f290242e40a5c0810fe406ce10b3405a29250d1c755d3ac959cdb",
+      "set_digest": "d515d652dc31c6d672ffacf65f202febeab84c8ff8abb328853594f9474e0ca4",
+      "reconstruction_seconds": 38.68590995797422,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-07",
+      "members": 361452,
+      "status": "COMPLETE",
+      "additions": 335,
+      "removals": 294,
+      "observation_id": "d26ee77ba8f6b1a9f37c709718f5d93c4fe876c16c7a1d2a2c1882ef44390e8b",
+      "set_digest": "bc2693f272ddc9b40e4d5734453321958cbdd216444516467d53ebe7e28876ec",
+      "reconstruction_seconds": 47.34852649993263,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-08",
+      "members": 361619,
+      "status": "COMPLETE",
+      "additions": 602,
+      "removals": 435,
+      "observation_id": "ad0dd43691c3bdbc271cd190c5f45cb0c1f96cb9041673c9c3fde59d8bc4bae9",
+      "set_digest": "4d317edc5f6d7873819288a00e6569b15b4b385439c0c6884f1a2e49f3bf1494",
+      "reconstruction_seconds": 56.05512604198884,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-09",
+      "members": 361901,
+      "status": "COMPLETE",
+      "additions": 743,
+      "removals": 461,
+      "observation_id": "99e4757f519932804fffc910bd9e792541e845e1a45fde87fcfcfd38229e7451",
+      "set_digest": "d63819c13f70f49d277737c47a23d2fe2c7720a60322e01582e863cfc6320119",
+      "reconstruction_seconds": 68.1503069170285,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-10",
+      "members": 362258,
+      "status": "COMPLETE",
+      "additions": 734,
+      "removals": 377,
+      "observation_id": "58f1782fd7a0de96eb7f0a313d271dc07d1440bd019c9abba283208b278ce3fc",
+      "set_digest": "1f9127c069a400aae37af1a53c1f59a4bc25f859ca3bed332d1df72500388336",
+      "reconstruction_seconds": 77.09348174999468,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-11",
+      "members": 362361,
+      "status": "COMPLETE",
+      "additions": 560,
+      "removals": 457,
+      "observation_id": "d924de699fc2dcd2a8c93154ff13897e3cb6f3e9e8df9f70354928d618a5ffbd",
+      "set_digest": "7dd8c49d6de4bf3367113266a1f60a74cf2056c2d7a219284284b2072a449398",
+      "reconstruction_seconds": 90.8552556670038,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-12",
+      "members": 362524,
+      "status": "COMPLETE",
+      "additions": 465,
+      "removals": 302,
+      "observation_id": "7cd19057d45cd07315ae3053c40419c3328a65292b5247a47a037f95c41adb28",
+      "set_digest": "8df7c90bf09ae052ad36da4dfc8b34b16a16bebc31a43e044db668d272c09a60",
+      "reconstruction_seconds": 110.37152291694656,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-13",
+      "members": 362599,
+      "status": "COMPLETE",
+      "additions": 230,
+      "removals": 155,
+      "observation_id": "292038f66bcd5da57253804df0ff0d9b8d15db4658408c4cb9ed8225bb626460",
+      "set_digest": "c209b4297c2ea7d3d28b5b1f5ec051d7c9c3b96f08a109dfcbaf7caa13aa1afe",
+      "reconstruction_seconds": 121.28771054197568,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    },
+    {
+      "date": "2026-09-14",
+      "members": 362402,
+      "status": "COMPLETE",
+      "additions": 256,
+      "removals": 453,
+      "observation_id": "d7ad51ae29ae892d859e685b3545c869aa618aba077f04e973fa08a3223be0d0",
+      "set_digest": "446a76c9b31b15a0fd70f6339a9d886a7697bccb580d1e78f9ee5f8b7e3c3cf5",
+      "reconstruction_seconds": 134.52632020809688,
+      "artifact": "workloads/results/phase17-closure/daily-pipeline-validation.json",
+      "transition_artifact": "workloads/results/phase17-closure/transition-pipeline-validation.json"
+    }
+  ],
+  "ris_minutes": [
+    {
+      "time": "2026-09-01T00:00:00+00:00",
+      "announcement": 126786,
+      "withdrawal": 4322,
+      "occurrences": 131108,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:01:00+00:00",
+      "announcement": 49267,
+      "withdrawal": 4363,
+      "occurrences": 53630,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:02:00+00:00",
+      "announcement": 58874,
+      "withdrawal": 4216,
+      "occurrences": 63090,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:03:00+00:00",
+      "announcement": 64853,
+      "withdrawal": 5035,
+      "occurrences": 69888,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:04:00+00:00",
+      "announcement": 49305,
+      "withdrawal": 3120,
+      "occurrences": 52425,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:05:00+00:00",
+      "announcement": 119962,
+      "withdrawal": 3630,
+      "occurrences": 123592,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:06:00+00:00",
+      "announcement": 63291,
+      "withdrawal": 4771,
+      "occurrences": 68062,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:07:00+00:00",
+      "announcement": 85022,
+      "withdrawal": 3868,
+      "occurrences": 88890,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:08:00+00:00",
+      "announcement": 54886,
+      "withdrawal": 4006,
+      "occurrences": 58892,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:09:00+00:00",
+      "announcement": 86032,
+      "withdrawal": 5575,
+      "occurrences": 91607,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:10:00+00:00",
+      "announcement": 124551,
+      "withdrawal": 4823,
+      "occurrences": 129374,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:11:00+00:00",
+      "announcement": 122495,
+      "withdrawal": 4048,
+      "occurrences": 126543,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:12:00+00:00",
+      "announcement": 57022,
+      "withdrawal": 3475,
+      "occurrences": 60497,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:13:00+00:00",
+      "announcement": 123450,
+      "withdrawal": 4519,
+      "occurrences": 127969,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:14:00+00:00",
+      "announcement": 53946,
+      "withdrawal": 4334,
+      "occurrences": 58280,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:15:00+00:00",
+      "announcement": 52113,
+      "withdrawal": 3053,
+      "occurrences": 55166,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:16:00+00:00",
+      "announcement": 47311,
+      "withdrawal": 3722,
+      "occurrences": 51033,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:17:00+00:00",
+      "announcement": 121845,
+      "withdrawal": 4030,
+      "occurrences": 125875,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:18:00+00:00",
+      "announcement": 45060,
+      "withdrawal": 4093,
+      "occurrences": 49153,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:19:00+00:00",
+      "announcement": 38623,
+      "withdrawal": 3639,
+      "occurrences": 42262,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:20:00+00:00",
+      "announcement": 42784,
+      "withdrawal": 3844,
+      "occurrences": 46628,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:21:00+00:00",
+      "announcement": 87305,
+      "withdrawal": 3973,
+      "occurrences": 91278,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:22:00+00:00",
+      "announcement": 79705,
+      "withdrawal": 4018,
+      "occurrences": 83723,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:23:00+00:00",
+      "announcement": 44492,
+      "withdrawal": 2631,
+      "occurrences": 47123,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:24:00+00:00",
+      "announcement": 61589,
+      "withdrawal": 2845,
+      "occurrences": 64434,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:25:00+00:00",
+      "announcement": 51842,
+      "withdrawal": 4409,
+      "occurrences": 56251,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:26:00+00:00",
+      "announcement": 154698,
+      "withdrawal": 8777,
+      "occurrences": 163475,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:27:00+00:00",
+      "announcement": 46140,
+      "withdrawal": 4169,
+      "occurrences": 50309,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:28:00+00:00",
+      "announcement": 47948,
+      "withdrawal": 4555,
+      "occurrences": 52503,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:29:00+00:00",
+      "announcement": 42503,
+      "withdrawal": 3780,
+      "occurrences": 46283,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:30:00+00:00",
+      "announcement": 60999,
+      "withdrawal": 3712,
+      "occurrences": 64711,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:31:00+00:00",
+      "announcement": 128043,
+      "withdrawal": 5670,
+      "occurrences": 133713,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:32:00+00:00",
+      "announcement": 60976,
+      "withdrawal": 5416,
+      "occurrences": 66392,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:33:00+00:00",
+      "announcement": 44659,
+      "withdrawal": 3321,
+      "occurrences": 47980,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:34:00+00:00",
+      "announcement": 40286,
+      "withdrawal": 2833,
+      "occurrences": 43119,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:35:00+00:00",
+      "announcement": 132661,
+      "withdrawal": 4362,
+      "occurrences": 137023,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:36:00+00:00",
+      "announcement": 39941,
+      "withdrawal": 4458,
+      "occurrences": 44399,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:37:00+00:00",
+      "announcement": 38268,
+      "withdrawal": 3337,
+      "occurrences": 41605,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:38:00+00:00",
+      "announcement": 55124,
+      "withdrawal": 3290,
+      "occurrences": 58414,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:39:00+00:00",
+      "announcement": 55656,
+      "withdrawal": 3421,
+      "occurrences": 59077,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:40:00+00:00",
+      "announcement": 140594,
+      "withdrawal": 5197,
+      "occurrences": 145791,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:41:00+00:00",
+      "announcement": 42429,
+      "withdrawal": 3876,
+      "occurrences": 46305,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:42:00+00:00",
+      "announcement": 79734,
+      "withdrawal": 7288,
+      "occurrences": 87022,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:43:00+00:00",
+      "announcement": 60457,
+      "withdrawal": 5430,
+      "occurrences": 65887,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:44:00+00:00",
+      "announcement": 62966,
+      "withdrawal": 4760,
+      "occurrences": 67726,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:45:00+00:00",
+      "announcement": 128245,
+      "withdrawal": 4229,
+      "occurrences": 132474,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:46:00+00:00",
+      "announcement": 56808,
+      "withdrawal": 3713,
+      "occurrences": 60521,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:47:00+00:00",
+      "announcement": 53840,
+      "withdrawal": 3927,
+      "occurrences": 57767,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:48:00+00:00",
+      "announcement": 67313,
+      "withdrawal": 4891,
+      "occurrences": 72204,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:49:00+00:00",
+      "announcement": 134626,
+      "withdrawal": 4869,
+      "occurrences": 139495,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:50:00+00:00",
+      "announcement": 45801,
+      "withdrawal": 3952,
+      "occurrences": 49753,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:51:00+00:00",
+      "announcement": 62795,
+      "withdrawal": 4147,
+      "occurrences": 66942,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:52:00+00:00",
+      "announcement": 64802,
+      "withdrawal": 5020,
+      "occurrences": 69822,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:53:00+00:00",
+      "announcement": 65918,
+      "withdrawal": 3799,
+      "occurrences": 69717,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:54:00+00:00",
+      "announcement": 175071,
+      "withdrawal": 6797,
+      "occurrences": 181868,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:55:00+00:00",
+      "announcement": 82577,
+      "withdrawal": 6506,
+      "occurrences": 89083,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:56:00+00:00",
+      "announcement": 66161,
+      "withdrawal": 4487,
+      "occurrences": 70648,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:57:00+00:00",
+      "announcement": 51855,
+      "withdrawal": 4961,
+      "occurrences": 56816,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:58:00+00:00",
+      "announcement": 116387,
+      "withdrawal": 4566,
+      "occurrences": 120953,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    },
+    {
+      "time": "2026-09-01T00:59:00+00:00",
+      "announcement": 43699,
+      "withdrawal": 4887,
+      "occurrences": 48586,
+      "artifact": "workloads/results/phase18-closure/event-time-characterization.json"
+    }
+  ],
+  "ris_summary": {
+    "occurrences": 4725156,
+    "announcements": 4462391,
+    "withdrawals": 262765,
+    "exclusions": 57,
+    "repeated_fingerprints": 118172,
+    "mean_source_rate": 1312.5433333333333,
+    "artifact": "workloads/results/phase18-finalization/full-hour-validation.json",
+    "fingerprint_artifact": "workloads/results/phase18-closure/multiplicity-validation.json"
+  },
+  "ris_fixture": [
+    {
+      "id": "afa1381ea4ce8fb9a5c2166ff5da686fae3f1959144bbf9813a89d0f89b6ecef",
+      "offset": 0,
+      "ordinal": 0,
+      "fingerprint": "20ed3d657c963a3398e0e733ccd3de2e39900b2c135d41299526b5aa46755e4e",
+      "prefix": "192.0.2.0/24",
+      "action": "announcement",
+      "evidence": "PROJECT-OWNED DEMO FIXTURE",
+      "artifact": "tests/fixtures/phase16/mrt.json"
+    },
+    {
+      "id": "e6cbfe9441588a1ea824815ce24abfe6c1f0e815fbef89718989e52fec4f40ff",
+      "offset": 0,
+      "ordinal": 1,
+      "fingerprint": "f76990ec665253712cf4bdb1bc6c2c3ddbded9913001c54c2aa6533af227726e",
+      "prefix": "198.51.100.0/24",
+      "action": "announcement",
+      "evidence": "PROJECT-OWNED DEMO FIXTURE",
+      "artifact": "tests/fixtures/phase16/mrt.json"
+    },
+    {
+      "id": "6c57db44398aec3b0e257c7f89426e3957b3fe2f2367327d52ae02629f4d412a",
+      "offset": 63,
+      "ordinal": 0,
+      "fingerprint": "20ed3d657c963a3398e0e733ccd3de2e39900b2c135d41299526b5aa46755e4e",
+      "prefix": "192.0.2.0/24",
+      "action": "announcement",
+      "evidence": "PROJECT-OWNED DEMO FIXTURE",
+      "artifact": "tests/fixtures/phase16/mrt.json"
+    },
+    {
+      "id": "3efd77a166efdcf619b3bdebdcb7edd4bc8aa0fedb76903f715835a65593c08d",
+      "offset": 63,
+      "ordinal": 1,
+      "fingerprint": "f76990ec665253712cf4bdb1bc6c2c3ddbded9913001c54c2aa6533af227726e",
+      "prefix": "198.51.100.0/24",
+      "action": "announcement",
+      "evidence": "PROJECT-OWNED DEMO FIXTURE",
+      "artifact": "tests/fixtures/phase16/mrt.json"
+    }
+  ],
+  "dns_days": [
+    {
+      "date": "2026-09-01",
+      "rows": 1117660,
+      "selected_rows": 176790,
+      "groups": 145559,
+      "statuses": {
+        "0": 1048328,
+        "3": 63983,
+        "2": 4534,
+        "65533": 815
+      },
+      "workers": 4,
+      "source_precision": "second",
+      "entity_coverage": "unknown",
+      "proven_empty": 0,
+      "artifact": "workloads/results/phase19/independent-oracle.json"
+    },
+    {
+      "date": "2026-09-02",
+      "rows": 1117203,
+      "selected_rows": 176690,
+      "groups": 145368,
+      "statuses": {
+        "0": 1047792,
+        "3": 63946,
+        "2": 4544,
+        "65533": 921
+      },
+      "workers": 4,
+      "source_precision": "second",
+      "entity_coverage": "unknown",
+      "proven_empty": 0,
+      "artifact": "workloads/results/phase19/independent-oracle.json"
+    }
+  ],
+  "dns_comparison": {
+    "common_groups": 144883,
+    "changed_groups": 4091,
+    "added_values": 7716,
+    "removed_values": 7612,
+    "unchanged_values": 168436,
+    "same_recorded_worker_sets": 55517,
+    "new_observed_groups": 485,
+    "no_longer_observed_groups": 676,
+    "strict_matched_vantage_eligible": 0,
+    "strict_unknown_qualification_groups": 144883,
+    "strict_reason": "resolver/vantage and measurement-method version not independently supplied",
+    "causal_interpretation": "unknown",
+    "artifact": "workloads/results/phase19/independent-oracle.json"
+  },
+  "representations": [
+    {
+      "mode": "R1",
+      "bytes": 47756423,
+      "all_in_bytes": 251982367,
+      "artifact": "workloads/results/phase20/rpki-representations.json",
+      "all_in_artifact": "workloads/results/phase20/rpki-all-in-storage.json"
+    },
+    {
+      "mode": "R2",
+      "bytes": 3555516,
+      "all_in_bytes": 207904155,
+      "artifact": "workloads/results/phase20/rpki-representations.json",
+      "all_in_artifact": "workloads/results/phase20/rpki-all-in-storage.json"
+    },
+    {
+      "mode": "R3",
+      "bytes": 6954890,
+      "all_in_bytes": 211192936,
+      "artifact": "workloads/results/phase20/rpki-representations.json",
+      "all_in_artifact": "workloads/results/phase20/rpki-all-in-storage.json"
+    }
+  ],
+  "queries": [
+    {
+      "mode": "R1",
+      "query": "all_days",
+      "median": 6.733104665763676,
+      "minimum": 6.651205122820102,
+      "maximum": 6.838660461129621,
+      "status": "PASS",
+      "output_digest": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R1",
+      "query": "asn_transitions",
+      "median": 0.0213690847158432,
+      "minimum": 0.020627964287996292,
+      "maximum": 0.021634873934090137,
+      "status": "PASS",
+      "output_digest": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R1",
+      "query": "daily_transitions",
+      "median": 0.016842251759953797,
+      "minimum": 0.01662491587921977,
+      "maximum": 0.018083498696796596,
+      "status": "PASS",
+      "output_digest": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R1",
+      "query": "membership",
+      "median": 0.38418641698081046,
+      "minimum": 0.36833966709673405,
+      "maximum": 0.4029080009786412,
+      "status": "PASS",
+      "output_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R1",
+      "query": "selected_day",
+      "median": 0.4814959589857608,
+      "minimum": 0.47382812504656613,
+      "maximum": 0.48429899907205254,
+      "status": "PASS",
+      "output_digest": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R2",
+      "query": "all_days",
+      "median": 6.880251917871647,
+      "minimum": 6.843331418116577,
+      "maximum": 6.92129258508794,
+      "status": "PASS",
+      "output_digest": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R2",
+      "query": "asn_transitions",
+      "median": 0.021227416349574924,
+      "minimum": 0.02093483612406999,
+      "maximum": 0.021468667197041214,
+      "status": "PASS",
+      "output_digest": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R2",
+      "query": "daily_transitions",
+      "median": 0.01124442066065967,
+      "minimum": 0.011062832665629685,
+      "maximum": 0.01150262588635087,
+      "status": "PASS",
+      "output_digest": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R2",
+      "query": "membership",
+      "median": 0.40320441708900034,
+      "minimum": 0.3952145000221208,
+      "maximum": 0.4043117919936776,
+      "status": "PASS",
+      "output_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R2",
+      "query": "selected_day",
+      "median": 0.5132983751827851,
+      "minimum": 0.4883845419390127,
+      "maximum": 0.5141985830850899,
+      "status": "PASS",
+      "output_digest": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R3",
+      "query": "all_days",
+      "median": 6.76448341680225,
+      "minimum": 6.751075166044757,
+      "maximum": 6.769646039232612,
+      "status": "PASS",
+      "output_digest": "d591b59f6a6fb2fb468a964cb200fcc50391f2c57d4c4c6a6500c83a7f5dc52b",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R3",
+      "query": "asn_transitions",
+      "median": 0.021282918169163167,
+      "minimum": 0.02108587173279375,
+      "maximum": 0.021879042265936732,
+      "status": "PASS",
+      "output_digest": "a84e8923b0a7b806baab1026cc7360a1a44935e9db163a2ead917fc6106ee22d",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R3",
+      "query": "daily_transitions",
+      "median": 0.012255459907464683,
+      "minimum": 0.011799376807175577,
+      "maximum": 0.012293913983739913,
+      "status": "PASS",
+      "output_digest": "27b62651434db827bd285fdbffcf30f46de4a45bed2e5a54036af97a6cb27ad3",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R3",
+      "query": "membership",
+      "median": 0.3838121249573305,
+      "minimum": 0.38352691591717303,
+      "maximum": 0.40178983414079994,
+      "status": "PASS",
+      "output_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    },
+    {
+      "mode": "R3",
+      "query": "selected_day",
+      "median": 0.4962045010179281,
+      "minimum": 0.48391691595315933,
+      "maximum": 0.5033716259058565,
+      "status": "PASS",
+      "output_digest": "eb976680e5592c6a038b0e9c5740a834dec6285658cbd30a9567416e98720846",
+      "artifact": "workloads/results/phase20/rpki-representations.json"
+    }
+  ],
+  "processing": [
+    {
+      "workload": "dns",
+      "mode": "B0",
+      "repetition": 1,
+      "rows": 4096,
+      "seconds": 2.087032458046451,
+      "validated_commit_seconds": 0.2656456669792533,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B0",
+      "repetition": 2,
+      "rows": 4096,
+      "seconds": 6.302452125004493,
+      "validated_commit_seconds": 5.350279625039548,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B0",
+      "repetition": 3,
+      "rows": 4096,
+      "seconds": 2.0892998749623075,
+      "validated_commit_seconds": 0.2782603329978883,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 1,
+      "rows": 4096,
+      "seconds": 10.486131874960847,
+      "validated_commit_seconds": 7.903328708023764,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 2,
+      "rows": 4096,
+      "seconds": 10.535779833910055,
+      "validated_commit_seconds": 9.780605750042014,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B2",
+      "repetition": 3,
+      "rows": 4096,
+      "seconds": 12.584316583001055,
+      "validated_commit_seconds": 11.6379311659839,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 1,
+      "rows": 4096,
+      "seconds": 16.86571141600143,
+      "validated_commit_seconds": 15.44097633403726,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 2,
+      "rows": 4096,
+      "seconds": 12.623822042020038,
+      "validated_commit_seconds": 10.471213042037562,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "dns",
+      "mode": "B3",
+      "repetition": 3,
+      "rows": 4096,
+      "seconds": 16.9238854580326,
+      "validated_commit_seconds": 15.967195832985453,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 1,
+      "rows": 370141,
+      "seconds": 8.437499249936081,
+      "validated_commit_seconds": 6.881415874930099,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 2,
+      "rows": 370141,
+      "seconds": 10.4847866659984,
+      "validated_commit_seconds": 9.268903708085418,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B0",
+      "repetition": 3,
+      "rows": 370141,
+      "seconds": 12.6358957500197,
+      "validated_commit_seconds": 11.739766249898821,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B2",
+      "repetition": 1,
+      "rows": 370141,
+      "seconds": 18.967320708092302,
+      "validated_commit_seconds": 16.84346595907118,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B2",
+      "repetition": 2,
+      "rows": 370141,
+      "seconds": 23.185871292022057,
+      "validated_commit_seconds": 21.054641332942992,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B2",
+      "repetition": 3,
+      "rows": 370141,
+      "seconds": 21.166858833050355,
+      "validated_commit_seconds": 19.090659332927316,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B3",
+      "repetition": 1,
+      "rows": 370141,
+      "seconds": 29.72590170893818,
+      "validated_commit_seconds": 28.640127540915273,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B3",
+      "repetition": 2,
+      "rows": 370141,
+      "seconds": 29.643647416029125,
+      "validated_commit_seconds": 27.806318124989048,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "ris",
+      "mode": "B3",
+      "repetition": 3,
+      "rows": 370141,
+      "seconds": 23.232975833001547,
+      "validated_commit_seconds": 22.258955708006397,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 1,
+      "rows": 360226,
+      "seconds": 12.576845500036143,
+      "validated_commit_seconds": 10.949647417059168,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 2,
+      "rows": 360226,
+      "seconds": 6.296766708022915,
+      "validated_commit_seconds": 5.943099207943305,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B0",
+      "repetition": 3,
+      "rows": 360226,
+      "seconds": 6.281799915945157,
+      "validated_commit_seconds": 5.153107166057453,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B2",
+      "repetition": 1,
+      "rows": 360226,
+      "seconds": 21.080050874967128,
+      "validated_commit_seconds": 18.729540417087264,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B2",
+      "repetition": 2,
+      "rows": 360226,
+      "seconds": 16.840371583006345,
+      "validated_commit_seconds": 14.661376500036567,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B2",
+      "repetition": 3,
+      "rows": 360226,
+      "seconds": 14.729018041980453,
+      "validated_commit_seconds": 13.733544667018577,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B3",
+      "repetition": 1,
+      "rows": 360226,
+      "seconds": 23.143771708011627,
+      "validated_commit_seconds": 22.27717454195954,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B3",
+      "repetition": 2,
+      "rows": 360226,
+      "seconds": 25.42441645800136,
+      "validated_commit_seconds": 23.761947500053793,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    },
+    {
+      "workload": "rpki",
+      "mode": "B3",
+      "repetition": 3,
+      "rows": 360226,
+      "seconds": 25.41744008299429,
+      "validated_commit_seconds": 23.818875958095305,
+      "artifact": "workloads/results/phase20/matched-processing-repetitions.json",
+      "status": "PASS",
+      "scope": "Same accepted normalized projection; parser and production finalization excluded"
+    }
+  ],
+  "hypotheses": {
+    "H1": {
+      "decision": "SUPPORTED_WITHIN_TESTED_SCOPE",
+      "sources": [
+        "correctness-matrix.json",
+        "regression-validation.json",
+        "matched-processing-repetitions.json"
+      ],
+      "limit": "Declared owned callback/replay failure model and accepted real windows, not arbitrary distributed failures",
+      "artifact": "workloads/results/phase20/hypothesis-decisions.json"
+    },
+    "H2": {
+      "decision": "SUPPORTED_WITHIN_TESTED_SCOPE",
+      "sources": [
+        "rpki-representations.json"
+      ],
+      "finding": "R2 and R3 meet >=20% analytical byte saving and <=2x median time for every registered E2R query",
+      "limit": "Local Snappy canonical-tuple queries separate oracleverification;notuniversal or deployedall-in preference",
+      "artifact": "workloads/results/phase20/hypothesis-decisions.json"
+    },
+    "H3": {
+      "decision": "NOT_RUN",
+      "sources": [
+        "budget-proposal.json",
+        "evaluation-matrix.json"
+      ],
+      "finding": "No new physical1x paced RIS trial or measured drain ratio; existing unpaced/recovered results cannot substitute",
+      "artifact": "workloads/results/phase20/hypothesis-decisions.json"
+    }
+  },
+  "negative_findings": [
+    {
+      "label": "DNS value reuse increased retained components",
+      "value": 2207468,
+      "unit": "additional bytes",
+      "qualifier": "Components only; prototype jointly retains full and reused groups for validation. Not a standalone reduced-retention deployment.",
+      "artifact": "workloads/results/phase19/representation-costs.json"
+    },
+    {
+      "label": "RIS global aggregation exhausted Spark execution memory",
+      "value": null,
+      "unit": "recorded failure",
+      "qualifier": "Earlier full ingestion failed at finalization; bounded reconciliation subsequently recovered retained history.",
+      "artifact": "workloads/results/phase18-finalization/root-cause-analysis.json"
+    },
+    {
+      "label": "RPKI analytical savings exceed all-in savings",
+      "value": null,
+      "unit": "qualified comparison",
+      "qualifier": "Unique archives + source-coordinate accounting + source/completion/transition metadata + candidate analytical files + result/resource metadata + retained query scratch. Separate from deployed streaming system, whose broker/checkpoint/output costs are not omitted from storage-inventory.json.",
+      "artifact": "workloads/results/phase20/rpki-all-in-storage.json"
+    },
+    {
+      "label": "RIS 1× paced replay H3",
+      "value": null,
+      "unit": "NOT_RUN",
+      "qualifier": "No new physical1x paced RIS trial or measured drain ratio; existing unpaced/recovered results cannot substitute",
+      "artifact": "workloads/results/phase20/hypothesis-decisions.json"
+    }
+  ],
+  "operations": {
+    "recorded_date": "2026-10-14",
+    "evidence": "RECORDED KUBERNETES RUN",
+    "node_count": 1,
+    "k3s": "v1.35.9+k3s1",
+    "architecture": "arm64",
+    "vm": {
+      "cpus": 3,
+      "memory_gib": 7,
+      "disk_gib": 48
+    },
+    "peak_sampled_working_set_bytes": 4699242496,
+    "measurement": "Sum cs-* pod Kubernetes working sets and CPU metrics sampled5s; not processRSS/true instantaneous peak",
+    "selected_lag": 0,
+    "lag_query_id": "007bab65-c6c5-4575-adad-e49d1893a24b",
+    "fixture_versions": 2,
+    "fixture_diffs": 1,
+    "native_pods": [
+      {
+        "name": "configstreamstreaming-742722a13906e656-exec-1",
+        "uid": "75f16cf6-d1b9-4808-b921-cbef270a315b",
+        "role": "executor",
+        "application_id": "spark-ac35fc4418224e0d89c551251e0afb61",
+        "phase": "Succeeded",
+        "container_images": [
+          "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        ]
+      },
+      {
+        "name": "cs-batch-delivery01-3b5beda13906d1b7-driver",
+        "uid": "eb8fb90b-4092-4d91-a452-af8957915f56",
+        "role": "driver",
+        "application_id": "spark-ac35fc4418224e0d89c551251e0afb61",
+        "phase": "Succeeded",
+        "container_images": [
+          "sha256:4ed40ec62d598503d21fbfa31289344e049d1b03636b17eeef39c6fedccc7fba"
+        ]
+      }
+    ],
+    "recovery": "PASS · owned callback/pod fixtures",
+    "limits": "One node; RF1; local-path volumes; internal HTTP/PLAINTEXT; no node-loss or HA claim",
+    "artifact": "workloads/results/phase20-k8s/closure-application-validation.json",
+    "resource_artifact": "workloads/results/phase20-k8s/closure-resource-measurements.json",
+    "recovery_artifact": "workloads/results/phase20-k8s/closure-recovery-validation.json",
+    "native_artifact": "workloads/results/phase20-k8s/closure-final-readback.json"
+  },
+  "attribution": [
+    {
+      "name": "TerraDS accepted Git selection",
+      "scope": "Public source provenance and accepted filtering",
+      "url": "https://github.com/kongwoang/ConfigStream/blob/9c2520c06aa3b455577ead9ef16f0a820e1e804d/docs/terrads.md"
+    },
+    {
+      "name": "RIPE NCC RPKI",
+      "scope": "ripencc.tal observed authorization memberships",
+      "url": "https://www.ripe.net/"
+    },
+    {
+      "name": "RIPE RIS",
+      "scope": "rrc00 selected UPDATE archives; aggregate-only",
+      "url": "https://ris.ripe.net/"
+    },
+    {
+      "name": "OpenINTEL",
+      "scope": "CC BY-NC-SA 4.0; selected .li objects; aggregate-only",
+      "url": "https://openintel.nl/"
+    }
+  ]
+}

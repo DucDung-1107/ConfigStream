@@ -1,0 +1,19 @@
+{
+  "workloads/results/phase20/terraform-reference.json": "87dc162ba97385a506194a20bbb4d15a7777d3116b07daf718f0c49ee4f81ca4",
+  "workloads/results/phase17-closure/daily-pipeline-validation.json": "a2bc03def829e00f8253a8a686a47e08b1d6338581522b99697f3fc366644bf2",
+  "workloads/results/phase17-closure/transition-pipeline-validation.json": "37f4679a34433aa4b315eb6db2e74de67e51f6502f5c9cd5ac58badcffe41a3d",
+  "workloads/results/phase18-finalization/full-hour-validation.json": "f2f6cd1cb4b744c2afc00dc700ddd03d0c5f08b488472434ac65dd191d38ab10",
+  "workloads/results/phase18-closure/event-time-characterization.json": "feb60f43b4915029de104589a0afb4d2c630ff78a07bfe89aa99fadc2f3e8400",
+  "workloads/results/phase18-closure/multiplicity-validation.json": "0e3abfd2f92873d409811f92a4c28ba41728ac69e4ae8ba9b2daa1963d1312f2",
+  "workloads/results/phase19/independent-oracle.json": "eb56a0349125aa233ad45883afffd2260cf86b27a257112ccfbc80e4e6dda4ed",
+  "workloads/results/phase19/representation-costs.json": "f44ece6a639d2246fd92cbb4d17aac53f07a9fb67d6a399dc78d69dd1b8bb98e",
+  "workloads/results/phase20/rpki-representations.json": "6920945213e6361dca7b4088f55b6b39990e98999ffdd7076bfd23842fbaa356",
+  "workloads/results/phase20/rpki-all-in-storage.json": "75f2dd5e8b3377b320e3189f881c5ceecc86ac8dea86b9b2a99b390eb347c67c",
+  "workloads/results/phase20/matched-processing-repetitions.json": "a53bc0dd8f683299ff8f569c59cc213d828f8d724825123a6016beec8d1dba42",
+  "workloads/results/phase20/hypothesis-decisions.json": "48fd158a061fb325fa69acae687059c47408491c24e7f4fa8ffaef378c764f4a",
+  "workloads/results/phase20-k8s/closure-application-validation.json": "96fafc70a349a5b7f790ac394f5b68ded5e827e373dbb66d10892941dd2bf88e",
+  "workloads/results/phase20-k8s/closure-resource-measurements.json": "591f6050d0ed7c0b496b2dc63d7845e3654a0120cb0c6918897c2f5d316551ba",
+  "workloads/results/phase20-k8s/closure-recovery-validation.json": "cb73598128372612439436a68c9d9bbdef48324368451664377e186c8007c73a",
+  "workloads/results/phase20-k8s/closure-final-readback.json": "68d56ab7990a1ab2d45619cade9c249115711b915671eea9508752d91646f9e0",
+  "workloads/results/phase18-finalization/root-cause-analysis.json": "c493476767f8aeee68b1aa3a9e3b54f76b5db30d4cc774ea35c7e1bd85abc7b2"
+}
