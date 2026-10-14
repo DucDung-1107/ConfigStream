@@ -104,7 +104,8 @@ def terraform(session, lake, kafka, directory):
         query_id=str(query.id),
         logical_versions=len(expected),
         physical_deliveries=len(snapshots) + 1,
-        assertion="Owned Git fixture extraction and version identities only; commits are not deployments",
+        assertion="Owned Git fixture extraction and version identities only; "
+        "commits are not deployments",
         progress=progress,
     )
 
