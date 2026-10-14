@@ -30,6 +30,8 @@ ENV PATH=/opt/configstream/.venv/bin:/opt/spark/bin:$PATH \
     PYSPARK_PYTHON=/opt/configstream/.venv/bin/python \
     PYTHONPATH=/opt/configstream
 RUN mkdir /runtime && chmod 1777 /runtime
+RUN apt-get update && apt-get install -y --no-install-recommends git=1:2.34.1-1ubuntu1.17 \
+    && rm -rf /var/lib/apt/lists/*
 COPY infra/k8s/application.py /opt/configstream/application.py
 COPY infra/k8s/roles.py /opt/configstream/roles.py
 COPY infra/k8s/integrity.py /opt/configstream/integrity.py

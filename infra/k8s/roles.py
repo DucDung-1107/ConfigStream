@@ -22,13 +22,91 @@ def run_roles(session, config, directory):
     directory.mkdir(parents=True, exist_ok=False)
     kafka = KafkaConfig.from_env()
     report = {}
-    for role, function in (("rpki", rpki), ("ris", ris), ("dns", dns)):
+    for role, function in (("terraform", terraform), ("rpki", rpki), ("ris", ris), ("dns", dns)):
         target = directory / role
         target.mkdir()
         lake = replace(config.lake, prefix=f"{config.lake.prefix}/{role}-{uuid4()}")
         report[role] = function(session, lake, kafka, target)
         (directory / "results.json").write_text(json.dumps(report))
     return report
+
+
+def terraform(session, lake, kafka, directory):
+    from confluent_kafka import Producer
+    from confluent_kafka.admin import AdminClient, NewTopic
+
+    from messaging.serialization import serialize_record
+    from processing.rules import load_rules
+    from schemas import ConfigSnapshot
+    from spark.common.config import SparkConfig
+    from spark.streaming.main import start_stateful
+    from spark.streaming.parser import parse_records
+    from spark.streaming.sinks.lake import read_committed
+    from spark.streaming.validation import classify_records
+    from tests.conftest import terraform_fixture
+    from workloads.observed import load_dataset
+
+    root, _, _ = terraform_fixture.__wrapped__(directory)
+    snapshots, _, _ = load_dataset(root)
+    expected = {
+        snapshot.snapshot_id: (snapshot.asset_id, snapshot.version, snapshot.hash)
+        for snapshot in snapshots
+    }
+    for snapshot in snapshots:
+        record = json.loads(serialize_record(snapshot))
+        if ConfigSnapshot.model_validate(record["payload"]) != snapshot:
+            raise RuntimeError("Terraform existing transport contract changed")
+    topic = f"config.terraform-fixture.{uuid4()}"
+    AdminClient(kafka.client_options()).create_topics(
+        [
+            NewTopic(
+                topic, num_partitions=1, replication_factor=1, config={"retention.ms": "86400000"}
+            )
+        ]
+    )[topic].result(30)
+    producer = Producer(kafka.producer_options())
+    errors = []
+    for snapshot in (*snapshots, snapshots[0]):
+        producer.produce(
+            topic,
+            key=snapshot.asset_id,
+            value=serialize_record(snapshot),
+            on_delivery=lambda error, message: errors.append(str(error)) if error else None,
+        )
+    if producer.flush(15) or errors:
+        raise RuntimeError("Owned Terraform transport not acknowledged")
+    configuration = replace(
+        SparkConfig.from_env(), lake=lake, search=None, checkpoint_dir=directory / "checkpoint"
+    )
+    raw = (
+        session.readStream.format("kafka")
+        .option("kafka.bootstrap.servers", kafka.bootstrap_servers)
+        .option("subscribe", topic)
+        .option("startingOffsets", "earliest")
+        .option("failOnDataLoss", "true")
+        .load()
+    )
+    query = start_stateful(
+        classify_records(parse_records(raw)),
+        configuration,
+        load_rules(configuration.rules_file),
+        available_now=True,
+        raw_records=raw,
+    )
+    progress = drain(query)
+    actual_rows = read_committed(session, lake, "processed/snapshots", str(query.id)).collect()
+    actual = {row.snapshot_id: (row.asset_id, row.version, row.raw_hash) for row in actual_rows}
+    if len(actual_rows) != len(expected) or actual != expected:
+        raise RuntimeError("Owned Terraform Git ordinal/source identity changed")
+    return dict(
+        status="PASS_INTEGRATION",
+        topic=topic,
+        query_id=str(query.id),
+        logical_versions=len(expected),
+        physical_deliveries=len(snapshots) + 1,
+        assertion="Owned Git fixture extraction and version identities only; commits are not deployments",
+        progress=progress,
+    )
 
 
 def rpki(session, lake, kafka, directory):
