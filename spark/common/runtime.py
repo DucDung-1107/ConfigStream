@@ -43,22 +43,32 @@ def check_runtime() -> None:
         )
 
 
-def create_session(config: SparkConfig, *, kafka: bool = True) -> "SparkSession":
+def create_session(
+    config: SparkConfig, *, kafka: bool = True, from_submit: bool = False
+) -> "SparkSession":
     check_runtime()
     from pyspark.sql import SparkSession
 
     runtime = config.runtime_dir.resolve()
     for name in ("tmp", "local", "ivy", "warehouse"):
         (runtime / name).mkdir(parents=True, exist_ok=True)
-    os.environ.setdefault("SPARK_LOCAL_IP", "127.0.0.1")
-    os.environ.setdefault("SPARK_LOCAL_HOSTNAME", "localhost")
+    if not from_submit:
+        os.environ.setdefault("SPARK_LOCAL_IP", "127.0.0.1")
+        os.environ.setdefault("SPARK_LOCAL_HOSTNAME", "localhost")
+    else:
+        from pyspark import SparkConf
+
+        submitted = SparkConf()
+        if (
+            not submitted.get("spark.master", "").startswith("k8s://")
+            or submitted.get("spark.submit.deployMode", "") != "cluster"
+        ):
+            raise RuntimeError("Native submission requires Kubernetes cluster mode")
     os.environ["SPARK_LOCAL_DIRS"] = str(runtime / "local")
     os.environ["PYSPARK_PYTHON"] = sys.executable
     os.environ["TMPDIR"] = str(runtime / "tmp")
     builder = (
-        SparkSession.builder.master(config.master)
-        .appName(config.app_name)
-        .config("spark.driver.memory", config.driver_memory)
+        SparkSession.builder.appName(config.app_name)
         .config("spark.sql.session.timeZone", "UTC")
         .config("spark.sql.timestampType", "TIMESTAMP_LTZ")
         .config("spark.sql.shuffle.partitions", "2")
@@ -72,6 +82,8 @@ def create_session(config: SparkConfig, *, kafka: bool = True) -> "SparkSession"
         .config("spark.jars.ivy", str(runtime / "ivy"))
         .config("spark.driver.extraJavaOptions", f'-Djava.io.tmpdir="{runtime / "tmp"}"')
     )
+    if not from_submit:
+        builder = builder.master(config.master).config("spark.driver.memory", config.driver_memory)
     packages = [KAFKA_CONNECTOR] if kafka else []
     if config.lake is not None:
         packages.extend([S3A_CONNECTOR, CLOUD_CONNECTOR])
@@ -90,7 +102,7 @@ def create_session(config: SparkConfig, *, kafka: bool = True) -> "SparkSession"
                 "org.apache.spark.internal.io.cloud.BindingParquetOutputCommitter",
             )
         )
-    if packages:
+    if packages and not from_submit:
         builder = builder.config("spark.jars.packages", ",".join(packages))
     LOGGER.info("Starting Spark %s on %s (UTC)", SPARK_VERSION, config.master)
     session = builder.getOrCreate()

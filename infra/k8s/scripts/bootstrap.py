@@ -15,6 +15,11 @@ ROOT = Path(__file__).resolve().parents[3]
 PRIVATE = ROOT / ".cache/phase20-k8s"
 TOOLS = ROOT / ".tools/k8s"
 VM = "configstream-k8s"
+LIMA_HOME = Path.home() / ".configstream-k8s-lima"
+IMAGE_CACHE = (
+    Path.home() / "Library/Caches/lima/download/by-url-sha256/"
+    "ea9e18624081b444d7bb30609b098f4e5f507ffabe414dfcda1d02fdec3afea4"
+)
 
 
 def command(arguments, *, capture=True, timeout=300):
@@ -73,7 +78,9 @@ class Guard:
                 pressure = command(["memory_pressure", "-Q"]).split("free percentage:")[-1]
                 host_percent = int(pressure.strip().rstrip("%"))
                 vm_root = Path(os.environ["LIMA_HOME"]) / VM
-                growth = sum(allocated_bytes(path) for path in (vm_root, PRIVATE, TOOLS))
+                growth = sum(
+                    allocated_bytes(path) for path in (vm_root, PRIVATE, TOOLS, IMAGE_CACHE)
+                )
                 sample = dict(
                     seconds=monotonic() - self.started,
                     host_free_disk_bytes=free,
@@ -234,6 +241,7 @@ def install_cluster(versions, guard):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--install", action="store_true")
+    parser.add_argument("--resume-before-vm", action="store_true")
     args = parser.parse_args()
     if not args.install:
         parser.error("Explicit --install and registered owner approval required")
@@ -241,12 +249,31 @@ def main():
     if policy["owner_reply"] != "Duyệt VM riêng và bounded fixtures" or policy["vm_name"] != VM:
         raise RuntimeError("Owner-approved dedicated platform policy missing")
     PRIVATE.mkdir(parents=True, exist_ok=True)
-    started = monotonic()
-    with (PRIVATE / "execution-receipt.json").open("x") as receipt:
-        json.dump(
-            dict(started_epoch=time_epoch(), started_monotonic=started, cap_seconds=7200, vm=VM),
-            receipt,
-        )
+    receipt_path = PRIVATE / "execution-receipt.json"
+    result_path = PRIVATE / "bootstrap.json"
+    if args.resume_before_vm:
+        receipt = json.loads(receipt_path.read_text())
+        if receipt["vm"] != VM or receipt["cap_seconds"] != 7200:
+            raise RuntimeError("Original execution receipt conflicts")
+        original = json.loads(result_path.read_text())
+        if original["status"] != "FAIL" or (LIMA_HOME / VM).exists():
+            raise RuntimeError("Resume permitted only before dedicated VM creation")
+        started = monotonic() - (time_epoch() - receipt["started_epoch"])
+        result_path = PRIVATE / "bootstrap-resume.json"
+        if result_path.exists():
+            raise RuntimeError("Resume attempt already recorded")
+    else:
+        started = monotonic()
+        with receipt_path.open("x") as receipt:
+            json.dump(
+                dict(
+                    started_epoch=time_epoch(), started_monotonic=started, cap_seconds=7200, vm=VM
+                ),
+                receipt,
+            )
+    if monotonic() - started >= 7200:
+        raise RuntimeError("Original aggregate runtime budget exhausted")
+    os.environ["LIMA_HOME"] = str(LIMA_HOME)
     guard = Guard(started)
     guard.thread.start()
     result = dict(status="FAIL", scope="Pinned tools/dedicated single-node platform only", vm=VM)
@@ -262,7 +289,8 @@ def main():
         result.update(
             seconds=monotonic() - started, samples=guard.samples, guard_failure=guard.failure
         )
-        (PRIVATE / "bootstrap.json").write_text(json.dumps(result, indent=2) + "\n")
+        result["lima_home"] = str(LIMA_HOME)
+        result_path.write_text(json.dumps(result, indent=2) + "\n")
 
 
 def time_epoch():

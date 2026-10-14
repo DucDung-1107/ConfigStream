@@ -1,0 +1,14 @@
+watchAnyNamespace: false
+watchNamespaces: [cs-infra]
+image:
+  tag: 0.51.0@sha256:1abe573c8737ce705f0f82a72db1f658a94a723c398993803e159775c9b0c034
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 384Mi
+extraEnvs:
+  - name: JAVA_OPTS
+    value: -Xms128m -Xmx256m

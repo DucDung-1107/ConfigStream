@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configstream-env
+  namespace: cs-processing
+data:
+  CONFIGSTREAM_LAKE_ENABLED: "true"
+  CONFIGSTREAM_SEARCH_ENABLED: "false"
+  MINIO_ENDPOINT: http://minio.cs-infra.svc.cluster.local:9000
+  CONFIGSTREAM_LAKE_BUCKET: cs-owned-k8s
+  CONFIGSTREAM_LAKE_PREFIX: owned-configuration
+  KAFKA_BOOTSTRAP_SERVERS: configstream-kafka-bootstrap.cs-infra.svc.cluster.local:9092
+  SPARK_RUNTIME_DIR: /runtime/spark
+  SPARK_CHECKPOINT_DIR: /evidence/checkpoint
+  SPARK_STARTING_OFFSETS: earliest
+  CONFIGSTREAM_RULES_FILE: /opt/configstream/rules/default.yaml
+  SPARK_WATERMARK_DELAY: 48 hours
+  SPARK_STATE_TIMEOUT: 87600 hours

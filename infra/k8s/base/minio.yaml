@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: cs-infra
+spec:
+  type: ClusterIP
+  selector:
+    app: minio
+  ports:
+    - name: s3
+      port: 9000
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+  namespace: cs-infra
+spec:
+  serviceName: minio
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: minio
+          image: configstream-minio:RELEASE.2025-10-15T17-29-55Z
+          imagePullPolicy: Never
+          args: [server, /data, --console-address, ":9001"]
+          envFrom:
+            - secretRef:
+                name: minio-credentials
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+          ports:
+            - containerPort: 9000
+          readinessProbe:
+            httpGet:
+              path: /minio/health/ready
+              port: 9000
+          livenessProbe:
+            httpGet:
+              path: /minio/health/live
+              port: 9000
+            initialDelaySeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 768Mi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 2Gi

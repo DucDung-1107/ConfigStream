@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: spark
+  namespace: cs-processing
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: spark
+  namespace: cs-processing
+rules:
+  - apiGroups: [""]
+    resources: [pods, services, configmaps]
+    verbs: [get, list, watch, create, delete, patch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: spark
+  namespace: cs-processing
+subjects:
+  - kind: ServiceAccount
+    name: spark
+    namespace: cs-processing
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: spark
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fixture-evidence
+  namespace: cs-processing
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 1Gi
