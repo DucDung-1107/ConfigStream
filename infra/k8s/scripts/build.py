@@ -98,7 +98,7 @@ def main():
                     "--opt",
                     "filename=Dockerfile.cached" if args.cached_runtime else "filename=Dockerfile",
                     "--opt",
-                    "image-resolve-mode=prefer-local"
+                    "image-resolve-mode=local"
                     if args.cached_runtime
                     else "image-resolve-mode=default",
                     "--local",
