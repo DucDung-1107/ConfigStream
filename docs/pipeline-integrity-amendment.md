@@ -86,6 +86,10 @@ runtime Dockerfile relative to that runtime's accepted source commit. The image
 also compares dependency inputs against the actual base-image files before
 replacing application code. Old application directories are removed first;
 untracked local files are excluded by `git archive`.
+Each archive is extracted into a fresh guest directory, avoiding stale tracked
+files from earlier revisions. The [staging validation addendum](../workloads/results/pipeline-closure/source-staging-validation-20261016.json)
+records the additional regression test (1,227 combined unit/API passes). No image
+rebuild was attempted after the resource stop for this helper-only correction.
 
 This avoids resolving unchanged Maven/Python dependencies on every source-only
 repair. It is not a clean-machine rebuild result. The default full Dockerfile

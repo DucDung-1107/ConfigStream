@@ -21,6 +21,13 @@ def validate_cached_runtime(root):
     return versions["accepted_application_manifest"]
 
 
+def stage_source(archive, revision):
+    context = guest(["mktemp", "-d", f"/tmp/configstream-source-{revision}.XXXXXX"]).strip()
+    command(["limactl", "copy", str(archive), f"{VM}:{context}/source.tar"])
+    guest(["tar", "-xf", f"{context}/source.tar", "-C", context])
+    return context
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--campaign-directory", type=Path, required=True)
@@ -49,15 +56,7 @@ def main():
     os.environ["LIMA_HOME"] = str(LIMA_HOME)
     archive = directory / f"source-{revision}.tar"
     command(["git", "archive", "--format=tar", "-o", str(archive), revision])
-    command(["limactl", "copy", str(archive), f"{VM}:/tmp/closure-source.tar"])
-    guest(
-        [
-            "sh",
-            "-c",
-            "mkdir -p /tmp/configstream-closure-current && "
-            "tar -xf /tmp/closure-source.tar -C /tmp/configstream-closure-current",
-        ]
-    )
+    context = stage_source(archive, revision)
     try:
         try:
             guest(["sudo", "buildctl", "debug", "workers"])
@@ -102,9 +101,9 @@ def main():
                     if args.cached_runtime
                     else "image-resolve-mode=default",
                     "--local",
-                    "context=/tmp/configstream-closure-current",
+                    f"context={context}",
                     "--local",
-                    "dockerfile=/tmp/configstream-closure-current/infra/k8s",
+                    f"dockerfile={context}/infra/k8s",
                     "--output",
                     f"type=image,name=docker.io/library/{report['image']},push=false",
                 ],

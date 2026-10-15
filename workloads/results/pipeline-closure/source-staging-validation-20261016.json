@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "PASS_LOCAL",
+  "base_sha": "c5c50ee572559bf1b8e2232dfa6bce99fc21d5aa",
+  "change": "Build source extraction now uses a new mktemp directory rather than merging each git archive into reused staging",
+  "reason": "Prevent removed tracked files from previous builds surviving in later image contexts",
+  "independent_test": "test_build_stages_archive_in_fresh_directory checks fresh directory allocation, archive destination and extraction arguments",
+  "unit_and_api_passed": 1227,
+  "unit_and_api_seconds": 15.29,
+  "log_sha256": "052ca2ad824297c0c664c17cab0abc4120ad25d94b3c457e50e2cfe4d37d3401",
+  "warnings": "One existing Starlette/httpx deprecation",
+  "new_image_build": "NOT_RUN_AFTER_RESOURCE_STOP",
+  "production_pipeline_changed": false,
+  "prior_receipt": "workloads/results/pipeline-closure/validation-20261016.json",
+  "prior_receipt_rewritten": false,
+  "new_kubernetes_recovery": "BLOCKED_RESOURCE_GUARD",
+  "qualification": "This additional build-helper test does not close the interrupted native application/recovery gate"
+}

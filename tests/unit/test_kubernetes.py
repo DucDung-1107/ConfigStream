@@ -46,6 +46,27 @@ def test_cached_dockerfile_binds_accepted_image_and_checks_container_lock():
     assert dockerfile.endswith("USER 185\n")
 
 
+def test_build_stages_archive_in_fresh_directory(monkeypatch):
+    monkeypatch.syspath_prepend(str(ROOT / "infra/k8s/scripts"))
+    import build
+
+    guest = Mock(side_effect=["/tmp/configstream-source-revision.unique\n", ""])
+    command = Mock()
+    monkeypatch.setattr(build, "guest", guest)
+    monkeypatch.setattr(build, "command", command)
+    context = build.stage_source(Path("source.tar"), "revision")
+    assert context == "/tmp/configstream-source-revision.unique"
+    assert guest.call_args_list[0].args[0] == [
+        "mktemp",
+        "-d",
+        "/tmp/configstream-source-revision.XXXXXX",
+    ]
+    command.assert_called_once_with(
+        ["limactl", "copy", "source.tar", f"{build.VM}:{context}/source.tar"]
+    )
+    assert guest.call_args_list[1].args[0] == ["tar", "-xf", f"{context}/source.tar", "-C", context]
+
+
 @pytest.mark.parametrize("master,mode", [("local[2]", "cluster"), ("k8s://server", "client")])
 def test_native_submission_rejects_local_or_client(monkeypatch, tmp_path, master, mode):
     monkeypatch.setattr("spark.common.runtime.check_runtime", lambda: None)
