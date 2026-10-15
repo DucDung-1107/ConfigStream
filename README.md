@@ -32,6 +32,10 @@ adds exact replay checks and versioned configuration Parquet inventories, plus
 bounded source-identity conflict detection. New processing uses an isolated v8
 checkpoint; old checkpoints/results are not rewritten. Performance options do
 not retroactively change accepted benchmark claims.
+The [repair validation receipt](workloads/results/pipeline-closure/validation-20261016.json)
+records successful local regressions, but the corrected-image Kubernetes recovery
+trial stopped at the host-swap guard before any commit. The previously accepted
+API/dashboard are restored; do not treat that trial as a successful rollout.
 
 ### Historical Phase 13 baseline
 

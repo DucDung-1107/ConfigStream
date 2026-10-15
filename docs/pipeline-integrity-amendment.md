@@ -92,7 +92,33 @@ repair. It is not a clean-machine rebuild result. The default full Dockerfile
 remains the clean-machine path. The preceding full-build failures (host swap
 guard and AWS SDK Maven download) remain preserved in private campaign receipts.
 
-## Course scope
+## Validation and rollout status — 2026-10-16
+
+The [additive validation receipt](../workloads/results/pipeline-closure/validation-20261016.json)
+records 1,226 unit/API tests, 127 Spark tests, 13 frontend data tests and 20 browser
+tests. The latter suites retain their exact execution scope/commit in the receipt;
+no UI or production Spark code changed during the subsequent image-build repair.
+
+The corrected image created a native Kubernetes driver and separate executor.
+However, the resource guard stopped the owned fixture attempt after three
+consecutive host swap-out samples above 16 MiB/s. No lake objects or commit were
+published, and the intended commit-before-ACK fault was never reached. **New-image
+service recovery remains blocked**, not passed. There was no automatic retry.
+The host-wide signal does not establish that Spark alone caused memory pressure.
+
+The old accepted fixture inventory remains byte-for-byte identical (24 objects,
+Kafka end offset 6). Elasticsearch, API and dashboard returned to one Ready replica
+each; six read-only accepted-application tests passed, API readiness returned OK
+and the dashboard returned HTTP200. These are old accepted receipts plus fresh
+serving checks, not validation of the repaired streaming image. Original Lima `k`
+and its historical data were not modified.
+
+Future recovery testing requires stable host headroom and a new live guarded
+campaign. Retain the aborted prefix/checkpoint for inspection; use a new isolated
+fixture prefix rather than silently resetting it. Keep old checkpoint jobs on
+their original image. Do not launch a full-source replay to close this fixture gate.
+
+## Course assessment
 
 The [official course page](https://datalab.vn/teaching/it4043e-big-data-storage-and-processing)
 requires an end-to-end Lambda/Kappa system, Spark, messaging, NoSQL, equivalent
