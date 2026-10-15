@@ -1,3 +1,4 @@
+from dataclasses import replace
 from itertools import permutations
 from random import Random
 
@@ -13,6 +14,21 @@ def buffered(version: int, asset: str = "asset-A", identity: str | None = None) 
         NormalizedConfig(asset, identity or f"{asset}-{version}", version, f"timeout {version}\n"),
         1_000_000 * version,
     )
+
+
+@pytest.mark.parametrize("field", ["content", "time", "version"])
+def test_same_identity_changed_projection_is_a_conflict(field):
+    original = buffered(1)
+    state = accept_snapshot(AssetVersionState("asset-A"), original, 32).state
+    if field == "content":
+        changed = replace(original, config=replace(original.config, normalized_content="changed"))
+    elif field == "time":
+        changed = replace(original, event_time_us=original.event_time_us + 1)
+    else:
+        changed = replace(original, config=replace(original.config, version=2))
+    result = accept_snapshot(state, changed, 32)
+    assert result.state == state and not result.accepted
+    assert result.diagnostics[0].reason == "snapshot_identity_conflict"
 
 
 @pytest.mark.parametrize("order", list(permutations((1, 2, 3))) + [(1, 2), (2, 3), (7, 8, 6)])

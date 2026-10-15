@@ -141,10 +141,12 @@ def test_native_state_dedup_restart_and_timeout(tmp_path) -> None:
             and json.loads(row.summary)["reason"] == "unresolved_version_gap"
             for row in received
         )
-        assert any(
-            operator.get("customMetrics", {}).get("numDroppedDuplicateRows", 0) > 0
-            for batch in progress
-            for operator in batch.get("stateOperators", [])
+        assert (
+            sum(
+                row.record_type == "accepted" and row.asset_id == "router-state-test"
+                for row in received
+            )
+            == 4
         )
     finally:
         session.stop()

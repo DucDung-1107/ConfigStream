@@ -44,8 +44,12 @@ def index_frame(frame, kind: str, config: SearchConfig) -> None:
     safe_frame(frame, kind).foreachPartition(lambda rows: write_partition(rows, kind, config))
 
 
-def index_batch(batch, config) -> None:
-    from spark.streaming.sinks.lake import dataset_frame
+def index_batch(batch, config, counts=None) -> None:
+    from spark.streaming.sinks.lake import DATASET_RECORD_TYPES, dataset_frame
 
     for kind in KINDS:
+        if counts is not None and not any(
+            counts.get(record_type, 0) for record_type in DATASET_RECORD_TYPES[f"processed/{kind}"]
+        ):
+            continue
         index_frame(dataset_frame(batch, f"processed/{kind}"), kind, config.search)

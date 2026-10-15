@@ -17,10 +17,11 @@ pytestmark = pytest.mark.skipif(
 
 
 def evidence(suffix):
+    inspector = os.environ.get("CONFIGSTREAM_K8S_INSPECTOR", "closure-inspector")
+    if inspector != "closure-inspector" and not inspector.startswith("cs-course-inspector-"):
+        raise ValueError("Only owned read-only inspector names are permitted")
     return json.loads(
-        kubectl(
-            "exec", "-n", "cs-processing", "closure-inspector", "--", "cat", "/evidence/" + suffix
-        )
+        kubectl("exec", "-n", "cs-processing", inspector, "--", "cat", "/evidence/" + suffix)
     )
 
 

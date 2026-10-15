@@ -20,8 +20,9 @@ def query_events(frame, *, start=None, end=None, prefix=None):
 def event_summary(frame):
     from pyspark.sql import functions as functions
 
+    occurrences = frame.count()
     return {
-        "occurrences": frame.count(),
+        "occurrences": occurrences,
         "peers": frame.select("peer_asn", "peer_ip").distinct().count(),
         "prefixes": frame.select("prefix").distinct().count(),
         "actions": {row.action: row["count"] for row in frame.groupBy("action").count().collect()},
@@ -35,7 +36,7 @@ def event_summary(frame):
             .orderBy("minute")
             .collect()
         ],
-        "repeated_fingerprints_beyond_first": frame.count()
+        "repeated_fingerprints_beyond_first": occurrences
         - frame.select("content_fingerprint").distinct().count(),
     }
 

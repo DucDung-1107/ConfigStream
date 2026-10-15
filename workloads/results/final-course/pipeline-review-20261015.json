@@ -1,0 +1,124 @@
+{
+  "reviewed_at": "2026-10-15T11:10:24Z",
+  "code_commit": "8412b689afd4c6d48c5b79e450b2029b84b77189",
+  "working_tree": "Existing unfinished course artifacts and two test-harness changes; production paths unchanged by this review",
+  "evidence": "MEASURED_LOCAL_NEGATIVE_PROBES_AND_CODE_REVIEW",
+  "decision": "CORE_COURSE_COMPONENTS_DEMONSTRATED_WITH_CONFIGURATION_INTEGRITY_GAPS",
+  "course_source": "https://datalab.vn/teaching/it4043e-big-data-storage-and-processing",
+  "course_page_label": "Course, SOICT, HUST, 2020",
+  "current_semester_rubric": "UNVERIFIED",
+  "live_cluster": {
+    "vm": "configstream-k8s",
+    "status": "Stopped",
+    "api": "127.0.0.1:16443 connection refused",
+    "current_service_readiness": "NOT_VERIFIED",
+    "vm_started_by_review": false,
+    "recorded_native_pipeline": "Existing Phase20K.1 owned-fixture acceptance retained"
+  },
+  "tests": {
+    "unit": 1128,
+    "api": 80,
+    "unit_api_elapsed_seconds": 18.47,
+    "focused_spark": 31,
+    "focused_spark_elapsed_seconds": 61.93,
+    "focused_spark_files": [
+      "tests/spark/test_competency.py",
+      "tests/spark/test_ris_reconciliation.py",
+      "tests/spark/test_stateful.py",
+      "tests/spark/test_lake.py"
+    ],
+    "frontend_data": 13,
+    "status": "PASS_EXISTING_TESTS",
+    "full_spark_suite": "NOT_RUN_IN_THIS_REVIEW",
+    "new_kubernetes_fault_injection": "NOT_RUN",
+    "latest_verified_ci_sha": "0d395fbd377315d3e8fb053902818b7c5ce884a0",
+    "latest_verified_ci_url": "https://github.com/kongwoang/ConfigStream/actions/runs/38563761422",
+    "latest_verified_ci_conclusion": "success",
+    "current_head_ci": "NOT_RUN"
+  },
+  "negative_probe_boundary": {
+    "input": "Project-owned two-row fixtures",
+    "execution": "Actual local Spark Structured Streaming and Parquet; S3 manifest calls replaced by in-memory test metadata",
+    "raw_sources_or_accepted_objects_modified": false,
+    "probe": ".cache/pipeline-review-20261015/probe.py",
+    "result": ".cache/pipeline-review-20261015/negative-probes.json",
+    "attempt_1": "Probe precondition failed: writer produced one file, not two; no integrity conclusion from this attempt",
+    "attempt_2": "Set maxRecordsPerFile=1 in owned test config; all three negative behaviors reproduced"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "priority": "HIGH",
+      "status": "REPRODUCED_UNRESOLVED",
+      "file": "spark/streaming/sinks/lake.py:151",
+      "finding": "Configuration committed reader accepts an incomplete batch directory",
+      "declared_rows": 2,
+      "remaining_rows_after_deleting_one_of_two_owned_files": 1,
+      "reader_raised_integrity_error": false,
+      "cause": "Legacy v1.0 manifest records directories/counts; reader neither inventories individual objects nor checks declared row totals",
+      "proposed_action": "Add versioned file inventories and projection checks; fail closed on missing objects while preserving explicit legacy compatibility"
+    },
+    {
+      "id": "F2",
+      "priority": "HIGH",
+      "status": "REPRODUCED_UNRESOLVED",
+      "file": "spark/streaming/stateful.py:262",
+      "related_file": "processing/state.py:77",
+      "finding": "Same snapshot ID with changed content is silently handled as duplicate",
+      "schema_valid_inputs": 2,
+      "raw_deliveries_retained": 2,
+      "normalized_rows": 1,
+      "conflict_diagnostics": 0,
+      "spark_dropped_duplicate_rows": 1,
+      "proposed_action": "Compare required source projection before duplicate suppression; explicitly diagnose/reject conflicts; plan checkpoint-compatible rollout"
+    },
+    {
+      "id": "F3",
+      "priority": "HIGH",
+      "status": "REPRODUCED_UNRESOLVED",
+      "file": "spark/streaming/sinks/lake.py:114",
+      "finding": "Same query/batch with changed payload but matching record counts returns without conflict",
+      "existing_committed_payload_preserved": true,
+      "new_conflicting_payload_detected": false,
+      "proposed_action": "Bind each new commit to deterministic projection identity, not only counts; validate identical retries separately from conflicting replay"
+    }
+  ],
+  "optimization_candidates": [
+    {
+      "file": "analytics/ris.py:20",
+      "action": "Reuse exact occurrence count instead of computing frame.count twice",
+      "status": "CODE_REVIEW_NOT_BENCHMARKED"
+    },
+    {
+      "file": "spark/ris.py:210",
+      "action": "Keep verified reconciliation materialization alive for caller actions through a scoped reader; current return exits the persistence context",
+      "status": "CODE_REVIEW_NOT_BENCHMARKED"
+    },
+    {
+      "file": "messaging/ris.py:78",
+      "action": "Evaluate bounded in-flight chunk batches with contiguous ACK progress instead of flush and progress-file replacement per chunk",
+      "status": "CODE_REVIEW_NOT_BENCHMARKED",
+      "constraint": "Preserve exact retry progress and failure behavior"
+    },
+    {
+      "file": "spark/common/runtime.py:83",
+      "action": "Separate batch/stream tuning profiles; measure partition counts and batch AQE instead of a universal two-partition/AQE-off setting",
+      "status": "CODE_REVIEW_NOT_BENCHMARKED",
+      "constraint": "Do not alter active streaming checkpoint partition contracts or bounded ordered digest guarantees"
+    },
+    {
+      "file": "spark/dns_history.py:125",
+      "action": "Evaluate one complete raw-projection verification instead of a partial verification followed by a second complete verification of the same artifact",
+      "status": "CODE_REVIEW_NOT_BENCHMARKED",
+      "constraint": "Prove identical missing/unexpected/conflict semantics before removing work"
+    }
+  ],
+  "course_gaps": {
+    "mllib_graphframes": "NOT_IMPLEMENTED; listed by course page, pedagogical omission approval unverified",
+    "distributed_storage": "S3A/MinIO demonstrated on one local-path node; replicated distributed storage and instructor equivalence judgment unverified",
+    "spark_techniques": "Owned pivot/unpivot/UDF/UDAF/physical joins/pruning/bucketing/persistence/output-mode demonstrations passed; scale qualifications retained",
+    "phase20": "CONDITIONAL PASS",
+    "h3": "NOT_RUN; project hypothesis, not an explicit course-page pacing requirement",
+    "reports_and_slides": "Excluded from further authoring by owner instruction"
+  }
+}

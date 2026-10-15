@@ -127,7 +127,7 @@ def main():
     )
     from spark.common.runtime import create_session
 
-    session = create_session(runtime, kafka=False)
+    session = create_session(runtime, kafka=False, profile="batch")
     try:
         print(json.dumps(run_analytics(session, runtime.lake, config, args.query_id, args.job)))
     finally:

@@ -75,11 +75,24 @@ def expire_state(state: AssetVersionState, watermark_ms: int, timeout_ms: int) -
 
 
 def inspect_snapshot(
-    state: AssetVersionState, snapshot_id: str, version: int
+    state: AssetVersionState,
+    snapshot_id: str,
+    version: int,
+    snapshot: BufferedSnapshot | None = None,
 ) -> StateTransition | None:
     """Reject known identities/conflicts before normalizing configuration again."""
-    if any(existing.config.snapshot_id == snapshot_id for existing in state.snapshots):
-        return StateTransition(state)
+    for existing in state.snapshots:
+        if existing.config.snapshot_id == snapshot_id:
+            if snapshot is None:
+                return None
+            if existing != snapshot:
+                return StateTransition(
+                    state,
+                    diagnostics=(
+                        StateDiagnostic("snapshot_identity_conflict", (version,), snapshot_id),
+                    ),
+                )
+            return StateTransition(state)
     for existing in state.snapshots:
         if existing.version == version:
             return StateTransition(
@@ -102,7 +115,7 @@ def accept_snapshot(
         raise ValueError("max_versions must be an integer >= 2")
     if snapshot.config.asset_id != state.asset_id:
         raise AssetMismatchError("State and snapshot must belong to the same asset")
-    rejected = inspect_snapshot(state, snapshot.config.snapshot_id, snapshot.version)
+    rejected = inspect_snapshot(state, snapshot.config.snapshot_id, snapshot.version, snapshot)
     if rejected is not None:
         return rejected
     snapshots = tuple(sorted((*state.snapshots, snapshot), key=lambda item: item.version))

@@ -44,8 +44,14 @@ def check_runtime() -> None:
 
 
 def create_session(
-    config: SparkConfig, *, kafka: bool = True, from_submit: bool = False
+    config: SparkConfig,
+    *,
+    kafka: bool = True,
+    from_submit: bool = False,
+    profile: str = "streaming",
 ) -> "SparkSession":
+    if profile not in {"streaming", "batch"}:
+        raise ValueError("Spark execution profile must be streaming or batch")
     check_runtime()
     from pyspark.sql import SparkSession
 
@@ -80,9 +86,14 @@ def create_session(
         SparkSession.builder.appName(config.app_name)
         .config("spark.sql.session.timeZone", "UTC")
         .config("spark.sql.timestampType", "TIMESTAMP_LTZ")
-        .config("spark.sql.shuffle.partitions", "2")
+        .config(
+            "spark.sql.shuffle.partitions",
+            str(
+                config.batch_shuffle_partitions if profile == "batch" else config.shuffle_partitions
+            ),
+        )
         .config("spark.ui.enabled", "false")
-        .config("spark.sql.adaptive.enabled", "false")
+        .config("spark.sql.adaptive.enabled", str(profile == "batch").lower())
         .config(
             "spark.sql.streaming.stateStore.providerClass",
             "org.apache.spark.sql.execution.streaming.state.RocksDBStateStoreProvider",

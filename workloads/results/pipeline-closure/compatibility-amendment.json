@@ -1,0 +1,14 @@
+{
+  "decision_id": "2026-10-15-CONFIG-INTEGRITY-V2",
+  "evidence_type": "IMPLEMENTATION_CONTRACT",
+  "authorization": "Owner requested all pipeline-audit fixes; no private-source replay authorized or required",
+  "historical_reference": "workloads/results/phase16/publication-compatibility.json",
+  "reason": "Explicit repair of reproduced replay/conflict and committed-file-integrity defects; historical receipts remain immutable",
+  "configuration_manifest": {"read_versions": ["1.0", "2.0"], "write_version": "2.0", "legacy_limit": "Legacy counts and exact candidate replay comparison are checked, but missing historical file checksums cannot be reconstructed retroactively"},
+  "checkpoint": {"new_default": "config-snapshots-v8", "contract": "source-identity-v2", "legacy_resume": "REJECT_EXPLICITLY_REQUIRE_ISOLATED_ROLLOUT", "old_checkpoint_mutation": false},
+  "changed_files": {
+    "processing/state.py": {"previous_sha256": "6be0acc8a4d4ab689c1565b3771c57c64046216eb6712c096782a1b6d97908b5", "current_sha256": "ee6e500c178ed985f4d3608bef100345570232fd0ff857a5b62fa7a1dd4320f5"},
+    "spark/streaming/stateful.py": {"previous_sha256": "e1f245c4459d5b1471e5e6b826cae12ced4e6d3962e07c246191217993b6d060", "current_sha256": "eb175fc66cc8cf4358b7e42e2a94b1bf4b1e48c9cbac6d9cabc1c439a517f3c5"},
+    "spark/streaming/sinks/lake.py": {"previous_sha256": "01179b45c4cefac19a4bf75e002b3fb59579ab930f28b5fb54e8609da6de83da", "current_sha256": "19588fd45dc45c521b3092db0cafa3322d2db977382f93ce550cb3c19f9cceca"}
+  }
+}

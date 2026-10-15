@@ -17,8 +17,8 @@ def main():
     args = parser.parse_args()
     directory = args.campaign_directory.resolve()
     validate_live_campaign(directory)
-    if command(["git", "status", "--porcelain"]).strip():
-        raise RuntimeError("Image source must be a clean committed revision")
+    if command(["git", "status", "--porcelain", "--untracked-files=no"]).strip():
+        raise RuntimeError("Tracked image source must be a clean committed revision")
     revision = command(["git", "rev-parse", "HEAD"]).strip()
     receipt_path = directory / f"build-{revision}.json"
     if receipt_path.exists():

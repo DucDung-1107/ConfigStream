@@ -3,7 +3,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 const base = process.env.DASHBOARD_URL ?? "http://127.0.0.1:13000";
-const directory = new URL("../../docs/screenshots/phase20v/", import.meta.url);
+const directory = process.env.REVIEW_OUTPUT_DIR
+  ? new URL(`file://${process.env.REVIEW_OUTPUT_DIR.replace(/\/$/, "")}/`)
+  : new URL("../../docs/screenshots/phase20v/", import.meta.url);
 await mkdir(directory, { recursive: true });
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 const page = await browser.newPage({
@@ -176,7 +178,8 @@ await page.screenshot({
   path: fileURLToPath(new URL("evidence-error.png", directory)),
 });
 await writeFile(
-  new URL("../../.cache/phase20v/browser-review.json", import.meta.url),
+  process.env.REVIEW_RESULT_PATH ??
+    new URL("../../.cache/phase20v/browser-review.json", import.meta.url),
   JSON.stringify(
     {
       base,

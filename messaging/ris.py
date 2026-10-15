@@ -3,6 +3,7 @@
 import json
 from time import monotonic
 
+from messaging.ack_window import AckWindow
 from processing.ris import read_archive
 from schemas.ris import EventChunk, validate_topic
 
@@ -25,7 +26,17 @@ def ensure_topic(config, topic):
         )[topic].result(15)
 
 
-def publish(path, reference, progress, config, topic, *, chunk_size=128, check=lambda: None):
+def publish(
+    path,
+    reference,
+    progress,
+    config,
+    topic,
+    *,
+    chunk_size=128,
+    check=lambda: None,
+    inflight_chunks=1,
+):
     from confluent_kafka import Producer
 
     from workloads.ris_oracle import parser_module
@@ -36,6 +47,8 @@ def publish(path, reference, progress, config, topic, *, chunk_size=128, check=l
     previous = json.loads(progress.read_text()) if progress.exists() else {}
     if previous and previous.get("manifest_id") != reference.manifest.manifest_id:
         raise ValueError("RIS producer progress source conflict")
+    if previous.get("topic", topic) != topic:
+        raise ValueError("RIS producer progress topic conflict")
     start = previous.get("next_event", 0)
     client = Producer(
         config.producer_options()
@@ -44,17 +57,26 @@ def publish(path, reference, progress, config, topic, *, chunk_size=128, check=l
             "message.max.bytes": 1048576,
         }
     )
-    errors, pending = [], []
-    rows = messages = serialized = 0
+    pending = []
     began = monotonic()
 
-    def delivered(error, message):
-        if error:
-            errors.append("delivery_failed")
+    def commit(position):
+        progress.parent.mkdir(parents=True, exist_ok=True)
+        temporary = progress.with_suffix(".tmp")
+        temporary.write_text(
+            json.dumps(
+                {
+                    "manifest_id": reference.manifest.manifest_id,
+                    "topic": topic,
+                    "next_event": position,
+                }
+            )
+        )
+        temporary.replace(progress)
+
+    window = AckWindow(client, config, topic, commit, chunks=inflight_chunks, check=check)
 
     def flush_chunk(first):
-        nonlocal rows, messages, serialized
-        check()
         chunk = EventChunk(
             artifact_sha256=reference.manifest.artifacts[0].sha256,
             first_event=first,
@@ -64,31 +86,9 @@ def publish(path, reference, progress, config, topic, *, chunk_size=128, check=l
         encoded = chunk.model_dump_json().encode()
         if len(encoded) > 1024**2:
             raise ValueError("RIS transport byte bound")
-        deadline = monotonic() + config.enqueue_timeout_seconds
-        while True:
-            try:
-                client.produce(
-                    topic, key=chunk.artifact_sha256, value=encoded, on_delivery=delivered
-                )
-                break
-            except BufferError:
-                if monotonic() > deadline:
-                    raise RuntimeError("RIS enqueue timeout") from None
-                client.poll(0.1)
-        if client.flush(config.flush_timeout_seconds) or errors:
-            raise RuntimeError("RIS ACK failed; progress unchanged")
-        check()
-        progress.parent.mkdir(parents=True, exist_ok=True)
-        temporary = progress.with_suffix(".tmp")
-        temporary.write_text(
-            json.dumps(
-                {"manifest_id": reference.manifest.manifest_id, "next_event": first + len(pending)}
-            )
+        window.send(
+            chunk.artifact_sha256, encoded, rows=len(pending), position=first + len(pending)
         )
-        temporary.replace(progress)
-        rows += len(pending)
-        messages += 1
-        serialized += len(encoded)
         pending.clear()
 
     position = 0
@@ -106,15 +106,17 @@ def publish(path, reference, progress, config, topic, *, chunk_size=128, check=l
             position += 1
     if pending:
         flush_chunk(position - len(pending))
+    window.flush()
     if (framed, excluded) != (
         reference.manifest.expected_records,
         reference.manifest.excluded_records,
     ):
         raise ValueError("RIS source framing/exclusion inventory changed")
     return dict(
-        acknowledged_occurrences=rows,
-        messages=messages,
-        serialized_value_bytes=serialized,
+        acknowledged_occurrences=window.rows,
+        messages=window.messages,
+        serialized_value_bytes=window.bytes,
+        ack_flushes=window.flushes,
         elapsed_seconds=monotonic() - began,
         resumed_from_event=start,
     )

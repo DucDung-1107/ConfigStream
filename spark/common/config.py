@@ -50,7 +50,7 @@ class SparkConfig:
     master: str = "local[*]"
     app_name: str = "ConfigStreamStreaming"
     bootstrap_servers: str = "localhost:9092"
-    checkpoint_dir: Path = Path(".cache/spark-checkpoints/config-snapshots-v6")
+    checkpoint_dir: Path = Path(".cache/spark-checkpoints/config-snapshots-v8")
     runtime_dir: Path = Path(".cache/spark")
     starting_offsets: str = "latest"
     trigger_seconds: int = 2
@@ -63,8 +63,13 @@ class SparkConfig:
     lake: LakeConfig | None = None
     search: SearchConfig | None = None
     driver_memory: str = "1g"
+    shuffle_partitions: int = 2
+    batch_shuffle_partitions: int = 8
 
     def __post_init__(self) -> None:
+        for value in (self.shuffle_partitions, self.batch_shuffle_partitions):
+            if type(value) is not int or not 1 <= value <= 1024:
+                raise ValueError("Spark shuffle partition bound must be 1..1024")
         memory = re.fullmatch(r"([1-9]\d*)([mg])", self.driver_memory)
         if memory is None or not 512 <= int(memory[1]) * (1024 if memory[2] == "g" else 1) <= 8192:
             raise ValueError("SPARK_DRIVER_MEMORY must be between 512m and 8g")
@@ -92,6 +97,8 @@ class SparkConfig:
         return cls(
             master=values.get("SPARK_MASTER", "local[*]"),
             driver_memory=values.get("SPARK_DRIVER_MEMORY", "1g"),
+            shuffle_partitions=int(values.get("SPARK_SHUFFLE_PARTITIONS", "2")),
+            batch_shuffle_partitions=int(values.get("SPARK_BATCH_SHUFFLE_PARTITIONS", "8")),
             app_name=values.get("SPARK_APP_NAME", "ConfigStreamStreaming"),
             bootstrap_servers=values.get(
                 "KAFKA_BOOTSTRAP_SERVERS", KafkaConfig().bootstrap_servers
@@ -99,9 +106,7 @@ class SparkConfig:
             checkpoint_dir=Path(
                 values.get(
                     "SPARK_CHECKPOINT_DIR",
-                    ".cache/spark-checkpoints/config-snapshots-v7"
-                    if enabled
-                    else ".cache/spark-checkpoints/config-snapshots-v6",
+                    ".cache/spark-checkpoints/config-snapshots-v8",
                 )
             ),
             runtime_dir=Path(values.get("SPARK_RUNTIME_DIR", ".cache/spark")),

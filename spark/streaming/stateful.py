@@ -173,6 +173,18 @@ class VersionProcessor(StatefulProcessor):
                     "kafka_partition": row["kafka_partition"],
                     "kafka_offset": row["kafka_offset"],
                 }
+                if row.get("identity_error") is not None:
+                    yield pd.DataFrame(
+                        [
+                            output_record(
+                                "diagnostic",
+                                asset_id,
+                                event_ms,
+                                {**metadata, "reason": row["identity_error"]},
+                            )
+                        ]
+                    )
+                    continue
                 rejected = inspect_snapshot(state, row["snapshot_id"], int(row["version"]))
                 if rejected is not None:
                     records = self._outputs(rejected, event_ms, watermark)
@@ -256,10 +268,20 @@ def stateful_records(
     rules: tuple[Rule, ...],
     raw_records: DataFrame | None = None,
 ) -> DataFrame:
-    valid = (
-        valid_snapshots(classified)
-        .withWatermark("event_time", config.watermark_delay)
-        .dropDuplicatesWithinWatermark(["snapshot_id"])
+    from pyspark.sql.types import StructType
+
+    from spark.streaming.identity import IdentityProcessor, checkpoint_contract
+
+    checkpoint_contract(
+        config, int(classified.sparkSession.conf.get("spark.sql.shuffle.partitions"))
+    )
+    valid = valid_snapshots(classified).withWatermark("event_time", config.watermark_delay)
+    valid = valid.groupBy("snapshot_id").transformWithStateInPandas(
+        IdentityProcessor(config),
+        StructType(list(valid.schema.fields)).add("identity_error", "string"),
+        outputMode="Append",
+        timeMode="EventTime",
+        eventTimeColumnName="event_time",
     )
     processed = valid.groupBy("asset_id").transformWithStateInPandas(
         VersionProcessor(config, rules),

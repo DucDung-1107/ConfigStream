@@ -22,10 +22,16 @@ readback, Elasticsearch/FastAPI and owned-fixture recovery. See
 [Kubernetes acceptance](docs/phase20-k8s-acceptance.md). This is not HA or full-data replay.
 The [Phase 20V dashboard](docs/phase20v-acceptance.md) implements the actual
 shadcn/ui dashboard-01 reference and runs on K3s with verified aggregates and
-read-only configuration metadata. Desktop/tablet/mobile screenshots,19 browser
+read-only configuration metadata. Desktop/tablet/mobile screenshots,20 browser
 tests and an actual configuration/API rehearsal passed; access through
 `kubectl port-forward -n cs-app svc/dashboard 13080:8080 --address 127.0.0.1`.
 See the [seven-step demo](docs/phase20v-demo-script.md). Phase 21 has not begun.
+
+The [2026-10-15 pipeline integrity amendment](docs/pipeline-integrity-amendment.md)
+adds exact replay checks and versioned configuration Parquet inventories, plus
+bounded source-identity conflict detection. New processing uses an isolated v8
+checkpoint; old checkpoints/results are not rewritten. Performance options do
+not retroactively change accepted benchmark claims.
 
 ### Historical Phase 13 baseline
 
@@ -361,7 +367,7 @@ replaying. Checkpoints and downloaded JARs are ignored. See [Spark runtime, SQL
 validation, progress, and acceptance](docs/spark-streaming.md). `make setup` syncs
 only the base/Kafka environment; use `make spark-setup` again before Spark commands.
 
-Phase 6 defaults to a new `.cache/spark-checkpoints/config-snapshots-v6` directory;
+The integrity-v2 processor defaults to `.cache/spark-checkpoints/config-snapshots-v8`;
 never reuse a Phase 4 console checkpoint. Defaults are a 10-minute event-time
 watermark, 30-minute asset inactivity timeout, and 32 buffered versions per asset.
 The demo uses fixed 2026-10-05 timestamps; the generator defaults to 2026-09-30.

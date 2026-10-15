@@ -79,7 +79,8 @@ def test_legacy_publication_failure_boundaries_unchanged(tmp_path, monkeypatch, 
         monkeypatch.setattr(legacy, "save_commit", save)
         legacy.write_lake_batch(batch, 0, config, {"normalized_snapshot": 1})
         published = commits[(query, 0)]
-        assert published["format_version"] == "1.0"
+        assert published["format_version"] == "2.0"
+        assert published["files"]["processed/snapshots"]
         before = {path: path.read_bytes() for path in (tmp_path / "lake").rglob("*.parquet")}
         legacy.write_lake_batch(batch, 0, config, {"normalized_snapshot": 1})
         assert before == {

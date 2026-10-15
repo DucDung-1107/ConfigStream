@@ -121,13 +121,10 @@ def finalize_source(
     artifact = reference.manifest.artifacts[0].sha256
     expected = session.read.schema(schema(raw_schema())).parquet(str(oracle / "raw.parquet"))
     summary = json.loads((oracle / "summary.json").read_text())
-    all_expected = expected
     with ExitStack() as contexts:
-        all_raw = contexts.enter_context(
-            committed_raw(session, store, query, all_expected, artifacts=[artifact])
+        valid = contexts.enter_context(
+            committed_raw(session, store, query, expected, artifacts=[artifact], complete=True)
         )
-        source = all_raw.where(functions.col("artifact_sha256") == artifact)
-        valid = contexts.enter_context(verify_projection(source, expected, complete=True))
         raw_count, raw_digest = digest(valid)
         if (raw_count, raw_digest) != (
             summary["source_rows"],

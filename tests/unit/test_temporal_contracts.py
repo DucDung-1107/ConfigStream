@@ -997,7 +997,19 @@ def test_independent_vector_artifact_and_original_file_hashes():
     compatibility = json.loads(
         Path("workloads/results/phase16/publication-compatibility.json").read_text()
     )
+    amendment = json.loads(
+        Path("workloads/results/pipeline-closure/compatibility-amendment.json").read_text()
+    )
+    assert set(amendment["changed_files"]) == {
+        "processing/state.py",
+        "spark/streaming/stateful.py",
+        "spark/streaming/sinks/lake.py",
+    }
     for path, expected in compatibility["old_file_sha256"].items():
+        if path in amendment["changed_files"]:
+            change = amendment["changed_files"][path]
+            assert change["previous_sha256"] == expected
+            expected = change["current_sha256"]
         assert sha256(Path(path).read_bytes()).hexdigest() == expected
 
 

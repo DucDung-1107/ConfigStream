@@ -37,7 +37,7 @@ def publish_batch(batch: DataFrame, batch_id: int, config: SparkConfig) -> None:
         if config.search is not None:
             from search.sink import index_batch
 
-            index_batch(batch, config)
+            index_batch(batch, config, counts)
         if counts.get("alert", 0):
             write_alerts(batch, config)
         reasons = {

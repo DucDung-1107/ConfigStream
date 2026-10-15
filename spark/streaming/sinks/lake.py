@@ -101,6 +101,57 @@ def checkpoint_query_id(config: SparkConfig) -> str:
     return str(UUID(json.loads(metadata.read_text(encoding="utf-8"))["id"]))
 
 
+def parquet_inventory(session: SparkSession, path: str) -> list[dict]:
+    jvm = session.sparkContext._jvm
+    root = jvm.org.apache.hadoop.fs.Path(path)
+    filesystem = root.getFileSystem(session.sparkContext._jsc.hadoopConfiguration())
+    files = filesystem.listFiles(root, True)
+    inventory = []
+    prefix = filesystem.makeQualified(root).toString().rstrip("/") + "/"
+    while files.hasNext():
+        status = files.next()
+        location = status.getPath()
+        if not location.getName().endswith(".parquet"):
+            continue
+        stream = filesystem.open(location)
+        try:
+            checksum = jvm.org.apache.commons.codec.digest.DigestUtils.sha256Hex(stream)
+        finally:
+            stream.close()
+        inventory.append(
+            {
+                "path": location.toString().removeprefix(prefix),
+                "bytes": status.getLen(),
+                "sha256": checksum,
+            }
+        )
+    if not inventory:
+        raise RuntimeError("Committed lake dataset has no Parquet files")
+    return sorted(inventory, key=lambda item: item["path"])
+
+
+def validate_manifest(manifest: dict) -> None:
+    if manifest.get("format_version") not in {"1.0", "2.0"}:
+        raise RuntimeError("Unsupported lake manifest format")
+    if type(manifest.get("batch_id")) is not int or manifest["batch_id"] < 0:
+        raise RuntimeError("Invalid lake batch identity")
+    UUID(manifest["query_id"])
+    counts = manifest.get("counts")
+    if not isinstance(counts, dict) or any(
+        type(value) is not int or value < 0 for value in counts.values()
+    ):
+        raise RuntimeError("Invalid lake counts")
+    datasets = {
+        dataset
+        for dataset, kinds in DATASET_RECORD_TYPES.items()
+        if sum(counts.get(kind, 0) for kind in kinds)
+    }
+    if set(manifest.get("datasets", {})) != datasets:
+        raise RuntimeError("Lake dataset inventory disagrees with counts")
+    if manifest["format_version"] == "2.0" and set(manifest.get("files", {})) != datasets:
+        raise RuntimeError("Lake file inventory missing/conflicting")
+
+
 def write_lake_batch(
     batch: DataFrame, batch_id: int, config: SparkConfig, counts: dict[str, int]
 ) -> None:
@@ -112,16 +163,26 @@ def write_lake_batch(
     query_id = checkpoint_query_id(config)
     committed = load_commit(lake, query_id, batch_id)
     if committed is not None:
+        validate_manifest(committed)
         if (
-            committed.get("format_version") != "1.0"
-            or committed.get("query_id") != query_id
+            committed.get("query_id") != query_id
             or committed.get("batch_id") != batch_id
             or committed.get("counts") != counts
         ):
             raise RuntimeError("Lake commit disagrees with the replayed batch")
+        for dataset in committed["datasets"]:
+            expected = dataset_frame(batch, dataset)
+            actual = read_committed(
+                batch.sparkSession, lake, dataset, query_id, manifests=[committed]
+            ).select(*expected.columns)
+            if (
+                expected.exceptAll(actual).limit(1).count()
+                or actual.exceptAll(expected).limit(1).count()
+            ):
+                raise RuntimeError("Lake commit projection disagrees with the replayed batch")
         LOGGER.info("Lake batchId=%s already committed; preserving Parquet", batch_id)
         return
-    paths = {}
+    paths, inventories = {}, {}
     for dataset, record_types in DATASET_RECORD_TYPES.items():
         if sum(counts.get(record_type, 0) for record_type in record_types) == 0:
             continue
@@ -135,14 +196,20 @@ def write_lake_batch(
             .parquet(path)
         )
         paths[dataset] = path
+        inventories[dataset] = parquet_inventory(batch.sparkSession, path)
+        if batch.sparkSession.read.schema(DATASET_SCHEMAS[dataset]).parquet(path).count() != sum(
+            counts.get(kind, 0) for kind in record_types
+        ):
+            raise RuntimeError("Lake physical row count disagrees before commit")
     save_commit(
         lake,
         {
-            "format_version": "1.0",
+            "format_version": "2.0",
             "query_id": query_id,
             "batch_id": batch_id,
             "counts": counts,
             "datasets": paths,
+            "files": inventories,
         },
     )
     LOGGER.info("Lake batchId=%s committed datasets=%s", batch_id, sorted(paths))
@@ -160,8 +227,9 @@ def read_committed(
         raise ValueError("Unknown lake dataset")
     paths = []
     for manifest in list_commits(config, query_id) if manifests is None else manifests:
-        if manifest.get("format_version") != "1.0":
-            raise RuntimeError("Unsupported lake manifest format")
+        validate_manifest(manifest)
+        if query_id is not None and manifest["query_id"] != query_id:
+            raise RuntimeError("Lake manifest query identity mismatch")
         path = manifest["datasets"].get(dataset)
         if path is not None:
             expected = config.uri(
@@ -170,6 +238,16 @@ def read_committed(
             )
             if path != expected:
                 raise RuntimeError("Lake manifest contains an unexpected dataset path")
+            if (
+                manifest["format_version"] == "2.0"
+                and parquet_inventory(session, path) != manifest["files"][dataset]
+            ):
+                raise RuntimeError("Committed lake Parquet inventory/checksum mismatch")
+            count = session.read.schema(DATASET_SCHEMAS[dataset]).parquet(path).count()
+            if count != sum(
+                manifest["counts"].get(kind, 0) for kind in DATASET_RECORD_TYPES[dataset]
+            ):
+                raise RuntimeError("Committed lake row count mismatch")
             paths.append(path)
     if not paths:
         return session.createDataFrame(

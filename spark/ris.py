@@ -207,7 +207,8 @@ def source_order_digest(frame, *, partition_rows=32768):
     return digest.hexdigest()
 
 
-def completed_events(session, store, query_id, expected):
+@contextmanager
+def verified_completed_events(session, store, query_id, expected):
     from lake.ris import read_window
 
     descriptor = read_window(store, query_id)
@@ -218,6 +219,12 @@ def completed_events(session, store, query_id, expected):
             descriptor["projection_sha256"],
         ):
             raise ValueError("RIS complete-window physical projection mismatch")
+        yield result
+
+
+def completed_events(session, store, query_id, expected):
+    """Compatibility reader; use verified_completed_events for scoped repeated actions."""
+    with verified_completed_events(session, store, query_id, expected) as result:
         return result
 
 
@@ -277,7 +284,10 @@ class RisProcessor:
                 sealed = read_window(self.store, self.query_id)
                 if not set(artifacts) <= set(sealed["sources"]):
                     raise ValueError("RIS new source cannot append to sealed window")
-                completed_events(self.session, self.store, self.query_id, self.expected).count()
+                with verified_completed_events(
+                    self.session, self.store, self.query_id, self.expected
+                ):
+                    pass
                 self.metrics.append(
                     dict(
                         batch_id=batch_id,
