@@ -13,6 +13,39 @@ from spark.common.runtime import create_session
 ROOT = Path(__file__).resolve().parents[2]
 
 
+@pytest.mark.parametrize("changed", [None, "pyproject.toml", "uv.lock", "infra/k8s/Dockerfile"])
+def test_cached_runtime_requires_exact_dependency_inputs(monkeypatch, tmp_path, changed):
+    monkeypatch.syspath_prepend(str(ROOT / "infra/k8s/scripts"))
+    from build import validate_cached_runtime
+
+    (tmp_path / "infra/k8s").mkdir(parents=True)
+    (tmp_path / "infra/k8s/versions.json").write_text(
+        '{"accepted_application_source_sha":"accepted", "accepted_application_manifest":"digest"}'
+    )
+    for name in ("pyproject.toml", "uv.lock", "infra/k8s/Dockerfile"):
+        (tmp_path / name).write_bytes(b"changed" if name == changed else b"accepted")
+    monkeypatch.setattr("build.subprocess.check_output", lambda *args, **kwargs: b"accepted")
+    if changed:
+        with pytest.raises(RuntimeError, match="Cached runtime incompatible"):
+            validate_cached_runtime(tmp_path)
+    else:
+        assert validate_cached_runtime(tmp_path) == "digest"
+
+
+def test_cached_dockerfile_binds_accepted_image_and_checks_container_lock():
+    import json
+
+    versions = json.loads((ROOT / "infra/k8s/versions.json").read_text())
+    dockerfile = (ROOT / "infra/k8s/Dockerfile.cached").read_text()
+    assert dockerfile.startswith(
+        f"FROM configstream-k8s:{versions['accepted_application_source_sha']}"
+        f"@{versions['accepted_application_manifest']}\n"
+    )
+    assert "cmp pyproject.toml /tmp/dependency-check/pyproject.toml" in dockerfile
+    assert "cmp uv.lock /tmp/dependency-check/uv.lock" in dockerfile
+    assert dockerfile.endswith("USER 185\n")
+
+
 @pytest.mark.parametrize("master,mode", [("local[2]", "cluster"), ("k8s://server", "client")])
 def test_native_submission_rejects_local_or_client(monkeypatch, tmp_path, master, mode):
     monkeypatch.setattr("spark.common.runtime.check_runtime", lambda: None)

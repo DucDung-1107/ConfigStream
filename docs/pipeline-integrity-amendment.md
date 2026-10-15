@@ -77,6 +77,21 @@ and explicitly selected offsets for rollout; keep the old image for old jobs.
 No speedup is inferred from fewer calls without matched measurements. Existing
 Phase 20 measurements remain bound to their original execution commits/settings.
 
+## Cached runtime build (2026-10-16)
+
+`infra/k8s/scripts/build.py --cached-runtime --campaign-directory <live-campaign>`
+uses `Dockerfile.cached` and the digest-pinned, locally retained accepted ARM64
+application runtime. It rejects changes to `uv.lock`, `pyproject.toml` or the full
+runtime Dockerfile relative to that runtime's accepted source commit. The image
+also compares dependency inputs against the actual base-image files before
+replacing application code. Old application directories are removed first;
+untracked local files are excluded by `git archive`.
+
+This avoids resolving unchanged Maven/Python dependencies on every source-only
+repair. It is not a clean-machine rebuild result. The default full Dockerfile
+remains the clean-machine path. The preceding full-build failures (host swap
+guard and AWS SDK Maven download) remain preserved in private campaign receipts.
+
 ## Course scope
 
 The [official course page](https://datalab.vn/teaching/it4043e-big-data-storage-and-processing)

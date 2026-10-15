@@ -1,0 +1,30 @@
+FROM configstream-k8s:d24e7c460905d0d01f3edd8c119d0440a681ff8c@sha256:59e650a218b1f4e6f76459fb15ee56bbbe18963f5d61020dcec2de8d23889192
+USER root
+WORKDIR /opt/configstream
+COPY pyproject.toml uv.lock /tmp/dependency-check/
+RUN cmp pyproject.toml /tmp/dependency-check/pyproject.toml \
+    && cmp uv.lock /tmp/dependency-check/uv.lock \
+    && rm -rf /tmp/dependency-check \
+    && rm -rf schemas generator messaging spark processing lake search api workloads analytics benchmarks rules tests
+COPY schemas schemas
+COPY generator generator
+COPY messaging messaging
+COPY spark spark
+COPY processing processing
+COPY lake lake
+COPY search search
+COPY api api
+COPY workloads workloads
+COPY analytics analytics
+COPY benchmarks benchmarks
+COPY rules rules
+COPY README.md README.md
+COPY infra/k8s/application.py application.py
+COPY infra/k8s/roles.py roles.py
+COPY infra/k8s/integrity.py integrity.py
+COPY tests/unit tests/unit
+COPY tests/conftest.py tests/conftest.py
+COPY tests/fixtures/phase16 tests/fixtures/phase16
+COPY tests/fixtures/phase17 tests/fixtures/phase17
+COPY tests/fixtures/phase12 tests/fixtures/phase12
+USER 185

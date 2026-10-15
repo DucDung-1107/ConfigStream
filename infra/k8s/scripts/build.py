@@ -11,15 +11,27 @@ from bootstrap import LIMA_HOME, VM, command, guest
 from safety import validate_live_campaign
 
 
+def validate_cached_runtime(root):
+    versions = json.loads((root / "infra/k8s/versions.json").read_text())
+    revision = versions["accepted_application_source_sha"]
+    for name in ("pyproject.toml", "uv.lock", "infra/k8s/Dockerfile"):
+        accepted = subprocess.check_output(["git", "show", f"{revision}:{name}"], cwd=root)
+        if accepted != (root / name).read_bytes():
+            raise RuntimeError(f"Cached runtime incompatible with changed {name}")
+    return versions["accepted_application_manifest"]
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--campaign-directory", type=Path, required=True)
+    parser.add_argument("--cached-runtime", action="store_true")
     args = parser.parse_args()
     directory = args.campaign_directory.resolve()
     validate_live_campaign(directory)
     if command(["git", "status", "--porcelain", "--untracked-files=no"]).strip():
         raise RuntimeError("Tracked image source must be a clean committed revision")
     revision = command(["git", "rev-parse", "HEAD"]).strip()
+    runtime_digest = validate_cached_runtime(Path.cwd()) if args.cached_runtime else None
     receipt_path = directory / f"build-{revision}.json"
     if receipt_path.exists():
         raise RuntimeError("Existing build receipt cannot be overwritten")
@@ -30,6 +42,8 @@ def main():
         status="FAIL",
         image=f"configstream-k8s:{revision}",
         timeout_seconds=1800,
+        build_mode="verified_cached_runtime" if args.cached_runtime else "full_dependency_build",
+        runtime_manifest=runtime_digest,
     )
     receipt_path.write_text(json.dumps(report))
     os.environ["LIMA_HOME"] = str(LIMA_HOME)
@@ -81,6 +95,12 @@ def main():
                     "build",
                     "--frontend",
                     "dockerfile.v0",
+                    "--opt",
+                    "filename=Dockerfile.cached" if args.cached_runtime else "filename=Dockerfile",
+                    "--opt",
+                    "image-resolve-mode=prefer-local"
+                    if args.cached_runtime
+                    else "image-resolve-mode=default",
                     "--local",
                     "context=/tmp/configstream-closure-current",
                     "--local",
