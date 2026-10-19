@@ -9,9 +9,20 @@ Diagnostics count committed diagnostic occurrences, not inferred incident counts
 Run ID is SHA-256 of canonical sorted input manifests, `batch-v1` and parameters.
 UTC timestamps and numeric thresholds are canonicalized: CLI integer defaults and
 equivalent floating-point API values identify the same effective job.
-Outputs are typed Snappy Parquet below `analytics/<job>/run_id=<hash>`.
+New outputs are typed Snappy Parquet below
+`analytics/<job>/publication_v2/run_id=<hash>/selection=<requested-job>`.
+The request selection is `all` or the selected job name. Separate selections never
+overwrite each other's committed files, including legacy paths.
 `_analytics_commits/<hash>/<job>.json` is written only after every selected output
-succeeds. Repeating a completed run returns its existing manifest without rewriting.
+succeeds. Format `2.0` records each output's exact Parquet file inventory, sizes,
+SHA-256 checksums, physical row count and schema. Repeating a completed run verifies
+its identity, parameters, dataset paths and physical outputs before returning the
+existing manifest without rewriting. Missing, extra or changed files fail closed.
+Legacy format `1.0` at `analytics/<job>/run_id=<hash>` remains readable with physical
+schema/count checks; it has no recorded checksums and cannot prove same-count
+historical integrity. Legacy manifests are not upgraded or rewritten.
+To rebuild a damaged result, use a new isolated lake prefix with verified inputs;
+do not delete the marker and overwrite evidence under the original committed path.
 Do not run concurrent writers with identical run/job IDs; there is no distributed
 transaction or concurrent-writer lock. Uncommitted outputs are not authoritative.
 

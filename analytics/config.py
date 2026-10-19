@@ -4,6 +4,18 @@ from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 
 JOB_VERSION = "batch-v1"
+JOB_NAMES = frozenset(
+    {
+        "change-frequency",
+        "fleet-activity",
+        "diff-magnitude",
+        "alert-trends",
+        "diagnostic-trends",
+        "asset-summary",
+        "anomalies",
+        "fleet-bursts",
+    }
+)
 
 
 @dataclass(frozen=True)

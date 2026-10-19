@@ -3,19 +3,23 @@ import json
 from datetime import datetime
 from time import perf_counter
 
-from analytics.config import JOB_VERSION, AnalyticsConfig, run_identity
+from analytics.config import JOB_NAMES, JOB_VERSION, AnalyticsConfig, run_identity
+from analytics.publication import output_path, validate_commit, validate_output
 from lake.client import list_commits, s3_client
 from spark.common.config import SparkConfig
 
 
 def run_analytics(session, lake, config, query_id=None, job="all"):
     from analytics.jobs import all_jobs
-    from spark.streaming.sinks.lake import read_committed
+    from spark.streaming.sinks.lake import parquet_inventory, read_committed
 
+    if job != "all" and job not in JOB_NAMES:
+        raise ValueError("Unknown analytics job")
     manifests = list(list_commits(lake, query_id))
     if not manifests:
         raise ValueError("No committed input history")
     identity = run_identity(manifests, config)
+    input_commits = [[entry["query_id"], entry["batch_id"]] for entry in manifests]
     client = s3_client(lake)
     marker = lake.object_key(f"_analytics_commits/{identity}/{job}.json")
     from botocore.exceptions import ClientError
@@ -23,10 +27,13 @@ def run_analytics(session, lake, config, query_id=None, job="all"):
     try:
         response = client.get_object(Bucket=lake.bucket, Key=marker)
         with response["Body"] as body:
-            return json.loads(body.read())
+            existing = json.loads(body.read())
     except ClientError as error:
         if error.response["Error"]["Code"] != "NoSuchKey":
             raise
+    else:
+        validate_commit(session, lake, existing, identity, config, input_commits, job)
+        return existing
     inputs = {}
     datasets = {
         "snapshot": ("snapshots", "snapshot_id"),
@@ -41,8 +48,6 @@ def run_analytics(session, lake, config, query_id=None, job="all"):
         inputs[name] = frame.drop("normalized_content", "details")
     outputs = all_jobs(inputs, config)
     if job != "all":
-        if job not in outputs:
-            raise ValueError("Unknown analytics job")
         outputs = {job: outputs[job]}
     results = {}
     for name, frame in outputs.items():
@@ -50,21 +55,23 @@ def run_analytics(session, lake, config, query_id=None, job="all"):
         frame = frame.persist()
         try:
             count = frame.count()
-            path = lake.uri(f"analytics/{name}/run_id={identity}")
+            path = output_path(lake, name, identity, job)
             frame.write.mode("overwrite").option("compression", "snappy").parquet(path)
             results[name] = {
                 "path": path,
                 "rows": count,
                 "seconds": perf_counter() - started,
                 "schema": frame.schema.jsonValue(),
+                "files": parquet_inventory(session, path),
             }
+            validate_output(session, results[name], checksums=False)
         finally:
             frame.unpersist()
     manifest = {
-        "schema_version": "1.0",
+        "schema_version": "2.0",
         "run_id": identity,
         "job_version": JOB_VERSION,
-        "input_commits": [[entry["query_id"], entry["batch_id"]] for entry in manifests],
+        "input_commits": input_commits,
         "parameters": config.parameters(),
         "datasets": results,
     }

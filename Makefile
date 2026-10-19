@@ -121,7 +121,7 @@ test:
 	.venv/bin/python -m pytest tests/unit
 
 spark-setup: setup
-	"$(UV)" sync --locked --extra kafka --extra ris --extra spark
+	"$(UV)" sync --locked --extra kafka --extra ris --extra spark --extra lake
 
 lake-setup: setup
 	"$(UV)" sync --locked --extra kafka --extra spark --extra lake
