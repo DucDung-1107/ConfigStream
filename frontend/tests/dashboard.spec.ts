@@ -184,6 +184,42 @@ test("server cursor pagination is honored", async ({ page }) => {
     page.getByRole("button", { name: "owned-first", exact: true }),
   ).toBeVisible();
 });
+test("alerts sharing a snapshot retain their own identities and details", async ({
+  page,
+}) => {
+  await page.route("**/api/v1/alerts?*", (route) =>
+    route.fulfill({
+      json: {
+        items: ["logging-disabled", "telnet-enabled"].map((rule) => ({
+          schema_version: "1.0",
+          alert_id: `alert-${rule}`,
+          asset_id: "k8s-owned-router",
+          snapshot_id: "shared-snapshot",
+          rule_id: rule,
+          severity: "high",
+          message: `Detected ${rule}`,
+          created_at: "2026-10-19T00:00:00Z",
+        })),
+        count: 2,
+        has_more: false,
+        next_cursor: null,
+      },
+    }),
+  );
+  await page.goto("/history/");
+  await page.getByRole("tab", { name: "Alerts", exact: true }).click();
+  for (const rule of ["logging-disabled", "telnet-enabled"]) {
+    await page
+      .getByRole("button", { name: `alert-${rule}`, exact: true })
+      .click();
+    await expect(page.getByRole("dialog")).toContainText(`Detected ${rule}`);
+    await expect(page.getByRole("dialog")).toContainText("shared-snapshot");
+    await page.keyboard.press("Escape");
+  }
+  await expect(
+    page.getByRole("button", { name: "shared-snapshot", exact: true }),
+  ).toHaveCount(0);
+});
 test("owned source identity detail and keyboard close", async ({
   page,
   context,

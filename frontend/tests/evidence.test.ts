@@ -106,4 +106,40 @@ describe("declared evidence and uncertainty", () => {
     );
     await expect(loadCatalog()).rejects.toThrow("unavailable");
   });
+  it("bounds stalled evidence requests and preserves cancellation", async () => {
+    const deadline = new AbortController();
+    const timeout = vi
+      .spyOn(AbortSignal, "timeout")
+      .mockReturnValue(deadline.signal);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        (_url, options) =>
+          new Promise((_resolve, reject) => {
+            options.signal.addEventListener(
+              "abort",
+              () => reject(options.signal.reason),
+              { once: true },
+            );
+          }),
+      ),
+    );
+    try {
+      const stalled = loadCatalog();
+      const failed = expect(stalled).rejects.toThrow("deadline");
+      expect(timeout).toHaveBeenCalledWith(10000);
+      deadline.abort(new Error("deadline"));
+      await failed;
+
+      timeout.mockReturnValue(new AbortController().signal);
+      const caller = new AbortController();
+      const cancelled = expect(loadCatalog(caller.signal)).rejects.toThrow(
+        "cancelled",
+      );
+      caller.abort(new Error("cancelled"));
+      await cancelled;
+    } finally {
+      timeout.mockRestore();
+    }
+  });
 });

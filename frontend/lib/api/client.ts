@@ -4,7 +4,9 @@ import { evidenceDigest } from "@/lib/evidence-digest";
 
 export async function loadCatalog(signal?: AbortSignal) {
   const response = await fetch("/research/v1/catalog.json", {
-    signal,
+    signal: signal
+      ? AbortSignal.any([signal, AbortSignal.timeout(10000)])
+      : AbortSignal.timeout(10000),
     cache: "no-store",
   });
   if (!response.ok)

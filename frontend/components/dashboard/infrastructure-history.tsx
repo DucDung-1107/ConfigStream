@@ -51,8 +51,8 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
     };
   }, [kind, submitted, cursors, range]);
   const rows: EvidenceRow[] = (page?.items ?? []).map((item) => ({
-    id: item.snapshot_id ?? item.diff_id ?? item.alert_id ?? item.asset_id,
-    label: item.snapshot_id ?? item.diff_id ?? item.alert_id ?? item.asset_id,
+    id: item.alert_id ?? item.diff_id ?? item.snapshot_id ?? item.asset_id,
+    label: item.alert_id ?? item.diff_id ?? item.snapshot_id ?? item.asset_id,
     unit: item.version
       ? `configuration version ${item.version}`
       : `${kind} metadata`,
@@ -129,7 +129,7 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
         </TabsList>
         <TabsContent value={kind}>
           {loading ? (
-            <p role="status">Loading committed metadata…</p>
+            <p role="status">Loading live metadata…</p>
           ) : error ? (
             <div role="alert" className="rounded-lg border p-4">
               <p>{error}</p>
