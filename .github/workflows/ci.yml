@@ -26,6 +26,9 @@ jobs:
         working-directory: frontend
       - run: npm run format:check && npm run typecheck && npm test && npm run build
         working-directory: frontend
+      - name: Verify pinned Nginx response headers
+        run: node tests/nginx-smoke.mjs
+        working-directory: frontend
       - run: npx playwright install --with-deps chromium
         working-directory: frontend
       - run: npm run e2e
