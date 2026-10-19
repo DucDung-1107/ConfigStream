@@ -1,8 +1,8 @@
 # Historical Spark batch plane
 
 `analytics/` reads only manifest-committed processed Parquet through `read_committed`.
-It never reads Elasticsearch, raw Kafka bytes or configuration bodies. A frozen list
-of input manifests is passed to the reader: concurrent new commits cannot change
+It never reads Elasticsearch or raw Kafka bytes. A frozen list of input manifests
+is passed to the reader: concurrent new commits cannot change
 the input halfway through a run. Exact typed payloads are deduplicated across input
 queries, ignoring only delivery/location columns (ingest_time, query_id, batch_id,
 year/month/day). A repeated snapshot/diff/alert ID with a different source payload
@@ -18,21 +18,26 @@ remain untouched and are still visible to the metadata inspection command.
 UTC timestamps and numeric thresholds are canonicalized: CLI integer defaults and
 equivalent floating-point API values identify the same effective job.
 New outputs are typed Snappy Parquet below
-`analytics/<job>/publication_v2/run_id=<hash>/selection=<requested-job>`.
-The request selection is `all` or the selected job name. Separate selections never
-overwrite each other's committed files, including legacy paths.
+`analytics/<job>/publication_v3/run_id=<hash>/selection=<requested-job>/attempt_id=<uuid>`.
+The request selection is `all` or the selected job name. Each concurrent attempt
+writes a unique directory in error-if-exists mode. Separate attempts and selections
+cannot overwrite each other's files, including legacy committed paths.
 `_analytics_commits/<hash>/<job>.json` is written only after every selected output
-succeeds. Format `2.0` records each output's exact Parquet file inventory, sizes,
+succeeds. Format `3.0` binds the winning attempt ID and records each output's exact Parquet file inventory, sizes,
 SHA-256 checksums, physical row count and schema. Repeating a completed run verifies
 its identity, parameters, dataset paths and physical outputs before returning the
 existing manifest without rewriting. Missing, extra or changed files fail closed.
 Legacy format `1.0` at `analytics/<job>/run_id=<hash>` remains readable with physical
 schema/count checks; it has no recorded checksums and cannot prove same-count
-historical integrity. Legacy manifests are not upgraded or rewritten.
+historical integrity. Format `2.0` keeps its existing `publication_v2` paths and checksum validation.
+Legacy manifests are not upgraded or rewritten.
 To rebuild a damaged result, use a new isolated lake prefix with verified inputs;
 do not delete the marker and overwrite evidence under the original committed path.
-Do not run concurrent writers with identical run/job IDs; there is no distributed
-transaction or concurrent-writer lock. Uncommitted outputs are not authoritative.
+The marker is created conditionally. If another attempt wins, the losing writer
+validates and returns the winner's committed output. Uncommitted attempt directories
+are not authoritative and remain available for inspection; cleanup requires checking
+that no marker references them and no writer is active. There is no automatic
+orphan cleanup or transaction spanning input history and output publication.
 
 ## Jobs and output columns
 

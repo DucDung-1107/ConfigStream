@@ -2,6 +2,7 @@ import argparse
 import json
 from datetime import datetime
 from time import perf_counter
+from uuid import uuid4
 
 from analytics.config import JOB_NAMES, JOB_VERSION, AnalyticsConfig, run_identity
 from analytics.publication import output_path, validate_commit, validate_output
@@ -51,13 +52,14 @@ def run_analytics(session, lake, config, query_id=None, job="all"):
     if job != "all":
         outputs = {job: outputs[job]}
     results = {}
+    attempt_id = uuid4().hex
     for name, frame in outputs.items():
         started = perf_counter()
         frame = frame.persist()
         try:
             count = frame.count()
-            path = output_path(lake, name, identity, job)
-            frame.write.mode("overwrite").option("compression", "snappy").parquet(path)
+            path = output_path(lake, name, identity, job, attempt_id=attempt_id)
+            frame.write.mode("errorifexists").option("compression", "snappy").parquet(path)
             results[name] = {
                 "path": path,
                 "rows": count,
@@ -69,20 +71,30 @@ def run_analytics(session, lake, config, query_id=None, job="all"):
         finally:
             frame.unpersist()
     manifest = {
-        "schema_version": "2.0",
+        "schema_version": "3.0",
+        "attempt_id": attempt_id,
         "run_id": identity,
         "job_version": JOB_VERSION,
         "input_commits": input_commits,
         "parameters": config.parameters(),
         "datasets": results,
     }
-    client.put_object(
-        Bucket=lake.bucket,
-        Key=marker,
-        Body=json.dumps(manifest, sort_keys=True).encode(),
-        ContentType="application/json",
-        IfNoneMatch="*",
-    )
+    try:
+        client.put_object(
+            Bucket=lake.bucket,
+            Key=marker,
+            Body=json.dumps(manifest, sort_keys=True).encode(),
+            ContentType="application/json",
+            IfNoneMatch="*",
+        )
+    except ClientError as error:
+        if error.response["Error"]["Code"] not in {"PreconditionFailed", "412"}:
+            raise
+        response = client.get_object(Bucket=lake.bucket, Key=marker)
+        with response["Body"] as body:
+            winner = json.loads(body.read())
+        validate_commit(session, lake, winner, identity, config, input_commits, job)
+        return winner
     return manifest
 
 

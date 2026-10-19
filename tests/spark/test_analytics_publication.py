@@ -26,7 +26,8 @@ class MarkerStore:
 
     def put_object(self, *, Bucket, Key, Body, **options):
         assert options["IfNoneMatch"] == "*"
-        assert Key not in self.objects
+        if Key in self.objects:
+            raise ClientError({"Error": {"Code": "PreconditionFailed"}}, "PutObject")
         self.objects[Key] = Body
 
 
@@ -84,7 +85,18 @@ def test_exact_retry_preserves_files_and_rejects_missing_output(session, publica
 
 
 @pytest.mark.parametrize(
-    "damage", ["changed", "extra", "rows", "schema", "schema_type", "path", "run_id", "datasets"]
+    "damage",
+    [
+        "changed",
+        "extra",
+        "rows",
+        "schema",
+        "schema_type",
+        "path",
+        "run_id",
+        "datasets",
+        "attempt_id",
+    ],
 )
 def test_corrupt_cached_output_fails_closed(session, publication, damage):
     manifest = run(session, publication)
@@ -107,6 +119,8 @@ def test_corrupt_cached_output_fails_closed(session, publication, damage):
         result["path"] += "-different-run"
     elif damage == "run_id":
         manifest["run_id"] = "unexpected"
+    elif damage == "attempt_id":
+        manifest["attempt_id"] = "../other-run"
     else:
         manifest["datasets"] = {}
     store = publication[1]
@@ -126,6 +140,57 @@ def test_individual_job_cannot_rewrite_committed_all_outputs(session, publicatio
     assert individual["datasets"]["change-frequency"]["path"] != result["path"]
     assert all(p.read_bytes() == raw and p.stat().st_mtime_ns == mtime for p, raw, mtime in files)
     assert run(session, publication, "all") == complete
+
+
+def test_overlapping_attempts_publish_one_immutable_winner(session, publication, monkeypatch):
+    store = publication[1]
+    original = store.put_object
+    attempts = []
+    winner_files = []
+
+    def race(**options):
+        attempts.append(json.loads(options["Body"]))
+        if len(attempts) == 1:
+            winner = run(session, publication)
+            path = winner["datasets"]["change-frequency"]["path"]
+            winner_files.extend(
+                (p, p.read_bytes(), p.stat().st_mtime_ns) for p in Path(path).glob("*.parquet")
+            )
+        original(**options)
+
+    monkeypatch.setattr(store, "put_object", race)
+    result = run(session, publication)
+    assert len(attempts) == 2
+    assert attempts[0]["attempt_id"] != attempts[1]["attempt_id"]
+    assert (
+        attempts[0]["datasets"]["change-frequency"]["path"]
+        != attempts[1]["datasets"]["change-frequency"]["path"]
+    )
+    assert result == attempts[1]
+    assert run(session, publication) == result
+    assert len(store.objects) == 1
+    assert winner_files
+    assert all(
+        p.read_bytes() == raw and p.stat().st_mtime_ns == mtime for p, raw, mtime in winner_files
+    )
+
+
+def test_v2_cache_is_still_readable_without_rewrite(session, publication):
+    lake, store, output = publication
+    manifest = run(session, publication)
+    manifest["schema_version"] = "2.0"
+    del manifest["attempt_id"]
+    result = manifest["datasets"]["change-frequency"]
+    result["path"] = output_path(lake, "change-frequency", manifest["run_id"], "change-frequency")
+    output.write.parquet(result["path"])
+    from spark.streaming.sinks.lake import parquet_inventory
+
+    result["files"] = parquet_inventory(session, result["path"])
+    key = next(iter(store.objects))
+    store.objects[key] = json.dumps(manifest).encode()
+    before = store.objects[key]
+    assert run(session, publication) == manifest
+    assert store.objects[key] == before
 
 
 def test_legacy_cache_checks_physical_rows_without_upgrading_manifest(session, publication):
