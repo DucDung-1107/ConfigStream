@@ -56,7 +56,8 @@ def publication(session, tmp_path, monkeypatch):
         main, "list_commits", lambda *args: [{"query_id": "owned-query", "batch_id": 0}]
     )
     input_frame = session.createDataFrame(
-        [("s", "d", "a")], "snapshot_id STRING, diff_id STRING, alert_id STRING"
+        [("s", "d", "a", "router", 1)],
+        "snapshot_id STRING, diff_id STRING, alert_id STRING, asset_id STRING, version LONG",
     )
     monkeypatch.setattr(sink, "read_committed", lambda *args, **kwargs: input_frame)
     output = session.createDataFrame([("a", 1), ("b", 2)], "asset_id STRING, total LONG").coalesce(
@@ -155,3 +156,75 @@ def test_empty_analytics_output_is_verified(session, publication, monkeypatch):
     result = run(session, publication)
     assert result["datasets"]["change-frequency"]["rows"] == 0
     assert run(session, publication) == result
+
+
+@pytest.mark.parametrize(
+    "kind,identifier",
+    [
+        ("snapshots", "snapshot_id"),
+        ("diffs", "diff_id"),
+        ("alerts", "alert_id"),
+    ],
+)
+def test_cross_query_identity_compares_full_payload(session, kind, identifier):
+    from pyspark.sql import functions as F
+
+    from analytics.reconciliation import reconcile_history
+    from spark.streaming.sinks.lake import dataset_frame
+    from tests.spark.test_lake import batch_outputs
+
+    frame = dataset_frame(batch_outputs(session), f"processed/{kind}").withColumn(
+        "query_id", F.lit("first")
+    )
+    retry = frame.withColumn("query_id", F.lit("second")).withColumn("batch_id", F.lit(99))
+    if kind == "snapshots":
+        retry = retry.withColumn("ingest_time", F.col("ingest_time") + F.expr("INTERVAL 1 DAY"))
+    deliveries = frame.unionByName(retry, allowMissingColumns=True)
+    accepted = reconcile_history(deliveries, identifier)
+    assert accepted.count() == frame.count()
+    assert "query_id" not in accepted.columns
+    assert "ingest_time" not in accepted.columns
+
+    if kind == "diffs":
+        conflicting = retry.withColumn(
+            "details",
+            F.transform(
+                "details",
+                lambda line: F.struct(
+                    line.operation.alias("operation"),
+                    F.concat(line.line, F.lit(" altered")).alias("line"),
+                ),
+            ),
+        )
+    else:
+        column = "normalized_content" if kind == "snapshots" else "message"
+        conflicting = retry.withColumn(column, F.concat(F.col(column), F.lit(" altered")))
+    with pytest.raises(RuntimeError, match="Conflicting"):
+        reconcile_history(frame.unionByName(conflicting, allowMissingColumns=True), identifier)
+
+
+def test_conflicting_versions_and_missing_ids_fail_before_publication(
+    session, publication, monkeypatch
+):
+    from pyspark.sql import functions as F
+
+    from analytics.reconciliation import reconcile_history
+    from spark.streaming.sinks import lake as sink
+
+    valid = session.createDataFrame(
+        [("s1", "router", 1), ("s2", "router", 1)],
+        "snapshot_id STRING, asset_id STRING, version LONG",
+    )
+    with pytest.raises(RuntimeError, match="asset/version"):
+        reconcile_history(valid, "snapshot_id")
+    for missing in (None, " "):
+        with pytest.raises(RuntimeError, match="missing"):
+            reconcile_history(
+                valid.limit(1).withColumn("snapshot_id", F.lit(missing).cast("string")),
+                "snapshot_id",
+            )
+    monkeypatch.setattr(sink, "read_committed", lambda *args, **kwargs: valid)
+    with pytest.raises(RuntimeError, match="asset/version"):
+        run(session, publication)
+    assert publication[1].objects == {}
+    assert not list(Path(publication[0].uri("analytics")).rglob("*.parquet"))

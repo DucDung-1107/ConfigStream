@@ -11,6 +11,7 @@ from spark.common.config import SparkConfig
 
 def run_analytics(session, lake, config, query_id=None, job="all"):
     from analytics.jobs import all_jobs
+    from analytics.reconciliation import reconcile_history
     from spark.streaming.sinks.lake import parquet_inventory, read_committed
 
     if job != "all" and job not in JOB_NAMES:
@@ -44,7 +45,7 @@ def run_analytics(session, lake, config, query_id=None, job="all"):
     for name, (dataset, identifier) in datasets.items():
         frame = read_committed(session, lake, f"processed/{dataset}", query_id, manifests=manifests)
         if identifier:
-            frame = frame.dropDuplicates([identifier])
+            frame = reconcile_history(frame, identifier)
         inputs[name] = frame.drop("normalized_content", "details")
     outputs = all_jobs(inputs, config)
     if job != "all":

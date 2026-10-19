@@ -3,10 +3,18 @@
 `analytics/` reads only manifest-committed processed Parquet through `read_committed`.
 It never reads Elasticsearch, raw Kafka bytes or configuration bodies. A frozen list
 of input manifests is passed to the reader: concurrent new commits cannot change
-the input halfway through a run. Domain IDs are deduplicated across input queries.
+the input halfway through a run. Exact typed payloads are deduplicated across input
+queries, ignoring only delivery/location columns (ingest_time, query_id, batch_id,
+year/month/day). A repeated snapshot/diff/alert ID with a different source payload
+fails the run before any output publication. Distinct snapshot IDs claiming the
+same asset/version also fail. Full normalized content and diff details participate
+in reconciliation before they are dropped from analytics inputs.
 Diagnostics count committed diagnostic occurrences, not inferred incident counts.
 
-Run ID is SHA-256 of canonical sorted input manifests, `batch-v1` and parameters.
+Run ID is SHA-256 of canonical sorted input manifests, `batch-v2` and parameters.
+The identity-reconciliation change advances the job version so old `batch-v1`
+results cannot bypass validation through a cache hit. Old results and evidence
+remain untouched and are still visible to the metadata inspection command.
 UTC timestamps and numeric thresholds are canonicalized: CLI integer defaults and
 equivalent floating-point API values identify the same effective job.
 New outputs are typed Snappy Parquet below

@@ -3,7 +3,7 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 
-JOB_VERSION = "batch-v1"
+JOB_VERSION = "batch-v2"
 JOB_NAMES = frozenset(
     {
         "change-frequency",
