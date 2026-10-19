@@ -177,6 +177,46 @@ def test_backend_failure_mapping_and_recovery(http, backend, error, status, code
     assert http.get("/api/v1/snapshots").status_code == 200
 
 
+@pytest.mark.parametrize(
+    "endpoint",
+    [
+        "/api/v1/snapshots",
+        "/api/v1/assets/router/latest-snapshot",
+        "/api/v1/stats/alerts",
+        "/api/v1/stats/diffs",
+    ],
+)
+@pytest.mark.parametrize(
+    "metadata,status,code",
+    [
+        ({"timed_out": True}, 504, "search_timeout"),
+        (
+            {"_shards": {"failed": 1, "failures": ["PRIVATE_BACKEND_DETAIL"]}},
+            503,
+            "search_unavailable",
+        ),
+        ({"terminated_early": True}, 503, "search_unavailable"),
+    ],
+)
+def test_incomplete_search_is_never_a_successful_page_or_statistic(
+    http, backend, monkeypatch, endpoint, metadata, status, code
+):
+    original = backend.search
+
+    def partial(**options):
+        assert options["allow_partial_search_results"] is False
+        return {**original(**options), **metadata}
+
+    monkeypatch.setattr(backend, "search", partial)
+    response = http.get(endpoint)
+    assert response.status_code == status
+    assert response.json()["error"]["code"] == code
+    assert "PRIVATE_BACKEND_DETAIL" not in response.text
+    assert "items" not in response.json()
+    monkeypatch.setattr(backend, "search", original)
+    assert http.get(endpoint).status_code == 200
+
+
 @pytest.mark.parametrize("kind", list(RESPONSE_MODELS))
 @pytest.mark.parametrize("field", ["normalized_content", "content", "value", "details"])
 def test_forbidden_fields_fail_closed(http, backend, kind, field):

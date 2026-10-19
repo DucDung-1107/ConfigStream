@@ -1,5 +1,6 @@
 from search.config import SearchConfig
 from search.documents import utc_timestamp
+from search.errors import IncompleteSearchError, SearchTimeoutError
 
 TIME_FIELDS = {
     "snapshots": "event_time",
@@ -13,6 +14,15 @@ ID_FIELDS = {
     "alerts": "alert_id",
     "diagnostics": "diagnostic_id",
 }
+
+
+def complete_search(client, **options):
+    response = client.search(allow_partial_search_results=False, **options)
+    if response.get("timed_out", False):
+        raise SearchTimeoutError("Search deadline exceeded")
+    if response.get("terminated_early", False) or response.get("_shards", {}).get("failed", 0):
+        raise IncompleteSearchError("Search results are incomplete")
+    return response
 
 
 def document_filters(kind: str, **values) -> list[dict]:
@@ -47,7 +57,8 @@ def document_filters(kind: str, **values) -> list[dict]:
 def page_documents(client, config: SearchConfig, kind: str, *, limit=50, after=None, **filters):
     if not 1 <= limit <= 200:
         raise ValueError("Page limit must be between 1 and 200")
-    response = client.search(
+    response = complete_search(
+        client,
         index=config.alias(kind),
         query={"bool": {"filter": document_filters(kind, **filters)}},
         size=limit + 1,
@@ -103,7 +114,8 @@ def query_documents(
         end=end,
     )
     return dict(
-        client.search(
+        complete_search(
+            client,
             index=alias,
             query={"bool": {"filter": filters}},
             size=1 if latest else size,
@@ -127,7 +139,8 @@ def aggregate(client, config: SearchConfig, group: str, **filters) -> dict:
     else:
         raise ValueError("Unknown search aggregation")
     return dict(
-        client.search(
+        complete_search(
+            client,
             index=config.alias(kind),
             size=0,
             query={"bool": {"filter": document_filters(kind, **filters)}},

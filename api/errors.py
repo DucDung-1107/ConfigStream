@@ -7,6 +7,7 @@ from pydantic import ValidationError
 from starlette.exceptions import HTTPException
 
 from api.models import ErrorDetail, ErrorResponse
+from search.errors import IncompleteSearchError, SearchTimeoutError
 
 LOGGER = logging.getLogger(__name__)
 
@@ -21,9 +22,9 @@ def backend_error(error: Exception) -> ApiError:
     from elasticsearch import ApiError as ElasticsearchError
     from elasticsearch import ConnectionError, ConnectionTimeout
 
-    if isinstance(error, ConnectionTimeout):
+    if isinstance(error, (ConnectionTimeout, SearchTimeoutError)):
         return ApiError(504, "search_timeout", "Search backend timed out")
-    if isinstance(error, ConnectionError):
+    if isinstance(error, (ConnectionError, IncompleteSearchError)):
         return ApiError(503, "search_unavailable", "Search backend is unavailable")
     if isinstance(error, ElasticsearchError) and error.status_code in {404, 429, 502, 503}:
         return ApiError(503, "search_unavailable", "Search backend is unavailable")
