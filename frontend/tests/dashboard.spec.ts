@@ -208,6 +208,42 @@ test("owned source identity detail and keyboard close", async ({
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
+
+test("live metadata never inherits the owned fixture provenance", async ({
+  page,
+}) => {
+  await page.route("**/api/v1/**", (route) =>
+    route.fulfill({
+      json: {
+        items: [
+          {
+            snapshot_id: "external-snapshot",
+            asset_id: "external-router",
+            version: 1,
+          },
+        ],
+        count: 1,
+        has_more: false,
+        next_cursor: null,
+      },
+    }),
+  );
+  await page.goto("/history/");
+  await page
+    .getByRole("button", { name: "external-snapshot", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "PROVENANCE NOT VERIFIED",
+  );
+  await expect(page.getByRole("dialog")).not.toContainText(
+    "PROJECT-OWNED DEMO FIXTURE",
+  );
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Open source evidence" }),
+  ).toHaveCount(0);
+});
 test("DNS qualifiers and unexecuted H3 remain explicit", async ({ page }) => {
   await page.goto("/dns/");
   await expect(

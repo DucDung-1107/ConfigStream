@@ -24,6 +24,7 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     let active = true;
+    const controller = new AbortController();
     setLoading(true);
     setError("");
     setPage(null);
@@ -33,6 +34,7 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
       cursors[cursors.length - 1],
       range.start,
       range.end,
+      controller.signal,
     )
       .then((value) => {
         if (active) setPage(value);
@@ -45,6 +47,7 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
       });
     return () => {
       active = false;
+      controller.abort();
     };
   }, [kind, submitted, cursors, range]);
   const rows: EvidenceRow[] = (page?.items ?? []).map((item) => ({
@@ -54,10 +57,9 @@ export function InfrastructureHistory({ commit }: { commit: string }) {
       ? `configuration version ${item.version}`
       : `${kind} metadata`,
     scope: item.asset_id,
-    status: "COMMITTED METADATA",
-    source: "PROJECT-OWNED DEMO FIXTURE",
-    artifact:
-      "workloads/results/phase20-k8s/closure-application-validation.json",
+    status: "LIVE METADATA",
+    source: "LIVE API · PROVENANCE NOT VERIFIED",
+    artifact: null,
     details: item,
   }));
   return (

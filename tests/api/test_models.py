@@ -1,12 +1,12 @@
 import json
 
 import pytest
-from conftest import document
 from pydantic import ValidationError
 
 from api.errors import ApiError
 from api.models import RESPONSE_MODELS, SnapshotResponse
 from api.pagination import cursor_context, decode_cursor, encode_cursor
+from tests.api.conftest import document
 
 
 @pytest.mark.parametrize("kind", list(RESPONSE_MODELS))

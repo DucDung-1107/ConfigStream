@@ -3,7 +3,6 @@ from unittest.mock import patch
 from urllib.parse import quote
 
 import pytest
-from conftest import document
 from elasticsearch import ConnectionError, ConnectionTimeout
 from fastapi.testclient import TestClient
 
@@ -13,6 +12,7 @@ from api.models import RESPONSE_MODELS
 from api.pagination import cursor_context, decode_cursor, encode_cursor
 from api.service import SearchService
 from search.config import SearchConfig
+from tests.api.conftest import document
 
 
 def test_liveness_readiness_and_missing_alias(http, backend):
@@ -47,6 +47,32 @@ def test_latest_uses_version_not_ingest_order(http, backend):
     assert response.json()["version"] == 3
     assert backend.calls[-1]["sort"] == [{"version": "desc"}, {"snapshot_id": "asc"}]
     assert http.get("/api/v1/assets/missing/latest-snapshot").status_code == 404
+
+
+@pytest.mark.parametrize("kind", list(RESPONSE_MODELS))
+def test_exclusive_end_preserves_last_fractional_second(http, backend, kind):
+    field = "created_at" if kind == "alerts" else "event_time"
+    backend.documents[kind] = [
+        {**document(kind, index), field: timestamp}
+        for index, timestamp in enumerate(
+            ("2026-10-11T23:59:59.999999Z", "2026-10-12T00:00:00Z"), start=1
+        )
+    ]
+    params = {"start": "2026-10-11T00:00:00Z", "end_before": "2026-10-12T00:00:00Z"}
+    result = http.get(f"/api/v1/{kind}", params=params)
+    assert result.status_code == 200
+    assert result.json()["count"] == 1
+    assert result.json()["items"][0][field] == "2026-10-11T23:59:59.999999Z"
+    legacy = http.get(f"/api/v1/{kind}", params={"end": params["end_before"]})
+    assert legacy.json()["count"] == 2
+    assert (
+        http.get(f"/api/v1/{kind}", params={**params, "end": params["end_before"]}).status_code
+        == 422
+    )
+    assert (
+        http.get(f"/api/v1/{kind}", params={**params, "start": params["end_before"]}).status_code
+        == 422
+    )
 
 
 def test_opaque_identifiers_preserve_existing_schema_semantics(http, backend):

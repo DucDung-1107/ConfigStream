@@ -175,6 +175,6 @@ export type EvidenceRow = {
   status: string;
   source: string;
   details: Record<string, unknown>;
-  artifact: string;
+  artifact: string | null;
   role?: string;
 };

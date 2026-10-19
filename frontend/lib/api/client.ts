@@ -60,14 +60,22 @@ export async function getMetadata(
   cursor: string | null,
   start: string,
   end: string,
+  signal?: AbortSignal,
 ) {
   const query = new URLSearchParams({ limit: "10" });
   if (asset) query.set("asset_id", asset);
   if (cursor) query.set("cursor", cursor);
-  if (start) query.set("start", `${start}T00:00:00Z`);
-  if (end) query.set("end", `${end}T23:59:59Z`);
+  if (start) query.set("start", `${z.iso.date().parse(start)}T00:00:00Z`);
+  if (end) {
+    const nextDay = new Date(`${z.iso.date().parse(end)}T00:00:00Z`);
+    nextDay.setUTCDate(nextDay.getUTCDate() + 1);
+    query.set("end_before", nextDay.toISOString());
+  }
   const response = await fetch(`/api/v1/${kind}?${query}`, {
     cache: "no-store",
+    signal: signal
+      ? AbortSignal.any([signal, AbortSignal.timeout(10000)])
+      : AbortSignal.timeout(10000),
   });
   if (!response.ok)
     throw new Error(`Configuration metadata unavailable (${response.status})`);

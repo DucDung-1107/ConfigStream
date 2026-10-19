@@ -29,11 +29,16 @@ def document_filters(kind: str, **values) -> list[dict]:
     ]
     bounds = {
         name: utc_timestamp(values[field])
-        for name, field in (("gte", "start"), ("lte", "end"))
+        for name, field in (("gte", "start"), ("lte", "end"), ("lt", "end_before"))
         if values.get(field) is not None
     }
     if "gte" in bounds and "lte" in bounds and bounds["gte"] > bounds["lte"]:
         raise ValueError("Query start must precede end")
+    if "lt" in bounds:
+        if "lte" in bounds:
+            raise ValueError("Use either end or end_before")
+        if "gte" in bounds and bounds["gte"] >= bounds["lt"]:
+            raise ValueError("Query start must precede end_before")
     if bounds:
         filters.append({"range": {TIME_FIELDS[kind]: bounds}})
     return filters

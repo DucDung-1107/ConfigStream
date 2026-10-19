@@ -51,6 +51,8 @@ def test_filtered_stats_and_empty_page():
         ("snapshots", {"severity": "high"}),
         ("diffs", {"diagnostic_type": "invalid_record"}),
         ("alerts", {"start": "2026-10-12T00:00:00Z", "end": "2026-10-11T00:00:00Z"}),
+        ("alerts", {"start": "2026-10-12T00:00:00Z", "end_before": "2026-10-12T00:00:00Z"}),
+        ("alerts", {"end": "2026-10-12T00:00:00Z", "end_before": "2026-10-12T00:00:00Z"}),
     ],
 )
 def test_invalid_filter_combinations(kind, values):

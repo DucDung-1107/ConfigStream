@@ -1,5 +1,6 @@
 from collections import Counter
 from datetime import datetime
+from operator import ge, le, lt
 from unittest.mock import Mock
 
 import pytest
@@ -103,9 +104,9 @@ class FakeClient:
                     item
                     for item in items
                     if all(
-                        datetime.fromisoformat(item[field]) >= datetime.fromisoformat(bound)
-                        if operation == "gte"
-                        else datetime.fromisoformat(item[field]) <= datetime.fromisoformat(bound)
+                        {"gte": ge, "lte": le, "lt": lt}[operation](
+                            datetime.fromisoformat(item[field]), datetime.fromisoformat(bound)
+                        )
                         for operation, bound in bounds.items()
                     )
                 ]

@@ -94,7 +94,7 @@ All endpoints are GET. Unsupported mutation methods return 405.
 Readiness checks aliases but does not mutate/initialize mappings or disclose the
 server version. Use `make search-init` for Phase 8's strict mapping verification.
 
-All lists accept asset_id, start, end, limit and cursor. Alerts additionally accept
+All lists accept asset_id, start, end, end_before, limit and cursor. Alerts additionally accept
 severity (the existing info/low/medium/high/critical enum) and rule_id. Diagnostics
 accept `type`, mapped internally to diagnostic_type. Stats accept asset_id/start/end.
 Unknown query parameters are rejected; no raw DSL, scripts, sort expressions or
@@ -108,7 +108,10 @@ changes to the underlying domain schema. Existing generated IDs are compatible.
 
 Time bounds require timezone-aware ISO 8601, for example `2026-10-11T00:00:00Z`
 or `2026-10-11T07:00:00+07:00`. Naive dates, numeric epochs and invalid formats are
-rejected. Bounds are inclusive and normalized to UTC; start > end is rejected.
+rejected. `start` and `end` are inclusive and normalized to UTC; start > end is rejected.
+Lists additionally support exclusive `end_before`, mutually exclusive with `end`,
+and require start < end_before. Calendar-date clients use the following UTC midnight
+as `end_before` so fractional seconds at the end of the selected day remain included.
 Response timestamps are ISO 8601 UTC with `Z` (Python datetime microsecond
 precision). Hourly stats default to the last 24 hours, ending now if end is absent;
 explicit start/end spans over 31 days are rejected before querying. Top terms

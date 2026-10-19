@@ -40,8 +40,14 @@ class Filters(BaseModel):
 class ListFilters(Filters):
     limit: int = Field(default=50, ge=1, le=200)
     cursor: str | None = Field(default=None, max_length=MAX_CURSOR_LENGTH)
+    end_before: Timestamp | None = None
 
     def search_filters(self) -> dict:
+        if self.end_before is not None:
+            if self.end is not None:
+                raise ApiError(422, "invalid_request", "Use either end or end_before")
+            if self.start is not None and self.start >= self.end_before:
+                raise ApiError(422, "invalid_request", "Start must precede end_before")
         return {
             name: value
             for name, value in super().search_filters().items()
