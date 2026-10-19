@@ -234,7 +234,7 @@ def test_empty_analytics_output_is_verified(session, publication, monkeypatch):
 def test_cross_query_identity_compares_full_payload(session, kind, identifier):
     from pyspark.sql import functions as F
 
-    from analytics.reconciliation import reconcile_history
+    from lake.reconciliation import reconcile_history
     from spark.streaming.sinks.lake import dataset_frame
     from tests.spark.test_lake import batch_outputs
 
@@ -273,7 +273,7 @@ def test_conflicting_versions_and_missing_ids_fail_before_publication(
 ):
     from pyspark.sql import functions as F
 
-    from analytics.reconciliation import reconcile_history
+    from lake.reconciliation import reconcile_history
     from spark.streaming.sinks import lake as sink
 
     valid = session.createDataFrame(

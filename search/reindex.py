@@ -10,10 +10,28 @@ from spark.common.runtime import create_session
 
 
 def rebuild(session, lake, search: SearchConfig, query_id: str | None = None) -> None:
+    from pyspark.sql import functions as F
+
+    from lake.client import list_commits
+    from lake.reconciliation import reconcile_history
     from spark.streaming.sinks.lake import read_committed
 
+    manifests = list(list_commits(lake, query_id))
+    inputs = {}
+    identifiers = {"snapshots": "snapshot_id", "diffs": "diff_id", "alerts": "alert_id"}
     for kind in KINDS:
-        index_frame(read_committed(session, lake, f"processed/{kind}", query_id), kind, search)
+        frame = read_committed(session, lake, f"processed/{kind}", query_id, manifests=manifests)
+        if kind in identifiers:
+            reconciled = reconcile_history(frame, identifiers[kind])
+            if kind == "snapshots":
+                delivery = frame.groupBy("snapshot_id").agg(
+                    F.min("ingest_time").alias("ingest_time")
+                )
+                reconciled = reconciled.join(delivery, "snapshot_id")
+            frame = reconciled
+        inputs[kind] = frame
+    for kind, frame in inputs.items():
+        index_frame(frame, kind, search)
 
 
 def main() -> None:

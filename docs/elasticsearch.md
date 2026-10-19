@@ -23,6 +23,21 @@ the same checkpoint retries that batch, preserves committed Parquet, and replace
 Elasticsearch documents with the same logical IDs. A failure after Kafka delivery
 can still duplicate physical Alert messages. Protect the checkpoint and bucket.
 
+## Rebuild consistency
+
+A rebuild freezes its input commit list once for all four document kinds. Before
+any index writes, it validates each committed dataset and rejects conflicting
+snapshot/diff/alert IDs or snapshot asset/version claims across queries. Exact
+retries are collapsed after comparing full typed payloads; configuration content
+and diff details are used only for reconciliation, then excluded by the safe
+search projection. For otherwise identical snapshots, the earliest observed
+`ingest_time` is retained so delivery ordering cannot change the rebuilt document.
+
+This check covers the selected lake history. It does not compare preexisting
+Elasticsearch documents or serialize live writers against a rebuild. Use an
+isolated index prefix and a scoped cutover when replacing a live projection.
+A failed bulk write can leave a partial rebuild; rerun the same verified history.
+
 ## Pinned versions and integration choice
 
 | Component | Version |
@@ -231,7 +246,7 @@ unchanged committed Parquet, keyed Kafka alerts, queries/aggregations, and delet
 only test-owned indices before two lake rebuilds. Ordinary CI does not run Docker.
 
 No HA, lifecycle/rollover, compaction, atomic multi-service transaction, cross-query
-source-conflict resolution, or final performance benchmark. Phase 9's
+source-conflict resolution against existing indices, or final performance benchmark. Phase 9's
 [read-only FastAPI boundary](api.md) queries these aliases through reusable search
 helpers, with bounded search_after pagination, ID lookups and filtered serving
 aggregations. It never returns configuration bodies or scans Parquet for requests.

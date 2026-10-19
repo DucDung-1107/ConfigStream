@@ -12,7 +12,7 @@ from spark.common.config import SparkConfig
 
 def run_analytics(session, lake, config, query_id=None, job="all"):
     from analytics.jobs import all_jobs
-    from analytics.reconciliation import reconcile_history
+    from lake.reconciliation import reconcile_history
     from spark.streaming.sinks.lake import parquet_inventory, read_committed
 
     if job != "all" and job not in JOB_NAMES:
