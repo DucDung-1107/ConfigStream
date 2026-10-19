@@ -17,7 +17,7 @@ def test_spark_defaults_and_pins() -> None:
     assert config.master == "local[*]"
     assert config.starting_offsets == "latest"
     assert config.bootstrap_servers == "localhost:9092"
-    assert config.checkpoint_dir == Path(".cache/spark-checkpoints/config-snapshots-v8")
+    assert config.checkpoint_dir == Path(".cache/spark-checkpoints/config-snapshots-v9")
     assert SPARK_VERSION == "4.0.2"
     assert SCALA_BINARY_VERSION == "2.13"
     assert KAFKA_CONNECTOR == "org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.2"

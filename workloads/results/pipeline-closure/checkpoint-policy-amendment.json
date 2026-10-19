@@ -1,0 +1,21 @@
+{
+  "decision_id": "2026-10-19-CHECKPOINT-POLICY-BINDING",
+  "evidence_type": "IMPLEMENTATION_CONTRACT",
+  "historical_reference": "workloads/results/pipeline-closure/compatibility-amendment.json",
+  "reason": "Bind the actual loaded rules and source/sink destinations before resuming acknowledged offsets. No historical receipts or checkpoints are modified.",
+  "checkpoint": {
+    "new_default": "config-snapshots-v9",
+    "contract": "source-identity-v2",
+    "contract_version": 2,
+    "operator_layout_changed": false,
+    "legacy_resume": "REJECT_EXPLICITLY_REQUIRE_ISOLATED_ROLLOUT",
+    "old_checkpoint_mutation": false
+  },
+  "changed_files": {
+    "spark/streaming/stateful.py": {
+      "previous_sha256": "eb175fc66cc8cf4358b7e42e2a94b1bf4b1e48c9cbac6d9cabc1c439a517f3c5",
+      "current_sha256": "365e2f3eb96dc764ad8d72c085b2c7e8af29a3225f2cec9f2c07095b95121847"
+    }
+  },
+  "validation_scope": "Local unit and isolated Spark tests only; this is not a live deployment or replay receipt."
+}

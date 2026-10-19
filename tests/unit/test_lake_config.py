@@ -68,7 +68,7 @@ def test_enabled_mode_has_separate_default_checkpoint() -> None:
         }
     )
     assert config.lake is not None
-    assert config.checkpoint_dir == Path(".cache/spark-checkpoints/config-snapshots-v8")
+    assert config.checkpoint_dir == Path(".cache/spark-checkpoints/config-snapshots-v9")
     assert SparkConfig.from_env({}).lake is None
     assert not lake_enabled({"CONFIGSTREAM_LAKE_ENABLED": "FALSE"})
     with pytest.raises(ValueError):

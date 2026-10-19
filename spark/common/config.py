@@ -50,7 +50,7 @@ class SparkConfig:
     master: str = "local[*]"
     app_name: str = "ConfigStreamStreaming"
     bootstrap_servers: str = "localhost:9092"
-    checkpoint_dir: Path = Path(".cache/spark-checkpoints/config-snapshots-v8")
+    checkpoint_dir: Path = Path(".cache/spark-checkpoints/config-snapshots-v9")
     runtime_dir: Path = Path(".cache/spark")
     starting_offsets: str = "latest"
     trigger_seconds: int = 2
@@ -106,7 +106,7 @@ class SparkConfig:
             checkpoint_dir=Path(
                 values.get(
                     "SPARK_CHECKPOINT_DIR",
-                    ".cache/spark-checkpoints/config-snapshots-v8",
+                    ".cache/spark-checkpoints/config-snapshots-v9",
                 )
             ),
             runtime_dir=Path(values.get("SPARK_RUNTIME_DIR", ".cache/spark")),

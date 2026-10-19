@@ -104,12 +104,12 @@ def test_state_upgrade_requires_new_checkpoint_and_fixed_partitions(tmp_path):
     config.checkpoint_dir.mkdir()
     (config.checkpoint_dir / "metadata").write_text("owned existing checkpoint")
     with pytest.raises(RuntimeError, match="Legacy checkpoint"):
-        checkpoint_contract(config, 2)
+        checkpoint_contract(config, 2, ())
     fresh = SparkConfig(checkpoint_dir=tmp_path / "new")
-    checkpoint_contract(fresh, 2)
-    checkpoint_contract(fresh, 2)
+    checkpoint_contract(fresh, 2, ())
+    checkpoint_contract(fresh, 2, ())
     with pytest.raises(RuntimeError, match="Incompatible"):
-        checkpoint_contract(fresh, 4)
+        checkpoint_contract(fresh, 4, ())
 
 
 def test_search_skips_only_known_empty_categories(session, monkeypatch):

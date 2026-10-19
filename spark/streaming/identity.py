@@ -2,20 +2,48 @@
 
 import json
 from datetime import UTC
+from hashlib import sha256
 
 import pandas as pd
 from pydantic import ValidationError
 from pyspark.sql.streaming import StatefulProcessor
 
 from schemas import ConfigSnapshot
-from spark.common.config import duration_ms
+from spark.common.config import SNAPSHOTS_TOPIC, duration_ms
 from spark.common.schemas import SNAPSHOT_COLUMNS
 
 
-def checkpoint_contract(config, partitions):
+def checkpoint_contract(config, partitions, rules):
     directory = config.checkpoint_dir
     marker = directory / "configstream-state-contract.json"
+    policy = json.dumps(
+        sorted((rule.model_dump(mode="json") for rule in rules), key=lambda rule: rule["id"]),
+        sort_keys=True,
+        separators=(",", ":"),
+    )
     contract = {
+        "contract_version": 2,
+        "rules_sha256": sha256(policy.encode()).hexdigest(),
+        "kafka": {
+            "bootstrap_servers": sorted(
+                server.strip() for server in config.bootstrap_servers.split(",")
+            ),
+            "source_topic": SNAPSHOTS_TOPIC,
+            "alerts_topic": "config.alerts",
+        },
+        "lake": None
+        if config.lake is None
+        else {
+            "endpoint": config.lake.endpoint.rstrip("/"),
+            "bucket": config.lake.bucket,
+            "prefix": config.lake.prefix,
+        },
+        "search": None
+        if config.search is None
+        else {
+            "url": config.search.url.rstrip("/"),
+            "index_prefix": config.search.index_prefix,
+        },
         "version": "source-identity-v2",
         "shuffle_partitions": partitions,
         "watermark_delay": config.watermark_delay,
@@ -27,7 +55,7 @@ def checkpoint_contract(config, partitions):
             raise RuntimeError("Incompatible state checkpoint contract; use an isolated checkpoint")
         return
     if any((directory / name).exists() for name in ("metadata", "offsets", "state")):
-        raise RuntimeError("Legacy checkpoint requires an explicit isolated v2 rollout")
+        raise RuntimeError("Legacy checkpoint requires an explicit isolated v9 rollout")
     directory.mkdir(parents=True, exist_ok=True)
     try:
         with marker.open("x") as output:

@@ -371,7 +371,7 @@ replaying. Checkpoints and downloaded JARs are ignored. See [Spark runtime, SQL
 validation, progress, and acceptance](docs/spark-streaming.md). `make setup` syncs
 only the base/Kafka environment; use `make spark-setup` again before Spark commands.
 
-The integrity-v2 processor defaults to `.cache/spark-checkpoints/config-snapshots-v8`;
+The policy-bound integrity-v2 processor defaults to `.cache/spark-checkpoints/config-snapshots-v9`;
 never reuse a Phase 4 console checkpoint. Defaults are a 10-minute event-time
 watermark, 30-minute asset inactivity timeout, and 32 buffered versions per asset.
 The demo uses fixed 2026-10-05 timestamps; the generator defaults to 2026-09-30.

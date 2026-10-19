@@ -46,6 +46,11 @@ def start_console(
 ) -> "StreamingQuery":
     from spark.streaming.validation import console_rows
 
+    if any(
+        (config.checkpoint_dir / name).exists()
+        for name in ("configstream-state-contract.json", "state")
+    ):
+        raise ValueError("Parse-only query requires an isolated console checkpoint")
     writer = (
         console_rows(classified)
         .writeStream.format("console")

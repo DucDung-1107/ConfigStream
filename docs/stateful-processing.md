@@ -99,7 +99,7 @@ Configuration is centralized in `SparkConfig` and `.env.example`:
 | `SPARK_STATE_TIMEOUT` | `30 minutes` | Per-asset inactivity in event time |
 | `SPARK_MAX_VERSIONS_PER_ASSET` | `32` | Maximum retained versions per asset, minimum 2 |
 | `CONFIGSTREAM_RULES_FILE` | `rules/default.yaml` | Validated once at application startup |
-| `SPARK_CHECKPOINT_DIR` | `.cache/spark-checkpoints/config-snapshots-v8` | Source-identity-v2 checkpoint |
+| `SPARK_CHECKPOINT_DIR` | `.cache/spark-checkpoints/config-snapshots-v9` | Policy-bound source-identity-v2 checkpoint |
 
 Durations accept a positive integer followed by milliseconds, seconds, minutes, or
 hours (singular/plural). Invalid durations/caps and invalid/missing rules fail startup.
@@ -111,8 +111,19 @@ Shell values containing spaces must be quoted; `.env.example` is not a shell scr
 conflicts are detected only while their binding remains retained. This is not an
 eternal uniqueness index. Late records can be dropped once the operator watermark
 advances. A checkpoint marker binds the state contract, shuffle partition count,
-watermark delay, timeout and version cap; incompatible or unmarked old checkpoints
-are rejected. Use an isolated v8 checkpoint rather than resetting accepted state.
+watermark delay, timeout, version cap, loaded rule content, Kafka source/alert
+cluster, lake destination and search destination. Restarting with a different
+policy or sink is rejected before query startup, so acknowledged offsets cannot
+silently skip a newly enabled destination. Credentials and throughput settings
+may change without changing the contract. Rules are hashed; credentials and rule
+contents are not stored in the marker.
+
+The v9 default adds these policy bindings without changing the stateful operator
+layout. Old v8 markers cannot prove which policy produced their state and are
+rejected, as are unmarked checkpoints. Use an isolated v9 checkpoint with explicit
+starting offsets and a scoped replay/backfill plan. Existing checkpoints and
+accepted evidence must remain intact. Reusing the same bootstrap address after
+replacing the underlying Kafka cluster is outside this local marker's guarantees.
 
 The watermark follows observed event-time progress and micro-batch/operator
 propagation, not elapsed wall-clock time or Kafka timestamps. It does **not** mean

@@ -273,7 +273,7 @@ def stateful_records(
     from spark.streaming.identity import IdentityProcessor, checkpoint_contract
 
     checkpoint_contract(
-        config, int(classified.sparkSession.conf.get("spark.sql.shuffle.partitions"))
+        config, int(classified.sparkSession.conf.get("spark.sql.shuffle.partitions")), rules
     )
     valid = valid_snapshots(classified).withWatermark("event_time", config.watermark_delay)
     valid = valid.groupBy("snapshot_id").transformWithStateInPandas(
