@@ -10,7 +10,19 @@ rules publishing Kafka alerts, plus optional MinIO/Parquet history and a rebuild
 Elasticsearch metadata projection.
 The generator and pure processing package can run without external services.
 A thin read-only FastAPI boundary now serves the Elasticsearch projection.
-Kubernetes and monitoring systems remain future work.
+The current system also includes a research dashboard and an accepted single-node
+Kubernetes fixture deployment, with sampled resource monitoring. The RPKI, RIS and
+DNS paths preserve domain-specific temporal contracts; they are not configuration
+file edits or universal search endpoints. See [Kubernetes acceptance](phase20-k8s-acceptance.md)
+and [dashboard acceptance](phase20v-acceptance.md).
+
+The latest source adds manifest-v2 physical integrity and source-identity binding
+before per-asset state. Its local tests passed, but the corrected-image Kubernetes
+recovery trial stopped before commit under the resource guard. Previously accepted
+deployment evidence does not validate that image. See the
+[pipeline integrity amendment](pipeline-integrity-amendment.md) for exact guarantees,
+checkpoint compatibility and rollout status. Historical phase descriptions below
+explain the original design rather than superseding this current status.
 
 ## Phase 10 planes
 

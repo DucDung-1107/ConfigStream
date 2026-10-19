@@ -1,4 +1,8 @@
-# Stateful configuration processing (Phase 6)
+# Stateful configuration processing
+
+This page describes the current configuration path, originating in Phase 6 and
+updated by the [source-identity and publication amendment](pipeline-integrity-amendment.md).
+Historical acceptance receipts retain their original operator/checkpoint versions.
 
 ## Implemented topology
 
@@ -7,10 +11,11 @@ One Structured Streaming query reads `config.snapshots` directly from Kafka:
 ```text
 Phase 4 parse / SQL validation
   ├─ invalid ───────────────────────────────────────> safe diagnostics
-  └─ valid -> event_time watermark -> snapshot_id dedup -> groupBy(asset_id)
+  └─ valid -> event_time watermark -> snapshot_id binding -> groupBy(asset_id)
               -> native version state -> Phase 5 normalize/diff -> YAML rules
                                                           └─> Alert
-Combined output -> one foreachBatch boundary -> Spark Kafka writer -> config.alerts
+Combined output -> one foreachBatch boundary -> optional committed lake -> optional search
+                                                                          -> config.alerts
 ```
 
 There is no dependency on `config.events` or `config.assets`, nor an assumption
@@ -59,8 +64,11 @@ candidate during the transition; it does not collect all input history.
 
 ## Version admission and pairing
 
-1. Repeated `snapshot_id` is deduplicated natively before grouping. A retained
-   identity also returns a no-op in the pure transition function.
+1. Native `IdentityProcessor` validates the source payload and binds `snapshot_id`
+   before asset grouping. Exact retained retries are suppressed; conflicting source
+   bindings emit `snapshot_identity_conflict`, including cross-asset ID reuse.
+   The pure transition also compares retained content/version/time before treating
+   an identity as an exact retry. Ingest time is delivery metadata.
 2. An already-retained version with another snapshot ID produces
    `version_conflict`. **First accepted version wins**; the conflicting record
    does not alter state or generate a diff. Within a batch, Spark iteration order
@@ -91,18 +99,20 @@ Configuration is centralized in `SparkConfig` and `.env.example`:
 | `SPARK_STATE_TIMEOUT` | `30 minutes` | Per-asset inactivity in event time |
 | `SPARK_MAX_VERSIONS_PER_ASSET` | `32` | Maximum retained versions per asset, minimum 2 |
 | `CONFIGSTREAM_RULES_FILE` | `rules/default.yaml` | Validated once at application startup |
-| `SPARK_CHECKPOINT_DIR` | `.cache/spark-checkpoints/config-snapshots-v6` | Dedicated Phase 6 checkpoint |
+| `SPARK_CHECKPOINT_DIR` | `.cache/spark-checkpoints/config-snapshots-v8` | Source-identity-v2 checkpoint |
 
 Durations accept a positive integer followed by milliseconds, seconds, minutes, or
 hours (singular/plural). Invalid durations/caps and invalid/missing rules fail startup.
 Shell values containing spaces must be quoted; `.env.example` is not a shell script.
 
-`withWatermark("event_time", delay)` precedes native
-`dropDuplicatesWithinWatermark(["snapshot_id"])`. IDs must be globally unique and
-immutable; reuse of an ID with altered payloads is not a supported source contract.
-Dedup state is watermark-bounded, not an eternal set. Its guarantee relates to the
-event-time distance between repeated records; late records can be dropped once the
-operator watermark advances. See the [pinned dedup API](https://spark.apache.org/docs/4.0.2/api/python/reference/pyspark.sql/api/pyspark.sql.DataFrame.dropDuplicatesWithinWatermark.html).
+`withWatermark("event_time", delay)` precedes native source-identity binding via
+`transformWithStateInPandas`. This replaces the original Phase 6
+`dropDuplicatesWithinWatermark` topology. IDs must be globally unique and immutable;
+conflicts are detected only while their binding remains retained. This is not an
+eternal uniqueness index. Late records can be dropped once the operator watermark
+advances. A checkpoint marker binds the state contract, shuffle partition count,
+watermark delay, timeout and version cap; incompatible or unmarked old checkpoints
+are rejected. Use an isolated v8 checkpoint rather than resetting accepted state.
 
 The watermark follows observed event-time progress and micro-batch/operator
 propagation, not elapsed wall-clock time or Kafka timestamps. It does **not** mean
@@ -117,6 +127,14 @@ deadline and Spark schedules processing, clear all buffer/floor/edge state and
 emit `state_timeout` plus any known unresolved gaps. Input handling also checks
 expiry before admission, so an expired buffer is not reused for a new arrival.
 No processing-time TTL is substituted for this event-time policy.
+
+Expiry removes the most recent baseline as well as the reorder buffer. If an asset
+changes again after its state has expired, its first new snapshot cannot generate
+a diff against the forgotten baseline. This matters for sparse configuration
+histories: the current streaming path does not guarantee every adjacent pair over
+arbitrary inactivity gaps. Historical analytics counts committed diffs and does
+not reconstruct these missing pairs. A durable baseline or explicit batch repair
+path is needed before claiming complete sparse-history change detection.
 
 An active asset can retain older versions until the size cap removes them; this
 is not individual-snapshot TTL. If event time stalls, timers/dedup cleanup can
