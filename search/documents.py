@@ -8,6 +8,7 @@ from search.mappings import FIELDS
 
 DIAGNOSTIC_REASONS = frozenset(
     {
+        "snapshot_identity_conflict",
         "version_conflict",
         "unresolved_version_gap",
         "state_eviction",

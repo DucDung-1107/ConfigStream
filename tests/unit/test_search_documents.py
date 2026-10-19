@@ -1,4 +1,5 @@
 import json
+from dataclasses import asdict
 from datetime import UTC, datetime
 
 import pytest
@@ -149,3 +150,27 @@ def test_invalid_diagnostic_time_falls_back_to_kafka_time():
     document = project_document("diagnostics", row)
     assert document["event_time"] == "2026-10-11T01:00:00.000000Z"
     assert document == project_document("diagnostics", row)
+
+
+def test_identity_conflict_from_processor_is_indexable_without_content():
+    from processing.models import NormalizedConfig
+    from processing.state import AssetVersionState, BufferedSnapshot, accept_snapshot
+
+    original = BufferedSnapshot(NormalizedConfig("router", "reused-id", 1, "original\n"), 1)
+    state = accept_snapshot(AssetVersionState("router"), original, 32).state
+    conflict = BufferedSnapshot(NormalizedConfig("router", "reused-id", 1, "changed\n"), 1)
+    transition = accept_snapshot(state, conflict, 32)
+    assert not transition.accepted
+    row = {
+        "record_type": "diagnostic",
+        "asset_id": "router",
+        "event_time": "2026-10-19T00:00:00Z",
+        "summary": json.dumps(asdict(transition.diagnostics[0])),
+    }
+    action = bulk_action("diagnostics", row, SearchConfig())
+    assert action["_source"]["reason"] == "snapshot_identity_conflict"
+    assert action["_source"]["diagnostic_type"] == "snapshot_identity_conflict"
+    assert action["_source"]["snapshot_id"] == "reused-id"
+    assert "original" not in json.dumps(action)
+    assert "changed" not in json.dumps(action)
+    assert action == bulk_action("diagnostics", row, SearchConfig())
