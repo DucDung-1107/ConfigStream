@@ -1,0 +1,55 @@
+\section{Platform-wide Methodology}
+\label{sec:platform-method}
+
+ConfigStream is organised around one principle: a derived temporal statement is valid only when its identity, source coordinate, ordering semantics, provenance, and publication boundary are explicit. The repository therefore contains a common evidence layer and several workload-specific paths. The common layer supplies typed contracts, deterministic identities, source manifests, lake commits, reconciliation, and reproducible evaluation. It does not force all sources into one temporal model. Configuration snapshots are versioned states; RPKI is a complete daily authorization state; RIS is a stream of peer-prefix occurrences; DNS is a set of observations with explicit uncertainty. Treating these as interchangeable rows would make subsequent analytics easy to code but scientifically ambiguous.
+
+\subsection{Common evidence contract}
+
+Every temporal record has a logical identity and a provenance binding. The temporal schema package defines envelopes, source manifests, artifacts, time descriptors, source coordinates, and record kinds. Logical identities are generated from canonical bytes under a named policy, rather than from a database auto-increment or a message offset. Source manifests record source identifier, dataset identifier, scope, artifact inventory, hashes, and acquisition metadata. A consumer can consequently distinguish a repeated delivery of the same logical record from a conflicting record that merely has similar content.
+
+This contract is deliberately stronger than a data-frame schema. A data frame can contain a date column without establishing that a record is complete for that date, or contain a SHA-256 without stating which source artifact it hashes. ConfigStream stores these relationships as first-class fields because a historical state or transition must be explainable after the job that created it has finished. The contract also separates known time, unknown time, and intervals. An absent timestamp is not silently converted into an arbitrary timestamp merely to make a window query run.
+
+\subsection{Configuration-history path}
+
+The configuration path begins with assets, independent change events, and configuration snapshots. Kafka topics are intentionally distinct: \texttt{config.assets} is compacted; \texttt{config.events}, \texttt{config.snapshots}, and \texttt{config.alerts} have their own partitioning and delivery behavior. Spark's stateful configuration query consumes the snapshot topic because snapshots are the records from which a version-adjacent textual transition can be justified. Events may be associated by metadata, but the code makes no cross-topic atomic-ordering claim.
+
+The first stateful processor binds snapshot identity. The second stores a bounded, version-sorted buffer per \texttt{asset\_id}. A candidate can be rejected as an exact retry, snapshot-identity conflict, version conflict, or evicted version. For an accepted candidate, the pure transition emits a pair only when the successor producer version equals the predecessor version plus one. Thus v18, v20, v19 is retained as a sortable partial history: no v18--v20 edge is created while v19 is absent; when v19 arrives within retention, v18--v19 and v19--v20 are emitted. Watermark delay, timeout, buffer cap, eviction floor, and emitted-edge flags are implementation-level mechanisms that make this claim bounded rather than magical.
+
+Each eligible pair is normalized under a named conservative text policy, compared with deterministic line-based logic, and passed to validated YAML rules. The raw hash remains evidence about source bytes; the normalized hash is evidence about the supported canonical text. The two must not be conflated. Rules operate on normalized diff lines and create deterministic alert identities, but they do not prove semantic deployment safety or exactly-once external alert delivery.
+
+\subsection{RPKI complete-state and transition path}
+
+RPKI is not processed through the configuration version buffer. The dedicated RPKI Spark path decodes source chunks into source rows, validates row payload digests, reconciles retries by row identity, and writes a raw source ledger. A daily state is publishable only after the implementation has observed the complete expected row-index inventory, verified source provenance and artifact hash, compared the source coordinate map with an independent oracle, deduplicated canonical members, and checked the resulting member count and state digest against the observation descriptor.
+
+The output of this path is a complete authorization-member state, not a sequence of configuration lines. A daily transition is valid only when the two day references are consecutive, compatible under their comparison and validation policies, and backed by verified complete endpoint states. This is why RPKI storage and query results can support statements about added or removed authorization members, whereas an incomplete arbitrary Kafka window cannot. The code rejects a partial day rather than inferring a state from the rows observed so far.
+
+\subsection{RIS occurrence path}
+
+The RIS path reads MRT archives through bounded framing, decodes route records, and projects them into native peer-prefix occurrences. Occurrence identity preserves the source frame and record coordinate; repeated occurrences are not automatically duplicates. This choice protects multiplicity: a collector can observe the same prefix through different peers or at different records, and collapsing them into a set would answer a different question. Historical closure and reconciliation are therefore defined over declared occurrence identities and source coordinates, not over an assumed complete global routing table.
+
+The report consequently uses RIS for occurrence-processing, framing, temporal-window, and recovery evidence. It does not claim that a RIS input is a complete BGP state or that a count of occurrences is the number of unique deployed routes. Queries and analytics make their time-window and prefix/peer filters explicit, and provenance can be traced back to the frame-level source coordinate.
+
+\subsection{DNS observation path}
+
+The DNS path is a measurement path with a different uncertainty model. Raw selected-address records are committed first; grouping canonicalises query and response names, collects address and worker sets, records minimum and maximum known timestamps, and flags unknown worker or time values. A qualified comparison must account for source completeness and vantage conditions. In particular, absence in an incomplete or unverified observation is not converted into a strong claim that a DNS answer disappeared globally.
+
+This design prevents an attractive but invalid generalisation: treating DNS records as versioned configuration states. The code can calculate a difference between qualified observations under a declared policy, but it retains uncertainty fields in the output. DNS therefore contributes evidence about robust temporal processing of measurements, not proof of a global authoritative DNS history.
+
+\subsection{Publication, reconciliation, and analytics}
+
+The configuration stream writes raw and processed Parquet datasets by query and batch before optional search indexing and alert publication. Its manifest records counts, paths, and an inventory of Parquet files with byte lengths and SHA-256. On replay, the writer validates the prior manifest and compares the expected and committed logical projection. The temporal typed-publication foundation applies the same idea to registered temporal record kinds: it reconciles records against their manifests, validates any required complete input state, hashes the canonical logical projection, and stores a typed commit containing record kind, dataset path, provenance identifiers, and digest.
+
+Analytics runs only over committed Parquet. It loads and validates committed inputs, reconciles history by the appropriate deterministic identity, omits sensitive normalized-content/details fields from analytical inputs, and writes a separately validated analytical commit. Elasticsearch and FastAPI are serving projections. They are useful for pagination, lookup, latest-version queries, and aggregates, but neither changes what was committed nor becomes the source of truth. If indexing fails after the lake commit, the appropriate recovery is reindexing from the committed lake projection.
+
+\subsection{Evaluation methodology}
+
+Evaluation follows the same source-specific semantics. Synthetic configuration workloads make disorder, retry, mutation, and version adjacency controllable. Observed Git histories provide source-scoped configuration-evolution proxies. TerraDS supplies a separate replay corpus. RPKI compares complete canonical-member states and selected representation layouts. RIS measures framed occurrence processing. DNS evaluates measurements while retaining completeness and vantage qualifiers. The primary correctness oracle is an exact identity-to-full-record projection wherever one is available; counts, hashes, and schema reads are supplementary integrity checks.
+
+Performance measurements declare their processing boundary and unit. The matched B0/B2/B3 campaign fixes one normalized output projection before comparing local, Spark batch, and queued streaming execution; it is not a claim about all source-acquisition or production-recovery costs. End-to-end replay includes Kafka, state, lake, and drain, and therefore reports different denominators. Results are accepted only when the registered projection and resource rules hold. Failed, invalid, and not-run cells remain visible instead of being converted into successful averages.
+
+\section{Architecture Interpretation}
+\label{sec:architecture-interpretation}
+
+Figure~\ref{fig:architecture} should be read as an evidence architecture, not as a generic left-to-right technology stack. The upper configuration lane produces stateful version-adjacent diffs and rule alerts. The lower temporal lanes preserve their own object semantics and publish typed evidence. Both lanes meet only at the committed lake and the analytics/reconciliation layer. The figure must not draw an arrow that suggests RPKI, RIS, or DNS flow through the configuration normalizer or version buffer; that would be false according to the implementation.
+
+The authoritative boundary is the commit manifest, not Kafka and not Elasticsearch. Kafka is the replayable transport for the relevant paths. Elasticsearch and the API are read projections. This placement explains why a durable committed record can coexist with an incomplete dashboard and why repair proceeds from Parquet rather than from whichever service responded last.

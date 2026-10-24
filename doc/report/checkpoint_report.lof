@@ -1,0 +1,1 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces ConfigStream evidence flow. Source-specific gates create typed temporal records, the manifest defines the authoritative commit, and downstream views remain rebuildable.}}{2}{}%
