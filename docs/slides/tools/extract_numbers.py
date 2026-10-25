@@ -39,7 +39,7 @@ def d(key, value):
 
 def write_csv(name, header, rows):
     with open(OUT / name, "w", newline="", encoding="utf-8") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(header)
         w.writerows(rows)
 

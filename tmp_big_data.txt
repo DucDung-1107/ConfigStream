@@ -1,143 +1,0 @@
-                      ConfigStream
-Evidence-oriented configuration history
-
-   Student      : Pham Cong Hoang, Nguyen Duc Dung, Le Tien Hop, Mai Vu Hoang
-   Instructor   : Tran Viet Trung
-
-
-
-                              HaNoi, 10/2026
-TABLE OF CONTENTS
-
-
-   01   Introduction
-                          04 Experiment setup
-
-   02 Research Question
-
-
-                          05   Discussion
-   03   Methodology
-01
-INTRODUCTION
-Problem statement
-
-
-
-
-     A late record can be valid.           Arrival order cannot define history.
-
-                  A wrong pair can create a false diff or alert.
-
-
-
-
-  The previous arrival is not necessarily the previous version
- Why this matter
-
-
-
-late arrival → wrong pairing → false change → difficult audit
-
-
-
-        missing predecessor                     duplicate record
-
-                  projection updated before history commit.
-02
-RESEARCH QUESTION
-Research question
-1. Can the system identify valid adjacent states under disorder,
-duplicates, bounded state, and restart-sensitive execution?
-
-
-
-
-2. Can committed history remain independent from rebuildable
-search and API views?
-
-
-
-
-3. How should correctness and performance be compared when
-workloads use different evidence units?
-03
-METHODOLOGY
-Method Overview
-The buffer waits for the missing predecessor
-
-
-
-
-  Bind every snapshot to an “asset_id” and a producer version before comparing it.
-  Deduplicate by record identity before emission.
-  Sort retained records by producer version, not by arrival time.
-  Emit only when two records belong to the same asset and the successor version is
-  exactly one greater.
-  Keep unresolved gaps, conflicts, late records, and evictions as diagnostics.
-Workload-specific temporal evidence
-Publication and recovery
-04
-EXPERIMENT SETUP
-Design
-
-
-         Workload   Unit                      Accepted role
-
-                                              End-to-end configuration-
-         TerraDS    File version
-                                              history replay
-
-                                              Row-oriented processing
-         RPKI       Canonical row or member
-                                              and storage
-
-                                              Multiplicity-preserving
-         RIS        Peer-prefix occurrence
-                                              temporal processing
-
-                    Measurement or grouped    Grouped temporal
-         DNS
-                    row                       comparison
-Result: TerraDS replay
-
-
-
-
-  10,188                 3,683       68.742s
-    snapshots       adjacent pairs     completion
-                                     including drain
-Result: RPKI storage layouts
-
-
-
-
- R1: 47,756,423 bytes              R2: 3,555,516 bytes
-                 R3: 6,954,890 bytes
-
-
-
-
- 92.55% reduction for R2       85.44% reduction for R3
-05
-DISCUSSION
-Result: RPKI storage layouts
-
-   RIS replay: Peer-prefix multiplicity and run-boundary
-   completeness remain unverified.
-
-   End-to-end recovery: Recovery from committed Parquet under
-   interrupted publication and repeated faults remains untested.
-
-   Operational scalability: Throughput, latency, and memory at
-   multi-node scale or larger state spaces remain unevaluated.
-NEXT STEP
-
-
-   1. Freeze the evidence pack
-
-   2. Run the paced RIS replay
-
-   3. Execute projection and checkpoint fault tests
-THANK YOU
-

@@ -46,3 +46,11 @@ service-account*.json
 .DS_Store
 .idea/
 .vscode/
+
+# Local report/slide inspection output
+/_qa*/
+/.cache_code_index.txt
+/ruff_check.txt
+/ruff_format.txt
+/tmp_big_data.txt
+/tmp_xlsx_builder/

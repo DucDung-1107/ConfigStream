@@ -69,3 +69,13 @@ an older acceptance record as evidence for a new deployment.
 English slides, Vietnamese presenter notes, editable diagrams and reproducible
 result charts. The supplied [SimplePlus template](presentations/SimplePlus_Blank_Template/)
 is preserved alongside the presentation.
+
+
+### Contributed reference materials
+
+The checkpoint linked above remains the primary presentation. Additional materials
+are retained for editing and reference:
+
+- [Report drafts and figures](../doc/README.md) — PR #1, Nguyễn Đức Dũng.
+- [Architecture package](presentations/configstream-architecture-package/README.md) — PR #2, Mai Vũ Hoàng.
+- [Experimental slide template and evidence tools](slides/README.md) — PR #1; generic template content, not the checkpoint deck.
