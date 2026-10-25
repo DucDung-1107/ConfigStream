@@ -1,0 +1,91 @@
+% Blank template based on the current SimplePlus presentation.
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+
+\usepackage[T5,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,decorations.pathreplacing,calc}
+\usepackage{amsmath,amssymb,mathtools}
+
+\title{Presentation Title}
+\subtitle{}
+\author{Author Name}
+\institute{}
+\date{}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+% Use bold consistently for every title level.
+\setbeamerfont{title}{series=\bfseries}
+\setbeamerfont{subtitle}{series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{series=\bfseries}
+\setbeamerfont{section title}{size=\Huge,series=\bfseries}
+\setbeamerfont{subsection title}{series=\bfseries}
+\setbeamerfont{section in toc}{series=\bfseries}
+\setbeamerfont{subsection in toc}{series=\bfseries}
+\setbeamerfont{block title}{series=\bfseries}
+\setbeamerfont{block title alerted}{series=\bfseries}
+\setbeamerfont{block title example}{series=\bfseries}
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamercolor{footnote}{fg=gray}
+\newcommand{\source}[1]{\par\vfill{\scriptsize\color{gray}#1}}
+\newcommand{\bigitems}{\setlength{\itemsep}{0.7em}}
+
+
+\usepackage{array}
+\graphicspath{{figs/}}
+\newcommand{\paperlink}[2]{\href{#1}{#2}}
+\newcommand{\citesup}[1]{\textsuperscript{#1}}
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{footline}{\hfill\insertframenumber\hspace{1em}\vspace{0.5em}}
+\setbeamerfont{block body}{size=\normalsize}
+\AtBeginSection[]{%
+  \begin{frame}[plain,noframenumbering]
+    \centering
+    \vfill
+    {\usebeamercolor[fg]{structure}\usebeamerfont{section title}\fontencoding{T5}\selectfont\textbf{\insertsectionhead}\par}
+    \vfill
+  \end{frame}%
+}
+\begin{document}
+
+% Cover: edit the title, subtitle and author above.
+\begin{frame}
+  \fontencoding{T5}\selectfont
+  \setbeamerfont{title}{size=\LARGE,series=\bfseries}
+  \setbeamerfont{author}{size=\normalsize}
+  \setbeamerfont{institute}{size=\small}
+  \titlepage
+\end{frame}
+
+% Optional outline: uncomment when you have several sections.
+% \begin{frame}{Outline}
+%   \tableofcontents[hideallsubsections]
+% \end{frame}
+
+% Each section automatically creates a centered, bold divider slide.
+\section{Section Title}
+
+% Duplicate this empty frame to add slides.
+\begin{frame}{Frame Title}
+  % Add content here.
+  % \begin{itemize}\bigitems
+  %   \item Your key point.
+  % \end{itemize}
+  %
+  % Image example (keeps the aspect ratio):
+  % \centering
+  % \includegraphics[width=0.9\linewidth,height=5.5cm,keepaspectratio]{image.png}
+  %
+  % Citation example:
+  % Statement\citesup{1}
+  % \source{\citesup{1} Paper title --- Authors, Venue, Year.}
+\end{frame}
+
+\end{document}
