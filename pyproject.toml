@@ -46,3 +46,14 @@ extend-exclude = [".tools", ".cache"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+# These small visualization/report helpers deliberately contain long SVG,
+# LaTeX, and regular-expression literals. Keep ordinary Python lint active
+# while excluding only the physical line-length rule for those literals.
+[tool.ruff.lint.per-file-ignores]
+"doc/report/figures/*.py" = ["E501"]
+"docs/figures/*.py" = ["E501"]
+"docs/slides/check_deck.py" = ["E501"]
+"docs/slides/figs/restyle_figs.py" = ["E501"]
+"docs/slides/shoot.py" = ["E501"]
+"docs/slides/tools/extract_numbers.py" = ["E501"]

@@ -1,0 +1,6 @@
+query,R2,R3
+all_days,1.022,1.005
+asn_transitions,0.993,0.996
+daily_transitions,0.668,0.728
+membership,1.050,0.999
+selected_day,1.066,1.031

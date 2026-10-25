@@ -1,0 +1,55 @@
+% Local design-rationale appendix: alternatives are discussed to clarify the
+% implemented contract, not to claim unmeasured superiority.
+
+\section{Design Alternatives and Rationale}
+\label{app:design-rationale}
+
+This appendix explains why ConfigStream chooses its particular boundaries. The aim is not to portray every rejected alternative as incorrect. Several alternatives are reasonable under a different contract. The relevant question is whether an alternative would preserve the report's promised meaning: a configuration diff must be traceable to two version-adjacent source observations, and a result must be recoverable from a committed historical boundary.
+
+\subsection{Why producer version is the ordering relation}
+
+The most tempting implementation is to compare each Kafka record with the previous record read for the same key. That strategy has an attractive operational property: it needs only one retained predecessor. It is nevertheless unsuitable for this project because its output depends on delivery order. For arrival v18, v20, v19 it produces an 18--20 comparison first and may later produce a 20--19 comparison or discard the late record. Neither outcome represents a pair of consecutive producer versions. Sorting by event timestamp instead is not a complete remedy: clock behavior is a source property, timestamps can be equal or imprecise, and event time answers when a snapshot was observed rather than which version the producer intended to follow which.
+
+ConfigStream consequently treats version as the primary semantic order and event time as the state-retention order. This division is explicit in the implementation. The version buffer is sorted by the integer producer version. Watermarks and timers govern how long the processor is willing to keep incomplete history. The result is neither a claim that producer versions are globally comparable nor an assumption that they are trustworthy across assets. It is a local contract: within an asset, a version is the only label accepted as evidence of adjacency.
+
+A system with no trustworthy producer version needs a different model. It could infer a total order from source sequence numbers, use a collector-assigned monotonic revision, or retain a partial order with uncertainty. Such a system should expose that uncertainty in its diff contract. Reusing ConfigStream's adjacent-edge language without a per-asset version relation would be misleading. This boundary is one reason the current implementation is a configuration-history evaluation platform rather than a universal temporal database.
+
+\subsection{Why state is bounded and diagnostics are first-class outputs}
+
+An unbounded version buffer would appear to solve late arrival: retain every version forever, then wait for all missing predecessors. In a long-running stream, however, the state cost becomes unbounded and an asset that stops reporting has no natural completion boundary. The system would trade one hidden error for another: a history might be theoretically recoverable but operationally unavailable because memory, checkpoint size, or recovery time becomes uncontrolled.
+
+ConfigStream uses a cap and timeout as explicit policy parameters. The cap protects per-key memory; the timer protects inactive-key retention; the watermark ties expiry to event-time progress rather than wall-clock scheduling alone. The price is visible incompleteness. A late record below the floor is diagnosed as evicted history. A retained gap at expiry is reported as unresolved. This is preferable to filling a gap with a non-adjacent diff because the latter creates a confident-looking record whose semantics are false.
+
+There is an additional engineering benefit to diagnostics as normal outputs. Operations teams can count and inspect conflicts, evictions, and timeouts without parsing driver logs or inferring them from a missing diff. Evaluators can use diagnostic counts as a correctness signal. A zero-diagnostic TerraDS replay is meaningful only because the implementation would have emitted diagnostics had the known failure conditions occurred. At the same time, zero diagnostics in one replay is not a guarantee that another source will be gap-free; it is a result scoped to that input and retention configuration.
+
+\subsection{Why normalization precedes rules but does not replace raw history}
+
+Line-oriented configuration data contains presentation noise that can make a diff hard to interpret. Newline conventions, trailing spaces, generated banners, and selected separators can change while the intended reviewed text does not. Applying one deterministic normalization policy before line comparison reduces this noise and gives the evaluator a stable representation on which to define exact outputs. Rules should run over that same representation; otherwise a rule might alert on a line that the diff says did not change.
+
+The design does not discard raw content. Raw hashes and protected raw history remain necessary to distinguish an intentionally ignored representation change from absence of any source-byte change. They are also necessary when a normalization policy evolves. A new policy must create a new named normalized representation rather than silently rewriting old meanings. The current policy is conservative because aggressive normalization can erase a security-relevant change, especially around secret-like values or syntax with vendor-specific semantics.
+
+Masking illustrates the trade-off. The normalizer replaces recognized secret values with a fixed marker so that ordinary derived views and rule processing do not spread credentials. A secret-only update may consequently be absent from normalized lines even though raw source bytes changed. This is not treated as proof that the update was harmless. It is a deliberate privacy and exposure boundary. A deployment requiring semantic audit of secret rotation needs a separate protected mechanism and policy, not an assumption that a masked text diff captures it.
+
+\subsection{Why the lake is authoritative and search is derived}
+
+Search engines are useful for browsing configuration metadata, filtering alerts, and serving dashboards. They are not automatically suitable as the sole historical record. Index mappings can change, documents can be reindexed, and a query result may hide the fact that a prior publication failed. If search were authoritative, a partially indexed batch could be indistinguishable from a batch that never existed.
+
+The lake-first design makes Parquet plus a validated manifest the recovery boundary. The manifest binds a query and batch to dataset paths, counts, and an inventory of files with byte lengths and SHA-256. A reader can validate a committed batch without trusting an index. After that boundary is established, an index can be rebuilt from the typed lake datasets. The serving system can therefore be fast and replaceable without changing the definition of historical truth.
+
+This decision does not make Parquet an all-purpose transactional database. The current protocol is per-batch and local to its writer. It has no distributed two-phase commit with the index or alert broker. A lake commit followed by an index failure is a recoverable partial publication, not an atomic success. Calling the architecture ``exactly once'' would collapse these two conditions. The correct operational response is to use the manifest-backed lake as the recovery source and treat index state as a projection to repair.
+
+\subsection{Why the report separates end-to-end replay from matched-core timing}
+
+End-to-end replay answers whether components compose under a declared deployment boundary. It includes the Kafka path, stateful processor, lake output, and drain, so it carries the costs and possible failure modes of integration. Its timing cannot be fairly compared with a direct local rewrite that omits those responsibilities. Conversely, a tightly controlled core benchmark is useful for understanding the cost introduced by a chosen execution mode, provided all compared modes produce the same complete projection.
+
+The report therefore keeps both experiments and refuses to convert either into the other. The TerraDS result establishes a local integrated replay observation. The B0/B2/B3 campaign establishes exact-output timing for the selected normalized-core projection. The former does not isolate Spark startup or queueing; the latter does not establish full service throughput or fault recovery. Reporting the boundaries beside the numbers is the only way to avoid a false performance comparison.
+
+\subsection{Why ``latest'' is a query contract, not a UI convention}
+
+Users often interpret a latest-config endpoint as obvious: return the last stored document. That interpretation fails when indexing is asynchronous or when records arrive out of order. ConfigStream defines latest as the accepted document of maximum producer version for an asset, with snapshot identifier as a deterministic tie-breaker. The state processor and API implement the same semantic choice independently. This redundancy is intentional: a correct streaming state buffer would not help if a serving query subsequently redefined latest by ingestion timestamp.
+
+The contract also exposes a limitation. If the producer version is malformed, non-monotonic, or reused, the system cannot repair the source's version semantics by choosing a prettier UI order. It instead validates the record or emits a conflict. This behavior may look stricter than a best-effort dashboard, but it preserves the distinction between ``the system knows the latest accepted version'' and ``the system displayed the most recently received record.''
+
+\subsection{Summary of design decisions}
+
+The unifying design choice is to make uncertainty and recovery boundaries explicit. Versions, not transport order, define candidate history; watermarks, caps, and timers define how much disorder can be repaired; normalization defines what a line diff means; manifests define committed history; and evaluation records define what a measured result supports. These decisions do not eliminate operational risk. They make each source of risk addressable with an observable contract, which is the central methodological contribution of the current project.

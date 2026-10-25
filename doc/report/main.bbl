@@ -1,0 +1,78 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Akidau et~al.(2015)Akidau, Bradshaw, Chambers, Chernyak,
+  Fernandez-Moctezuma, Lax, McVeety, Mills, Perry, Schmidt, and
+  Whittle]{AkidauEtAl2015Dataflow}
+Tyler Akidau, Robert Bradshaw, Craig Chambers, Slava Chernyak, Rafael~J.
+  Fernandez-Moctezuma, Reuven Lax, Sam McVeety, Daniel Mills, Frances Perry,
+  Eric Schmidt, and Sam Whittle.
+\newblock The dataflow model: A practical approach to balancing correctness,
+  latency, and cost in massive-scale, unbounded, out-of-order data processing.
+\newblock \emph{Proceedings of the VLDB Endowment}, 8\penalty0 (12):\penalty0
+  1792--1803, 2015.
+\newblock \doi{10.14778/2824032.2824076}.
+\newblock URL \url{https://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf}.
+
+\bibitem[Armbrust et~al.(2018)Armbrust, Das, Torres, Yavuz, Zhu, Xin, Ghodsi,
+  Stoica, and Zaharia]{ArmbrustEtAl2018StructuredStreaming}
+Michael Armbrust, Tathagata Das, Joseph Torres, Burak Yavuz, Shixiong Zhu,
+  Reynold Xin, Ali Ghodsi, Ion Stoica, and Matei Zaharia.
+\newblock Structured streaming: A declarative {API} for real-time applications
+  in apache spark.
+\newblock In \emph{Proceedings of the 2018 International Conference on
+  Management of Data}, pages 601--613. ACM, 2018.
+\newblock \doi{10.1145/3183713.3190664}.
+
+\bibitem[Armbrust et~al.(2020)Armbrust, Das, Sun, Yavuz, Zhu, Murthy, Torres,
+  van Hovell, Ionescu, Luszczak, Switakowski, Szafrankski, Li, Ueshin, Mokhtar,
+  Boncz, Ghodsi, Paranjpye, Senster, Xin, and Zaharia]{ArmbrustEtAl2020Delta}
+Michael Armbrust, Tathagata Das, Liwen Sun, Burak Yavuz, Shixiong Zhu, Mukul
+  Murthy, Joseph Torres, Herman van Hovell, Adrian Ionescu, Alicja Luszczak,
+  Michal Switakowski, Michal Szafrankski, Xiao Li, Takuya Ueshin, Mostafa
+  Mokhtar, Peter Boncz, Ali Ghodsi, Sameer Paranjpye, Pieter Senster, Reynold
+  Xin, and Matei Zaharia.
+\newblock Delta lake: High-performance {ACID} table storage over cloud object
+  stores.
+\newblock \emph{Proceedings of the VLDB Endowment}, 13\penalty0 (12):\penalty0
+  3411--3424, 2020.
+\newblock \doi{10.14778/3415478.3415560}.
+
+\bibitem[Dean and Ghemawat(2004)]{DeanGhemawat2004MapReduce}
+Jeffrey Dean and Sanjay Ghemawat.
+\newblock {MapReduce}: Simplified data processing on large clusters.
+\newblock In \emph{Proceedings of the 6th Symposium on Operating Systems Design
+  and Implementation}, pages 137--150. USENIX Association, 2004.
+\newblock URL
+  \url{https://www.usenix.org/conference/osdi-04/mapreduce-simplified-data-processing-large-clusters}.
+
+\bibitem[Kreps et~al.(2011)Kreps, Narkhede, and Rao]{KrepsNarkhedeRao2011Kafka}
+Jay Kreps, Neha Narkhede, and Jun Rao.
+\newblock Kafka: A distributed messaging system for log processing.
+\newblock In \emph{Proceedings of the NetDB Workshop}, pages 1--6, 2011.
+\newblock URL
+  \url{https://cwiki.apache.org/confluence/download/attachments/27822226/Kafka-netdb-06-2011.pdf}.
+
+\bibitem[Raasveldt and Muhleisen(2019)]{RaasveldtMuhleisen2019DuckDB}
+Mark Raasveldt and Hannes Muhleisen.
+\newblock {DuckDB}: An embeddable analytical database.
+\newblock In \emph{Proceedings of the 2019 International Conference on
+  Management of Data}, pages 1981--1984. ACM, 2019.
+\newblock \doi{10.1145/3299869.3320212}.
+
+\bibitem[Zaharia et~al.(2012)Zaharia, Chowdhury, Das, Dave, Ma, McCauley,
+  Franklin, Shenker, and Stoica]{ZahariaEtAl2012RDD}
+Matei Zaharia, Mosharaf Chowdhury, Tathagata Das, Ankur Dave, Justin Ma, Murphy
+  McCauley, Michael~J. Franklin, Scott Shenker, and Ion Stoica.
+\newblock Resilient distributed datasets: A fault-tolerant abstraction for
+  in-memory cluster computing.
+\newblock In \emph{Proceedings of the 9th USENIX Symposium on Networked Systems
+  Design and Implementation}, pages 15--28. USENIX Association, 2012.
+\newblock URL
+  \url{https://www.usenix.org/conference/nsdi12/technical-sessions/presentation/zaharia}.
+
+\end{thebibliography}

@@ -1,0 +1,105 @@
+\clearpage
+\section{Introduction}
+Configuration is not a single value. An operator reviewing an incident may need the observed version, source time, previous version, exact changed lines, the rule that produced an alert, and evidence that the answer can be reconstructed after restart. Messages can be retried, cross-topic delivery is not atomic, snapshots can arrive out of order, and a missing observation may mean incomplete coverage rather than deletion.
+
+The central question is whether a pipeline can preserve the meaning of a temporal observation while supporting incremental processing and historical analytics. Event-time systems make correctness, latency, and cost explicit (Akidau et al., 2015); Kafka supplies a replayable partitioned log (Kreps et al., 2011); and Structured Streaming supplies declarative incremental computation (Armbrust et al., 2018). ConfigStream binds these primitives to one rule: a diff is an edge between adjacent producer versions of one asset, not a comparison with the previous Kafka row.
+
+We ask whether typed identity and commit contracts preserve logical history under retry and disorder; how authoritative history trades storage for exact reconstruction; and how workload shape changes batch versus streaming cost. The contributions are an implemented version-aware pipeline, a role-specific evaluation protocol, and an evidence-bounded report of accepted, failed, and unexecuted experiments. We do not claim a new broker, temporal database, or distributed algorithm.
+
+\section{Related Work and Background}
+\subsection{Processing models}
+MapReduce, Spark, Kafka, and Structured Streaming provide the primitives for distributed batch and stream processing (Dean and Ghemawat, 2004; Zaharia et al., 2012; Kreps et al., 2011; Armbrust et al., 2018). The Dataflow Model explains why event-time, watermarks, and out-of-order input must be explicit correctness and cost choices (Akidau et al., 2015). ConfigStream places an application-specific state contract on top of those components: asset identity and producer version define adjacency.
+
+\subsection{Configuration and storage}
+Git, Oxidized, Puppet, Batfish, and gNMI address versioning, collection, desired-state management, semantic validation, and protocol access. ConfigStream is not a replacement for these systems. It preserves raw content and hashes, applies a conservative normalization policy, and computes a deterministic line diff. Delta Lake motivates reliable object-store commit boundaries, while DuckDB motivates a strong local analytical baseline (Armbrust et al., 2020; Raasveldt and Muhleisen, 2019).
+
+\section{Methodology}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../../docs/figures/configstream-architecture.pdf}
+\caption{Method overview. Typed records preserve identity, time, and provenance; the state buffer emits adjacent-version edges; a commit-manifest boundary separates authoritative Parquet from rebuildable projections; and distinct evidence roles are evaluated with independent or qualified oracles.}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Contracts and state}
+Asset, snapshot, event, diff, and alert are separate contracts. A snapshot stores asset ID, snapshot ID, producer version, source time, ingest time, raw SHA-256, and one content location. The contracts validate local shape, not asset existence, version monotonicity, message ordering, or cross-topic atomicity. Raw and normalized hashes remain separate because source change and normalized change answer different questions.
+
+Spark validates the snapshot stream, routes invalid records to safe diagnostics, deduplicates snapshot identities, groups by asset, and retains a bounded version buffer. The buffer sorts by producer version. An arrival order of one, three, two can still produce one-to-two and two-to-three edges; it must not use arrival order to create one-to-three. Missing or evicted versions are reported as gaps or exclusions.
+
+\subsection{Normalization and publication}
+Normalization is deterministic and idempotent: line endings become LF, selected generated comments and trailing whitespace are removed, simple separators are canonicalized, and selected secret values are masked. SequenceMatcher generates a line diff; YAML rules generate deterministic alerts. A commit manifest is written after a complete batch to make Parquet authoritative. Elasticsearch, FastAPI, and the dashboard expose rebuildable metadata projections.
+
+\subsection{Evaluation design}
+Four roles are kept distinct: versioned configuration, complete state, uncertain measurement, and event occurrence. Correctness uses exact identity-to-record comparisons, gap and duplicate checks, coverage barriers, and recovery receipts. Cost is reported as bytes, wall time, lag, drain, and resource guards; unmeasured dimensions remain explicit.
+
+\section{Experiments}
+\subsection{Datasets and environment}
+The accepted TerraDS history contains 375 repositories, 6,505 incarnations, 10,188 versions, 3,683 adjacent pairs, and 12,278,085 bytes. RPKI contains 5,062,923 repeated tuples; DNS contains 2,234,863 measurements and 4,091 changed groups; RIS contains 4,725,156 occurrences. These are different units and are not pooled into one rate.
+
+The stack pins Python 3.12, Kafka 4.1.2, Spark/PySpark 4.0.2, Java 21, MinIO, and Elasticsearch 9.5.5. The evidence is local or single-node and does not test HA. The matched pilot compares B0 direct Arrow, B2 Spark batch, and B3 queued streaming over the same normalized full-row projection; source parsing and production state finalization are excluded from all modes.
+
+\subsection{Replay and correctness}
+The TerraDS replay accepted 10,188 snapshots and 3,683 pairs, committed 29,402,997 Parquet bytes, produced zero alerts and diagnostics, and completed in 68.742 seconds including drain. The corrected matched campaign completed 27 exact trials: nine configurations repeated three times. Every normalized row matched the independent projection, and all B3 trials ended at zero selected-offset lag.
+
+\begin{table}[h]
+\centering
+\caption{Corrected matched normalized-core timing, median seconds.}
+\label{tab:timing}
+\begin{tabular}{lccc}
+\toprule
+Workload & B0 Arrow & B2 Spark & B3 stream\
+\midrule
+RPKI & 6.297 & 16.840 & 25.417\
+RIS & 10.485 & 21.167 & 29.644\
+DNS & 2.089 & 10.536 & 16.866\
+\bottomrule
+\end{tabular}
+\end{table}
+
+B0 was fastest in the registered normalized-core boundary, but source parsing and production state finalization were excluded. The full production comparison and paced RIS matrix were not run. The initial pilot retained a failed callback-thread trial; the corrected retry was not silently averaged with it.
+
+\section{Discussion}
+The evidence supports an auditable, version-aware pipeline on bounded local workloads. It does not establish cluster scalability, HA, cloud failure behavior, or end-to-end exactly-once delivery. The main methodological result is that temporal role and identity must be preserved before aggregation. Streaming is useful for incremental replayable processing and live alert boundaries; simple batch remains a strong baseline when the input is complete and latency permits.
+
+\section{Conclusion}
+ConfigStream records not only what changed, but what the record means, which temporal assumptions were applied, where durability begins, and what was measured. The implementation and accepted experiments make those boundaries inspectable without claiming more than the repository evidence supports.
+
+\subsection{Data model and invariants}
+The data model separates four questions that are often conflated. Asset identity answers which owner a record belongs to. Snapshot identity answers which source state was observed. Version answers the producer's sequence within one asset. Event time answers when the source claims the state was observed; ingest time answers when the collector accepted the record. The raw SHA-256 protects source bytes, while the normalized hash is a policy-dependent view. A valid snapshot contains exactly one of inline content and content URI. These distinctions allow the system to reject malformed local records without pretending that schema validity proves temporal consistency.
+
+A diff is valid only for two snapshots of the same asset with increasing versions. The offline API permits an explicit version gap and reports it separately. The streaming path is stricter: it retains a bounded version buffer and emits only adjacent pairs. This difference is deliberate. An offline caller may explicitly compare version one with version three; a streaming query must not infer that the missing version two was irrelevant.
+
+\subsection{Processing boundaries}
+The pipeline has three processing boundaries. The first is transport validation: JSON envelope parsing, timestamp checks, content-location checks, and Kafka-key equality. The second is temporal processing: watermarking, identity deduplication, per-asset state, version ordering, eviction, and gap reporting. The third is semantic processing: normalization, line diffing, YAML rule evaluation, and alert creation. Keeping these boundaries separate makes failures interpretable. A malformed record is not a business-rule violation; a late record is not a zero-change diff; a secret-only normalized match is not proof that the source bytes were equal.
+
+The lake output is written before search indexing and alert publication at the shared output boundary. This ordering does not create an atomic transaction across all sinks. It creates a recovery contract: committed Parquet is the durable record, while search and alert outputs can be retried or rebuilt. Deterministic document and alert IDs limit logical duplication, but physical Kafka duplicates remain possible under at-least-once delivery.
+
+\subsection{Experimental acceptance}
+Correctness is evaluated before speed. For each accepted run, the comparison maps an identity to the complete normalized row and checks missing, extra, conflicting, and duplicated identities. Counts and checksums are secondary evidence; they cannot replace membership comparison. RPKI reconstruction requires complete-set barriers. DNS results preserve status and vantage qualifiers rather than treating non-observation as deletion. RIS retains occurrence multiplicity even when two records have the same fingerprint. Terraform adjacency follows the accepted file history and does not reinterpret commit time as deployment time.
+
+The matched pilot uses identical normalized row wrappers and output settings across B0, B2, and B3. It therefore isolates a component cost, not an end-to-end service cost. The registered acceptance rule requires all exact projections to match before a trial is counted as complete. Three repetitions are descriptive, not a statistical claim of generality. Source parsing, production-specific grouping, startup/module import time, and several physical I/O dimensions are outside the timing boundary and remain labelled as such.
+
+\subsection{Additional result interpretation}
+The TerraDS replay is valuable primarily as a correctness result. It preserves the accepted observed cohort and its 3,683 adjacent pairs. The publisher rate of 500.023 snapshots per second is a source-side publication measurement; the 148.205 accepted logical snapshots per second includes the full completion and drain boundary. These numbers must not be compared with the source-time RIS rate or with the normalized-core B0 number.
+
+The matched timing table shows a consistent ordering within its narrow boundary: B0 is faster than B2, which is faster than B3 for the three selected workloads. The ordering is plausible because B2 and B3 pay for Spark and queued publication machinery. It is not a claim about the complete pipeline, where parsing, stateful finalization, recovery, and operational isolation may change the trade-off. Reporting the boundary is part of the result.
+
+\section{Discussion}
+\subsection{What the system makes auditable}
+The system makes four decisions inspectable. First, identity is visible in the record and is not reconstructed from a display row. Second, temporal order is derived from a producer version within an asset rather than from arrival order. Third, the durable boundary is visible in the commit manifest and Parquet inventory. Fourth, the evaluation preserves source role, oracle, denominator, and failure state. These decisions convert an opaque pipeline into a sequence of contracts that can be checked independently.
+
+This matters for the meaning of a negative result. If a run is stopped before commit, the correct output is an uncommitted attempt, not a zero-row successful run. If a paced experiment is not authorized or not started, the correct label is NOT_RUN, not an inferred capacity bound. If a simple batch baseline is faster on a bounded window, that is evidence about workload fit, not evidence that the streaming design is incorrect.
+
+\subsection{Limitations and threats to validity}
+The deployment topology is local or single-node. The Kafka broker uses replication factor one and loopback plaintext. The accepted evidence therefore does not establish high availability, distributed-cluster scalability, cloud object-store behavior, or end-to-end exactly-once delivery. Checkpoint recovery is tested within declared local boundaries; it is not a proof against every retention, host, or image failure.
+
+The workloads are bounded and source-specific. Public Git history is a proxy for configuration evolution, not deployment frequency. RPKI, DNS, and RIS cover registered scopes and windows rather than entire infrastructures. The DNS role explicitly contains uncertainty about absence and observation conditions. The RIS role describes collector occurrences, not a complete routing state. These limits prevent a single cross-domain rate table from being scientifically meaningful.
+
+The matched campaign excludes parsing and production state finalization in every mode. Filesystem cache temperature was not controlled as a cold-cache experiment. CPU, physical query I/O, and network wire bytes were not measured. The paper therefore reports the registered boundary and leaves broader performance questions open.
+
+\subsection{Future work}
+The next experiment should be the registered paced RIS replay, with the existing identity ledger and acceptance criteria unchanged. A second priority is an all-in matched comparison that includes source parsing, state/group finalization, publication, validation, and recovery. A third is controlled checkpoint fault injection, including interrupted writes and search rebuilds from committed Parquet. Each extension should retain the existing negative findings and should not replace an unexecuted cell with an older unmatched measurement.
+
+\nocite{*}
+\bibliographystyle{plainnat}
+\bibliography{../../docs/configstream_references}

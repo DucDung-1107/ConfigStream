@@ -1,0 +1,19 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces ConfigStream evidence flow. Source-specific gates create typed temporal records, the manifest defines the authoritative commit, and downstream views remain rebuildable.}}{3}{figure.caption.6}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Desktop overview with the four domain summaries and evidence-oriented navigation.}}{13}{figure.caption.17}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Tablet overview used to check responsive layout and information density.}}{14}{figure.caption.18}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Mobile overview used to check narrow-screen stacking and readable controls.}}{15}{figure.caption.19}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Experiments view showing the recorded comparative results and their evidence context.}}{16}{figure.caption.20}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Operations view showing the operational evidence and status presentation.}}{17}{figure.caption.21}%
+\contentsline {figure}{\numberline {7}{\ignorespaces History view for asset-level configuration chronology and change inspection.}}{18}{figure.caption.22}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Evidence detail view for inspecting a selected result and its provenance fields.}}{19}{figure.caption.23}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Evidence error state, included to document explicit failure presentation rather than silent empty output.}}{20}{figure.caption.24}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Reference view exposing the declared evidence and reference material.}}{21}{figure.caption.25}%
+\contentsline {figure}{\numberline {11}{\ignorespaces DNS domain view with its measurement-specific fields and interpretation boundary.}}{22}{figure.caption.26}%
+\contentsline {figure}{\numberline {12}{\ignorespaces RIS domain view with occurrence-oriented evidence and source coordinates.}}{23}{figure.caption.27}%
+\contentsline {figure}{\numberline {13}{\ignorespaces RPKI domain view with state and transition-oriented evidence.}}{24}{figure.caption.28}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Empty-filter state, showing that no-match results are presented explicitly.}}{25}{figure.caption.29}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Mobile reference view used for responsive inspection of the evidence surface.}}{26}{figure.caption.30}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Readable crop of the RPKI representation and storage-cost results.}}{28}{figure.caption.31}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Readable crop of the registered query measurements and hypothesis status cards.}}{29}{figure.caption.32}%
+\contentsline {figure}{\numberline {18}{\ignorespaces Readable crop of the operational acceptance boundary, resource sample, and recorded executor evidence.}}{30}{figure.caption.33}%
+\contentsline {figure}{\numberline {19}{\ignorespaces Readable crop of the accepted TerraDS history and configuration metadata records.}}{31}{figure.caption.34}%

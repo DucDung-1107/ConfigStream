@@ -1,0 +1,357 @@
+\documentclass[a4paper,12pt]{article}
+
+% Upload paper.tex, references.bib, and the complete asset/ folder at the
+% same directory level when compiling on Overleaf or another TeX service.
+
+% ==================================================
+% PACKAGES
+% ==================================================
+\usepackage[authoryear,semicolon,square]{natbib}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{subcaption}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage[utf8]{inputenc}
+    \usepackage[T5]{fontenc}
+\else
+    \usepackage{fontspec}
+    \setmainfont{Times New Roman}
+\fi
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{setspace}
+\providecommand{\onehalfspacing}{\linespread{1.25}\selectfont}
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{placeins}
+\usepackage{booktabs}
+\usepackage{longtable}[=2020-01-02]
+% Tương thích API footnote của longtable rollback với Hyperref hiện hành.
+\makeatletter
+\long\def\LT@p@ftntext#1{%
+    \edef\@tempa{%
+        \the\LT@p@ftn
+        \noexpand\footnotetext[\the\c@footnote]%
+    }%
+    \global\LT@p@ftn\expandafter{\@tempa{#1}}%
+}
+\makeatother
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage[protrusion=false]{microtype}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{xurl}
+% Hyperref được nạp sau các package tạo float/longtable để patch anchor đúng cách.
+\usepackage[hypertexnames=false]{hyperref}
+
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    shapes.geometric,
+    shapes.misc,
+    calc,
+    fit
+}
+
+% ==================================================
+% PAGE SETTINGS
+% ==================================================
+\geometry{
+    top=1.7cm,
+    bottom=1.7cm,
+    left=2cm,
+    right=2cm
+}
+
+\onehalfspacing
+\setlength{\parindent}{0pt}
+
+% ==================================================
+% COLORS
+% ==================================================
+\definecolor{VinBlue}{RGB}{0,56,101}
+\definecolor{VinRed}{RGB}{194,31,48}
+\definecolor{VinGold}{RGB}{190,145,50}
+\definecolor{LightGold}{RGB}{232,218,180}
+\definecolor{MondBlue}{HTML}{173B57}
+\definecolor{MondTeal}{HTML}{087E8B}
+\definecolor{MondGold}{HTML}{E2A72E}
+\definecolor{MondLight}{HTML}{F2F7F8}
+\definecolor{MondRed}{HTML}{B54747}
+\definecolor{MondGray}{HTML}{5B6770}
+\definecolor{mondaiyblue}{HTML}{174B63}
+\definecolor{mondaiyteal}{HTML}{167B7F}
+\definecolor{mondaiylight}{HTML}{EEF5F4}
+\definecolor{mondaiywarn}{HTML}{8A4B08}
+\definecolor{codebg}{HTML}{F5F7F8}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newtcolorbox{keybox}[1][]{
+    colback=MondLight,
+    colframe=MondTeal,
+    boxrule=0.8pt,
+    arc=2mm,
+    title=#1,
+    fonttitle=\bfseries
+}
+\newtcolorbox{warningbox}[1][]{
+    colback=red!3,
+    colframe=MondRed,
+    boxrule=0.8pt,
+    arc=2mm,
+    title=#1,
+    fonttitle=\bfseries
+}
+\newcommand{\assumption}{\textsuperscript{\color{MondGold}\bfseries [A]}}
+\newcommand{\sourcefact}{\textsuperscript{\color{MondTeal}\bfseries [S]}}
+\providecommand{\websrc}[2]{\footnote{\href{#1}{#2}.}}
+\providecommand{\good}{\textbf{Có}}
+\providecommand{\statuspartial}{\textbf{Một phần}}
+\providecommand{\noevidence}{\textbf{Chưa thấy công bố}}
+\newcommand{\code}[1]{\nolinkurl{#1}}
+\newcommand{\implemented}{\textcolor{mondaiyteal}{\textbf{Đã triển khai trong mã nguồn}}}
+\newcommand{\warningnote}[1]{%
+    \begin{quote}
+        \color{mondaiywarn}\textbf{Lưu ý vận hành.} #1
+    \end{quote}
+}
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    breaklines=true
+}
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\small,
+    string=[s]{"}{"},
+    stringstyle=\color{VinBlue},
+    comment=[l]{//},
+    commentstyle=\color{MondGray},
+    morecomment=[s]{/*}{*/},
+    showstringspaces=false,
+    breaklines=true
+}
+
+% ==================================================
+% HYPERLINK SETTINGS
+% ==================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=VinBlue,
+    citecolor=VinBlue,
+    urlcolor=VinBlue
+}
+
+\begin{document}
+\setlength{\emergencystretch}{3em}
+\raggedbottom
+\sloppy
+% Các bảng kỹ thuật có nhiều chuỗi định danh dài; cho phép TeX dùng khoảng co giãn
+% khẩn cấp mà không phát sinh cảnh báo hộp giả trong log.
+\hbadness=10000
+\vbadness=10000
+\hfuzz=400pt
+\vfuzz=400pt
+\AddToHook{para/begin}{\hbadness=10000\hfuzz=\maxdimen}
+\renewcommand*{\theHtable}{\arabic{table}.\arabic{page}}
+\hypersetup{pageanchor=false}
+
+% ==================================================
+% COVER PAGE
+% ==================================================
+\begin{titlepage}
+\thispagestyle{empty}
+
+% Decorative page border
+\begin{tikzpicture}[remember picture,overlay]
+    % Outer border
+    \draw[
+        VinBlue,
+        line width=2pt
+    ]
+    ($(current page.north west)+(0.75cm,-0.75cm)$)
+    rectangle
+    ($(current page.south east)+(-0.75cm,0.75cm)$);
+
+    % Inner border
+    \draw[
+        VinGold,
+        line width=0.8pt
+    ]
+    ($(current page.north west)+(0.92cm,-0.92cm)$)
+    rectangle
+    ($(current page.south east)+(-0.92cm,0.92cm)$);
+
+    % Decorative corner accents
+    \draw[
+        VinGold,
+        line width=2pt
+    ]
+    ($(current page.north west)+(0.75cm,-1.55cm)$)
+    to
+    ($(current page.north west)+(0.75cm,-0.75cm)$)
+    to
+    ($(current page.north west)+(1.55cm,-0.75cm)$);
+
+    \draw[
+        VinGold,
+        line width=2pt
+    ]
+    ($(current page.north east)+(-1.55cm,-0.75cm)$)
+    to
+    ($(current page.north east)+(-0.75cm,-0.75cm)$)
+    to
+    ($(current page.north east)+(-0.75cm,-1.55cm)$);
+
+    \draw[
+        VinGold,
+        line width=2pt
+    ]
+    ($(current page.south west)+(0.75cm,1.55cm)$)
+    to
+    ($(current page.south west)+(0.75cm,0.75cm)$)
+    to
+    ($(current page.south west)+(1.55cm,0.75cm)$);
+
+    \draw[
+        VinGold,
+        line width=2pt
+    ]
+    ($(current page.south east)+(-1.55cm,0.75cm)$)
+    to
+    ($(current page.south east)+(-0.75cm,0.75cm)$)
+    to
+    ($(current page.south east)+(-0.75cm,1.55cm)$);
+\end{tikzpicture}
+
+\begin{center}
+
+% Organization
+{\fontsize{16}{20}\selectfont
+ \color{VinBlue}
+ \textbf{HANOI UNIVERSITY OF SCIENCE AND TECHNOLOGY}
+}
+
+\vspace{0.15cm}
+
+{\fontsize{16}{20}\selectfont
+ \textbf{School of Information and Communication Technology}
+}
+
+\vspace{0.25cm}
+
+% Line under program name
+\begin{tikzpicture}
+    \draw[VinGold,line width=1.2pt] (0,0) to (13.5,0);
+    \fill[VinRed] (6.55,-0.06) rectangle (6.95,0.06);
+\end{tikzpicture}
+
+\vspace{0.35cm}
+
+% Organization logos
+\begin{minipage}[c][4.2cm][c]{0.46\textwidth}
+    \centering
+    \includesvg[
+        height=3.8cm,
+        keepaspectratio
+    ]{Logo_Đại_học_Bách_Khoa_Hà_Nội.svg}
+\end{minipage}
+\hfill
+\begin{minipage}[c][4.2cm][c]{0.46\textwidth}
+    \centering
+    \includegraphics[
+        width=6.2cm,
+        trim=46 180 44 177,
+        clip
+    ]{soict.png}
+\end{minipage}
+\vspace{0.55cm}
+
+% Project heading
+{\fontsize{23}{28}\selectfont
+ \color{VinBlue}
+ \textbf{PROJECT REPORT}
+}
+
+\vspace{0.15cm}
+
+{\color{VinGold}\rule{7cm}{1pt}}
+
+\vspace{0.3cm}
+
+{\fontsize{19}{23}\selectfont
+ \color{VinBlue}
+ \textbf{\textcolor{VinRed}{MEDORA}: Integrated Clinic Management and Electronic Medical Records System}\\[0.04cm]
+}
+
+\vspace{0.5cm}
+
+\vfill
+
+\begin{minipage}{0.80\textwidth}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\linewidth}{@{}>{\bfseries}l@{\hspace{0.6cm}}X@{}}
+        Course: & System Design \\
+        Class ID: & 175882 \\
+        Supervisor: & Ph.D Nguyen Huu Duc \\
+    \end{tabularx}
+\end{minipage}
+
+\vfill
+
+\begin{minipage}{0.80\textwidth}
+    \small
+    \begin{tabularx}{\linewidth}{@{}>{\bfseries}X@{\hspace{0.7cm}}r@{}}
+        \toprule
+        Member & Student ID \\
+        \midrule
+        Nguyen Tran Minh Tri & 202400116 \\
+        Le Tuan Hung & 202416800 \\
+        Nguyen Khac Hoang Phuc & 202416818 \\
+        Nguyen Hoang Quan & 202416738 \\
+        Nguyen Duc Dung & 202416681 \\
+        \bottomrule
+    \end{tabularx}
+\end{minipage}
+
+\vspace{0.55cm}
+
+% Footer
+{\color{VinGold}\rule{5cm}{0.8pt}}
+
+\vspace{0.15cm}
+
+{\large\color{VinBlue}\textbf{Ha Noi, 2026}}
+
+\end{center}
+\end{titlepage}
+\clearpage
+
+% ==================================================
+% HEADER AND FOOTER FOR THE FOLLOWING PAGES
+% ==================================================
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\fancyhead[L]{\color{VinBlue}\small\textbf{MEDORA}}
+\fancyhead[R]{\color{VinBlue}\small\textbf{GROUP 08}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+\end{document}

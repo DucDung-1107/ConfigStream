@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Arial,Helvetica,sans-serif">
+<title>ConfigStream evidence gates and authoritative publication</title>
+<desc>Four evidence lanes (configuration, RPKI, RIS, DNS) each pass a claim gate and become a typed temporal record. All lanes are committed once to authoritative Parquet datasets and a manifest. Analytics and search/API/dashboard read the committed history and can be rebuilt.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#17212b"/></marker></defs>
+<rect width="1600" height="900" fill="#fff"/>
+<text x="40" y="56" font-size="32" fill="#17212b" text-anchor="start" font-weight="700">ConfigStream: claim gates turn evidence into auditable temporal records</text>
+<text x="40" y="88" font-size="17" fill="#536575" text-anchor="start">Each lane keeps its own identity and temporal condition. One commit is authoritative; search and API are rebuilt from it.</text>
+<text x="40" y="140" font-size="15" fill="#536575" text-anchor="start" font-weight="700" letter-spacing="1.2">01  SOURCE EVIDENCE</text>
+<path d="M40 150H300" stroke="#3b7180" stroke-width="3"/>
+<text x="350" y="140" font-size="15" fill="#536575" text-anchor="start" font-weight="700" letter-spacing="1.2">02  CLAIM GATE</text>
+<path d="M350 150H710" stroke="#a97922" stroke-width="3"/>
+<text x="760" y="140" font-size="15" fill="#536575" text-anchor="start" font-weight="700" letter-spacing="1.2">03  TYPED RECORD</text>
+<path d="M760 150H1020" stroke="#3f6f9b" stroke-width="3"/>
+<text x="1070" y="140" font-size="15" fill="#536575" text-anchor="start" font-weight="700" letter-spacing="1.2">04  COMMIT</text>
+<path d="M1070 150H1280" stroke="#4c7b50" stroke-width="3"/>
+<text x="1340" y="140" font-size="15" fill="#536575" text-anchor="start" font-weight="700" letter-spacing="1.2">05  CONSUMERS</text>
+<path d="M1340 150H1560" stroke="#9a5268" stroke-width="3"/>
+<rect x="40" y="170" width="260" height="110" rx="12" fill="#e8f2f5" stroke="#3b7180" stroke-width="2.4"/>
+<text x="60" y="206" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">ConfigSnapshot</text>
+<text x="60" y="232" font-size="15" fill="#536575" text-anchor="start">asset · version · payload</text>
+<rect x="350" y="170" width="360" height="110" rx="12" fill="#f7f0df" stroke="#a97922" stroke-width="2.4"/>
+<text x="370" y="206" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">Version adjacency</text>
+<text x="370" y="232" font-size="15" fill="#536575" text-anchor="start">buffered producer order</text>
+<rect x="760" y="170" width="260" height="110" rx="12" fill="#eaf1f8" stroke="#3f6f9b" stroke-width="2.4"/>
+<text x="780" y="206" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">ConfigTransition</text>
+<text x="780" y="232" font-size="15" fill="#536575" text-anchor="start">identity · v → v+1</text>
+<text x="780" y="260" font-size="14" fill="#536575" text-anchor="start">+ provenance attached</text>
+<path d="M302 225.0H346" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M712 225.0H756" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M1022 225.0H1066" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<rect x="40" y="302" width="260" height="110" rx="12" fill="#e8f2f5" stroke="#3b7180" stroke-width="2.4"/>
+<text x="60" y="338" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">RPKI source rows</text>
+<text x="60" y="364" font-size="15" fill="#536575" text-anchor="start">coordinate rows</text>
+<rect x="350" y="302" width="360" height="110" rx="12" fill="#f7f0df" stroke="#a97922" stroke-width="2.4"/>
+<text x="370" y="338" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">RPKI completeness</text>
+<text x="370" y="364" font-size="15" fill="#536575" text-anchor="start">coordinate inventory</text>
+<rect x="760" y="302" width="260" height="110" rx="12" fill="#eaf1f8" stroke="#3f6f9b" stroke-width="2.4"/>
+<text x="780" y="338" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">RPKITransition</text>
+<text x="780" y="364" font-size="15" fill="#536575" text-anchor="start">identity · complete state</text>
+<text x="780" y="392" font-size="14" fill="#536575" text-anchor="start">+ provenance attached</text>
+<path d="M302 357.0H346" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M712 357.0H756" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M1022 357.0H1066" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<rect x="40" y="434" width="260" height="110" rx="12" fill="#e8f2f5" stroke="#3b7180" stroke-width="2.4"/>
+<text x="60" y="470" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">MRT frame</text>
+<text x="60" y="496" font-size="15" fill="#536575" text-anchor="start">peer · prefix · occurrence</text>
+<rect x="350" y="434" width="360" height="110" rx="12" fill="#f7f0df" stroke="#a97922" stroke-width="2.4"/>
+<text x="370" y="470" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">RIS multiplicity</text>
+<text x="370" y="496" font-size="15" fill="#536575" text-anchor="start">peer-prefix occurrences</text>
+<rect x="760" y="434" width="260" height="110" rx="12" fill="#eaf1f8" stroke="#3f6f9b" stroke-width="2.4"/>
+<text x="780" y="470" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">RISObservation</text>
+<text x="780" y="496" font-size="15" fill="#536575" text-anchor="start">peer · prefix · occurrence</text>
+<text x="780" y="524" font-size="14" fill="#536575" text-anchor="start">+ provenance attached</text>
+<path d="M302 489.0H346" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M712 489.0H756" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M1022 489.0H1066" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<rect x="40" y="566" width="260" height="110" rx="12" fill="#e8f2f5" stroke="#3b7180" stroke-width="2.4"/>
+<text x="60" y="602" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">DNS measurement</text>
+<text x="60" y="628" font-size="15" fill="#536575" text-anchor="start">address · vantage · time</text>
+<rect x="350" y="566" width="360" height="110" rx="12" fill="#f7f0df" stroke="#a97922" stroke-width="2.4"/>
+<text x="370" y="602" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">DNS qualification</text>
+<text x="370" y="628" font-size="15" fill="#536575" text-anchor="start">group-level evidence</text>
+<rect x="760" y="566" width="260" height="110" rx="12" fill="#eaf1f8" stroke="#3f6f9b" stroke-width="2.4"/>
+<text x="780" y="602" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">DNSMeasurementGroup</text>
+<text x="780" y="628" font-size="15" fill="#536575" text-anchor="start">identity · uncertainty</text>
+<text x="780" y="656" font-size="14" fill="#536575" text-anchor="start">+ provenance attached</text>
+<path d="M302 621.0H346" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M712 621.0H756" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<path d="M1022 621.0H1066" stroke="#17212b" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<rect x="370" y="242" width="44" height="26" rx="4" fill="#fff" stroke="#a97922" stroke-width="2"/>
+<text x="392.0" y="260.0" font-size="15" fill="#17212b" text-anchor="middle" font-weight="700">v1</text>
+<path d="M416 255H440" stroke="#a97922" stroke-width="2" marker-end="url(#a)"/>
+<rect x="444" y="242" width="44" height="26" rx="4" fill="#fff" stroke="#a97922" stroke-width="2"/>
+<text x="466.0" y="260.0" font-size="15" fill="#17212b" text-anchor="middle" font-weight="700">v2</text>
+<path d="M490 255H514" stroke="#a97922" stroke-width="2" marker-end="url(#a)"/>
+<rect x="518" y="242" width="44" height="26" rx="4" fill="#fff" stroke="#a97922" stroke-width="2"/>
+<text x="540.0" y="260.0" font-size="15" fill="#17212b" text-anchor="middle" font-weight="700">v3</text>
+<text x="588" y="253" font-size="14" fill="#536575" text-anchor="start">valid edges only</text>
+<text x="588" y="270" font-size="14" fill="#536575" text-anchor="start">1 to 2, 2 to 3</text>
+<path d="M370 396H562" stroke="#a97922" stroke-width="3"/>
+<path d="M370 390V402" stroke="#a97922" stroke-width="2.4"/>
+<path d="M418 390V402" stroke="#a97922" stroke-width="2.4"/>
+<path d="M466 390V402" stroke="#a97922" stroke-width="2.4"/>
+<path d="M514 390V402" stroke="#a97922" stroke-width="2.4"/>
+<path d="M562 390V402" stroke="#a97922" stroke-width="2.4"/>
+<text x="466" y="382" font-size="16" fill="#a97922" text-anchor="middle" font-weight="700">1 … N</text>
+<text x="588" y="386" font-size="14" fill="#536575" text-anchor="start">complete before</text>
+<text x="588" y="403" font-size="14" fill="#536575" text-anchor="start">transition</text>
+<circle cx="384" cy="519" r="13" fill="#fff" stroke="#a97922" stroke-width="2.4"/>
+<path d="M397 519H423" stroke="#a97922" stroke-width="2.4"/>
+<circle cx="436" cy="519" r="13" fill="#fff" stroke="#a97922" stroke-width="2.4"/>
+<path d="M449 519H475" stroke="#a97922" stroke-width="2.4"/>
+<circle cx="488" cy="519" r="13" fill="#fff" stroke="#a97922" stroke-width="2.4"/>
+<text x="588" y="517" font-size="14" fill="#536575" text-anchor="start">keep every</text>
+<text x="588" y="534" font-size="14" fill="#536575" text-anchor="start">occurrence</text>
+<rect x="370" y="638" width="100" height="26" rx="4" fill="#fff" stroke="#a97922" stroke-width="2"/>
+<text x="420.0" y="656.0" font-size="15" fill="#17212b" text-anchor="middle" font-weight="700">coverage = ?</text>
+<rect x="480" y="638" width="100" height="26" rx="4" fill="#fff" stroke="#a97922" stroke-width="2"/>
+<text x="530.0" y="656.0" font-size="15" fill="#17212b" text-anchor="middle" font-weight="700">vantage = ?</text>
+<text x="594" y="649" font-size="14" fill="#536575" text-anchor="start">uncertainty</text>
+<text x="594" y="666" font-size="14" fill="#536575" text-anchor="start">kept</text>
+<rect x="1070" y="170" width="210" height="506" rx="12" fill="#e9f3e8" stroke="#4c7b50" stroke-width="2.4"/>
+<rect x="1140" y="327.0" width="70" height="44" rx="4" fill="#fff" stroke="#4c7b50" stroke-width="2"/>
+<rect x="1152" y="315.0" width="70" height="44" rx="4" fill="#fff" stroke="#4c7b50" stroke-width="2"/>
+<rect x="1164" y="303.0" width="70" height="44" rx="4" fill="#fff" stroke="#4c7b50" stroke-width="2"/>
+<text x="1175.0" y="403.0" font-size="20" fill="#17212b" text-anchor="middle" font-weight="700">Parquet datasets</text>
+<text x="1175.0" y="431.0" font-size="20" fill="#17212b" text-anchor="middle" font-weight="700">+ manifest</text>
+<text x="1175.0" y="475.0" font-size="15" fill="#536575" text-anchor="middle">SHA-256</text>
+<text x="1175.0" y="497.0" font-size="15" fill="#536575" text-anchor="middle">row / file counts</text>
+<text x="1175.0" y="519.0" font-size="15" fill="#536575" text-anchor="middle">source provenance</text>
+<text x="1175.0" y="563.0" font-size="15" fill="#4c7b50" text-anchor="middle" font-weight="700">single recovery boundary</text>
+<rect x="1340" y="302" width="220" height="110" rx="12" fill="#f4e9ee" stroke="#9a5268" stroke-width="2.4"/>
+<text x="1360" y="342" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">analytics /</text>
+<text x="1360" y="366" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">reconciliation</text>
+<text x="1360" y="394" font-size="14" fill="#536575" text-anchor="start">read-only · rebuildable</text>
+<path d="M1282 357.0H1336" stroke="#9a5268" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<text x="1310" y="347.0" font-size="13" fill="#9a5268" text-anchor="middle">reads</text>
+<rect x="1340" y="566" width="220" height="110" rx="12" fill="#f4e9ee" stroke="#9a5268" stroke-width="2.4"/>
+<text x="1360" y="606" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">search / API /</text>
+<text x="1360" y="630" font-size="19" fill="#17212b" text-anchor="start" font-weight="700">dashboard</text>
+<text x="1360" y="658" font-size="14" fill="#536575" text-anchor="start">read-only · rebuildable</text>
+<path d="M1282 621.0H1336" stroke="#9a5268" stroke-width="2.6" fill="none" marker-end="url(#a)"/>
+<text x="1310" y="611.0" font-size="13" fill="#9a5268" text-anchor="middle">reads</text>
+<rect x="40" y="740" width="26" height="18" rx="4" fill="#e8f2f5" stroke="#3b7180" stroke-width="2"/>
+<text x="76" y="754" font-size="15" fill="#536575" text-anchor="start">source evidence</text>
+<rect x="270" y="740" width="26" height="18" rx="4" fill="#f7f0df" stroke="#a97922" stroke-width="2"/>
+<text x="306" y="754" font-size="15" fill="#536575" text-anchor="start">claim gate</text>
+<rect x="500" y="740" width="26" height="18" rx="4" fill="#eaf1f8" stroke="#3f6f9b" stroke-width="2"/>
+<text x="536" y="754" font-size="15" fill="#536575" text-anchor="start">typed record</text>
+<rect x="730" y="740" width="26" height="18" rx="4" fill="#e9f3e8" stroke="#4c7b50" stroke-width="2"/>
+<text x="766" y="754" font-size="15" fill="#536575" text-anchor="start">authoritative</text>
+<rect x="960" y="740" width="26" height="18" rx="4" fill="#f4e9ee" stroke="#9a5268" stroke-width="2"/>
+<text x="996" y="754" font-size="15" fill="#536575" text-anchor="start">rebuildable</text>
+<rect x="40" y="800" width="1520" height="56" rx="12" fill="#fff" stroke="#c4ced6" stroke-width="2"/>
+<text x="60" y="835" font-size="18" fill="#17212b" text-anchor="start" font-weight="700">Not drawn: RPKI, RIS and DNS never pass through the configuration version buffer.</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<style>text{font-family:Arial,sans-serif;fill:#182633}.h{font-size:22px;font-weight:700}.t{font-size:16px}.s{font-size:13px;fill:#52616d}.box{stroke:#364b5b;stroke-width:2;rx:10}.lane{stroke:#9caab4;stroke-width:2;stroke-dasharray:7 5;rx:14;fill:#fbfcfd}.a{fill:#e8f2f5}.b{fill:#edf1f8}.c{fill:#f8f1df}.d{fill:#eaf3e8}.e{fill:#f6eaee}.arr{stroke:#364b5b;stroke-width:2.4;fill:none;marker-end:url(#m)}</style><defs><marker id="m" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#364b5b"/></marker></defs>
+<text x="55" y="48" class="h">ConfigStream: provenance-preserving temporal data pipeline</text><text x="55" y="75" class="s">Each lane retains its own temporal semantics; only committed evidence is shared.</text>
+<rect x="45" y="105" width="1110" height="145" class="lane"/><text x="65" y="132" class="h">Configuration-history lane</text>
+<rect x="65" y="150" width="180" height="70" class="box a"/><text x="85" y="180" class="t">Asset / Event / Snapshot</text><text x="85" y="202" class="s">distinct Kafka contracts</text>
+<rect x="300" y="150" width="220" height="70" class="box b"/><text x="320" y="180" class="t">Identity + version state</text><text x="320" y="202" class="s">watermark, v+1 edges, diagnostics</text>
+<rect x="580" y="150" width="190" height="70" class="box c"/><text x="600" y="180" class="t">Normalize, diff, rules</text><text x="600" y="202" class="s">policy-bound derived records</text>
+<path d="M245 185H300M520 185H580" class="arr"/>
+<rect x="45" y="275" width="1110" height="175" class="lane"/><text x="65" y="302" class="h">Temporal workload lanes</text>
+<rect x="70" y="322" width="250" height="88" class="box a"/><text x="90" y="352" class="t">RPKI</text><text x="90" y="375" class="s">chunks → raw ledger → complete state</text><text x="90" y="395" class="s">verified daily transition</text>
+<rect x="405" y="322" width="250" height="88" class="box b"/><text x="425" y="352" class="t">RIS</text><text x="425" y="375" class="s">MRT framing → peer-prefix occurrences</text><text x="425" y="395" class="s">multiplicity is preserved</text>
+<rect x="740" y="322" width="250" height="88" class="box c"/><text x="760" y="352" class="t">DNS</text><text x="760" y="375" class="s">measurements → qualified groups</text><text x="760" y="395" class="s">coverage and vantage remain explicit</text>
+<rect x="320" y="500" width="560" height="95" class="box d"/><text x="350" y="534" class="h">Committed Parquet evidence + manifest</text><text x="350" y="560" class="s">query/batch identity · provenance · counts · file or logical-projection digest</text><text x="350" y="582" class="s">authoritative recovery boundary</text>
+<path d="M675 220V500M195 410V475H500M530 410V475H600M865 410V475H700" class="arr"/>
+<rect x="145" y="650" width="300" height="65" class="box e"/><text x="170" y="680" class="t">Analytics and reconciliation</text><text x="170" y="702" class="s">read committed history only</text>
+<rect x="755" y="650" width="300" height="65" class="box e"/><text x="780" y="680" class="t">Search / FastAPI / dashboard</text><text x="780" y="702" class="s">rebuildable serving projections</text>
+<path d="M500 595V630H295M700 595V630H905" class="arr"/>
+</svg>

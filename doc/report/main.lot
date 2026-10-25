@@ -1,0 +1,5 @@
+\contentsline {table}{\numberline {1}{\ignorespaces Matched normalized-core execution time in seconds. Every cell has three exact-output repetitions.}}{11}{}%
+\contentsline {table}{\numberline {2}{\ignorespaces Principal record contracts and the decisions they support.}}{15}{}%
+\contentsline {table}{\numberline {3}{Traceability from report claim to implementation and evidence boundary.}}{21}{}%
+\contentsline {table}{\numberline {4}{\ignorespaces Evaluation roles and the interpretation boundaries applied to each workload.}}{22}{}%
+\contentsline {table}{\numberline {5}{\ignorespaces Correctness hierarchy used to interpret ConfigStream results. Higher rows are necessary but not sufficient for lower rows.}}{24}{}%

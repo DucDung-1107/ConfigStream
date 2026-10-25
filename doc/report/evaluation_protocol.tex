@@ -1,0 +1,103 @@
+% Local evaluation and reproducibility appendix used by the two report entry points.
+
+\section{Evaluation Protocol, Reproducibility, and Interpretation Rules}
+\label{app:evaluation-protocol}
+
+The project evaluates a pipeline whose outputs are both data products and claims about those data products. For that reason, the evaluation protocol does not treat a command exit code as sufficient evidence. A run is useful only when its input scope, processing boundary, expected projection, committed outputs, and failure status can be related to one another. This appendix specifies the evaluation vocabulary used in the report and records the conditions under which a result may be interpreted.
+
+\subsection{Evidence roles rather than one synthetic benchmark}
+
+ConfigStream has several workloads because no single source represents every relevant temporal property. The configuration-history replay tests the relationship between versions, configuration bodies, diffs, Kafka delivery, state, and lake commits. RPKI exercises a complete structured-membership representation with its own canonicalization and storage questions. DNS captures observations whose absence and address-family interpretation have measurement-specific uncertainty. RIS contains peer-prefix occurrences, where repeated occurrences are meaningful and should not be collapsed into one presumed global routing state.
+
+The protocol therefore assigns each workload an evidence role before measuring it. A role identifies the unit of analysis, the ordering semantics, the relevant source of completeness, the oracle, and which conclusions are forbidden. This prevents a common but misleading practice: converting each workload to rows/s and presenting the largest number as a platform-wide throughput result. A canonical authorization member, a DNS observation, a peer-prefix occurrence, a JSON configuration snapshot, and a logical adjacent edge are different objects. Their counts can all be correct while their rates remain incomparable.
+
+\begin{table}[ht]
+\centering
+\caption{Evaluation roles and the interpretation boundaries applied to each workload.}
+\label{tab:evidence-roles}
+\small
+\begin{tabularx}{\textwidth}{p{0.19\textwidth}p{0.21\textwidth}X}
+\toprule
+Workload & Unit and temporal meaning & Appropriate evidence; prohibited inference \\
+\midrule
+TerraDS configuration replay & Versioned snapshots and ordinal adjacent file histories. & End-to-end state, diff, and lake replay evidence; not natural device-change frequency. \\
+RPKI & Canonical authorization members under declared normalization. & Exact representation and query comparison; not a configuration-arrival workload. \\
+DNS & Raw measurements with qualified address-group comparison. & Measurement processing and uncertainty-aware analysis; not complete DNS absence evidence. \\
+RIS & Native peer-prefix occurrences in collection windows. & Occurrence processing and multiplicity preservation; not a complete routing-table claim. \\
+Synthetic generator & Seeded asset/version records with controlled mutation. & Adversarial state cases and repeatability; not observed production behavior. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+This separation is also why the project keeps source acquisition and source semantics outside the matched normalized-core performance result. The B0/B2/B3 comparison begins after the relevant normalized input has been fixed. It measures a common processing projection, not the heterogeneous cost of downloading archives, parsing unrelated formats, or establishing a real-world source's completeness. The broader TerraDS replay exists precisely because it measures a different, integrated boundary.
+
+\subsection{Run registration and acceptance states}
+
+Every planned measurement has a declared status. \textbf{PASS} means that the run completed its stated processing boundary and its complete output projection met the acceptance rule. \textbf{FAIL} means that the planned boundary was reached but a software, oracle, resource, or validity condition was violated. \textbf{NOT\_RUN} means the corresponding command or registered case was not executed; it must not be filled with an estimate from another workload. \textbf{INVALID} is used when a command produced an output but violated the comparison protocol, for example by changing an input projection, leaking a failed retry into an aggregate, or using a denominator different from the registered one.
+
+This vocabulary has an important consequence for negative evidence. An early campaign attempt used a SQLite connection from an inappropriate Spark callback thread. The attempt committed zero batches. It is retained as a failed operational attempt because it helps explain why the corrected campaign changed the callback handling. It is not averaged into the 27 successful matched trials, and it is not reported as a zero-throughput successful run. Preserving such a distinction makes a later successful result more interpretable, not less.
+
+Each accepted run is accompanied by a manifest-like evidence record containing at least: workload name and source scope; processing mode; configuration and seed where relevant; intended unit; input counts; expected projection identity; output locations; elapsed-time definition; resource guard; acceptance decision; and links to diagnostics or failed attempts. The report uses this record to distinguish an observation from an interpretation. For example, ``all selected offsets reached zero in nine B3 trials'' is an observation; ``streaming is universally better for this workload class'' would be an unsupported interpretation.
+
+\subsection{Correctness oracle and invariant hierarchy}
+
+The strongest available correctness test compares a complete identity-to-full-record projection with an independent oracle. An identity is a domain-specific deterministic key: for a configuration diff it includes the two endpoint identities and policy-derived diff identity; for an RPKI member it includes its canonical member identity; for an occurrence it preserves the native occurrence identity. The evaluator checks four failure classes: an expected identity is missing, an unexpected identity is present, the same identity maps to unequal records, or an identity appears more than once where multiplicity is not part of the contract. Full record equality then checks fields, not just total count.
+
+Counts, file hashes, and schema checks still matter, but they occupy lower levels in the evidence hierarchy. A count can agree even when one record is replaced by another. A data-file hash can establish byte identity of a particular file but says little without knowing whether the file contains the intended projection. A schema read can establish that the reader saw a compatible shape but not that every expected member exists. The protocol therefore uses these checks as complementary integrity signals after or alongside exact projection comparison.
+
+The stateful path has additional invariants that are best expressed through adversarial examples. Every emitted edge must use records with one asset identifier and successive producer versions. No exact retained retry may create a second logical edge. A conflicting snapshot identity or version may not mutate the accepted buffer. A late record at or below the eviction floor may not revive historical state. At expiry, unresolved adjacency must become a diagnostic rather than an invented pair. These invariants are more informative than a generic ``all tests pass'' statement because each one rules out a distinct category of false history.
+
+\begin{table}[ht]
+\centering
+\caption{Correctness hierarchy used to interpret ConfigStream results. Higher rows are necessary but not sufficient for lower rows.}
+\label{tab:correctness-hierarchy}
+\small
+\begin{tabularx}{\textwidth}{p{0.24\textwidth}X X}
+\toprule
+Check level & Question answered & What it cannot establish alone \\
+\midrule
+Process completion & Did the command reach its registered terminal boundary? & That any output is correct. \\
+Schema and row count & Did committed files have expected shape and physical count? & Membership or record equality. \\
+Hashes and inventories & Can committed files be identified and audited? & Semantic correctness of the projection. \\
+Exact projection & Are expected identities and full records equal to the oracle? & A performance or deployment guarantee. \\
+State adversarial tests & Are key disorder, conflict, eviction, and expiry invariants enforced? & Coverage of every real source condition. \\
+Integration replay & Do components compose across the declared local boundary? & HA, multi-node scaling, or all-sink atomicity. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Measurement boundaries and denominators}
+
+Time measurements are only meaningful when the start, end, and denominator are named. The matched normalized-core campaign measures command-start to observed-exit time for a fixed complete projection. Its B0 mode is a direct local Arrow-based rewrite. B2 runs a Spark batch rewrite. B3 runs a queued Spark streaming rewrite. The three modes intentionally do not include source acquisition, parser construction, or the production-specific group-finalization work that would make their costs structurally different. The comparison is fair for its chosen core projection, but it is not a claim about the total cost of every deployment.
+
+The TerraDS replay uses a different denominator. It includes source-side Kafka publication, streaming state execution, lake output, and drain. Its reported publisher rate is calculated at the publisher boundary; its accepted logical rate is calculated at the accepted logical-record boundary; and the drain time describes the elapsed end-to-end completion boundary. Reporting all three is not redundancy. It prevents the faster source-side rate from being mistaken for a rate at which the lake has durably accepted history.
+
+The protocol avoids turning three repetitions into a confidence interval. The retained table reports median and range for the three fresh-process repetitions at each workload/mode cell. The range describes observed variation in this controlled local setting. It does not estimate a population distribution, establish statistical significance, or support claims about a different host class. A larger experiment with controlled cache state, independent machines, and a registered analysis plan would be necessary for those conclusions.
+
+Resource accounting follows the same discipline. The corrected matched campaign records elapsed time, retained output growth, and sampled process-tree memory against a 7,200-second and 6-GiB campaign guard. These guardrails are acceptance constraints, not claims that the platform requires no more than those resources under all inputs. CPU utilization, physical query I/O, network-wire bytes, and cold-cache behavior were not measured in this campaign and are named as unmeasured rather than imputed.
+
+\subsection{Result interpretation for the accepted artifacts}
+
+The accepted TerraDS replay contains 10,188 snapshots and 3,683 ordinal adjacent diffs. The processor completed the registered local integrated path, committed 29,402,997 bytes of raw and processed Parquet data, emitted zero alerts and zero diagnostics, and finished the recorded drain in 68.742 seconds. The result demonstrates that the specified components can compose for that accepted scope. It does not prove that every real configuration source will produce no diagnostics: a diagnostic is expected when source state conflicts, a gap is unresolved at timeout, or the bounded state history is exceeded.
+
+The corrected matched campaign records 27 successful trials: three repetitions for each of the nine workload/mode cells. All recorded trials satisfied the exact complete normalized projection comparison, and the B3 trials ended at zero selected-offset lag. The observed ordering B0 faster than B2 faster than B3 is consistent with additional Spark and queueing work inside the measured boundary. It should not be generalized to ``batch is better than streaming'' because the production use case needs continuous state, late-arrival handling, and recovery behavior that the matched core intentionally holds outside the comparison.
+
+The RPKI representation experiment compares exact normalized analytical layouts, not online configuration history. R1 occupies 47,756,423 analytical bytes, R2 occupies 3,555,516 bytes, and R3 occupies 6,954,890 bytes in the retained artifact. Relative to R1, the reported reductions are 92.55\% for R2 and 85.44\% for R3. Both R2 and R3 satisfy the registered selected-query condition of remaining within twice the R1 median. The result supports the narrow conclusion that these layouts preserve the selected analytical projection while reducing the declared analytical-storage target. It excludes raw source archives, caches, object-store overhead, and other operational costs.
+
+\subsection{Reproducibility procedure}
+
+A reproducible rerun begins by freezing the code revision, configuration, rule files, source scopes, and workload seed or manifest. The runner should preserve the input identity ledger before creating an output directory. For the streaming path, a new run must also record its checkpoint location and query identifier, because these identify the state and batch-commit lineage. Reusing a checkpoint with changed semantics is not a neutral restart; it must be treated as a compatibility decision and checked against the processor's state contract.
+
+The runner then executes the registered workload and retains standard output, configuration, elapsed-time measurement, output paths, manifest locations, and diagnostics. A successful process exit is followed by lake validation: expected datasets are read using their declared schemas, physical rows are counted, inventories are checked, and the committed projection is compared with the expected projection. Search and API checks are performed after the authoritative lake validation, because a healthy API result is not a substitute for a committed historical record.
+
+For an interrupted run, the recovery procedure starts at the manifest boundary. A reader must ignore uncommitted paths and only use datasets referenced by a valid manifest. If the batch manifest already exists, replay validation compares the expected and committed projections before retaining the output. If the lake is valid but search is incomplete, the correct recovery action is to rebuild the projection from the lake rather than to infer missing metadata from Kafka offsets or dashboard state. If the lake is absent or invalid, the attempt remains uncommitted and is recorded as such.
+
+This procedure makes an important division of responsibility. The code supplies deterministic identities, bounded state, manifest validation, and rebuildable projections. The evaluator supplies a declared workload, oracle, and acceptance rule. The report supplies the boundary within which the result is true. None of these three layers can be omitted without weakening reproducibility.
+
+\subsection{Completion plan and remaining evidence}
+
+The project is described as approximately 70\% complete at the checkpoint because core contracts, stateful processing, lake publication, serving views, and several accepted local evaluations are present. The remaining work is not filler: it consists of evidence that would change the allowable scope of the conclusion. The first priority is the registered paced RIS replay with the existing identity ledger and acceptance rules. The second is an all-in comparison including source parsing, state/group finalization, publication, validation, and recovery. The third is fault injection across checkpoint recovery, interrupted writes, and search rebuilds from committed Parquet.
+
+The final report should also add a controlled multi-node or replicated deployment study before making any HA or distributed scalability statement. Such a study needs an explicit topology, replication configuration, failure schedule, recovery metric, and all-sink interpretation. It should not be replaced with a higher local input rate. Similarly, a claim about exactly-once external alert delivery would need a cross-sink transactional design or a carefully specified idempotent-consumer proof; deterministic alert IDs alone are insufficient.
+
+The practical value of the protocol is that it makes incompleteness visible. A not-run paced replay is a planned experiment, not a failed result. A local state test is a strong test of one invariant, not a substitute for a cluster experiment. A committed Parquet manifest is a durable local boundary, not a global transaction. Keeping these distinctions in the final report will make the project more credible than an inflated page count or an unsupported performance headline.

@@ -1,0 +1,3 @@
+# Evidence bytes are hashed before display; keep this fixture byte-stable across
+# Windows and Linux checkouts.
+frontend/public/research/v1/catalog.json text eol=lf

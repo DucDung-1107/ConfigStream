@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 320" width="460pt" height="320pt">
+<title>ConfigStream architecture and evidence flow</title>
+<desc>One left-to-right pipeline from typed snapshots through event-time state reconstruction and semantic diffing to an authoritative lake and rebuildable read projections, with evaluation attached to committed evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 7 7" refX="6.2" refY="3.5" markerWidth="5" markerHeight="5" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="#202b35"/></marker></defs>
+<rect width="460" height="320" fill="#ffffff"/>
+<text x="8.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">(a)</text>
+<text x="26.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">typed snapshots</text>
+<text x="111.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">(b)</text>
+<text x="129.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">event-time state</text>
+<text x="218.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">(c)</text>
+<text x="236.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">semantic change</text>
+<text x="326.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">(d)</text>
+<text x="344.00" y="18.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">publication</text>
+<rect x="6.00" y="25.00" width="95.00" height="102.00" rx="4" fill="#fbfcfc" stroke="#aab4bd" stroke-width="0.70"/>
+<text x="13.00" y="36.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.20" fill="#202b35" text-anchor="start" font-weight="bold">Kafka: config.snapshots</text>
+<text x="13.00" y="46.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#687582" text-anchor="start">asset_id is the partition key</text>
+<rect x="13.00" y="55.00" width="34.00" height="14.00" rx="2" fill="#e7f1f4" stroke="#397783" stroke-width="0.65"/>
+<text x="30.00" y="64.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">asset</text>
+<rect x="51.00" y="55.00" width="42.00" height="14.00" rx="2" fill="#e7f1f4" stroke="#397783" stroke-width="0.65"/>
+<text x="72.00" y="64.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">snapshot</text>
+<rect x="13.00" y="76.00" width="79.00" height="38.00" rx="3" fill="#ffffff" stroke="#397783" stroke-width="0.70"/>
+<text x="18.00" y="86.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#202b35" text-anchor="start">asset_id: router-07</text>
+<text x="18.00" y="96.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#202b35" text-anchor="start">version: 18    t_e: 10:04</text>
+<text x="18.00" y="106.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#687582" text-anchor="start">payload + raw_hash</text>
+<path d="M101.00,77.00 L111.00,77.00" fill="none" stroke="#202b35" stroke-width="0.80" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="52.00" y="122.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#687582" text-anchor="middle">typed input</text>
+<rect x="111.00" y="25.00" width="98.00" height="102.00" rx="4" fill="#fbfcfe" stroke="#aab4bd" stroke-width="0.70"/>
+<text x="118.00" y="36.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.10" fill="#202b35" text-anchor="start" font-weight="bold">bounded per-asset buffer</text>
+<text x="118.00" y="46.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#687582" text-anchor="start">arrival: v18, v20, v19</text>
+<rect x="119.00" y="56.00" width="22.00" height="16.00" rx="2" fill="#e7f1f4" stroke="#397783" stroke-width="0.70"/>
+<text x="130.00" y="66.80" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.80" fill="#202b35" text-anchor="middle" font-weight="bold">v18</text>
+<path d="M141.00,64.00 L145.00,64.00" fill="none" stroke="#aab4bd" stroke-width="0.55" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="146.00" y="56.00" width="22.00" height="16.00" rx="2" fill="#f2e5d9" stroke="#a66127" stroke-width="0.70"/>
+<text x="157.00" y="66.80" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.80" fill="#202b35" text-anchor="middle" font-weight="bold">v20</text>
+<path d="M168.00,64.00 L172.00,64.00" fill="none" stroke="#aab4bd" stroke-width="0.55" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="173.00" y="56.00" width="22.00" height="16.00" rx="2" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.70"/>
+<text x="184.00" y="66.80" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.80" fill="#202b35" text-anchor="middle" font-weight="bold">v19</text>
+<text x="118.00" y="82.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#687582" text-anchor="start">sort by producer version</text>
+<rect x="119.00" y="88.00" width="73.00" height="20.00" rx="3" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.80"/>
+<rect x="123.00" y="92.00" width="19.00" height="12.00" rx="2" fill="#ffffff" stroke="#3f6f9b" stroke-width="0.55"/>
+<text x="132.50" y="100.20" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.30" fill="#202b35" text-anchor="middle" font-weight="bold">v18</text>
+<path d="M142.00,98.00 L145.00,98.00" fill="none" stroke="#3f6f9b" stroke-width="0.55" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="146.00" y="92.00" width="19.00" height="12.00" rx="2" fill="#ffffff" stroke="#3f6f9b" stroke-width="0.55"/>
+<text x="155.50" y="100.20" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.30" fill="#202b35" text-anchor="middle" font-weight="bold">v19</text>
+<path d="M165.00,98.00 L168.00,98.00" fill="none" stroke="#3f6f9b" stroke-width="0.55" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="169.00" y="92.00" width="19.00" height="12.00" rx="2" fill="#ffffff" stroke="#3f6f9b" stroke-width="0.55"/>
+<text x="178.50" y="100.20" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.30" fill="#202b35" text-anchor="middle" font-weight="bold">v20</text>
+<path d="M209.00,77.00 L218.00,77.00" fill="none" stroke="#202b35" stroke-width="0.80" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="160.00" y="116.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.35" fill="#687582" text-anchor="middle">edges: v18 -&gt; v19 and v19 -&gt; v20</text>
+<text x="160.00" y="123.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.35" fill="#202b35" text-anchor="middle" font-weight="bold">latest accepted version = v20</text>
+<path d="M160.00,127.00 L160.00,140.00 L144.00,140.00" fill="none" stroke="#a66127" stroke-width="0.70" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="2 1" marker-end="url(#arrow)"/>
+<rect x="93.00" y="133.00" width="72.00" height="25.00" rx="3" fill="#f2e5d9" stroke="#a66127" stroke-width="0.75"/>
+<text x="129.00" y="143.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">diagnostic</text>
+<text x="129.00" y="152.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">gap / duplicate / eviction</text>
+<rect x="218.00" y="25.00" width="102.00" height="102.00" rx="4" fill="#fffdf9" stroke="#aab4bd" stroke-width="0.70"/>
+<text x="225.00" y="36.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.20" fill="#202b35" text-anchor="start" font-weight="bold">adjacent edges</text>
+<rect x="225.00" y="47.00" width="35.00" height="14.00" rx="2" fill="#e7f1f4" stroke="#397783" stroke-width="0.65"/>
+<text x="242.50" y="56.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">v18</text>
+<rect x="270.00" y="47.00" width="35.00" height="14.00" rx="2" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.65"/>
+<text x="287.50" y="56.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">v19</text>
+<path d="M260.00,54.00 L270.00,54.00" fill="none" stroke="#202b35" stroke-width="0.75" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="225.00" y="59.00" width="35.00" height="14.00" rx="2" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.65"/>
+<text x="242.50" y="68.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">v19</text>
+<rect x="270.00" y="59.00" width="35.00" height="14.00" rx="2" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.65"/>
+<text x="287.50" y="68.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.90" fill="#202b35" text-anchor="middle" font-weight="bold">v20</text>
+<path d="M260.00,66.00 L270.00,66.00" fill="none" stroke="#202b35" stroke-width="0.75" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="225.00" y="77.00" width="80.00" height="16.00" rx="3" fill="#f8f0dd" stroke="#a97922" stroke-width="0.75"/>
+<text x="265.00" y="87.50" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="middle" font-weight="bold">normalize + hash</text>
+<path d="M265.00,93.00 L265.00,98.00" fill="none" stroke="#202b35" stroke-width="0.75" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="225.00" y="99.00" width="80.00" height="17.00" rx="3" fill="#ffffff" stroke="#a97922" stroke-width="0.75"/>
+<text x="265.00" y="110.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="middle" font-weight="bold">diff + YAML rules</text>
+<text x="265.00" y="124.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.00" fill="#687582" text-anchor="middle">raw hash != normalized hash</text>
+<path d="M320.00,77.00 L326.00,77.00" fill="none" stroke="#202b35" stroke-width="0.80" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="326.00" y="25.00" width="128.00" height="102.00" rx="4" fill="#fbfcfa" stroke="#aab4bd" stroke-width="0.70"/>
+<text x="333.00" y="36.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.20" fill="#202b35" text-anchor="start" font-weight="bold">commit manifest</text>
+<rect x="333.00" y="45.00" width="114.00" height="22.00" rx="3" fill="#ffffff" stroke="#4c7b50" stroke-width="0.80"/>
+<text x="390.00" y="54.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.70" fill="#202b35" text-anchor="middle" font-weight="bold">batch_id + source ids</text>
+<text x="390.00" y="62.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.40" fill="#687582" text-anchor="middle">rows + hashes + counts</text>
+<rect x="333.00" y="76.00" width="52.00" height="28.00" rx="3" fill="#e8f2e8" stroke="#4c7b50" stroke-width="0.75"/>
+<text x="359.00" y="86.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">Parquet</text>
+<text x="359.00" y="98.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">authoritative</text>
+<rect x="395.00" y="76.00" width="52.00" height="28.00" rx="3" fill="#f5e9ee" stroke="#9a5268" stroke-width="0.75"/>
+<text x="421.00" y="86.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">index/API</text>
+<text x="421.00" y="98.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">rebuildable</text>
+<path d="M390.00,67.00 L359.00,76.00" fill="none" stroke="#4c7b50" stroke-width="0.75" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M390.00,67.00 L421.00,76.00" fill="none" stroke="#9a5268" stroke-width="0.75" stroke-linecap="round" stroke-dasharray="2 1" marker-end="url(#arrow)"/>
+<text x="390.00" y="118.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.30" fill="#687582" text-anchor="middle">projection failure does not redefine history</text>
+<text x="8.00" y="181.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">(e)</text>
+<text x="26.00" y="181.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="7.00" fill="#202b35" text-anchor="start" font-weight="bold">evaluation from committed evidence</text>
+<rect x="6.00" y="188.00" width="448.00" height="85.00" rx="4" fill="#fcfcfd" stroke="#aab4bd" stroke-width="0.75"/>
+<text x="14.00" y="199.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="start" font-weight="bold">same run manifest</text>
+<path d="M82.00,196.00 L96.00,196.00" fill="none" stroke="#202b35" stroke-width="0.70" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="98.00" y="205.00" width="70.00" height="30.00" rx="3" fill="#e7f1f4" stroke="#397783" stroke-width="0.75"/>
+<text x="133.00" y="215.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">oracle</text>
+<text x="133.00" y="229.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">row equality</text>
+<rect x="181.00" y="205.00" width="70.00" height="30.00" rx="3" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.75"/>
+<text x="216.00" y="215.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">invariants</text>
+<text x="216.00" y="229.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">identity / adjacency</text>
+<rect x="264.00" y="205.00" width="70.00" height="30.00" rx="3" fill="#f8f0dd" stroke="#a97922" stroke-width="0.75"/>
+<text x="299.00" y="215.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">resources</text>
+<text x="299.00" y="229.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">bytes / time / RAM</text>
+<rect x="347.00" y="205.00" width="94.00" height="30.00" rx="3" fill="#f2e5d9" stroke="#a66127" stroke-width="0.75"/>
+<text x="394.00" y="215.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">diagnostics</text>
+<text x="394.00" y="229.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">lag / gaps / recovery</text>
+<path d="M168.00,220.00 L181.00,220.00" fill="none" stroke="#202b35" stroke-width="0.70" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M251.00,220.00 L264.00,220.00" fill="none" stroke="#202b35" stroke-width="0.70" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M334.00,220.00 L347.00,220.00" fill="none" stroke="#202b35" stroke-width="0.70" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="224.00" y="252.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="6.00" fill="#202b35" text-anchor="middle" font-weight="bold">report rates with their workload unit and run boundary</text>
+<text x="224.00" y="263.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle">files / rows / occurrences are not pooled into one capacity number</text>
+<path d="M451.00,235.00 L451.00,294.00 L218.00,294.00 L218.00,287.00" fill="none" stroke="#687582" stroke-width="0.65" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="2 1" marker-end="url(#arrow)"/>
+<text x="334.00" y="290.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.55" fill="#687582" text-anchor="middle" font-style="italic">evidence constrains the claim</text>
+<rect x="8.00" y="305.00" width="9.00" height="7.00" rx="1.5" fill="#e7f1f4" stroke="#397783" stroke-width="0.55"/>
+<text x="21.00" y="311.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="start">input</text>
+<rect x="55.00" y="305.00" width="9.00" height="7.00" rx="1.5" fill="#eaf0f7" stroke="#3f6f9b" stroke-width="0.55"/>
+<text x="68.00" y="311.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="start">state</text>
+<rect x="102.00" y="305.00" width="9.00" height="7.00" rx="1.5" fill="#f8f0dd" stroke="#a97922" stroke-width="0.55"/>
+<text x="115.00" y="311.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="start">semantic transform</text>
+<rect x="196.00" y="305.00" width="9.00" height="7.00" rx="1.5" fill="#e8f2e8" stroke="#4c7b50" stroke-width="0.55"/>
+<text x="209.00" y="311.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="start">authoritative</text>
+<rect x="278.00" y="305.00" width="9.00" height="7.00" rx="1.5" fill="#f5e9ee" stroke="#9a5268" stroke-width="0.55"/>
+<text x="291.00" y="311.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="start">rebuildable view</text>
+<path d="M380.00,308.50 L400.00,308.50" fill="none" stroke="#687582" stroke-width="0.65" stroke-linecap="round" stroke-dasharray="2 1" marker-end="url(#arrow)"/>
+<text x="405.00" y="311.00" font-family="'Times New Roman','Liberation Serif',Nimbus Roman,Times,serif" font-size="5.60" fill="#202b35" text-anchor="start">diagnostic / constraint</text>
+</svg>
