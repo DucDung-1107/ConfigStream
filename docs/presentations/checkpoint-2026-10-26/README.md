@@ -1,18 +1,18 @@
 # Group 4 — first milestone checkpoint
 
-12 English slides for 26 October 2026, with Vietnamese speaker notes. Planned speaking time: approximately 9 minutes.
+13 English slides for 26 October 2026, with Vietnamese speaker notes. Planned speaking time: approximately 10 minutes.
 
 - [Presentation PDF](main.pdf): use this when projecting.
 - [Presenter PDF](speaker-notes.pdf): each page has the slide on the left and Vietnamese notes on the right.
 - [Speaker notes](speaker-notes.md): convenient rehearsal copy.
-- [Overview preview](preview.png): all 12 slides on one image.
+- [Overview preview](preview.png): all 13 slides on one image.
 - [LaTeX source](main.tex): edit slide text and `\vnote{...}` here.
 
-The deck introduces the problem, demonstrates version ordering, explains the configuration pipeline, and maps implemented progress to the three checkpoint requirements: executable code in Git, prepared data, and system architecture.
+The deck introduces the problem, demonstrates version ordering, introduces all four data types (Terraform, RPKI, RIS and DNS), explains their separate processing paths, and maps implemented progress to the three checkpoint requirements: executable code in Git, prepared data, and system architecture.
 
 ## Template and illustrations
 
-The four SimplePlus theme files are copied unchanged from the supplied template, preserved in [../SimplePlus_Blank_Template](../SimplePlus_Blank_Template). All architecture, version-order, workflow and replay diagrams have editable `.drawio` sources beside their exported PNGs in `figs/`.
+The four SimplePlus theme files are copied unchanged from the supplied template, preserved in [../SimplePlus_Blank_Template](../SimplePlus_Blank_Template). The main architecture figure `four-paths` shows all four domain pipelines. The original `architecture` figure is retained as an editable detail of the configuration path. All architecture, version-order, workflow and replay diagrams have editable `.drawio` sources beside their exported PNGs in `figs/`.
 
 `figs/dashboard.png` is a cropped capture of the actual local frontend on 25 October 2026. Its cards and chart display the accepted static research evidence bundle; it is not a live backend replay. Capture used Chromium, a 1440 × 1000 viewport, device scale factor 1.5, and clip `{x: 300, y: 70, width: 1110, height: 660}`. No application data was mocked for the screenshot.
 
@@ -45,7 +45,7 @@ The deck distinguishes current executable code from previously recorded integrat
 | Configuration storage / serving path | `spark/streaming/outputs.py`, `analytics/main.py`, `api/`, `frontend/` |
 | 6,505 file histories; 10,188 accepted versions; 3,683 adjacent pairs | `workloads/results/terrads/history-summary.json` |
 | Recorded local replay and 29,402,997 Parquet bytes | `docs/phase12-acceptance.md` |
-| Dashboard accepted evidence bundle | `frontend/public/research/v1/catalog.json` |
+| Accepted RPKI / RIS / DNS counts and scopes; dashboard evidence bundle | `frontend/public/research/v1/catalog.json` |
 
 Rechecked on 25 October 2026:
 

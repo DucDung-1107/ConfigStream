@@ -77,14 +77,44 @@ telnet enabled
   \vspace{.55cm}
   \begin{flushleft}
   \keyline{A searchable history of configuration changes}
-  One asset ID links its versions, differences and alerts.
+  For configuration histories, one asset ID links versions, differences and alerts.
   \end{flushleft}
   \source{Implemented contracts: schemas/; processing/; api/routes/documents.py.}
   \vnote{Khoảng 35 giây. Giải thích ba việc hệ thống làm: lưu phiên bản đã được chấp nhận, so sánh các phiên bản và tra cứu lịch sử cùng cảnh báo theo rule. Asset là đối tượng như router hoặc một file cấu hình. ID của asset giúp nối lịch sử lại với nhau. Cảnh báo là kết quả rule, không đồng nghĩa với một sự cố bảo mật đã được xác nhận.}
 \end{frame}
 
+% Four distinct temporal data types
+\begin{frame}{Four datasets, four meanings of change}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}
+      \begin{block}{Terraform / TerraDS: versions}
+        Infrastructure code stored in Git.\par\medskip
+        \textbf{v1 $\rightarrow$ v2}: which lines changed?
+      \end{block}
+      \vspace{.15cm}
+      \begin{block}{RIS: routing events}
+        BGP announcements and withdrawals.\par\medskip
+        \textbf{Announce $\rightarrow$ withdraw}: what happened?
+      \end{block}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \begin{block}{RPKI: observed daily states}
+        Observed route-authorization records.\par\medskip
+        \textbf{Day 1 $\rightarrow$ day 2}: which members differ?
+      \end{block}
+      \vspace{.15cm}
+      \begin{block}{DNS: measurements}
+        Recorded DNS query and response data.\par\medskip
+        \textbf{Name $\rightarrow$ IP}: what was observed, when?
+      \end{block}
+    \end{column}
+  \end{columns}
+  \source{Conceptual examples. Sources and accepted scopes: frontend/public/research/v1/catalog.json.}
+  \vnote{Khoảng 65 giây. Nhóm dùng bốn loại dữ liệu có ý nghĩa thời gian khác nhau. Terraform từ TerraDS là các phiên bản file mã hạ tầng trong Git: so sánh để biết dòng nào đổi, không coi commit là lần triển khai. RPKI là tập bản ghi uỷ quyền định tuyến quan sát theo ngày; so sánh thành viên giữa hai ngày đầy đủ, không suy ra chính xác thao tác của quản trị viên. RIS ghi nhận sự kiện BGP, ví dụ quảng bá hoặc rút tuyến; hai sự kiện giống nội dung vẫn có thể là hai lần xảy ra khác nhau. DNS là phép đo truy vấn và phản hồi: thấy tên miền trả về địa chỉ nào tại thời điểm quan sát, không coi đó là toàn bộ trạng thái DNS. Ví dụ trên slide chỉ minh hoạ cách hiểu. Điểm chung là cần lưu lịch sử; cách định nghĩa thay đổi phải riêng cho từng loại.}
+\end{frame}
+
 % 4 — The one technical idea to remember
-\begin{frame}{Late arrivals should not create the wrong diff}
+\begin{frame}{Configuration example: handling late arrivals}
   \centering
   \includegraphics[width=.91\linewidth,height=4.25cm,keepaspectratio]{version-order.png}
   \begin{flushleft}
@@ -94,43 +124,37 @@ telnet enabled
   \vnote{Khoảng 55 giây. Chỉ vào hàng trên: dữ liệu có thể đến theo thứ tự 1, 3, 2. Nếu so sánh theo thứ tự đến, ta sẽ tạo cặp 1 sang 3 và bỏ qua phiên bản 2. Hàng dưới là cách nhóm xử lý: giữ các phiên bản theo asset và chỉ tạo diff giữa các phiên bản liền kề. Nếu 2 đến khi state còn giữ được 1 và 3 thì tạo đủ hai cặp đúng. State có giới hạn lưu giữ, nên không hứa sửa được mọi dữ liệu đến muộn vô hạn.}
 \end{frame}
 
-% 5 — System architecture
-\begin{frame}{System architecture}
+% Architecture across the four data domains
+\begin{frame}{System architecture: four separate processing paths}
   \centering
-  \includegraphics[width=.97\linewidth,height=4.55cm,keepaspectratio]{architecture.png}
+  \includegraphics[width=\linewidth,height=4.7cm,keepaspectratio]{four-paths.png}
   \begin{flushleft}\small
-    Parquet keeps the durable history. Search and the dashboard provide read access.\\
-    Historical Spark analytics reads the committed Parquet datasets.
+    Kafka + Spark + MinIO (Parquet), with separate schemas and processing.\\
+    Config search: Elasticsearch + FastAPI. Dashboard: accepted results from all four.
   \end{flushleft}
-  \source{Configuration path: spark/streaming/outputs.py; analytics/main.py; api/; frontend/.}
-  \vnote{Khoảng 65 giây. Đi theo mũi tên: snapshot đi qua Kafka, Spark chuẩn hoá và so sánh phiên bản, rồi ghi lịch sử vào MinIO dưới dạng Parquet. Nhánh bên dưới ghi metadata vào Elasticsearch, FastAPI cung cấp API và dashboard hiển thị. Lịch sử Parquet là dữ liệu gốc để đọc lại; search là lớp phục vụ truy vấn. Trong code, lake được ghi trước search. Sơ đồ rút gọn đường cấu hình; các bộ dữ liệu RPKI, RIS, DNS có pipeline riêng và không bị ép qua bộ so sánh cấu hình này. Nếu thầy hỏi analytics batch, nó đọc Parquet đã commit.}
+  \source{spark/streaming/; spark/rpki\_stream.py; spark/ris.py; spark/dns.py; domain architecture docs.}
+  \vnote{Khoảng 60 giây. Bốn hàng là bốn đường xử lý đã có trong repo, không phải tất cả đều đi qua bộ diff cấu hình. Hàng Terraform giữ logic phiên bản và rule. RPKI xử lý tập thành viên của các ngày đầy đủ và thay đổi giữa chúng. RIS giữ các lần xảy ra sự kiện, chỉ hoà giải bản gửi lại cùng danh tính nguồn; không xoá sự kiện chỉ vì nội dung giống nhau. DNS giữ phép đo và nhóm kết quả có thông tin nguồn để so sánh mô tả. Các luồng dùng chung công nghệ Kafka, Spark và lưu Parquet trên MinIO nhưng có schema, topic và metadata commit riêng. Elasticsearch và FastAPI phục vụ đường cấu hình; dashboard hiện có bản tổng hợp bằng chứng của cả bốn miền, không phải API live chung cho mọi miền. Dữ liệu thực ở đây được phát lại từ các nguồn đã cố định.}
 \end{frame}
 
-% 6 — Ready data, with clear units
-\begin{frame}{Data is ready for development and replay}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{.40\textwidth}
-      {\large\bfseries\color{DarkBlue}Controlled examples}\par\medskip
-      A deterministic generator creates snapshots, retries and late arrivals.
-      \medskip
-      Useful for checking whether the result is correct.
-    \end{column}
-    \begin{column}{.54\textwidth}
-      {\large\bfseries\color{DarkBlue}TerraDS configuration history}\par\medskip
-      \renewcommand{\arraystretch}{1.5}
-      \begin{tabular}{@{}rl@{}}
-        \textbf{6,505} & file histories \\
-        \textbf{10,188} & accepted versions \\
-        \textbf{3,683} & adjacent version pairs
-      \end{tabular}\par
-      \medskip
-      Public Git history of infrastructure code.
-    \end{column}
-  \end{columns}
-  \vspace{.45cm}
-  {\small Large datasets stay outside Git; source manifests and result receipts are versioned.}
-  \source{generator/; workloads/results/terrads/history-summary.json. Git changes are not deployment events.}
-  \vnote{Khoảng 50 giây. Nhóm có hai loại dữ liệu. Bộ tạo dữ liệu giúp chủ động kiểm tra thứ tự đảo, dữ liệu lặp và các thay đổi biết trước. TerraDS là lịch sử mã hạ tầng từ Git: 6.505 lịch sử file, 10.188 phiên bản và 3.683 cặp liền kề được chấp nhận. Không gọi đây là 10.188 lần triển khai ngoài thực tế. Dữ liệu lớn không đưa hết vào Git; repo giữ nguồn gốc, manifest và kết quả. Nếu được hỏi thêm, nhóm còn có dữ liệu RPKI, RIS và DNS, nhưng hôm nay tập trung đường xử lý cấu hình để dễ theo dõi.}
+% Accepted data, with domain-specific units
+\begin{frame}{Prepared data: accepted scope for each dataset}
+  \renewcommand{\arraystretch}{1.65}
+  {\small
+  \begin{tabularx}{\linewidth}{@{}p{.18\linewidth}p{.34\linewidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Dataset} & \textbf{Accepted amount} & \textbf{Selected scope} \\
+    \midrule
+    Terraform & \textbf{10,188} Git versions & 6,505 file histories / 375 repositories \\
+    RPKI & \textbf{14} complete daily observations & ripencc.tal, 1--14 Sep 2026 \\
+    RIS & \textbf{4,725,156} event occurrences & rrc00, 1 Sep 2026, 00:00--01:00 UTC \\
+    DNS & \textbf{2,234,863} raw measurements & Two .li source objects, 1--2 Sep 2026 \\
+    \bottomrule
+  \end{tabularx}}\par
+  \medskip
+  {\small Controlled synthetic inputs also test retries and late arrivals.\\
+  Source manifests and result receipts are versioned in Git.}
+  \source{Accepted evidence: frontend/public/research/v1/catalog.json and its linked validation artifacts. Units differ; do not sum the rows.}
+  \vnote{Khoảng 55 giây. Đây là phạm vi đã được kiểm chứng trong các lần chạy ghi nhận, không phải tổng kích thước mọi nguồn ngoài Internet và không phải lần chạy mới hôm nay. Terraform có 10.188 phiên bản của 6.505 lịch sử file thuộc 375 repo. RPKI có 14 ngày đầy đủ trong phạm vi ripencc.tal; số 14 là số ngày quan sát, không phải số bản ghi bên trong. RIS có khoảng 4,73 triệu lần xảy ra sự kiện trong một giờ ở collector rrc00. DNS có khoảng 2,23 triệu dòng phép đo từ hai đối tượng nguồn .li đã chọn. Không cộng bốn con số vì đơn vị khác nhau. Nhóm còn có generator để chủ động kiểm thử dữ liệu lặp và đến muộn. Dữ liệu lớn lưu ngoài Git; repo giữ manifest và bằng chứng kết quả.}
 \end{frame}
 
 % 7 — Visible processing result
@@ -208,7 +232,7 @@ make processing-demo
   \centering
   \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{dashboard.png}
   \source{Actual frontend captured on 25 October 2026. This overview displays the accepted evidence bundle, not a live replay.}
-  \vnote{Khoảng 40 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Trang overview tóm tắt dữ liệu đã được chấp nhận ở các miền. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
+  \vnote{Khoảng 40 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
 \end{frame}
 
 % 11 — Direct answer to the instructor
@@ -219,8 +243,8 @@ make processing-demo
     \textbf{Requirement} & \textbf{What the group can show} \\
     \midrule
     Git + executable code & Repository, runnable demo and automated tests \\
-    Data ready & Controlled inputs, TerraDS history and source manifests \\
-    Architecture ready & Kafka, Spark, Parquet, search API and dashboard \\
+    Data ready & Terraform, RPKI, RIS, DNS and source manifests \\
+    Architecture ready & Four processing paths, shared storage and dashboard \\
     \bottomrule
   \end{tabularx}
   \vspace{.45cm}
