@@ -231,7 +231,10 @@ with no CORS or config-body retrieval. See [API contracts and acceptance](api.md
   passes schema validation. Mask before serving; restrict raw lake/DLQ access.
 - Schemas must not log payloads on validation failure without sanitization.
 - Configuration comes from environment variables. `.env.example` contains no secrets.
-- Docker Compose is the first deployment target; Kubernetes and cloud are deferred.
+- Docker Compose supports local development. A single-node K3s pipeline and dashboard
+  deployment have recorded acceptance; multi-node HA and cloud deployment remain
+  unvalidated. See [Kubernetes acceptance](phase20-k8s-acceptance.md) and
+  [dashboard deployment](phase20v-kubernetes-deployment.md).
 
 ## Incremental acceptance gates
 

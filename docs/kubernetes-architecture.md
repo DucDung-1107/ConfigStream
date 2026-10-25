@@ -7,7 +7,9 @@ Parquet commits. Batch: a separate native Spark application reads committed
 history, validates the independently specified fixture projection, and builds
 verified metadata. Serving: Elasticsearch/FastAPI expose configuration metadata.
 MinIO/Parquet remains the historical source of truth, not the search index.
-All three paths were executed; frontend visualization remains absent.
+All three paths were executed in the Phase 20K.1 campaign. The later
+[Phase 20V deployment](phase20v-kubernetes-deployment.md) added the static dashboard
+in `cs-app` and validated an unmocked API rehearsal.
 
 ## Actual deployment
 
@@ -17,6 +19,8 @@ and MinIO; `cs-processing` hosts separate Spark drivers/executors and the owned
 RWO checkpoint/evidence PVC; `cs-app` hosts Elasticsearch 9.5.5 and FastAPI.
 CoreDNS, metrics-server and local-path storage provide the lightweight platform.
 The original Lima `k`, private sources and all accepted evidence remain separate.
+The later dashboard campaign used a 3 CPU / 6 GiB / 48 GiB profile; the 7 GiB
+measurement above belongs specifically to Phase 20K.1.
 
 Actual owned workflows preserve Terraform Git versions, scoped RPKI complete
 states, RIS occurrence multiplicity and DNS measurement uncertainty using existing
@@ -25,6 +29,8 @@ processors. They do not establish another private full-source acceptance.
 Single-node execution is not horizontal scaling or HA. RF1 has no broker failover;
 local-path pod restart persistence is not node-loss durability. The shared local
 checkpoint PVC is not a portable multi-node checkpoint design. No external server
-was needed. See [diagram](figures/kubernetes-architecture.drawio),
-[PNG](figures/kubernetes-architecture.png), [acceptance](phase20-k8s-acceptance.md)
+was needed. The [historical diagram](figures/kubernetes-architecture.drawio) and
+[PNG](figures/kubernetes-architecture.png) describe Phase 20K.1 before the dashboard
+was added; their future-UI label is not current implementation status. See
+[acceptance](phase20-k8s-acceptance.md)
 and [executed evidence](../workloads/results/phase20-k8s/closure-application-validation.json).

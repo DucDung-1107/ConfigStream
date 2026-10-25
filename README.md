@@ -7,10 +7,11 @@
 
 Store configuration history, identify changes, and explore infrastructure data over time.
 Built for the **Big Data Storage & Processing** course, ConfigStream combines Kafka,
-Spark and a Parquet data lake with a read-only API and research dashboard.
+Spark and a Parquet data lake with a read-only API and research dashboard,
+with a demonstrated single-node Kubernetes deployment.
 
-[Architecture](#architecture) · [Quick start](#quick-start) · [Datasets](#datasets) ·
-[Results](#selected-results) · [Dashboard](#dashboard) · [Documentation](docs/README.md) ·
+[Architecture](#architecture) · [Kubernetes](#kubernetes-deployment) · [Quick start](#quick-start) · [Datasets](#datasets) ·
+[Recorded results](#selected-results) · [Dashboard](#dashboard) · [Documentation](docs/README.md) ·
 [Checkpoint slides](docs/presentations/checkpoint-2026-10-26/main.pdf)
 
 ## Architecture
@@ -31,16 +32,96 @@ for historical analytics.
 | Batch analytics | Spark DataFrames / SQL | Change frequency, alert trends and prior-window anomaly flags |
 | Configuration serving | Elasticsearch, FastAPI | Derived metadata indexes, asset/time filters and a read-only API |
 | Presentation | Next.js, React | Configuration history and accepted cross-domain research results |
+| Deployment | Kubernetes / K3s | Separate Spark driver/executor pods, services and persistent volumes |
 
-**Publication order:** write and verify Parquet → publish the lake manifest →
-index metadata → send alerts → return to Spark for progress checkpointing.
-Readers use manifest-declared files. Exact batch retries verify and reuse committed
-history; publication across MinIO, Elasticsearch and Kafka is not atomic.
+### Four data domains
 
-Terraform, RPKI, RIS and DNS share infrastructure but retain separate schemas,
-identities and processing logic. See the [four domain paths](docs/presentations/checkpoint-2026-10-26/figs/four-paths.png),
-[detailed architecture](docs/architecture.md), [data model](docs/data-model.md) and
-[editable architecture diagram](docs/presentations/checkpoint-2026-10-26/figs/config-path.drawio).
+![Separate processing paths for Terraform versions, RPKI daily states, RIS event occurrences and DNS measurements](docs/presentations/checkpoint-2026-10-26/figs/four-paths.png)
+
+Each domain has its own identity, schema and temporal logic. Adjacent file diffs,
+set transitions, routing occurrences and DNS observations are not interchangeable.
+
+<details>
+<summary><strong>Inside Spark: identity checks and version state</strong></summary>
+
+![Spark processing stages from envelope validation through snapshot identity, per-asset buffering, adjacent diffs, rules and output publication](docs/presentations/checkpoint-2026-10-26/figs/spark-stages.png)
+
+The first stateful stage groups by `snapshot_id` to validate source identity and
+handle retries/conflicts. The second groups by `asset_id`, normalizes content and
+buffers versions. Only adjacent available versions produce new logical diffs;
+event-time policies and a version cap bound retained state. Raw fetched Kafka
+records have a separate archival branch.
+
+</details>
+
+<details>
+<summary><strong>Commit protocol: make complete history readable</strong></summary>
+
+![Publication order: write Parquet, verify files and counts, publish manifest, index metadata, send alerts and return to Spark](docs/presentations/checkpoint-2026-10-26/figs/commit-order.png)
+
+In the lake-enabled path, files and counts are verified before the commit manifest
+is published. Exact batch retries verify and reuse the committed history. Search
+indexing and alert publication follow; Spark then advances its checkpoint progress.
+These sinks do not form one atomic transaction, and physical alert duplicates are
+possible after a retry.
+
+</details>
+
+<details>
+<summary><strong>Two read paths: batch analytics and configuration queries</strong></summary>
+
+![Committed Parquet feeds Spark batch analytics and an explicit Elasticsearch rebuild; FastAPI serves metadata to configuration-history views](docs/presentations/checkpoint-2026-10-26/figs/history-readers.png)
+
+Batch analytics freezes its input manifest set and reads committed Parquet.
+Elasticsearch is a derived metadata index, normally updated after streaming lake
+commits. The dashed path is an explicit index rebuild. FastAPI serves metadata;
+research dashboard pages use a separate accepted evidence bundle.
+
+</details>
+
+These diagrams are shared with the maintained checkpoint slides. Read the
+[detailed architecture](docs/architecture.md) and [data model](docs/data-model.md);
+[editable diagram sources](docs/presentations/checkpoint-2026-10-26/figs/) accompany the images.
+
+### Kubernetes deployment
+
+The teaching stack has run on **one local ARM64 K3s node**. Spark launches native
+**driver and executor pods separately** for streaming and batch applications.
+
+| Namespace | Deployed components |
+| --- | --- |
+| `cs-infra` | Strimzi/Kafka (replication factor 1), MinIO and persistent storage |
+| `cs-processing` | Fixture producers, Spark drivers/executors, checkpoint/evidence PVC |
+| `cs-app` | Elasticsearch, read-only FastAPI and the Nginx-served static dashboard |
+
+Services provide internal access; local port-forwarding exposes the demo.
+Persistent volumes support the tested pod-restart recovery. This single-node,
+local-path setup does not establish node-loss durability or multi-node HA.
+
+[Manifests and infrastructure](infra/k8s/README.md) ·
+[Pipeline deployment](docs/kubernetes-deployment.md) ·
+[Dashboard deployment](docs/phase20v-kubernetes-deployment.md) ·
+[Recovery runbook](docs/kubernetes-recovery.md)
+
+## Selected results
+
+**The pipeline has completed recorded end-to-end runs**, followed by batch analysis
+and a Kubernetes fixture/demo campaign. Each result below links to its executed scope.
+
+| Completed check | Recorded result | Evidence |
+| --- | --- | --- |
+| TerraDS → Kafka → Spark → MinIO | **10,188 snapshots → 3,683 adjacent diffs**; exact history match, no missing/extra or duplicate identities; final measured lag **0** | [Replay](docs/phase12-acceptance.md) |
+| Historical Spark batch | **8 jobs completed**; frequency totals match the replay; **6,505** asset summaries | [Batch results](docs/phase12-acceptance.md#historical-analytics-and-serving-compatibility) |
+| Kubernetes and recovery | Native driver/executor execution; **2 logical versions / 1 diff** survive replay; pod replacement and commit-before-checkpoint recovery passed | [Deployment and recovery](docs/phase20-k8s-acceptance.md) |
+| API and dashboard | Deployed UI queried the real API: **2 versions / 1 adjacent diff**, with a successful fresh readiness request during rehearsal | [Dashboard acceptance](docs/phase20v-acceptance.md) |
+| RPKI representation experiment | Analytical storage **47.76 → 3.56 MB (−92.6%)**; reconstruction **6.73 → 6.88 s**, exact outputs. Saving across all accounted local files: **17.5%** | [Measurements](docs/phase20-storage-query.md) |
+
+The RPKI figures cover 14 daily states and repeated warm queries, excluding deployed
+Kafka/checkpoint costs. [Comparison charts](docs/presentations/checkpoint-2026-10-26/figs/rpki-storage-query.png).
+These are completed runs at their recorded revisions, not a claim that the current
+stack is online or all project goals are finished. **The latest integrity image
+still needs a completed Kubernetes recovery rerun**; scalability and HA remain open.
+[Current status](docs/architecture.md#scope-and-status).
 
 ## What it does
 
@@ -104,8 +185,9 @@ Configuration history and readiness need the API at `127.0.0.1:18800`; without i
 those views report that the backend is unavailable. See the
 [frontend guide](frontend/README.md) and [integrated demo](docs/phase20v-demo-script.md).
 
-For the full pipeline, follow the [service setup guides](docs/README.md#run-the-system).
-Kafka and storage use Docker Compose; Spark additionally requires Java 21.
+For the full pipeline, choose the [local service setup](docs/README.md#run-the-system)
+or the [Kubernetes deployment](docs/kubernetes-deployment.md). The host-local
+Kafka/storage setup uses Docker Compose; host-local Spark also requires Java 21.
 
 ## Datasets
 
@@ -124,37 +206,6 @@ DNS measurements retain their own coverage and interpretation limits. Source
 manifests and validation receipts are versioned; large source files stay outside Git.
 See the [dataset guides](docs/README.md#data-and-domain-contracts) and
 [machine-readable evidence catalog](frontend/public/research/v1/catalog.json).
-
-## Selected results
-
-**Integrated processing:** a recorded local Terraform replay passed **10,188 snapshots**
-through Kafka, Spark and MinIO and verified **3,683 adjacent diffs**.
-[Replay evidence](docs/phase12-acceptance.md).
-
-**Storage trade-off:** a matched local RPKI experiment reconstructed the same 14 daily
-states using three layouts. All query outputs agreed exactly.
-
-| Layout | Analytical storage | Reconstruct all 14 days | Accounted local files |
-| --- | ---: | ---: | ---: |
-| Full daily states | 47.76 MB | 6.73 s | 251.98 MB |
-| Initial state + changes | **3.56 MB** | 6.88 s | **207.90 MB** |
-| Initial state + changes + day-8 checkpoint | 6.95 MB | 6.76 s | 211.19 MB |
-
-Storing the initial state and changes saved **92.6% of analytical bytes** with
-similar reconstruction time. Including source archives, coordinate maps, metadata
-and retained query scratch reduced the saving to **17.5% of accounted local files**.
-
-Times are medians of three build-level medians, each with three warm query cycles.
-MB means 1,000,000 bytes. This local representation experiment excludes deployed
-Kafka/checkpoint costs and filesystem overhead. See the
-[methodology and measurements](docs/phase20-storage-query.md) and
-[comparison charts](docs/presentations/checkpoint-2026-10-26/figs/rpki-storage-query.png).
-
-**Validation scope:** pipelines have recorded local runs, plus a single-node
-Kubernetes deployment with fixture recovery tests. Distributed scalability and HA
-remain unproven. The latest configuration-integrity changes still need a completed
-Kubernetes recovery rerun; historical acceptance does not validate the newer image.
-[Current architecture status](docs/architecture.md#scope-and-status).
 
 ## Dashboard
 
