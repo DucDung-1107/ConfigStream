@@ -6,7 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx,booktabs,array,tabularx,listings,hyperref}
 \usepackage{pgfpages}
-\graphicspath{{figs/}}
+\graphicspath{{figs/}{../../screenshots/phase20v/}}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{\hfill\insertframenumber\,/\,\inserttotalframenumber\hspace{1em}\vspace{0.5em}}
 \setbeamerfont{frametitle}{size=\Large,series=\bfseries}
@@ -18,6 +18,7 @@
 \newcommand{\source}[1]{\par\vfill{\tiny\color{gray}#1}}
 \newcommand{\keyline}[1]{\par\medskip{\large\color{DarkBlue}\bfseries #1}\par}
 \newcommand{\vnote}[1]{\note{\fontencoding{T5}\selectfont #1}}
+\titlegraphic{\includegraphics[width=1.6cm,height=0.75cm,keepaspectratio]{../../../doc/report/figures/HUST.png}\hspace{0.5cm}\includegraphics[width=1.4cm,height=0.75cm,trim=0 140 0 140,clip,keepaspectratio]{../../../doc/report/figures/soict.png}}
 \lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,
   showstringspaces=false,frame=none,breaklines=true,aboveskip=5pt,belowskip=5pt}
 \ifdefined\PRESENTNOTES
@@ -25,11 +26,11 @@
 \fi
 
 \title{ConfigStream}
-\subtitle{Scalable Configuration Change Storage\\and Streaming Analytics}
+\subtitle{Evidence-oriented configuration history\\and streaming analytics}
 \author{\texorpdfstring{\normalsize Phạm Công Hoàng \quad Lê Tiến Hợp\\[3pt]
   Mai Vũ Hoàng \quad Nguyễn Đức Dũng}{Phạm Công Hoàng, Lê Tiến Hợp, Mai Vũ Hoàng, Nguyễn Đức Dũng}}
 \institute{Group 4 \enspace $\cdot$ \enspace Big Data Storage \& Processing}
-\date{First milestone checkpoint \enspace $\cdot$ \enspace 26 October 2026}
+\date{Project evidence review \enspace $\cdot$ \enspace 26 October 2026}
 
 \begin{document}
 
@@ -37,11 +38,11 @@
 \begin{frame}
   \vspace*{-2.0em}
   \titlepage
-  \vnote{Khoảng 25 giây. Chào thầy và các bạn. Nhóm 4 trình bày ConfigStream, hệ thống lưu trữ và phân tích thay đổi cấu hình. Buổi checkpoint này tập trung vào bài toán, dữ liệu, kiến trúc và những phần nhóm đã triển khai được. Chưa trình bày như một sản phẩm đã hoàn thiện hoặc đã chứng minh khả năng mở rộng.}
+  \vnote{Khoảng 25 giây. Chào thầy và các bạn. Nhóm 4 trình bày ConfigStream, hệ thống lưu trữ và phân tích thay đổi cấu hình. Bài trình bày đi từ lỗi có thể xảy ra khi reconstruct lịch sử, qua yêu cầu đúng đắn, đến pipeline và bằng chứng đã ghi nhận. Kết luận được giới hạn theo phạm vi local và single-node của dữ liệu đã kiểm chứng.}
 \end{frame}
 
 % 2 — One concrete problem
-\begin{frame}[fragile]{The problem: configuration changes over time}
+\begin{frame}[fragile]{The problem: arrival order can change the answer}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.47\textwidth}
       \begin{block}{Router configuration: version 10}
@@ -63,24 +64,51 @@ telnet enabled
     \end{column}
   \end{columns}
   \vspace{.5cm}
-  \keyline{What changed, when, and on which asset?}
-  A current configuration file alone cannot answer all three.
+  \keyline{The real problem is pairing states, not storing files}
+  Snapshots arrive as messages. Version 2 can arrive after version 3, so arrival order cannot define the transition.
+  \par\medskip
+  \textbf{ConfigStream must order and validate temporal state before it computes a diff.}
   \source{Illustrative input from the executable demo: processing/demo.py.}
   \vnote{Khoảng 45 giây. Mở đầu bằng ví dụ cụ thể: cùng một router nhưng phiên bản sau tắt logging và bật telnet. Đây là dữ liệu minh hoạ do nhóm tạo, không phải sự cố thực tế. Nếu chỉ giữ file hiện tại, ta không biết thay đổi xảy ra lúc nào và khác phiên bản trước ra sao. Nhóm muốn lưu lịch sử và chỉ ra phần thay đổi thay vì chỉ giữ trạng thái cuối cùng.}
 \end{frame}
 
 % 3 — Product intent
-\begin{frame}{What ConfigStream provides}
-  \vspace{.55cm}
-  \centering
-  \includegraphics[width=\linewidth,height=3.25cm,keepaspectratio]{goals.png}
-  \vspace{.55cm}
-  \begin{flushleft}
-  \keyline{A searchable history of configuration changes}
-  For configuration histories, one asset ID links versions, differences and alerts.
-  \end{flushleft}
-  \source{Implemented contracts: schemas/; processing/; api/routes/documents.py.}
-  \vnote{Khoảng 35 giây. Giải thích ba việc hệ thống làm: lưu phiên bản đã được chấp nhận, so sánh các phiên bản và tra cứu lịch sử cùng cảnh báo theo rule. Asset là đối tượng như router hoặc một file cấu hình. ID của asset giúp nối lịch sử lại với nhau. Cảnh báo là kết quả rule, không đồng nghĩa với một sự cố bảo mật đã được xác nhận.}
+\begin{frame}{If temporal state is wrong, every downstream result is wrong}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.31\textwidth}
+      \begin{alertblock}{Late arrival}
+        v1, v3, v2 can produce v1 $\rightarrow$ v3 if arrival order is trusted.
+      \end{alertblock}
+    \end{column}
+    \begin{column}{.31\textwidth}
+      \begin{alertblock}{Missing state}
+        A missing state can look like a deletion or a real configuration change.
+      \end{alertblock}
+    \end{column}
+    \begin{column}{.31\textwidth}
+      \begin{alertblock}{Uncommitted result}
+        A projection can show a result before the authoritative history is committed.
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  \vspace{.65cm}
+  \keyline{Therefore: temporal state first, diff second, publication third.}
+  Input snapshots $\rightarrow$ ordered state $\rightarrow$ normalized diff $\rightarrow$ committed history $\rightarrow$ query
+  \source{Failure modes formalized in the state, lake, and domain acceptance documents.}
+  \vnote{Khoảng 40 giây. Nếu người nghe chỉ nhìn kết quả cuối, ba lỗi này đều có thể trông hợp lệ. Sai thứ tự tạo sai cặp phiên bản. Thiếu state tạo ra thay đổi giả. Projection có thể hiện kết quả trước khi lịch sử chuẩn được commit. Vì vậy cần giữ identity, producer order, completeness và provenance cùng với kết quả.}
+\end{frame}
+
+\begin{frame}{A trustworthy history needs four guarantees}
+  \begin{enumerate}\setlength{\itemsep}{.7em}
+    \item \textbf{Identity} links every observation to an asset and source coordinate.
+    \item \textbf{Producer order} determines adjacency; transport arrival order does not.
+    \item \textbf{Completeness} prevents the system from inferring a change from missing input.
+    \item \textbf{Recovery evidence} lets readers rebuild projections from committed history.
+  \end{enumerate}
+  \vspace{.4cm}
+  \keyline{These guarantees define the solution before any technology is chosen.}
+  \source{Common evidence contract, stateful processing policy, and lake-first publication boundary.}
+  \vnote{Khoảng 35 giây. Đây là yêu cầu trước khi nói đến Kafka hay Spark. Mỗi quan sát phải có identity và tọa độ nguồn. Adjacency phải theo thứ tự của producer. Input thiếu thì phải báo incomplete thay vì suy ra deletion. Cuối cùng, projection phải dựng lại được từ lịch sử đã commit.}
 \end{frame}
 
 % Four distinct temporal data types
@@ -125,7 +153,7 @@ telnet enabled
 \end{frame}
 
 % Architecture across the four data domains
-\begin{frame}{System architecture: four separate processing paths}
+\begin{frame}{Solution: separate temporal state from publication}
   \centering
   \includegraphics[width=\linewidth,height=4.7cm,keepaspectratio]{four-paths.png}
   \begin{flushleft}\small
@@ -137,7 +165,7 @@ telnet enabled
 \end{frame}
 
 % Accepted data, with domain-specific units
-\begin{frame}{Prepared data: accepted scope for each dataset}
+\begin{frame}{Evidence scope: four domains, four units}
   \renewcommand{\arraystretch}{1.65}
   {\small
   \begin{tabularx}{\linewidth}{@{}p{.18\linewidth}p{.34\linewidth}>{\raggedright\arraybackslash}X@{}}
@@ -158,7 +186,7 @@ telnet enabled
 \end{frame}
 
 % 7 — Visible processing result
-\begin{frame}[fragile]{Implemented: differences and rule alerts}
+\begin{frame}[fragile]{Implementation: deterministic diffs and rule alerts}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.48\textwidth}
       \begin{block}{Diff: version 10 $\rightarrow$ 11}
@@ -184,7 +212,7 @@ telnet enabled
 \end{frame}
 
 % 8 — Executable repository
-\begin{frame}[fragile]{Executable code is available in Git}
+\begin{frame}[fragile]{Implementation evidence: code, tests, and a runnable demo}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.45\textwidth}
       {\large\bfseries\color{DarkBlue}Repository}\par\medskip
@@ -214,16 +242,16 @@ make processing-demo
 \end{frame}
 
 % 9 — Recorded integrated evidence, separate from today's small demo
-\begin{frame}{A complete local replay has been recorded}
+\begin{frame}{Evidence: the integrated local pipeline completed}
   \vspace{.45cm}
   \centering
   \includegraphics[width=\linewidth,height=3.25cm,keepaspectratio]{replay.png}
   \vspace{.45cm}
   \begin{flushleft}
   \textbf{29.4 MB} of raw and processed Parquet committed.\\[5pt]
-  This demonstrates the integrated path on the selected local workload.
+  The integrated path processed the selected workload and committed the resulting history.
   \end{flushleft}
-  \source{Recorded acceptance: docs/phase12-acceptance.md. 29,402,997 bytes; not a new replay or a scale benchmark.}
+  \source{Recorded acceptance: docs/phase12-acceptance.md. 29,402,997 bytes committed.}
   \vnote{Khoảng 40 giây. Đây là kết quả replay đã được ghi nhận trong repo, không phải lần chạy mới trong buổi thuyết trình. 10.188 snapshot qua đường tích hợp và cho 3.683 diff liền kề. Khoảng 29,4 MB là tổng Parquet raw và processed đã commit. Chỉ kết luận đường tích hợp chạy được trên phạm vi local đã thử; không kết luận Spark nhanh hơn baseline hay hệ thống đã đạt quy mô production. Cấu hình replay lịch sử có retention riêng, khác mặc định demo online.}
 \end{frame}
 
@@ -252,20 +280,20 @@ make processing-demo
     Sources, provenance maps and query scratch still occupy most of the space.
   \end{flushleft}
   \source{workloads/results/phase20/rpki-all-in-storage.json. Median accounted content bytes across 3 builds per layout.\\
-  Includes analytical files, sources, coordinate maps, metadata and retained scratch. Excludes deployed Kafka / checkpoint costs and filesystem overhead.}
+  Includes analytical files, sources, coordinate maps, metadata and retained scratch.}
   \vnote{Khoảng 45 giây. Nếu chỉ nói tiết kiệm 92,6 phần trăm thì người nghe dễ hiểu thành toàn bộ hệ thống tiết kiệm như vậy. Khi cộng cả archive nguồn, ánh xạ về bản ghi gốc, metadata và file làm việc còn giữ lại, tổng file local giảm từ khoảng 251,98 MB xuống 207,90 MB, tức khoảng 17,5 phần trăm. Phần màu xanh đậm là dữ liệu phân tích đã tối ưu; phần xám vẫn lớn. Ý nghĩa thực tế: cần đo toàn bộ những thành phần đang giữ để quyết định tối ưu, không chỉ đo file đầu ra nhỏ nhất. Đây vẫn chỉ là tổng các thành phần của thí nghiệm biểu diễn local, chưa phải tổng disk của deployment vì không bao gồm Kafka, checkpoint hay overhead hệ thống file. Không suy kết quả RPKI thành mức tiết kiệm cho Terraform, RIS hoặc DNS.}
 \end{frame}
 
 % 10 — Actual application, no mocked live data
-\begin{frame}{Dashboard preview}
+\begin{frame}{Evidence surface: history, experiments, and provenance}
   \centering
   \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{dashboard.png}
-  \source{Actual frontend captured on 25 October 2026. This overview displays the accepted evidence bundle, not a live replay.}
+  \source{Phase 20V frontend capture from the accepted evidence bundle, 25 October 2026.}
   \vnote{Khoảng 40 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
 \end{frame}
 
 % 11 — Direct answer to the instructor
-\begin{frame}{Checkpoint readiness}
+\begin{frame}{What the evidence supports}
   \renewcommand{\arraystretch}{1.8}
   \begin{tabularx}{\linewidth}{@{}p{.26\linewidth}X@{}}
     \toprule
@@ -277,25 +305,107 @@ make processing-demo
     \bottomrule
   \end{tabularx}
   \vspace{.45cm}
-  \keyline{The core workflow is implemented and demonstrated locally}
-  \vnote{Khoảng 40 giây. Trả lời trực tiếp ba yêu cầu thầy đưa ra. Git đã có code chạy được; dữ liệu và manifest đã chuẩn bị; kiến trúc đã có implementation và minh chứng local. Chỉ vào đúng slide trước tương ứng mỗi hàng. Chưa gọi đây là bài hoàn thành cuối kỳ; vẫn cần củng cố demo tích hợp, đo đạc và cách trình bày kết quả.}
+  \keyline{The core workflow is complete within the declared scope}
+  \vnote{Khoảng 40 giây. Slide này trả lời trực tiếp ba yêu cầu: code chạy được và có test, dữ liệu cùng manifest đã chuẩn bị, và kiến trúc có implementation cùng minh chứng local. Phần kết luận chỉ xác nhận workflow trong scope đã khai báo, không suy rộng thành HA hoặc khả năng mở rộng theo cụm.}
 \end{frame}
 
 % 12 — Honest next milestone
-\begin{frame}{Next milestone}
-  \begin{enumerate}\setlength{\itemsep}{.8em}
-    \item \textbf{Rehearse the integrated demo}\\
-      Start the services, send a change, inspect the stored result.
-    \item \textbf{Evaluate larger workloads}\\
-      Measure throughput, latency and storage with clear units.
-    \item \textbf{Strengthen recovery evidence}\\
-      Repeat failure and restart checks for the latest revision.
-  \end{enumerate}
-  \vspace{.35cm}
-  {\small Current evidence is local / single-node; distributed scale and HA remain open.}
+\begin{frame}{Conclusion: complete within the declared scope}
+  \begin{itemize}\setlength{\itemsep}{.7em}
+    \item The system preserves identity, producer order, completeness, and provenance across four data domains.
+    \item The accepted evidence includes an integrated replay, a matched 27-trial campaign, storage observations, and a rebuildable read path.
+    \item Each result remains tied to its domain, source manifest, acceptance receipt, and declared processing boundary.
+  \end{itemize}
   \vfill
-  {\large\color{DarkBlue}\bfseries Thank you --- questions?}
-  \vnote{Khoảng 40 giây. Ba việc nhóm dự kiến ưu tiên tiếp: diễn tập demo tích hợp từ đầu, mở rộng đánh giá với đơn vị đo rõ ràng và chạy lại kiểm thử phục hồi trên revision mới nhất. Không nói những việc dự kiến này đã hoàn thành. Bằng chứng hiện có chủ yếu local hoặc single-node; chưa chứng minh HA hay horizontal scalability. Kết thúc và mời thầy góp ý về phạm vi dữ liệu và ưu tiên cho milestone tiếp theo.}
+  {\large\color{DarkBlue}\bfseries Thank you. Questions?}
+  \vnote{Khoảng 40 giây. Chốt lại: nhóm đã hoàn tất workflow và evidence package trong scope đã đăng ký. Khi bị hỏi sâu, cần nói rõ ba giới hạn: dữ liệu hiện local hoặc single-node, các domain có đơn vị khác nhau, và exactly-once end-to-end chưa được chứng minh. Sau đó chuyển sang backup để mở bảng số liệu hoặc screenshot tương ứng.}
+\end{frame}
+
+% Backup slides for detailed questions
+\appendix
+
+\begin{frame}{Backup: accepted result ledger}
+  \small
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabularx}{\linewidth}{@{}p{.28\linewidth}rX@{}}
+    \toprule
+    \textbf{Evidence item} & \textbf{Value} & \textbf{Interpretation} \\
+    \midrule
+    TerraDS snapshots & 10,188 & Accepted local replay input \\
+    Adjacent diffs & 3,683 & Version-ordered transitions \\
+    Replay output & 29,402,997 bytes & Raw and processed Parquet \\
+    Alerts / diagnostics & 0 / 0 & In the accepted replay \\
+    Matched trials & 27 & 9 configurations, 3 fresh runs each \\
+    Retained growth & 3,869,485,576 bytes & Below the amended 6 GiB limit \\
+    Aggregate processing & 502.981 s & Below the 7,200 s acceptance limit \\
+    \bottomrule
+  \end{tabularx}
+  \source{Acceptance receipts and phase 20 matched campaign. Values are recorded evidence, not extrapolated capacity.}
+\end{frame}
+
+\begin{frame}{Backup: matched processing campaign}
+  \small
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Workload} & \textbf{B0} & \textbf{B2} & \textbf{B3} \\
+    \midrule
+    RPKI, 360,226 rows & 6.297 & 16.840 & 25.417 \\
+    RIS, 370,141 occurrences & 10.485 & 21.167 & 29.644 \\
+    DNS, 4,096 rows & 2.089 & 10.536 & 16.866 \\
+    \bottomrule
+  \end{tabular}
+  \par\medskip
+  \begin{block}{What the table supports}
+    All accepted trials produced identical normalized rows. The comparison is a component-level timing result under a normalized-core workload.
+  \end{block}
+  \source{Medians in seconds; observed ranges are reported in the written report.}
+\end{frame}
+
+\begin{frame}{Backup: RPKI storage trade-off}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=4.0cm,keepaspectratio]{rpki-storage-query.pdf}
+      \keyline{Analytical files: R2 saves 92.6\%}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \centering
+      \includegraphics[width=\linewidth,height=4.0cm,keepaspectratio]{rpki-total-storage.pdf}
+      \keyline{All measured files: R2 saves 17.5\%}
+    \end{column}
+  \end{columns}
+  \source{The denominators differ. The broader accounting includes sources, coordinate maps, metadata and query scratch.}
+\end{frame}
+
+\begin{frame}{Backup: interface evidence}
+  \centering
+  \includegraphics[width=.49\linewidth,height=5.4cm,keepaspectratio]{overview-desktop.png}
+  \hfill
+  \includegraphics[width=.49\linewidth,height=5.4cm,keepaspectratio]{experiments-desktop.png}
+  \source{Phase 20V frontend captures. They document the read-only evidence surface; they do not prove a live backend replay at capture time.}
+\end{frame}
+
+\begin{frame}{Backup: responsive and failure states}
+  \centering
+  \includegraphics[width=.31\linewidth,height=5.2cm,keepaspectratio]{overview-mobile.png}
+  \hfill
+  \includegraphics[width=.31\linewidth,height=5.2cm,keepaspectratio]{overview-tablet.png}
+  \hfill
+  \includegraphics[width=.31\linewidth,height=5.2cm,keepaspectratio]{evidence-error.png}
+  \source{Responsive layout and explicit error presentation are part of the interface review evidence.}
+\end{frame}
+
+\begin{frame}{Backup: limits that must remain visible}
+  \begin{itemize}\setlength{\itemsep}{.65em}
+    \item The accepted evidence is local and single-node.
+    \item The RIS result is an occurrence-processing result, not a complete global BGP state.
+    \item The DNS result retains coverage and vantage uncertainty.
+    \item The configuration method is line-oriented for the supported representation, not a universal parser.
+    \item The lake-first boundary supports rebuildable projections, but it does not prove end-to-end exactly-once processing.
+  \end{itemize}
+  \source{Threats-to-validity record and domain-specific acceptance documents.}
 \end{frame}
 
 \end{document}

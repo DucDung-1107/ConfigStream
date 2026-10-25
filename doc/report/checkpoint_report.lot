@@ -1,5 +1,8 @@
-\contentsline {table}{\numberline {1}{\ignorespaces Checkpoint status by work package.}}{1}{}%
-\contentsline {table}{\numberline {2}{\ignorespaces Accepted workload evidence at the checkpoint.}}{6}{}%
-\contentsline {table}{\numberline {3}{\ignorespaces Matched processing medians and observed ranges.}}{7}{}%
-\contentsline {table}{\numberline {4}{\ignorespaces Main risks and mitigation actions.}}{8}{}%
-\contentsline {table}{\numberline {5}{\ignorespaces Milestones after the 25 October 2026 evidence boundary.}}{9}{}%
+\contentsline {table}{\numberline {1}{\ignorespaces Project status by work package.}}{1}{table.caption.5}%
+\contentsline {table}{\numberline {2}{\ignorespaces Accepted workload evidence.}}{6}{table.caption.10}%
+\contentsline {table}{\numberline {3}{\ignorespaces Matched processing medians and observed ranges.}}{7}{table.caption.11}%
+\contentsline {table}{\numberline {4}{\ignorespaces RPKI representation experiment.}}{7}{table.caption.12}%
+\contentsline {table}{\numberline {5}{\ignorespaces Result ledger for the accepted experiments.}}{8}{table.caption.13}%
+\contentsline {table}{\numberline {6}{\ignorespaces Adversarial assessment of the current evidence.}}{9}{table.caption.14}%
+\contentsline {table}{\numberline {7}{\ignorespaces Main risks and mitigation actions.}}{10}{table.caption.15}%
+\contentsline {table}{\numberline {8}{\ignorespaces Milestones after the 25 October 2026 evidence boundary.}}{11}{table.caption.16}%

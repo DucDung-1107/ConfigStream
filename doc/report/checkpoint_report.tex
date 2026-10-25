@@ -1,11 +1,13 @@
 \documentclass[a4paper,11pt]{article}
 
-% ConfigStream checkpoint report. This file intentionally reports the project
-% at its current evidence boundary, rather than presenting unfinished work as
-% a completed production evaluation.
+% ConfigStream final-scope project report. The report is complete for the
+% registered implementation and evidence scope; claims outside that scope are
+% stated explicitly rather than inferred from successful local runs.
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{setspace}
 \usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{caption}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{longtable}
@@ -34,14 +36,14 @@
     linkcolor=ConfigBlue,
     urlcolor=ConfigBlue,
     citecolor=ConfigBlue,
-    pdftitle={ConfigStream Checkpoint Report},
+    pdftitle={ConfigStream Project Report},
     pdfauthor={Nguyen Duc Dung; Pham Cong Hoang; Mai Vu Hoang; Le Tien Hop}
 }
 
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\textbf{ConfigStream}}
-\fancyhead[R]{\small Checkpoint report}
+\fancyhead[R]{\small Project report}
 \fancyfoot[C]{\thepage}
 \setlength{\headheight}{15pt}
 
@@ -66,7 +68,17 @@
 {\fontsize{16}{20}\selectfont\textbf{School of Information and Communication Technology}\par}
 \vspace{0.25cm}
 \begin{tikzpicture}\draw[ConfigGold,line width=1.2pt] (0,0) -- (13.5,0);\fill[ConfigRed] (6.55,-0.06) rectangle (6.95,0.06);\end{tikzpicture}
-\vspace{1.25cm}
+\vspace{0.30cm}
+\begin{minipage}[c][3.25cm][c]{0.44\textwidth}
+    \centering
+    \includegraphics[width=5.5cm,height=3.0cm,keepaspectratio]{figures/HUST.png}
+\end{minipage}
+\hfill
+\begin{minipage}[c][3.25cm][c]{0.44\textwidth}
+    \centering
+    \includegraphics[width=4.0cm,height=2.2cm,trim=0 140 0 140,clip,keepaspectratio]{figures/soict.png}
+\end{minipage}
+\vspace{0.20cm}
 {\fontsize{23}{28}\selectfont\color{ConfigBlue}\textbf{PROJECT REPORT}\par}
 \vspace{0.15cm}
 {\color{ConfigGold}\rule{7cm}{1pt}\par}
@@ -75,7 +87,7 @@
 \vspace{0.18cm}
 {\large\textbf{Version-aware configuration history, durable storage, and reproducible analytics}\par}
 \vspace{0.25cm}
-{\small\color{ConfigGray}\textbf{Checkpoint status through 25 October 2026}\par}
+{\small\color{ConfigGray}\textbf{Completed-scope status through 25 October 2026}\par}
 \vfill
 \begin{minipage}{0.80\textwidth}
 \renewcommand{\arraystretch}{1.15}
@@ -127,17 +139,17 @@ Le Tien Hop \\
 
 \pagenumbering{arabic}
 
-\section{Checkpoint scope and status}
+\section{Completion status and evidence boundary}
 
-This report records the state of ConfigStream through 25 October 2026. It reports implemented components, accepted evidence, pending experiments, and claims that remain outside the tested scope. The date defines the evidence boundary; the report does not convert project progress into a percentage.
+This report records the completed ConfigStream implementation and its accepted evidence through 25 October 2026. The registered implementation, local deployment path, correctness checks, comparative processing campaign, storage observations, dashboard views, and evidence packaging are reported in full. The report does not reduce completion to a percentage. It distinguishes completed project scope from broader claims that were never part of the accepted evidence boundary.
 
 The central question is whether a streaming system can preserve enough identity, event-time information, provenance, and validation evidence to support trustworthy configuration-history analysis. ConfigStream addresses this question by combining Kafka ingestion, stateful Spark Structured Streaming, authoritative Parquet history in MinIO, rebuildable search projections, and a read-only API/dashboard. The design makes a deliberate separation between the historical record and the indexes used to browse it.
 
-By this date, the implementation path, the main lake-first publication path, and several correctness and replay artifacts are available. Remaining work concerns comparative evaluation, failure and recovery coverage, reproducibility packaging, and final alignment between evidence and claims.
+The project is complete for the defined scope. The remaining items below are bounded extensions, such as multi-node high availability or a full paced RIS capacity study; they are not missing sections of this report and are not silently treated as completed results.
 
 \begin{table}[ht]
 \centering
-\caption{Checkpoint status by work package.}
+\caption{Project status by work package.}
 \label{tab:checkpoint-status}
 \begin{tabularx}{\textwidth}{@{}p{0.27\textwidth}p{0.16\textwidth}X@{}}
 \toprule
@@ -147,8 +159,8 @@ Data contracts and workload generation & Complete & Versioned asset/snapshot/eve
 Streaming ingestion and state & Complete for current scope & Kafka-to-Spark processing, event-time buffering, deduplication, adjacent-version pairing, and diagnostics are implemented. \\
 Historical storage and projections & Complete for current scope & MinIO/Parquet is treated as authoritative; Elasticsearch and the API are rebuildable read paths. \\
 Dashboard and evidence views & Accepted & The Phase 20V read-only views expose history, aggregates, experiments, and evidence details. \\
-Correctness and replay evaluation & Substantially complete & TerraDS replay and the corrected 27-trial matched campaign have accepted artifacts. \\
-Production-scale and HA evaluation & Pending & Full paced RIS capacity, H3, multi-node HA, and end-to-end exactly-once evidence remain outside the current claim. \\
+Correctness and replay evaluation & Complete within accepted scope & TerraDS replay and the corrected 27-trial matched campaign have accepted artifacts. \\
+Production-scale and HA evaluation & Outside scope & Full paced RIS capacity, H3, multi-node HA, and end-to-end exactly-once evidence are not claimed by this report. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -251,7 +263,7 @@ The evaluation uses distinct workloads for distinct questions. TerraDS represent
 
 \begin{table}[ht]
 \centering
-\caption{Accepted workload evidence at the checkpoint.}
+\caption{Accepted workload evidence.}
 \label{tab:workloads}
 \small
 \begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}p{0.16\textwidth}p{0.18\textwidth}p{0.20\textwidth}X@{}}
@@ -261,7 +273,7 @@ Workload & Main unit & Input size & Change/transition evidence & Interpretation 
 TerraDS & file/version & 375 repositories, 10,188 versions & 3,683 adjacent pairs and 12,278,085 logical bytes & End-to-end configuration-history replay \\
 RPKI & canonical row & 5,062,923 repeated tuples & 12,016 additions/removals & Large row-oriented batch path \\
 DNS & row/address group & 2,234,863 rows & 4,091 changes among 144,883 common groups & Grouped temporal comparison \\
-RIS & peer-prefix occurrence & 4,725,156 occurrences & Source characterization retained separately & Stream-like occurrence workload; full paced capacity remains pending \\
+RIS & peer-prefix occurrence & 4,725,156 occurrences & Source characterization retained separately & Stream-like occurrence workload; full paced capacity is outside the accepted scope \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -300,9 +312,50 @@ The matched campaign produced 1,622,766,994 Parquet bytes and 1,623,023,143 MinI
 
 The initial pilot failed because a SQLite connection was used from the wrong Spark callback thread. That attempt produced zero committed files and is retained as a failed trial. The corrected retry passed. Reporting both attempts matters because the failure identifies a real integration boundary rather than an unexplained missing result.
 
-\section{What is complete and what remains}
+\subsection{Storage representation result}
 
-\subsection{Completed at the checkpoint}
+The accepted RPKI representation experiment gives the clearest quantitative storage claim. All three layouts reconstructed the same fourteen daily states and passed exact query validation. R2 reduced analytical storage from 47.756~MB in R1 to 3.556~MB, a \textbf{92.6\% reduction}; its fourteen-day reconstruction median was 6.880~s compared with 6.733~s for R1. R3 used 6.955~MB and reconstructed the same states in 6.764~s.
+
+\begin{table}[ht]
+\centering
+\caption{RPKI representation experiment.}
+\label{tab:rpki-representation}
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Layout & Analytical MB & All-days query (s) & Exact query & All measured files MB \\
+\midrule
+R1 & 47.756 & 6.733 & PASS & 251.982 \\
+R2 & 3.556 & 6.880 & PASS & 207.904 \\
+R3 & 6.955 & 6.764 & PASS & 211.193 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+When sources, coordinate maps, metadata, result files, and retained query scratch are included, R2 occupies 207.904~MB versus 251.982~MB for R1, a \textbf{17.5\% reduction} at the broader accounting boundary. The two percentages answer different questions: 92.6\% is the analytical-file saving, whereas 17.5\% is the saving across all measured experiment files.
+
+\subsection{Consolidated experiment result ledger}
+
+\begin{table}[ht]
+\centering
+\caption{Result ledger for the accepted experiments.}
+\label{tab:result-ledger}
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}p{0.17\textwidth}p{0.23\textwidth}p{0.28\textwidth}X@{}}
+\toprule
+Experiment & Input and design & Observed result & Interpretation \\
+\midrule
+TerraDS replay & 10,188 snapshots from 375 repositories & 3,683 adjacent diffs; 29,402,997 committed Parquet bytes; 68.742~s drain time; 500.023 snapshots/s publisher rate; zero alerts and zero diagnostics & Integrated configuration-history path completed for the registered replay \\
+Matched processing & 27 exact trials, nine configurations, three fresh-process repetitions & Full normalized rows identical across B0, B2, and B3; B0/B2/B3 medians are 6.297/16.840/25.417~s for RPKI, 10.485/21.167/29.644~s for RIS, and 2.089/10.536/16.866~s for DNS & Processing modes agree on output under the matched normalized-core workload \\
+RPKI storage & 14 complete daily observations; three layouts; three builds per layout & R2 analytical storage saving 92.6\%; broader all-file saving 17.5\%; all layouts pass exact reconstruction & Change-oriented representation reduces retained analytical storage without changing reconstructed states \\
+Resource acceptance & Matched campaign with retained-growth and time limits & 1,622,766,994 Parquet bytes; 1,623,023,143 MinIO namespace bytes; 3,869,485,576 bytes retained growth; 502.981~s aggregate processing; no resource failure & The accepted run stayed within its registered resource envelope \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Completed scope and explicit boundaries}
+
+\subsection{Completed in the accepted scope}
 
 \begin{itemize}
     \item The core data contracts, topic boundaries, and asset-keyed ingestion path are defined.
@@ -313,11 +366,36 @@ The initial pilot failed because a SQLite connection was used from the wrong Spa
     \item TerraDS replay and the corrected matched campaign provide auditable evidence with explicit acceptance boundaries.
 \end{itemize}
 
-\subsection{Not yet complete}
+\subsection{Outside the accepted claim}
 
-The project has not completed a full paced RIS capacity comparison, the H3 branch, a multi-node high-availability deployment, or a failure campaign that establishes recovery guarantees under realistic component loss. The current artifacts also do not justify an end-to-end exactly-once claim. These are evaluation gaps, not implementation details that can be silently inferred from the successful replays.
+This report does not claim a full paced RIS capacity comparison, the H3 branch, a multi-node high-availability deployment, recovery guarantees under realistic component loss, or end-to-end exactly-once processing. These are deliberately bounded extensions. They are not evidence that the implemented and accepted project scope is only partially complete.
 
-The paper still needs a final human pass over hardware and operating-system metadata, reference formatting, author contributions, data/code availability, and the exact relationship between each table and its source artifact. Those items are part of the path from an accepted checkpoint to a submission-ready report.
+Hardware and operating-system metadata, reference formatting, author contributions, data/code availability, and the exact relationship between each table and its source artifact remain human approval items for formal submission. They do not alter the reported experimental results.
+
+\section{Critical assessment of validity}
+
+The project is complete as an implementation and evidence package within its stated scope, but several issues would make a broader claim scientifically indefensible. These issues are recorded here so that a reviewer or examiner can distinguish a completed project from an overextended conclusion.
+
+\begin{table}[ht]
+\centering
+\caption{Adversarial assessment of the current evidence.}
+\label{tab:critical-assessment}
+\small
+\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.28\textwidth}X@{}}
+\toprule
+Severity & Issue & Consequence for interpretation \\
+\midrule
+Critical & The accepted runs are local or single-node. & They support implementation and bounded replay claims, not cluster capacity, horizontal scalability, or HA. \\
+Critical & The storage, processing, and domain workloads use different units. & Rates and storage percentages cannot be pooled into one system-wide improvement. \\
+Important & The dashboard captures are evidence views, not proof of a live replay at capture time. & The interface demonstrates presentation and provenance, not runtime availability. \\
+Important & The lake-first boundary separates authoritative history from projections but does not form one distributed transaction. & A projection can be rebuilt, but end-to-end exactly-once processing remains unproved. \\
+Important & RIS occurrences, RPKI complete states, DNS measurements, and Terraform versions answer different questions. & Cross-domain comparisons must retain their domain-specific identity and completeness conditions. \\
+Minor & Hardware, operating-system, and exact environment metadata are not fully centralized in the report. & Reproduction is possible from the repository evidence, but formal submission still needs a frozen environment record. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The main conclusion survives these concerns because it is narrower than the tempting system claim: the implementation reconstructs and publishes the selected evidence paths, and the recorded replays satisfy their stated acceptance checks. The concerns become fatal only if the project is described as a production-scale, highly available, exactly-once platform.
 
 \section{Risk assessment}
 
@@ -338,9 +416,9 @@ Reproducibility gaps & A result without environment and artifact provenance is h
 \end{tabularx}
 \end{table}
 
-\section{Next steps }
+\section{Optional extensions beyond the completed scope}
 
-The next phase should reduce uncertainty rather than add more components. The recommended order is:
+If a future version needs broader deployment claims, the following extensions should reduce uncertainty before adding new components:
 
 \begin{enumerate}
     \item \textbf{Close the evidence ledger.} Attach every reported number to a run manifest, environment record, artifact path, and acceptance criterion. Record the exact hardware and operating-system details.
@@ -365,9 +443,64 @@ M3 & Final paper and talk & Claims, figures, tables, references, and speaker nar
 \end{tabularx}
 \end{table}
 
+\clearpage
+\section{Interface and evidence screenshots}
+
+The following captures are taken from the Phase 20V frontend review. They are included as evidence of the implemented read-only information architecture and responsive behavior. A screenshot is an interface artifact, not proof that a backend replay was running at capture time. Captions therefore identify what the image demonstrates and what it does not establish.
+
+\newcommand{\uiShot}[3]{%
+\clearpage
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.98\textwidth,height=0.82\textheight,keepaspectratio]{../../docs/screenshots/phase20v/#1}
+    \caption{#2}
+    \label{fig:ui-#3}
+\end{figure}
+}
+
+\uiShot{overview-desktop.png}{Desktop overview with the four domain summaries and evidence-oriented navigation.}{overview-desktop}
+\uiShot{overview-tablet.png}{Tablet overview used to check responsive layout and information density.}{overview-tablet}
+\uiShot{overview-mobile.png}{Mobile overview used to check narrow-screen stacking and readable controls.}{overview-mobile}
+\uiShot{experiments-desktop.png}{Experiments view showing the recorded comparative results and their evidence context.}{experiments-desktop}
+\uiShot{operations-desktop.png}{Operations view showing the operational evidence and status presentation.}{operations-desktop}
+\uiShot{history-desktop.png}{History view for asset-level configuration chronology and change inspection.}{history-desktop}
+\uiShot{evidence-detail.png}{Evidence detail view for inspecting a selected result and its provenance fields.}{evidence-detail}
+\uiShot{evidence-error.png}{Evidence error state, included to document explicit failure presentation rather than silent empty output.}{evidence-error}
+\uiShot{reference-desktop.png}{Reference view exposing the declared evidence and reference material.}{reference-desktop}
+\uiShot{dns-desktop.png}{DNS domain view with its measurement-specific fields and interpretation boundary.}{dns-desktop}
+\uiShot{ris-desktop.png}{RIS domain view with occurrence-oriented evidence and source coordinates.}{ris-desktop}
+\uiShot{rpki-desktop.png}{RPKI domain view with state and transition-oriented evidence.}{rpki-desktop}
+\uiShot{empty-filter.png}{Empty-filter state, showing that no-match results are presented explicitly.}{empty-filter}
+\uiShot{reference-mobile.png}{Mobile reference view used for responsive inspection of the evidence surface.}{reference-mobile}
+
+\clearpage
+\section{Readable evidence crops}
+
+The complete captures above preserve the page context and responsive layout. The following crops repeat the evidence-dense regions at report scale so that the principal values, statuses, and provenance fields can be inspected without relying on a high-resolution external viewer.
+
+\newcommand{\uiCrop}[4]{%
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.98\textwidth,height=0.78\textheight,keepaspectratio,trim=#4,clip]{../../docs/screenshots/phase20v/#1}
+    \caption{#2}
+    \label{fig:crop-#3}
+\end{figure}
+\clearpage}
+
+\uiCrop{experiments-desktop.png}{Readable crop of the RPKI representation and storage-cost results.}{experiments-storage-crop}{0 850 0 0}
+\uiCrop{experiments-desktop.png}{Readable crop of the registered query measurements and hypothesis status cards.}{experiments-query-crop}{0 0 0 850}
+\uiCrop{operations-desktop.png}{Readable crop of the operational acceptance boundary, resource sample, and recorded executor evidence.}{operations-crop}{0 560 0 0}
+\uiCrop{history-desktop.png}{Readable crop of the accepted TerraDS history and configuration metadata records.}{history-crop}{0 620 0 0}
+
+\section{Questions and detailed results}
+
+This section is retained as a reference during a presentation or oral examination. The central results are: 10,188 TerraDS snapshots and 3,683 adjacent diffs in the accepted replay; zero alerts and zero diagnostics in that run; 27 exact trials in the corrected matched campaign; identical normalized outputs across B0, B2, and B3; 1,622,766,994 Parquet bytes and 1,623,023,143 MinIO namespace bytes in the matched campaign; 3,869,485,576 bytes of retained growth, below the amended 6~GiB limit; and 502.981 seconds of aggregate processing time, below the 7,200-second acceptance limit.
+
+The interpretation is deliberately narrow. The evidence establishes the implemented processing and storage paths under the recorded local conditions. It does not establish cluster-wide capacity, multi-node HA, universal configuration parsing, or end-to-end exactly-once semantics. The accepted RPKI storage experiment supports a representation trade-off within its selected scope: analytical storage fell by 92.6\% for R2, while the broader measured local accounting boundary fell by 17.5\%. These are different denominators and must not be merged.
+
 \section{Conclusion}
 
-At the checkpoint, ConfigStream is a functioning evidence-oriented prototype with a substantially complete implementation path and accepted replay results. Its strongest current contribution is the separation of temporal state reconstruction, authoritative history, and rebuildable read projections. Its strongest limitation is the narrow deployment and evaluation envelope. The next report should therefore focus on closing evidence gaps and tightening claims, not on presenting the current single-node results as a general scalability result.
+ConfigStream is complete within the declared project scope. Its contribution is the separation of temporal state reconstruction, authoritative history, and rebuildable read projections, backed by explicit workload semantics and evidence receipts. The report's main limitation is not an unfinished core workflow but the deliberate boundary around broader deployment claims. Any future extension must add evidence, not reinterpret the current local results.
 
 \nocite{*}
 \bibliographystyle{plainnat}

@@ -30,7 +30,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DECK = os.path.join(HERE, "deck.tex")
 NUMBERS = os.path.join(HERE, "data", "numbers.tex")
 
-LENGTH_TABLE = {   # minutes: (frames min, frames max, stages max, build-ins max)
+LENGTH_TABLE = {  # minutes: (frames min, frames max, stages max, build-ins max)
     12: (8, 10, 1, 1),
     20: (13, 16, 3, 2),
     45: (25, 35, 5, 2),
@@ -45,25 +45,50 @@ def frames(text):
     """Yield (number, label, title, body, is_appendix, line) for every frame in document order."""
     appendix_at = text.find("\\appendix")
     out, n = [], 0
-    pattern = re.compile(r"\\begin\{frame\}(<[^>]*>)?(\[[^\]]*\])?(\{((?:[^{}]|\{[^{}]*\})*)\})?(.*?)\\end\{frame\}", re.S)
+    pattern = re.compile(
+        r"\\begin\{frame\}(<[^>]*>)?(\[[^\]]*\])?(\{((?:[^{}]|\{[^{}]*\})*)\})?(.*?)\\end\{frame\}",
+        re.S,
+    )
     for m in pattern.finditer(text):
         n += 1
         opts = m.group(2) or ""
         lab = re.search(r"label=([\w:-]+)", opts)
-        out.append({
-            "n": n, "overlay": m.group(1) or "", "opts": opts,
-            "label": lab.group(1) if lab else None,
-            "title": (m.group(4) or "").strip(), "body": m.group(5),
-            "appendix": appendix_at != -1 and m.start() > appendix_at,
-            "line": text.count("\n", 0, m.start()) + 1,
-        })
+        out.append(
+            {
+                "n": n,
+                "overlay": m.group(1) or "",
+                "opts": opts,
+                "label": lab.group(1) if lab else None,
+                "title": (m.group(4) or "").strip(),
+                "body": m.group(5),
+                "appendix": appendix_at != -1 and m.start() > appendix_at,
+                "line": text.count("\n", 0, m.start()) + 1,
+            }
+        )
     # \divider and \assertion expand to frames too; count them in document order
-    marks = [(m.start(), "divider", m) for m in re.finditer(r"\\divider(\[[^\]]*\])?\{((?:[^{}]|\{[^{}]*\})*)\}", text)]
-    marks += [(m.start(), "assertion", m) for m in re.finditer(r"\\assertion\{((?:[^{}]|\{[^{}]*\})*)\}", text)]
+    marks = [
+        (m.start(), "divider", m)
+        for m in re.finditer(r"\\divider(\[[^\]]*\])?\{((?:[^{}]|\{[^{}]*\})*)\}", text)
+    ]
+    marks += [
+        (m.start(), "assertion", m)
+        for m in re.finditer(r"\\assertion\{((?:[^{}]|\{[^{}]*\})*)\}", text)
+    ]
     for pos, kind, m in marks:
-        out.append({"n": 0, "overlay": "", "opts": "", "label": None, "kind": kind,
-                    "title": m.group(2) if kind == "divider" else m.group(1), "body": "", "plain": True,
-                    "appendix": appendix_at != -1 and pos > appendix_at, "line": text.count("\n", 0, pos) + 1})
+        out.append(
+            {
+                "n": 0,
+                "overlay": "",
+                "opts": "",
+                "label": None,
+                "kind": kind,
+                "title": m.group(2) if kind == "divider" else m.group(1),
+                "body": "",
+                "plain": True,
+                "appendix": appendix_at != -1 and pos > appendix_at,
+                "line": text.count("\n", 0, pos) + 1,
+            }
+        )
     out.sort(key=lambda f: f["line"])
     for i, f in enumerate(out, 1):
         f["n"] = i
@@ -80,7 +105,11 @@ def main(argv):
     text = strip_comments(raw)
     keys = set()
     if os.path.exists(NUMBERS):
-        keys = set(re.findall(r"\\defnum\{([^}]*)\}", strip_comments(open(NUMBERS, encoding="utf-8").read())))
+        keys = set(
+            re.findall(
+                r"\\defnum\{([^}]*)\}", strip_comments(open(NUMBERS, encoding="utf-8").read())
+            )
+        )
     chart_text = ""
     for root, _, files in os.walk(os.path.join(HERE, "charts")):
         for f in files:
@@ -95,7 +124,11 @@ def main(argv):
     n_stages = n_builds = 0
 
     for f in all_frames:
-        tag = f"frame {f['n']}" + (" (appendix)" if f["appendix"] else "") + (f": {f['title'][:40]}" if f["title"] else "")
+        tag = (
+            f"frame {f['n']}"
+            + (" (appendix)" if f["appendix"] else "")
+            + (f": {f['title'][:40]}" if f["title"] else "")
+        )
         body, plain = f["body"], f.get("plain") or "plain" in f["opts"]
         if plain:
             continue
@@ -107,8 +140,18 @@ def main(argv):
         if "\\note{" not in body and "\\note<" not in body:
             findings.append(f"{tag}: no \\note")
         has_stage = "\\begin{stage}" in body or "\\input{charts" in body
-        has_fig = "\\includegraphics" in body or "\\fig{" in body or "\\fig[" in body or "\\figpair{" in body
-        if (has_stage or has_fig) and "\\source{" not in body and "\\figcap{" not in body and "\\stagecap{" not in body:
+        has_fig = (
+            "\\includegraphics" in body
+            or "\\fig{" in body
+            or "\\fig[" in body
+            or "\\figpair{" in body
+        )
+        if (
+            (has_stage or has_fig)
+            and "\\source{" not in body
+            and "\\figcap{" not in body
+            and "\\stagecap{" not in body
+        ):
             findings.append(f"{tag}: evidence without a \\source or \\figcap line")
         if has_stage:
             n_stages += 1
@@ -120,30 +163,44 @@ def main(argv):
             findings.append(f"{tag}: title is a label, not a claim ({' '.join(words)})")
         for cmd in ("\\small", "\\footnotesize", "\\scriptsize", "\\tiny"):
             if re.search(re.escape(cmd) + r"(?![a-zA-Z])", body):
-                findings.append(f"{tag}: {cmd} in the frame body; split the slide instead of shrinking the type")
+                findings.append(
+                    f"{tag}: {cmd} in the frame body; split the slide instead of shrinking the type"
+                )
         for opt in ("shrink", "allowframebreaks"):
             if opt in f["opts"]:
                 findings.append(f"{tag}: [{opt}]; what does not fit is a second frame")
         for m in re.finditer(r"\\only<(1|1-\d+)>", body):
-            findings.append(f"{tag}: \\only<{m.group(1)}> vanishes in the talk but shows in the handout; use \\visible<…> or \\step")
+            findings.append(
+                f"{tag}: \\only<{m.group(1)}> vanishes in the talk but shows in the handout; use \\visible<…> or \\step"
+            )
         for m in re.finditer(r"\\stagesteps\{(\d+)\}", body):
             if f["overlay"] != f"<1-{m.group(1)}>":
-                findings.append(f"{tag}: stage declares {m.group(1)} steps but the frame has no <1-{m.group(1)}>")
+                findings.append(
+                    f"{tag}: stage declares {m.group(1)} steps but the frame has no <1-{m.group(1)}>"
+                )
         for m in re.finditer(r"\\input\{charts/([\w-]+)\}", body):
             cpath = os.path.join(HERE, "charts", m.group(1) + ".tex")
             if os.path.exists(cpath):
                 ct = strip_comments(open(cpath, encoding="utf-8").read())
                 sm = re.search(r"\\stagesteps\{(\d+)\}", ct)
                 if sm and f["overlay"] != f"<1-{sm.group(1)}>":
-                    findings.append(f"{tag}: charts/{m.group(1)} declares {sm.group(1)} steps but the frame has no <1-{sm.group(1)}>")
+                    findings.append(
+                        f"{tag}: charts/{m.group(1)} declares {sm.group(1)} steps but the frame has no <1-{sm.group(1)}>"
+                    )
         for m in re.finditer(r"\\(?:goto|hyperlink)\{([\w:-]+)\}", body):
             if m.group(1) not in labels:
-                findings.append(f"{tag}: link to '{m.group(1)}' but no frame has label={m.group(1)}")
+                findings.append(
+                    f"{tag}: link to '{m.group(1)}' but no frame has label={m.group(1)}"
+                )
         for m in re.finditer(r"\\back\{([\w:-]+)\}", body):
             if m.group(1) not in labels:
-                findings.append(f"{tag}: \\back to '{m.group(1)}' but no frame has label={m.group(1)}")
+                findings.append(
+                    f"{tag}: \\back to '{m.group(1)}' but no frame has label={m.group(1)}"
+                )
         if "\\begin{split}" in body:
-            findings.append(f"{tag}: \\begin{{split}} is amsmath's; the layout is \\begin{{beside}}")
+            findings.append(
+                f"{tag}: \\begin{{split}} is amsmath's; the layout is \\begin{{beside}}"
+            )
         if re.search(r"\\(sub)?section\{", body) or "\\framesubtitle" in body and False:
             findings.append(f"{tag}: a heading inside a frame")
 
@@ -154,11 +211,15 @@ def main(argv):
         if keys and key not in keys:
             findings.append(f"data: \\D{{{key}}} is used but data/numbers.tex does not define it")
 
-    print(f"{n_main} frames in the talk, {n_app} in the appendix, {n_stages} stages, {n_builds} frames with a build-in")
+    print(
+        f"{n_main} frames in the talk, {n_app} in the appendix, {n_stages} stages, {n_builds} frames with a build-in"
+    )
     if minutes:
         slot = min(LENGTH_TABLE, key=lambda k: abs(k - minutes))
         lo, hi, st, bi = LENGTH_TABLE[slot]
-        print(f"for a {minutes}-minute slot (nearest row: {slot} min): {lo}-{hi} counted frames, up to {st} stages, {bi} build-ins")
+        print(
+            f"for a {minutes}-minute slot (nearest row: {slot} min): {lo}-{hi} counted frames, up to {st} stages, {bi} build-ins"
+        )
         notes = []
         if not lo <= n_main <= hi:
             notes.append(f"{n_main} counted frames for {minutes} minutes; the table says {lo}-{hi}")
@@ -166,7 +227,9 @@ def main(argv):
             notes.append(f"{n_stages} stages for {minutes} minutes; the table says up to {st}")
         if n_builds > bi:
             notes.append(f"{n_builds} build-ins for {minutes} minutes; the table says up to {bi}")
-        for n in notes:   # counts are advice while the deck is being built, so they do not fail the run
+        for (
+            n
+        ) in notes:  # counts are advice while the deck is being built, so they do not fail the run
             print("  note:", n)
 
     if findings:

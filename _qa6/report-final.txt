@@ -1,0 +1,1017 @@
+   HANOI UNIVERSITY OF SCIENCE AND
+            TECHNOLOGY
+    School of Information and Communication
+                    Technology
+
+
+
+
+             PROJECT REPORT
+
+
+                        ConfigStream
+Version-aware configuration history, durable storage, and reproducible
+                              analytics
+
+              Completed-scope status through 25 October 2026
+
+
+
+
+    Supervisor:   PhD Tran Viet Trung
+
+
+
+
+    Member
+
+    Nguyen Duc Dung
+    Pham Cong Hoang
+    Mai Vu Hoang
+    Le Tien Hop
+
+
+
+
+                              Ha Noi, 2026
+ConfigStream                                                                            Project report
+
+
+Contents
+
+List of Abbreviations                                                                                v
+
+1 Completion status and evidence boundary                                                             1
+
+2 Problem and research questions                                                                      1
+
+3 System design                                                                                       2
+  3.1   Architecture at a glance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      2
+  3.2   State and pairing policy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      2
+  3.3   Common evidence contract . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          3
+  3.4   Configuration transformation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        4
+  3.5   Source-specific temporal lanes . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      4
+  3.6   Publication and recovery . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      5
+  3.7   Evaluation method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+  3.8   Normalization, diff, and publication     . . . . . . . . . . . . . . . . . . . . . . . . .    5
+
+4 Current experimental evidence                                                                       6
+  4.1   Evidence roles and workload semantics . . . . . . . . . . . . . . . . . . . . . . . .         6
+  4.2   End-to-end TerraDS replay . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         6
+  4.3   Corrected matched processing campaign . . . . . . . . . . . . . . . . . . . . . . .           7
+  4.4   Storage and resource observations . . . . . . . . . . . . . . . . . . . . . . . . . . .       7
+  4.5   Storage representation result . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       7
+  4.6   Consolidated experiment result ledger . . . . . . . . . . . . . . . . . . . . . . . .         8
+
+5 Completed scope and explicit boundaries                                                             8
+  5.1   Completed in the accepted scope . . . . . . . . . . . . . . . . . . . . . . . . . . .         8
+  5.2   Outside the accepted claim . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        9
+
+6 Critical assessment of validity                                                                     9
+
+7 Risk assessment                                                                                    10
+
+8 Optional extensions beyond the completed scope                                                     10
+
+9 Interface and evidence screenshots                                                                 12
+
+
+
+
+                                                 i
+ConfigStream                             Project report
+
+
+10 Readable evidence crops                          27
+
+11 Questions and detailed results                   32
+
+12 Conclusion                                       32
+
+
+
+
+                                    ii
+ConfigStream                                                                         Project report
+
+
+List of Tables
+
+  1    Project status by work package. . . . . . . . . . . . . . . . . . . . . . . . . . . . .    1
+  2    Accepted workload evidence. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      6
+  3    Matched processing medians and observed ranges. . . . . . . . . . . . . . . . . .         7
+  4    RPKI representation experiment. . . . . . . . . . . . . . . . . . . . . . . . . . . .      7
+  5    Result ledger for the accepted experiments. . . . . . . . . . . . . . . . . . . . . .     8
+  6    Adversarial assessment of the current evidence. . . . . . . . . . . . . . . . . . . .     9
+  7    Main risks and mitigation actions. . . . . . . . . . . . . . . . . . . . . . . . . . .    10
+  8    Milestones after the 25 October 2026 evidence boundary. . . . . . . . . . . . . . .       11
+
+
+
+
+                                               iii
+ConfigStream                                                                            Project report
+
+
+List of Figures
+
+  1    ConfigStream evidence flow. Source-specific gates create typed temporal records,
+       the manifest defines the authoritative commit, and downstream views remain
+       rebuildable. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     3
+  2    Desktop overview with the four domain summaries and evidence-oriented naviga-
+       tion. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   13
+  3    Tablet overview used to check responsive layout and information density. . . . . .            14
+  4    Mobile overview used to check narrow-screen stacking and readable controls.             . .   15
+  5    Experiments view showing the recorded comparative results and their evidence
+       context. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    16
+  6    Operations view showing the operational evidence and status presentation. . . .               17
+  7    History view for asset-level configuration chronology and change inspection. . . .            18
+  8    Evidence detail view for inspecting a selected result and its provenance fields. . .          19
+  9    Evidence error state, included to document explicit failure presentation rather
+       than silent empty output. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       20
+  10   Reference view exposing the declared evidence and reference material. . . . . . .             21
+  11   DNS domain view with its measurement-specific fields and interpretation boundary. 22
+  12   RIS domain view with occurrence-oriented evidence and source coordinates. . . .               23
+  13   RPKI domain view with state and transition-oriented evidence. . . . . . . . . . .             24
+  14   Empty-filter state, showing that no-match results are presented explicitly. . . . .           25
+  15   Mobile reference view used for responsive inspection of the evidence surface. . . .           26
+  16   Readable crop of the RPKI representation and storage-cost results. . . . . . . . .            28
+  17   Readable crop of the registered query measurements and hypothesis status cards.               29
+  18   Readable crop of the operational acceptance boundary, resource sample, and
+       recorded executor evidence. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       30
+  19   Readable crop of the accepted TerraDS history and configuration metadata records. 31
+
+
+
+
+                                                 iv
+ConfigStream                                        Project report
+
+
+List of Abbreviations
+API            Application Programming Interface
+DNS            Domain Name System
+HA             High Availability
+IaC            Infrastructure as Code
+JSONL          JSON Lines
+RPKI           Resource Public Key Infrastructure
+RIS            Routing Information Service
+SUT            System Under Test
+
+
+
+
+                                        v
+ConfigStream                                                                         Project report
+
+
+1    Completion status and evidence boundary
+
+This report records the completed ConfigStream implementation and its accepted evidence
+through 25 October 2026. The registered implementation, local deployment path, correctness
+checks, comparative processing campaign, storage observations, dashboard views, and evidence
+packaging are reported in full. The report does not reduce completion to a percentage. It dis-
+tinguishes completed project scope from broader claims that were never part of the accepted
+evidence boundary.
+The central question is whether a streaming system can preserve enough identity, event-time
+information, provenance, and validation evidence to support trustworthy configuration-history
+analysis. ConfigStream addresses this question by combining Kafka ingestion, stateful Spark
+Structured Streaming, authoritative Parquet history in MinIO, rebuildable search projections,
+and a read-only API/dashboard. The design makes a deliberate separation between the historical
+record and the indexes used to browse it.
+The project is complete for the defined scope. The remaining items below are bounded ex-
+tensions, such as multi-node high availability or a full paced RIS capacity study; they are not
+missing sections of this report and are not silently treated as completed results.
+
+                           Table 1: Project status by work package.
+
+Work package                Status             Evidence boundary
+Data contracts and work-    Complete           Versioned asset/snapshot/event contracts and
+load generation                                domain-specific workload artifacts are present.
+Streaming ingestion and     Complete for       Kafka-to-Spark processing, event-time buffering,
+state                       current scope      deduplication, adjacent-version pairing, and diag-
+                                               nostics are implemented.
+Historical storage and      Complete for       MinIO/Parquet is treated as authoritative; Elas-
+projections                 current scope      ticsearch and the API are rebuildable read paths.
+Dashboard and evidence      Accepted           The Phase 20V read-only views expose history,
+views                                          aggregates, experiments, and evidence details.
+Correctness and replay      Complete           TerraDS replay and the corrected 27-trial
+evaluation                  within      ac-    matched campaign have accepted artifacts.
+                            cepted scope
+Production-scale and HA     Outside scope      Full paced RIS capacity, H3, multi-node HA, and
+evaluation                                     end-to-end exactly-once evidence are not claimed
+                                               by this report.
+
+
+
+
+2    Problem and research questions
+
+Configuration history is easy to store incorrectly. A system that compares the previous message
+with the current message can silently construct the wrong transition when messages arrive out
+of order. A search index can make a result look available while the authoritative history is
+incomplete. A throughput number can also be misleading when one workload reports rows per
+second and another reports occurrences, files, or bytes.
+
+
+                                                1
+ConfigStream                                                                         Project report
+
+
+ConfigStream therefore treats a configuration change as a provenance-bearing temporal record.
+A change is meaningful only when the system can identify the asset, order versions using the pro-
+ducer’s version semantics, reconstruct adjacent states, and retain enough evidence to reproduce
+the resulting diff or alert.
+The checkpoint evaluates three research questions:
+
+    1. RQ1: Can ConfigStream reconstruct adjacent configuration states correctly under out-of-
+      order arrival, duplicates, bounded buffering, and restart-sensitive streaming execution?
+
+    2. RQ2: Does a lake-first storage boundary preserve a trustworthy historical record while
+      allowing search and API projections to be rebuilt independently?
+
+    3. RQ3: How should correctness, throughput, latency, storage growth, and resource use be
+      measured across workloads whose units and semantics are different?
+
+The current evidence answers the implementation portion of these questions positively for the
+tested scope. It does not yet support claims about cluster-wide scalability, HA, or universal
+configuration parsing.
+
+
+3     System design
+
+3.1    Architecture at a glance
+
+Figure 1 summarizes the architecture in the form used for the paper. The figure separates
+four ideas that are often mixed together in an engineering diagram: the typed record entering
+the system, the event-time state transition, the publication boundary, and the evidence-aware
+evaluation loop.
+The implemented path is:
+
+    1. a source or generator publishes typed snapshots to Kafka, keyed by asset id;
+
+    2. Spark Structured Streaming validates records, applies event-time watermarks and identifier
+      deduplication, and maintains bounded per-asset state;
+
+    3. the processor pairs adjacent producer versions, normalizes the two states, computes a de-
+      terministic diff, evaluates configured rules, and emits diagnostics when state is incomplete;
+
+    4. the commit boundary writes authoritative history and derived evidence to MinIO/Parquet;
+
+    5. Elasticsearch, FastAPI, and the dashboard expose rebuildable metadata and read-only
+      views for inspection.
+
+
+3.2    State and pairing policy
+
+The system consumes config.snapshots for core state reconstruction. It does not rely on the
+arrival order of config.events, and it does not require the config.assets topic to compute
+the core diff. For each asset, the processor keeps a bounded version buffer. After sorting by the
+
+                                                2
+ConfigStream                                                                                                                                                                             Project report
+
+
+
+  ConfigStream: claim gates turn evidence into auditable temporal records
+  Each lane keeps its own identity and temporal condition. One commit is authoritative; search and API are rebuilt from it.
+
+
+  01 SOURCE EVIDENCE                       02 CLAIM GATE                                           03 TYPED RECORD                               04 COMMIT                           05 CONSUMERS
+
+
+
+    ConfigSnapshot                            Version adjacency                                       ConfigTransition
+    asset · version · payload                 buffered producer order                                 identity · v → v+1
+                                                  v1      v2            v3     valid edges only       + provenance attached
+                                                                               1 to 2, 2 to 3
+
+
+
+    RPKI source rows                          RPKI completeness                                       RPKITransition                                                         reads    analytics /
+    coordinate rows                           coordinate inventory                                    identity · complete state                                                       reconciliation
+                                                        1…N                    complete before        + provenance attached                                                           read-only · rebuildable
+                                                                               transition                                                          Parquet datasets
+                                                                                                                                                      + manifest
+    MRT frame                                 RIS multiplicity                                        RISObservation                                      SHA-256
+    peer · prefix · occurrence                peer-prefix occurrences                                 peer · prefix · occurrence                       row / file counts
+                                                                               keep every             + provenance attached                          source provenance
+                                                                               occurrence
+
+                                                                                                                                                  single recovery boundary
+
+    DNS measurement                           DNS qualification                                       DNSMeasurementGroup                                                    reads    search / API /
+    address · vantage · time                  group-level evidence                                    identity · uncertainty                                                          dashboard
+                                               coverage = ?    vantage = ?      uncertainty           + provenance attached                                                           read-only · rebuildable
+                                                                                kept
+
+
+
+
+      source evidence                claim gate                         typed record                authoritative                  rebuildable
+
+
+
+
+    Not drawn: RPKI, RIS and DNS never pass through the configuration version buffer.
+
+
+
+
+Figure 1: ConfigStream evidence flow. Source-specific gates create typed temporal records, the
+manifest defines the authoritative commit, and downstream views remain rebuildable.
+
+
+producer-defined version field, it compares adjacent versions, not merely consecutive arrivals.
+A record that arrives late can therefore complete a transition that would be invalid under an
+arrival-order implementation.
+The code stores the version in ConfigSnapshot.version as a producer-assigned integer. The
+notation v1, v2, and v3 below is an example, not a fixed dataset convention. For arrival order
+v1, v3, v2, the buffer first retains [v1,v3] and emits no adjacent edge. When v2 arrives within
+the retention policy, the sorted state is [v1,v2,v3] and the processor emits v1–v2 and v2–v3.
+It does not emit v1–v3 as an adjacent streaming transition. The pure comparison helper can
+accept non-consecutive endpoints and report a version gap; that separate API boundary must
+not be confused with the streaming emission rule.
+The buffer is intentionally bounded. When a version gap, eviction, duplicate, or malformed
+record prevents a complete transition, the system records a diagnostic rather than inventing a
+diff. This choice makes incompleteness visible and keeps the correctness contract explicit. The
+default policy retains at most 32 versions per asset, applies a ten-minute event-time watermark
+delay, and clears inactive state after a 30-minute event-time timeout. The accepted TerraDS
+replay used its registered run settings, which must be reported separately from these defaults.
+
+
+3.3        Common evidence contract
+
+The common contract layer gives every record an identity, a time interpretation, and a prove-
+nance reference. A ConfigSnapshot carries snapshot id, asset id, producer version, event
+time, ingest time, and a raw content hash. Source-specific temporal records carry the corre-
+sponding source coordinate and manifest reference. A record identity is derived from canonical
+
+
+                                                                                                       3
+ConfigStream                                                                        Project report
+
+
+fields and a named policy; it is not inferred from a Kafka offset or from the order in which a
+consumer sees messages.
+This distinction determines what the system can safely claim. A repeated delivery with the
+same logical identity can be suppressed or reconciled. A second record that reuses an identity
+with different content is a conflict. A timestamp identifies when an observation was made, but
+it does not establish which producer version precedes another. The processing code therefore
+keeps identity, producer order, event time, and transport provenance as separate fields.
+
+
+3.4    Configuration transformation
+
+Only an admitted adjacent pair enters the configuration transformation. The normalizer converts
+supported text into a deterministic line representation, applies the implemented whitespace and
+generated-comment rules, and masks selected secret-like settings. It produces a normalized hash
+while preserving the raw hash of the source bytes. These hashes answer different questions: the
+raw hash identifies the received content, while the normalized hash identifies the content under
+the declared policy.
+The diff compares normalized lines with deterministic line-based logic. The result identifies
+the old and new snapshots, their versions, the policy, and the normalized hashes. YAML rules
+inspect the normalized diff and create deterministic alerts. The method supports the registered
+text representation. It is not a vendor-aware configuration parser, a complete secret detector,
+or proof that a proposed change is safe to deploy.
+
+
+3.5    Source-specific temporal lanes
+
+RPKI, RIS, and DNS do not pass through the configuration version buffer. They share the evi-
+dence contract and the publication boundary, but each lane has its own identity and completion
+condition.
+
+
+RPKI.     The RPKI path decodes source chunks into canonical authorization rows and records
+their source coordinates. A daily state is eligible for comparison only when the expected coordi-
+nate inventory is complete, the source manifest and artifact digest validate, and the accepted-row
+count and state digest agree with the observation descriptor. A transition compares two compat-
+ible consecutive complete states. An incomplete daily input remains incomplete; the processor
+does not infer deletions from rows that have not been observed.
+
+
+RIS.   The RIS path frames MRT input and projects records into peer-prefix occurrences. Oc-
+currence identity retains the frame and record coordinate. Repeated observations are not col-
+lapsed into a set because multiplicity is part of the evidence. The resulting record answers an
+occurrence-processing question. It does not claim to be a complete global BGP state or a count
+of unique deployed routes.
+
+
+
+
+                                                4
+ConfigStream                                                                        Project report
+
+
+DNS.    The DNS path groups measurements by the declared query, response, address, and
+vantage dimensions. It carries coverage and vantage uncertainty into the output. A qualified
+difference requires the declared comparison policy and the required partition or group complete-
+ness. An unknown coverage or vantage value remains unknown; the implementation does not
+turn it into evidence of global disappearance.
+
+
+3.6    Publication and recovery
+
+The publication boundary is lake-first. A batch writes raw provenance and typed processed
+records to Parquet, inventories the files, validates byte counts and row counts, computes or
+checks SHA-256 values, and writes a manifest only after the expected data is present. Readers
+use the manifest to exclude partial or uncommitted batches.
+Search, FastAPI, and the dashboard are derived projections. If a projection is missing or stale,
+recovery reads the committed Parquet datasets, rebuilds the projection, and reconciles logical
+identities and counts. A failed projection does not change the authoritative history. The bound-
+ary does not make Kafka, Spark, MinIO, and Elasticsearch one distributed transaction, so the
+report does not claim end-to-end exactly-once processing.
+
+
+3.7    Evaluation method
+
+The evaluation follows the same boundaries as the implementation. Configuration replay checks
+snapshot identity, adjacent-pair identity, normalized output, alert identity, diagnostics, lake
+contents, and manifest integrity. RPKI checks complete-state membership, digests, transition
+equality, storage layout, and query equality. RIS checks framed occurrence identity and multi-
+plicity. DNS checks qualified groups while retaining coverage and vantage fields.
+Every performance result keeps its workload unit and processing boundary. TerraDS reports
+snapshots and adjacent pairs for an end-to-end replay. The matched B0/B2/B3 campaign
+compares one normalized projection under fresh processes and excludes source parsing and
+production state finalization. RPKI, RIS, and DNS rates are not pooled. This separation is
+part of the method because a row, an occurrence, a file version, and a measurement group do
+not represent the same object.
+
+
+3.8    Normalization, diff, and publication
+
+Normalization is deterministic and line-oriented for the supported configuration representation.
+The system retains a raw hash and a normalized hash, which lets the evaluator distinguish byte-
+level changes from semantic changes under the chosen normalization policy. Selected secret-like
+keys are masked according to the implemented rule set. The current method should not be
+described as a universal parser or a universal secret detector.
+The publication rule is lake-first. A commit manifest records the relationship between au-
+thoritative Parquet artifacts and rebuildable projections. If Elasticsearch or the dashboard is
+unavailable, the historical record remains the recovery source. This design does not remove all
+
+                                                 5
+ConfigStream                                                                               Project report
+
+
+failure modes, and it does not justify an end-to-end exactly-once claim. It does define where
+correctness must be checked first.
+
+
+4     Current experimental evidence
+
+4.1    Evidence roles and workload semantics
+
+The evaluation uses distinct workloads for distinct questions. TerraDS represents a configuration-
+history replay with files and adjacent versions. RPKI, DNS, and RIS exercise processing paths
+with different record units and temporal structure. Their rates are not pooled into a single
+headline number.
+                                Table 2: Accepted workload evidence.
+
+Workload        Main unit             Input size            Change/transition      Interpretation
+                                                            evidence
+TerraDS         file/version          375 repositories,     3,683 adjacent pairs   End-to-end
+                                      10,188 versions       and 12,278,085 logi-   configuration-history
+                                                            cal bytes              replay
+RPKI            canonical row         5,062,923 repeated    12,016         addi-   Large     row-oriented
+                                      tuples                tions/removals         batch path
+DNS             row/address           2,234,863 rows        4,091 changes among    Grouped      temporal
+                group                                       144,883     common     comparison
+                                                            groups
+RIS             peer-prefix     oc-   4,725,156    occur-   Source characteriza-   Stream-like   occur-
+                currence              rences                tion retained sepa-    rence workload; full
+                                                            rately                 paced capacity is
+                                                                                   outside the accepted
+                                                                                   scope
+
+
+
+
+4.2    End-to-end TerraDS replay
+
+The accepted TerraDS replay processed 10,188 snapshots and formed 3,683 adjacent diffs. It
+committed 29,402,997 raw and processed Parquet bytes, emitted zero alerts and zero diagnostics,
+and completed after the publisher drained in 68.742 seconds. The publisher rate was 500.023
+snapshots/s. The accepted logical rate, which includes the workload’s logical-byte interpretation,
+was 148.205 snapshots/s.
+These numbers demonstrate an end-to-end path under the accepted replay conditions. They
+do not establish a production capacity limit. A supplemental headroom replay used the same
+history and pairs but produced 29,346,912 Parquet bytes and 139.565 accepted snapshots/s;
+because the runs were not a matched comparison, the difference should not be presented as a
+model improvement.
+
+
+
+
+                                                     6
+ConfigStream                                                                              Project report
+
+
+4.3   Corrected matched processing campaign
+
+The corrected campaign contains 27 exact trials: nine configurations with three fresh-process
+repetitions each. The compared B0, B2, and B3 modes produced identical full normalized rows
+in all accepted trials. B3 also reported zero selected-offset lag. The table reports medians with
+observed ranges in seconds.
+
+                  Table 3: Matched processing medians and observed ranges.
+
+ Workload                               B0                       B2                       B3
+ RPKI (360,226 rows)           6.297 (6.282–12.577)     16.840 (14.729–21.080)   25.417 (23.144–25.424)
+ RIS (370,141 occurrences)     10.485 (8.437–12.636)    21.167 (18.967–23.186)   29.644 (23.233–29.726)
+ DNS (4,096 rows)               2.089 (2.087–6.302)     10.536 (10.486–12.584)   16.866 (12.624–16.924)
+
+
+The matched result supports a narrow conclusion: under the tested normalized-core workload,
+the modes agree on output while incurring different processing times. The result excludes
+production-specific parsing, state finalization, and full production ranking. It is therefore a
+component comparison, not a claim that one mode is universally superior.
+
+
+4.4   Storage and resource observations
+
+The matched campaign produced 1,622,766,994 Parquet bytes and 1,623,023,143 MinIO names-
+pace bytes. Retained growth was 3,869,485,576 bytes, below the amended 6 GiB limit. The
+peak tree was 1,612,824,576 bytes, the minimum observed guest RAM was 4,191,440,896 bytes,
+and no resource failure occurred. The aggregate processing time was 502.981 seconds, below the
+7,200-second acceptance limit.
+The initial pilot failed because a SQLite connection was used from the wrong Spark callback
+thread. That attempt produced zero committed files and is retained as a failed trial. The
+corrected retry passed. Reporting both attempts matters because the failure identifies a real
+integration boundary rather than an unexplained missing result.
+
+
+4.5   Storage representation result
+
+The accepted RPKI representation experiment gives the clearest quantitative storage claim. All
+three layouts reconstructed the same fourteen daily states and passed exact query validation. R2
+reduced analytical storage from 47.756 MB in R1 to 3.556 MB, a 92.6% reduction; its fourteen-
+day reconstruction median was 6.880 s compared with 6.733 s for R1. R3 used 6.955 MB and
+reconstructed the same states in 6.764 s.
+                              Table 4: RPKI representation experiment.
+
+        Layout    Analytical MB       All-days query (s)   Exact query   All measured files MB
+        R1                   47.756               6.733          PASS                  251.982
+        R2                    3.556               6.880          PASS                  207.904
+        R3                    6.955               6.764          PASS                  211.193
+
+
+
+                                                    7
+ConfigStream                                                                                             Project report
+
+
+When sources, coordinate maps, metadata, result files, and retained query scratch are included,
+R2 occupies 207.904 MB versus 251.982 MB for R1, a 17.5% reduction at the broader ac-
+counting boundary. The two percentages answer different questions: 92.6% is the analytical-file
+saving, whereas 17.5% is the saving across all measured experiment files.
+
+
+4.6    Consolidated experiment result ledger
+
+                         Table 5: Result ledger for the accepted experiments.
+
+Experiment            Input and design                Observed result                        Interpretation
+TerraDS replay        10,188 snapshots from 375       3,683 adjacent diffs; 29,402,997       Integrated      configuration-
+                      repositories                    committed Parquet bytes; 68.742 s      history path completed for
+                                                      drain time; 500.023 snapshots/s        the registered replay
+                                                      publisher rate; zero alerts and zero
+                                                      diagnostics
+Matched processing    27 exact trials, nine config-   Full normalized rows identical         Processing modes agree on
+                      urations, three fresh-process   across B0, B2, and B3; B0/B2/B3        output under the matched
+                      repetitions                     medians are 6.297/16.840/25.417 s      normalized-core workload
+                                                      for RPKI, 10.485/21.167/29.644 s
+                                                      for RIS, and 2.089/10.536/16.866 s
+                                                      for DNS
+RPKI storage          14 complete daily observa-      R2 analytical storage saving           Change-oriented representa-
+                      tions; three layouts; three     92.6%; broader all-file saving         tion reduces retained analyt-
+                      builds per layout               17.5%; all layouts pass exact          ical storage without changing
+                                                      reconstruction                         reconstructed states
+Resource acceptance   Matched campaign with           1,622,766,994     Parquet     bytes;   The accepted run stayed
+                      retained-growth and time        1,623,023,143 MinIO namespace          within its registered resource
+                      limits                          bytes; 3,869,485,576 bytes retained    envelope
+                                                      growth; 502.981 s aggregate pro-
+                                                      cessing; no resource failure
+
+
+
+
+5     Completed scope and explicit boundaries
+
+5.1    Completed in the accepted scope
+
+     The core data contracts, topic boundaries, and asset-keyed ingestion path are defined.
+
+     The streaming processor implements event-time buffering, deduplication, adjacent-version
+      pairing, deterministic normalization, diffing, alert evaluation, and diagnostics.
+
+     MinIO/Parquet provides the authoritative historical path, while the search/API layer is
+      treated as a rebuildable projection.
+
+     A Kubernetes single-node acceptance run covers the real Kafka-to-Spark-to-MinIO path
+      for the current deployment scope.
+
+     The read-only dashboard exposes historical and experimental evidence rather than mutable
+      operational controls.
+
+     TerraDS replay and the corrected matched campaign provide auditable evidence with
+      explicit acceptance boundaries.
+
+
+
+
+                                                           8
+ConfigStream                                                                                   Project report
+
+
+5.2     Outside the accepted claim
+
+This report does not claim a full paced RIS capacity comparison, the H3 branch, a multi-node
+high-availability deployment, recovery guarantees under realistic component loss, or end-to-end
+exactly-once processing. These are deliberately bounded extensions. They are not evidence that
+the implemented and accepted project scope is only partially complete.
+Hardware and operating-system metadata, reference formatting, author contributions, data/code
+availability, and the exact relationship between each table and its source artifact remain human
+approval items for formal submission. They do not alter the reported experimental results.
+
+
+6     Critical assessment of validity
+
+The project is complete as an implementation and evidence package within its stated scope, but
+several issues would make a broader claim scientifically indefensible. These issues are recorded
+here so that a reviewer or examiner can distinguish a completed project from an overextended
+conclusion.
+                   Table 6: Adversarial assessment of the current evidence.
+
+Severity            Issue                                Consequence for interpretation
+Critical            The accepted runs are local          They support implementation and bounded replay
+                    or single-node.                      claims, not cluster capacity, horizontal scalability,
+                                                         or HA.
+Critical            The storage, processing, and         Rates and storage percentages cannot be pooled
+                    domain workloads use differ-         into one system-wide improvement.
+                    ent units.
+Important           The dashboard captures are           The interface demonstrates presentation and prove-
+                    evidence views, not proof of         nance, not runtime availability.
+                    a live replay at capture time.
+Important           The lake-first boundary sep-         A projection can be rebuilt, but end-to-end exactly-
+                    arates authoritative history         once processing remains unproved.
+                    from projections but does not
+                    form one distributed transac-
+                    tion.
+Important           RIS occurrences, RPKI com-           Cross-domain comparisons must retain their
+                    plete states, DNS measure-           domain-specific identity and completeness condi-
+                    ments, and Terraform ver-            tions.
+                    sions answer different ques-
+                    tions.
+Minor               Hardware, operating-system,          Reproduction is possible from the repository evi-
+                    and exact environment meta-          dence, but formal submission still needs a frozen
+                    data are not fully centralized       environment record.
+                    in the report.
+
+
+The main conclusion survives these concerns because it is narrower than the tempting system
+claim: the implementation reconstructs and publishes the selected evidence paths, and the
+recorded replays satisfy their stated acceptance checks. The concerns become fatal only if the
+project is described as a production-scale, highly available, exactly-once platform.
+
+
+
+                                                     9
+ConfigStream                                                                             Project report
+
+
+7      Risk assessment
+
+                               Table 7: Main risks and mitigation actions.
+
+Risk                           Why it matters               Mitigation for the next checkpoint
+Overclaiming       scalabil-   Single-node acceptance       Report deployment scope explicitly and
+ity                            cannot represent cluster     run a matched multi-node or paced-load
+                               capacity or HA.              study if the claim is required.
+Mixed workload units           Rows, occurrences, files,    Keep a workload-role matrix and report de-
+                               and bytes answer differ-     nominators next to every rate.
+                               ent questions.
+Projection drift               Search results can di-       Add manifest-based reconciliation and a
+                               verge from authorita-        documented rebuild test.
+                               tive history.
+Late or missing state          A bounded buffer can         Expand adversarial out-of-order tests and
+                               evict a version before its   publish diagnostic counts by reason.
+                               predecessor arrives.
+Reproducibility gaps           A result without en-         Freeze run manifests, hardware metadata,
+                               vironment and artifact       seeds, and exact command lines.
+                               provenance is hard to
+                               audit.
+
+
+
+
+8      Optional extensions beyond the completed scope
+
+If a future version needs broader deployment claims, the following extensions should reduce
+uncertainty before adding new components:
+
+    1. Close the evidence ledger. Attach every reported number to a run manifest, envi-
+       ronment record, artifact path, and acceptance criterion. Record the exact hardware and
+       operating-system details.
+
+    2. Finish the deferred comparisons. Run the approved paced RIS experiment and H3
+       only if their hypotheses and denominators are fixed in advance. Keep them separate from
+       the accepted matched campaign.
+
+    3. Test recovery and projection rebuild. Delete or make unavailable a rebuildable
+       projection, reconstruct it from Parquet and the manifest, and verify row counts, hashes,
+       and query results. Then document the limits of the recovery guarantee.
+
+    4. Expand correctness tests. Add adversarial cases for duplicate identifiers, late versions,
+       version gaps, buffer eviction, malformed records, and restart boundaries. Check both
+       positive diffs and diagnostics.
+
+    5. Prepare the final presentation. Use one architecture figure, one state-reconstruction
+       example, one evaluation table, one evidence dashboard view, and one limitations/next-
+       steps slide. Avoid a service inventory as the main story.
+
+
+
+                                                     10
+ConfigStream                                                                         Project report
+
+
+
+
+               Table 8: Milestones after the 25 October 2026 evidence boundary.
+
+Milestone         Deliverable                       Exit condition
+M1                Reproducible evidence pack        Every accepted result has a manifest, en-
+                                                    vironment, command, output artifact, and
+                                                    reviewer-readable interpretation.
+M2                Deferred evaluation and re-       RIS/H3 decisions are documented; projection
+                  covery                            rebuild and adversarial state tests pass or are
+                                                    explicitly bounded.
+M3                Final paper and talk              Claims, figures, tables, references, and
+                                                    speaker narrative agree with the evidence
+                                                    ledger.
+
+
+
+
+                                               11
+ConfigStream                                                                       Project report
+
+
+9    Interface and evidence screenshots
+
+The following captures are taken from the Phase 20V frontend review. They are included as
+evidence of the implemented read-only information architecture and responsive behavior. A
+screenshot is an interface artifact, not proof that a backend replay was running at capture time.
+Captions therefore identify what the image demonstrates and what it does not establish.
+
+
+
+
+                                               12
+ConfigStream                                                                  Project report
+
+
+
+
+Figure 2: Desktop overview with the four domain summaries and evidence-oriented navigation.
+
+
+
+
+                                            13
+ConfigStream                                                                   Project report
+
+
+
+
+    Figure 3: Tablet overview used to check responsive layout and information density.
+
+
+
+
+                                           14
+ConfigStream                                                                   Project report
+
+
+
+
+   Figure 4: Mobile overview used to check narrow-screen stacking and readable controls.
+
+
+
+
+                                            15
+ConfigStream                                                                     Project report
+
+
+
+
+Figure 5: Experiments view showing the recorded comparative results and their evidence context.
+
+
+
+
+                                              16
+ConfigStream                                                                   Project report
+
+
+
+
+    Figure 6: Operations view showing the operational evidence and status presentation.
+
+
+
+
+                                            17
+ConfigStream                                                                    Project report
+
+
+
+
+   Figure 7: History view for asset-level configuration chronology and change inspection.
+
+
+
+
+                                            18
+ConfigStream                                                                       Project report
+
+
+
+
+   Figure 8: Evidence detail view for inspecting a selected result and its provenance fields.
+
+
+
+
+                                              19
+ConfigStream                                                                     Project report
+
+
+
+
+Figure 9: Evidence error state, included to document explicit failure presentation rather than
+silent empty output.
+
+
+
+
+                                             20
+ConfigStream                                                                  Project report
+
+
+
+
+     Figure 10: Reference view exposing the declared evidence and reference material.
+
+
+
+
+                                           21
+ConfigStream                                                                   Project report
+
+
+
+
+Figure 11: DNS domain view with its measurement-specific fields and interpretation boundary.
+
+
+
+
+                                            22
+ConfigStream                                                                  Project report
+
+
+
+
+   Figure 12: RIS domain view with occurrence-oriented evidence and source coordinates.
+
+
+
+
+                                           23
+ConfigStream                                                                 Project report
+
+
+
+
+        Figure 13: RPKI domain view with state and transition-oriented evidence.
+
+
+
+
+                                          24
+ConfigStream                                                                     Project report
+
+
+
+
+    Figure 14: Empty-filter state, showing that no-match results are presented explicitly.
+
+
+
+
+                                             25
+ConfigStream                                                                     Project report
+
+
+
+
+   Figure 15: Mobile reference view used for responsive inspection of the evidence surface.
+
+
+
+
+                                             26
+ConfigStream                                                                     Project report
+
+
+10    Readable evidence crops
+
+The complete captures above preserve the page context and responsive layout. The following
+crops repeat the evidence-dense regions at report scale so that the principal values, statuses,
+and provenance fields can be inspected without relying on a high-resolution external viewer.
+
+
+
+
+                                              27
+ConfigStream                                                                  Project report
+
+
+
+
+      Figure 16: Readable crop of the RPKI representation and storage-cost results.
+
+
+
+
+                                           28
+ConfigStream                                                                  Project report
+
+
+
+
+Figure 17: Readable crop of the registered query measurements and hypothesis status cards.
+
+
+
+
+                                           29
+ConfigStream                                                                     Project report
+
+
+
+
+Figure 18: Readable crop of the operational acceptance boundary, resource sample, and recorded
+executor evidence.
+
+
+
+
+                                             30
+ConfigStream                                                                   Project report
+
+
+
+
+Figure 19: Readable crop of the accepted TerraDS history and configuration metadata records.
+
+
+
+
+                                            31
+ConfigStream                                                                         Project report
+
+
+11     Questions and detailed results
+
+This section is retained as a reference during a presentation or oral examination. The central
+results are: 10,188 TerraDS snapshots and 3,683 adjacent diffs in the accepted replay; zero alerts
+and zero diagnostics in that run; 27 exact trials in the corrected matched campaign; identical
+normalized outputs across B0, B2, and B3; 1,622,766,994 Parquet bytes and 1,623,023,143 MinIO
+namespace bytes in the matched campaign; 3,869,485,576 bytes of retained growth, below the
+amended 6 GiB limit; and 502.981 seconds of aggregate processing time, below the 7,200-second
+acceptance limit.
+The interpretation is deliberately narrow. The evidence establishes the implemented processing
+and storage paths under the recorded local conditions. It does not establish cluster-wide capacity,
+multi-node HA, universal configuration parsing, or end-to-end exactly-once semantics. The
+accepted RPKI storage experiment supports a representation trade-off within its selected scope:
+analytical storage fell by 92.6% for R2, while the broader measured local accounting boundary
+fell by 17.5%. These are different denominators and must not be merged.
+
+
+12     Conclusion
+
+ConfigStream is complete within the declared project scope. Its contribution is the separation
+of temporal state reconstruction, authoritative history, and rebuildable read projections, backed
+by explicit workload semantics and evidence receipts. The report’s main limitation is not an
+unfinished core workflow but the deliberate boundary around broader deployment claims. Any
+future extension must add evidence, not reinterpret the current local results.
+
+
+
+
+                                                32
+

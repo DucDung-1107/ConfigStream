@@ -6,6 +6,7 @@ typed input -> event-time reconstruction -> semantic diff -> publication,
 with evaluation attached to the committed evidence.  It is an editable SVG
 source intended for a two-column academic paper.
 """
+
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -217,8 +218,17 @@ box(347, 205, 94, 30, "diagnostics", "lag / gaps / recovery", WARN, WARN_S, 6.0)
 line(168, 220, 181, 220, INK, 0.7, arrow=True)
 line(251, 220, 264, 220, INK, 0.7, arrow=True)
 line(334, 220, 347, 220, INK, 0.7, arrow=True)
-text(224, 252, "report rates with their workload unit and run boundary", 6.0, "middle", weight="bold")
-text(224, 263, "files / rows / occurrences are not pooled into one capacity number", 5.55, "middle", MUTE)
+text(
+    224, 252, "report rates with their workload unit and run boundary", 6.0, "middle", weight="bold"
+)
+text(
+    224,
+    263,
+    "files / rows / occurrences are not pooled into one capacity number",
+    5.55,
+    "middle",
+    MUTE,
+)
 
 # Feedback path: evaluation constrains claims; it is not a model-training loop.
 poly([(451, 235), (451, 294), (218, 294), (218, 287)], MUTE, 0.65, dash="2 1", arrow=True)

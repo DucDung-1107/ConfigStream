@@ -1,0 +1,27 @@
+\frametitle{Implementation evidence: code, tests, and a runnable demo}
+\begin{columns}[T,onlytextwidth]
+    \begin{column}{.45\textwidth}
+      {\large\bfseries\color{DarkBlue}Repository}\par\medskip
+      \begin{tabular}{@{}ll@{}}
+        \texttt{generator/} & input data \\[5pt]
+        \texttt{processing/} & diff and rules \\[5pt]
+        \texttt{spark/} & streaming jobs \\[5pt]
+        \texttt{api/} & read API \\[5pt]
+        \texttt{frontend/} & dashboard
+      \end{tabular}
+    \end{column}
+    \begin{column}{.49\textwidth}
+      \begin{block}{Small demo, no services required}
+\begin{lstlisting}
+make setup
+make processing-demo
+\end{lstlisting}
+      \end{block}
+      \medskip
+      \textbf{178 core tests passed}\\
+      State logic, diffs and rules\\
+      {\small Rechecked on 25 October 2026}
+    \end{column}
+  \end{columns}
+  \source{github.com/kongwoang/ConfigStream; Makefile; tests/unit/test\_state\_logic.py, test\_diff.py, test\_rules.py.}
+  \vnote{Khoảng 50 giây. Mở link repo nếu có mạng hoặc chuyển terminal đã chuẩn bị. Hai lệnh trên chạy demo xử lý thuần Python, không cần dựng Kafka hay MinIO. Không dùng demo nhỏ này để nói cả stack đang online. Nhóm vừa kiểm tra 178 test của state logic, diff và rule. CI của revision mã nguồn 3980ce1 đã đạt trước khi thêm slide. Nếu thầy muốn xem thực thi, chạy make processing-demo; phần output chính chính là ví dụ vừa giải thích.}
