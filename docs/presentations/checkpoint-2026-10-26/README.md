@@ -1,20 +1,32 @@
 # Group 4 — first milestone checkpoint
 
-15 main English slides and 5 appendix slides for 26 October 2026, with Vietnamese speaker notes. Planned main speaking time: approximately 12 minutes (12:10 in the notes).
+21 main English slides and 2 appendix slides for 26 October 2026, with Vietnamese speaker notes. Planned main speaking time: approximately 18 minutes (17:55 in the notes).
 
 - [Presentation PDF](main.pdf): use this when projecting.
 - [Presenter PDF](speaker-notes.pdf): each page has the slide on the left and Vietnamese notes on the right.
 - [Speaker notes](speaker-notes.md): convenient rehearsal copy.
-- [Overview preview](preview.png): the 15 main slides.
-- [Appendix preview](appendix-preview.png): 5 slides for questions.
+- [Overview preview](preview.png): the 21 main slides.
+- [Appendix preview](appendix-preview.png): 2 dashboard slides for questions.
 - [Architecture integration review](architecture-integration.md): accuracy checks against the v6 reference and PR #1.
 - [LaTeX source](main.tex): edit slide text and `\vnote{...}` here.
 
-The deck introduces the problem, demonstrates version ordering, introduces all four data types (Terraform, RPKI, RIS and DNS), explains their separate processing paths, and maps implemented progress to the three checkpoint requirements: executable code in Git, prepared data, and system architecture.
+The deck introduces the problem and all four data types, then explains the configuration pipeline in technical detail before showing executable progress, comparisons and the dashboard. Kafka, Spark state and Parquet are part of the main presentation.
+
+| Slides | Content |
+| --- | --- |
+| 1–4 | Problem, four temporal data types and prepared data |
+| 5–6 | Domain paths and end-to-end configuration architecture |
+| 7–11 | Snapshot contract, Kafka offsets, two stateful stages, late-arrival trace and a real YAML rule |
+| 12–15 | Parquet layout, manifest verification, failure recovery and batch/API readers |
+| 16–18 | Executable progress and matched RPKI storage/query results |
+| 19–21 | Dashboard overview/history and checkpoint readiness |
+| A1–A2 | Experiments and Operations dashboard details |
+
+The technical section follows a record from ingestion to storage and serving. The extra detail extends the main talk; the notes include an estimate for each slide.
 
 ## Template and illustrations
 
-The four SimplePlus theme files are copied unchanged from the supplied template, preserved in [../SimplePlus_Blank_Template](../SimplePlus_Blank_Template). The main architecture figure `four-paths` shows all four domain pipelines. The new `config-path`, `commit-order` and `spark-stages` figures explain component roles, publication order and the two stateful stages. Older illustration assets remain available for reuse. All architecture, version-order, workflow and replay diagrams have editable `.drawio` sources beside their exported PNGs in `figs/`.
+The four SimplePlus theme files are copied unchanged from the supplied template, preserved in [../SimplePlus_Blank_Template](../SimplePlus_Blank_Template). The main architecture figure `four-paths` shows all four domain pipelines. The new `config-path`, `commit-order`, `spark-stages` and `history-readers` figures explain component roles, publication order, the two stateful stages and separate batch/API read paths. Older illustration assets remain available for reuse. All architecture, version-order, workflow and replay diagrams have editable `.drawio` sources beside their exported PNGs in `figs/`.
 
 `figs/dashboard.png` is a cropped capture of the actual local frontend on 25 October 2026. Its cards and chart display the accepted static research evidence bundle; it is not a live backend replay. Capture used Chromium, a 1440 × 1000 viewport, device scale factor 1.5, and clip `{x: 300, y: 70, width: 1110, height: 660}`. No application data was mocked for the screenshot.
 
@@ -74,7 +86,7 @@ Before presenting, prepare the small demo terminal and use `main.pdf` on the pro
 
 ## Result comparisons
 
-Slides 11–12 visualize the accepted **local RPKI representation experiment**. R1 stores full daily sets, R2 stores the initial day plus changes, and R3 adds a day-8 checkpoint to R2. All share the same transition sidecars, canonical encoding and compression. Charts use recorded measurements; generating them does not run the workload.
+Slides 17–18 visualize the accepted **local RPKI representation experiment**. R1 stores full daily sets, R2 stores the initial day plus changes, and R3 adds a day-8 checkpoint to R2. All share the same transition sidecars, canonical encoding and compression. Charts use recorded measurements; generating them does not run the workload.
 
 - Analytical storage: 47.76 / 3.56 / 6.95 MB for R1 / R2 / R3. R2 saves 92.6% against R1.
 - All-days reconstruction: 6.73 / 6.88 / 6.76 seconds. Each value is the median of three build-level medians, each with three warm cycles. Whiskers show the range of build medians, not confidence intervals. Exact output digests match.

@@ -9,14 +9,38 @@ Store configuration history, identify changes, and explore infrastructure data o
 Built for the **Big Data Storage & Processing** course, ConfigStream combines Kafka,
 Spark and a Parquet data lake with a read-only API and research dashboard.
 
-[Quick start](#quick-start) · [Architecture](#architecture) · [Datasets](#datasets) ·
-[Results](#selected-results) · [Documentation](docs/README.md) ·
+[Architecture](#architecture) · [Quick start](#quick-start) · [Datasets](#datasets) ·
+[Results](#selected-results) · [Dashboard](#dashboard) · [Documentation](docs/README.md) ·
 [Checkpoint slides](docs/presentations/checkpoint-2026-10-26/main.pdf)
 
-![ConfigStream dashboard showing accepted datasets and historical RIS activity](docs/screenshots/phase20v/overview-desktop.png)
+## Architecture
 
-*The dashboard combines recorded research results with configuration metadata from
-an API. Dataset totals and historical charts are recorded evidence, not live ingestion metrics.*
+![ConfigStream configuration architecture: sources through Kafka and stateful Spark into MinIO, with alerts, metadata search and historical batch analytics](docs/presentations/checkpoint-2026-10-26/figs/config-path.png)
+
+The diagram shows the **configuration-history path**. Kafka transports snapshots;
+Spark validates source identity, buffers versions per asset, computes adjacent diffs
+and evaluates rules. MinIO retains committed Parquet history. Elasticsearch and
+FastAPI serve a rebuildable metadata projection, while Spark batch reads the lake
+for historical analytics.
+
+| Layer | Technology | Responsibility |
+| --- | --- | --- |
+| Ingestion | Python, Kafka | Source adapters, asset-keyed records and replay |
+| Processing | Spark Structured Streaming | Snapshot identity checks, per-asset version state, normalization, diffs and rules |
+| Historical storage | MinIO, Snappy Parquet | Raw deliveries, typed outputs and verified commit manifests |
+| Batch analytics | Spark DataFrames / SQL | Change frequency, alert trends and prior-window anomaly flags |
+| Configuration serving | Elasticsearch, FastAPI | Derived metadata indexes, asset/time filters and a read-only API |
+| Presentation | Next.js, React | Configuration history and accepted cross-domain research results |
+
+**Publication order:** write and verify Parquet → publish the lake manifest →
+index metadata → send alerts → return to Spark for progress checkpointing.
+Readers use manifest-declared files. Exact batch retries verify and reuse committed
+history; publication across MinIO, Elasticsearch and Kafka is not atomic.
+
+Terraform, RPKI, RIS and DNS share infrastructure but retain separate schemas,
+identities and processing logic. See the [four domain paths](docs/presentations/checkpoint-2026-10-26/figs/four-paths.png),
+[detailed architecture](docs/architecture.md), [data model](docs/data-model.md) and
+[editable architecture diagram](docs/presentations/checkpoint-2026-10-26/figs/config-path.drawio).
 
 ## What it does
 
@@ -83,27 +107,6 @@ those views report that the backend is unavailable. See the
 For the full pipeline, follow the [service setup guides](docs/README.md#run-the-system).
 Kafka and storage use Docker Compose; Spark additionally requires Java 21.
 
-## Architecture
-
-![Four processing paths: Terraform versions, RPKI daily states, RIS events and DNS measurements through Kafka and Spark into Parquet](docs/presentations/checkpoint-2026-10-26/figs/four-paths.png)
-
-Each domain has its own schemas and processing logic. Kafka transports the data,
-Spark processes it, and MinIO stores committed Parquet history. Historical readers
-use committed datasets rather than treating every file in an output directory as valid.
-
-| Layer | Technology | Responsibility |
-| --- | --- | --- |
-| Ingestion | Python, Kafka | Source adapters, deterministic fixtures and replay |
-| Processing | Spark Structured Streaming, Python | Validation, version/state/event handling and configuration rules |
-| Storage and analytics | MinIO, Parquet, Spark | Durable history, reconstruction and historical queries |
-| Configuration serving | Elasticsearch, FastAPI | Derived metadata indexes and a read-only API |
-| Presentation | Next.js, React, shadcn/ui | Research evidence and configuration-history views |
-
-Configuration history is authoritative in the lake; search indexes can be rebuilt.
-The configuration API and research evidence views have separate serving contracts.
-See [architecture](docs/architecture.md), [data model](docs/data-model.md) and the
-[editable diagram](docs/presentations/checkpoint-2026-10-26/figs/four-paths.drawio).
-
 ## Datasets
 
 The project includes controlled synthetic inputs and four accepted real-source workloads.
@@ -152,6 +155,19 @@ Kubernetes deployment with fixture recovery tests. Distributed scalability and H
 remain unproven. The latest configuration-integrity changes still need a completed
 Kubernetes recovery rerun; historical acceptance does not validate the newer image.
 [Current architecture status](docs/architecture.md#scope-and-status).
+
+## Dashboard
+
+![ConfigStream dashboard showing accepted datasets and historical RIS activity](docs/screenshots/phase20v/overview-desktop.png)
+
+The overview presents accepted dataset scopes and recorded research results.
+Configuration history supports asset/date filters and version, diff and alert
+metadata through the API. Operations separates recorded deployment metrics from
+an explicitly requested API readiness check; the screenshot is not a current
+health or live-ingestion claim.
+
+[Run the frontend](frontend/README.md) · [Integrated walkthrough](docs/phase20v-demo-script.md) ·
+[Checkpoint slides with Vietnamese presenter notes](docs/presentations/checkpoint-2026-10-26/README.md)
 
 ## Development
 

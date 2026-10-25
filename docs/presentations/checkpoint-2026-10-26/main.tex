@@ -16,7 +16,6 @@
 \setbeamerfont{block title}{size=\normalsize,series=\bfseries}
 \setbeamerfont{block body}{size=\normalsize}
 \setbeamerfont{itemize/enumerate body}{size=\normalsize}
-\newcommand{\source}[1]{\par\vfill{\tiny\color{gray}#1}}
 \newcommand{\keyline}[1]{\par\medskip{\large\color{DarkBlue}\bfseries #1}\par}
 \newcommand{\vnote}[1]{\note{\fontencoding{T5}\selectfont #1}}
 \lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,
@@ -34,14 +33,12 @@
 
 \begin{document}
 
-% 1 — Title
 \begin{frame}
   \vspace*{-2.0em}
   \titlepage
   \vnote{Khoảng 25 giây. Chào thầy và các bạn. Nhóm 4 trình bày ConfigStream, hệ thống lưu trữ và phân tích thay đổi cấu hình. Buổi checkpoint này tập trung vào bài toán, dữ liệu, kiến trúc và những phần nhóm đã triển khai được. Chưa trình bày như một sản phẩm đã hoàn thiện hoặc đã chứng minh khả năng mở rộng.}
 \end{frame}
 
-% 2 — One concrete problem
 \begin{frame}[fragile]{The problem: configuration changes over time}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.47\textwidth}
@@ -66,11 +63,10 @@ telnet enabled
   \vspace{.5cm}
   \keyline{What changed, when, and on which asset?}
   A current configuration file alone cannot answer all three.
-  \source{Illustrative input from the executable demo: processing/demo.py.}
+
   \vnote{Khoảng 45 giây. Mở đầu bằng ví dụ cụ thể: cùng một router nhưng phiên bản sau tắt logging và bật telnet. Đây là dữ liệu minh hoạ do nhóm tạo, không phải sự cố thực tế. Nếu chỉ giữ file hiện tại, ta không biết thay đổi xảy ra lúc nào và khác phiên bản trước ra sao. Nhóm muốn lưu lịch sử và chỉ ra phần thay đổi thay vì chỉ giữ trạng thái cuối cùng.}
 \end{frame}
 
-% Four distinct temporal data types
 \begin{frame}{Four datasets, four meanings of change}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.48\textwidth}
@@ -96,58 +92,10 @@ telnet enabled
       \end{block}
     \end{column}
   \end{columns}
-  \source{Conceptual examples. Sources and accepted scopes: frontend/public/research/v1/catalog.json.}
+
   \vnote{Khoảng 65 giây. Nhóm dùng bốn loại dữ liệu có ý nghĩa thời gian khác nhau. Terraform từ TerraDS là các phiên bản file mã hạ tầng trong Git: so sánh để biết dòng nào đổi, không coi commit là lần triển khai. RPKI là tập bản ghi uỷ quyền định tuyến quan sát theo ngày; so sánh thành viên giữa hai ngày đầy đủ, không suy ra chính xác thao tác của quản trị viên. RIS ghi nhận sự kiện BGP, ví dụ quảng bá hoặc rút tuyến; hai sự kiện giống nội dung vẫn có thể là hai lần xảy ra khác nhau. DNS là phép đo truy vấn và phản hồi: thấy tên miền trả về địa chỉ nào tại thời điểm quan sát, không coi đó là toàn bộ trạng thái DNS. Ví dụ trên slide chỉ minh hoạ cách hiểu. Điểm chung là cần lưu lịch sử; cách định nghĩa thay đổi phải riêng cho từng loại.}
 \end{frame}
 
-% 4 — The one technical idea to remember
-\begin{frame}{Configuration example: handling late arrivals}
-  \centering
-  \includegraphics[width=.91\linewidth,height=4.25cm,keepaspectratio]{version-order.png}
-  \begin{flushleft}
-  Compare \textbf{v1 $\rightarrow$ v2} and \textbf{v2 $\rightarrow$ v3}, once both endpoints are available.
-  \end{flushleft}
-  \source{processing/state.py; spark/streaming/stateful.py. Online repair is bounded by retained state.}
-  \vnote{Khoảng 55 giây. Chỉ vào hàng trên: dữ liệu có thể đến theo thứ tự 1, 3, 2. Nếu so sánh theo thứ tự đến, ta sẽ tạo cặp 1 sang 3 và bỏ qua phiên bản 2. Hàng dưới là cách nhóm xử lý: giữ các phiên bản theo asset và chỉ tạo diff giữa các phiên bản liền kề. Nếu 2 đến khi state còn giữ được 1 và 3 thì tạo đủ hai cặp đúng. State có giới hạn lưu giữ, nên không hứa sửa được mọi dữ liệu đến muộn vô hạn.}
-\end{frame}
-
-% Architecture across the four data domains
-\begin{frame}{System architecture: four separate processing paths}
-  \centering
-  \includegraphics[width=\linewidth,height=4.7cm,keepaspectratio]{four-paths.png}
-  \begin{flushleft}\small
-    Kafka + Spark + MinIO (Parquet), with separate schemas and processing.\\
-    Config search: Elasticsearch + FastAPI. Dashboard: accepted results from all four.
-  \end{flushleft}
-  \source{spark/streaming/; spark/rpki\_stream.py; spark/ris.py; spark/dns.py; domain architecture docs.}
-  \vnote{Khoảng 60 giây. Bốn hàng là bốn đường xử lý đã có trong repo, không phải tất cả đều đi qua bộ diff cấu hình. Hàng Terraform giữ logic phiên bản và rule. RPKI xử lý tập thành viên của các ngày đầy đủ và thay đổi giữa chúng. RIS giữ các lần xảy ra sự kiện, chỉ hoà giải bản gửi lại cùng danh tính nguồn; không xoá sự kiện chỉ vì nội dung giống nhau. DNS giữ phép đo và nhóm kết quả có thông tin nguồn để so sánh mô tả. Các luồng dùng chung công nghệ Kafka, Spark và lưu Parquet trên MinIO nhưng có schema, topic và metadata commit riêng. Elasticsearch và FastAPI phục vụ đường cấu hình; dashboard hiện có bản tổng hợp bằng chứng của cả bốn miền, không phải API live chung cho mọi miền. Dữ liệu thực ở đây được phát lại từ các nguồn đã cố định.}
-\end{frame}
-
-% Configuration architecture reviewed against the v6 reference and current code.
-\begin{frame}{Configuration path: transport, compute, store, serve}
-  \centering
-  \includegraphics[width=\linewidth,height=4.75cm,keepaspectratio]{config-path.png}
-  \begin{flushleft}\small
-    Lake writes complete before search indexing and alert publication.\\
-    Search can be rebuilt from committed Parquet; batch analytics reads the lake.
-  \end{flushleft}
-  \source{Lake-enabled configuration path: spark/streaming/outputs.py; search/reindex.py; analytics/main.py.}
-  \vnote{Khoảng 50 giây. Đi theo hàng chính từ trái sang phải: nguồn gửi snapshot qua Kafka, Spark xử lý state, diff và rule, rồi ghi vào MinIO. Nhánh dưới bên phải là Spark batch đọc lịch sử đã commit để phân tích. Nhánh search giữ metadata phục vụ FastAPI và giao diện, không chứa toàn bộ nội dung cấu hình. Nhánh trên là cảnh báo Kafka. Các mũi tên biểu diễn đường dữ liệu; thứ tự thực thi trong callback là lake trước, search sau, rồi mới phát alerts. Khi index mất hoặc cần tạo lại, có lệnh reindex đọc committed Parquet. Đây là cấu hình bật lake và search, không nói mọi chế độ chạy đều bắt buộc có tất cả thành phần.}
-\end{frame}
-
-\begin{frame}{A commit manifest marks readable history}
-  \centering
-  \includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{commit-order.png}
-  \begin{flushleft}
-    \textbf{Readers use committed files.} Partial writes stay outside accepted history.\\[5pt]
-    An exact retry verifies and reuses the committed batch.
-  \end{flushleft}
-  \source{Current lake-enabled code: spark/streaming/sinks/lake.py; spark/streaming/outputs.py.\\
-  No atomic transaction across sinks. Latest integrity changes still need a completed Kubernetes recovery rerun.}
-  \vnote{Khoảng 45 giây. File xuất hiện trên MinIO chưa có nghĩa batch đã hoàn tất. Với code hiện tại, Spark ghi Parquet, lập inventory đường dẫn, kích thước và SHA-256, đọc lại theo schema để kiểm tra số dòng, rồi mới publish manifest. Reader chỉ đọc các đường dẫn được manifest khai báo. Sau đó callback mới index metadata, gửi alerts và trả quyền điều khiển để Spark tiến hành checkpoint. Nếu batch đã commit mà bước sau lỗi, retry kiểm tra đầy đủ projection, kể cả số lần xuất hiện của dòng, rồi tái sử dụng Parquet. Cảnh báo Kafka vẫn có thể lặp về mặt vật lý; không có giao dịch atomic xuyên các sink. Phần integrity mới đã có kiểm thử local nhưng lần recovery trên Kubernetes của image mới nhất chưa hoàn tất, nên không gán bằng chứng deployment cũ cho nó.}
-\end{frame}
-
-% Accepted data, with domain-specific units
 \begin{frame}{Prepared data: accepted scope for each dataset}
   \renewcommand{\arraystretch}{1.65}
   {\small
@@ -164,37 +112,255 @@ telnet enabled
   \medskip
   {\small Controlled synthetic inputs also test retries and late arrivals.\\
   Source manifests and result receipts are versioned in Git.}
-  \source{Accepted evidence: frontend/public/research/v1/catalog.json and its linked validation artifacts. Units differ; do not sum the rows.}
+
   \vnote{Khoảng 55 giây. Đây là phạm vi đã được kiểm chứng trong các lần chạy ghi nhận, không phải tổng kích thước mọi nguồn ngoài Internet và không phải lần chạy mới hôm nay. Terraform có 10.188 phiên bản của 6.505 lịch sử file thuộc 375 repo. RPKI có 14 ngày đầy đủ trong phạm vi ripencc.tal; số 14 là số ngày quan sát, không phải số bản ghi bên trong. RIS có khoảng 4,73 triệu lần xảy ra sự kiện trong một giờ ở collector rrc00. DNS có khoảng 2,23 triệu dòng phép đo từ hai đối tượng nguồn .li đã chọn. Không cộng bốn con số vì đơn vị khác nhau. Nhóm còn có generator để chủ động kiểm thử dữ liệu lặp và đến muộn. Dữ liệu lớn lưu ngoài Git; repo giữ manifest và bằng chứng kết quả.}
 \end{frame}
 
-% 7 — Visible processing result
-\begin{frame}[fragile]{Implemented: differences and rule alerts}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{.48\textwidth}
-      \begin{block}{Diff: version 10 $\rightarrow$ 11}
-        {\ttfamily\small
-          \textcolor{MediumRed}{- logging enabled}\\[3pt]
-          \textcolor{MediumRed}{- telnet disabled}\\[3pt]
-          \textcolor{MediumBlue}{+ logging disabled}\\[3pt]
-          \textcolor{MediumBlue}{+ telnet enabled}}
-      \end{block}
-    \end{column}
-    \begin{column}{.46\textwidth}
-      {\large\bfseries\color{DarkBlue}Rules detect}\par\medskip
-      \textbf{Logging disabled}\\
-      High severity\par\medskip
-      \textbf{Telnet enabled}\\
-      Critical severity
-    \end{column}
-  \end{columns}
-  \vspace{.55cm}
-  Repeated delivery must not invent another logical change.
-  \source{processing/demo.py; processing/diff.py; rules/default.yaml; tests/unit/test\_rules.py.}
-  \vnote{Khoảng 45 giây. Quay lại ví dụ đầu: output chỉ ra các dòng bị bỏ và thêm. Rule mặc định báo logging bị tắt ở mức high và telnet được bật ở mức critical. Đây là rule minh hoạ đã có trong code, không phải mô hình AI dự đoán. Chuẩn hoá xử lý các khác biệt văn bản được hỗ trợ; không phải parser hiểu mọi ý nghĩa cấu hình. Việc gửi lại cùng snapshot cũng không được tạo thêm thay đổi logic mới.}
+\begin{frame}{System architecture: four separate processing paths}
+  \centering
+  \includegraphics[width=\linewidth,height=4.7cm,keepaspectratio]{four-paths.png}
+  \begin{flushleft}\small
+    Kafka + Spark + MinIO (Parquet), with separate schemas and processing.\\
+    Config search: Elasticsearch + FastAPI. Dashboard: accepted results from all four.
+  \end{flushleft}
+
+  \vnote{Khoảng 60 giây. Bốn hàng là bốn đường xử lý đã có trong repo, không phải tất cả đều đi qua bộ diff cấu hình. Hàng Terraform giữ logic phiên bản và rule. RPKI xử lý tập thành viên của các ngày đầy đủ và thay đổi giữa chúng. RIS giữ các lần xảy ra sự kiện, chỉ hoà giải bản gửi lại cùng danh tính nguồn; không xoá sự kiện chỉ vì nội dung giống nhau. DNS giữ phép đo và nhóm kết quả có thông tin nguồn để so sánh mô tả. Các luồng dùng chung công nghệ Kafka, Spark và lưu Parquet trên MinIO nhưng có schema, topic và metadata commit riêng. Elasticsearch và FastAPI phục vụ đường cấu hình; dashboard hiện có bản tổng hợp bằng chứng của cả bốn miền, không phải API live chung cho mọi miền. Dữ liệu thực ở đây được phát lại từ các nguồn đã cố định.}
 \end{frame}
 
-% 8 — Executable repository
+\begin{frame}{Configuration path: transport, compute, store, serve}
+  \centering
+  \includegraphics[width=\linewidth,height=4.75cm,keepaspectratio]{config-path.png}
+  \begin{flushleft}\small
+    Lake writes complete before search indexing and alert publication.\\
+    Search can be rebuilt from committed Parquet; batch analytics reads the lake.
+  \end{flushleft}
+
+  \vnote{Khoảng 50 giây. Đi theo hàng chính từ trái sang phải: nguồn gửi snapshot qua Kafka, Spark xử lý state, diff và rule, rồi ghi vào MinIO. Nhánh dưới bên phải là Spark batch đọc lịch sử đã commit để phân tích. Nhánh search giữ metadata phục vụ FastAPI và giao diện, không chứa toàn bộ nội dung cấu hình. Nhánh trên là cảnh báo Kafka. Các mũi tên biểu diễn đường dữ liệu; thứ tự thực thi trong callback là lake trước, search sau, rồi mới phát alerts. Khi index mất hoặc cần tạo lại, có lệnh reindex đọc committed Parquet. Đây là cấu hình bật lake và search, không nói mọi chế độ chạy đều bắt buộc có tất cả thành phần.}
+\end{frame}
+
+\begin{frame}{Input contract: identity, source version and two clocks}
+
+  \renewcommand{\arraystretch}{1.3}
+  \small
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{.24\linewidth}>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Field} & \textbf{Illustrative value} & \textbf{Role in processing} \\
+    \midrule
+    \texttt{asset\_id} & \texttt{router-001} & Groups one configuration history \\
+    \texttt{snapshot\_id} & \texttt{router-001-v11} & Detects conflicting reuse of an ID \\
+    \texttt{version} & 11 & Selects the adjacent predecessor, v10 \\
+    \texttt{event\_time} & 08:00 UTC & Source time for watermark and timers \\
+    \texttt{ingest\_time} & 08:03 UTC & Collector acceptance time \\
+    \texttt{hash} & SHA-256 of content & Checks inline content integrity \\
+    \bottomrule
+  \end{tabularx}
+  \par\medskip
+  {\small The schema accepts exactly one of \texttt{content} or \texttt{content\_uri}.\\
+  The current diff processor handles inline text; URI content is not fetched.}
+
+
+  \vnote{Khoảng 45 giây. Một message không chỉ có nội dung file mà phải có danh tính, phiên bản và thời gian. Asset ID gom lịch sử của một đối tượng; snapshot ID xác định một bản ghi nguồn. Version mới là cơ sở chọn cặp liền kề, không dùng offset hoặc thời gian nhận. Event time là thời điểm nguồn quan sát, còn ingest time là lúc collector nhận. Ví dụ lệch ba phút chỉ minh hoạ hai đồng hồ. SHA-256 kiểm tra nội dung inline; đây không phải chữ ký xác thực nguồn. Schema cho phép content hoặc URI nhưng processor diff hiện chỉ xử lý văn bản inline, không tự tải file từ URI.}
+\end{frame}
+
+\begin{frame}{Kafka: delivery position differs from source version}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.43\textwidth}
+      \textbf{Three input topics}\par\medskip
+      \texttt{config.assets}: metadata\\[5pt]
+      \texttt{config.events}: change audit\\[5pt]
+      \texttt{config.snapshots}: content\par\medskip
+      \textbf{Key:} \texttt{asset\_id}\\[5pt]
+      Spark processes the snapshots topic.
+    \end{column}
+    \begin{column}{.53\textwidth}
+      \textbf{Example: one snapshot-topic partition}\par\medskip
+      \renewcommand{\arraystretch}{1.6}
+      \begin{tabular}{@{}lccc@{}}
+        \toprule
+        Offset & 40 & 41 & 42 \\
+        Asset & R1 & R1 & R1 \\
+        Version & v1 & \textcolor{MediumRed}{v3} & \textcolor{MediumBlue}{v2} \\
+        \bottomrule
+      \end{tabular}\par\medskip
+      Offset 42 arrives later, but v2 belongs\\between v1 and v3 in source history.
+    \end{column}
+  \end{columns}
+  \medskip
+  \begin{block}{Why Kafka and state are both needed}
+    Kafka retains a replayable log per partition. Spark reconstructs version relationships.\\
+    Checkpointed progress resumes processing while source offsets remain available.
+  \end{block}
+
+
+  \vnote{Khoảng 50 giây. Producer gửi metadata asset, sự kiện audit và snapshot vào ba topic riêng. Kafka key là asset ID; Spark xử lý topic snapshots và không chờ event ở topic khác đến trước. Bảng bên phải minh hoạ cùng asset: offset 40, 41, 42 mang version 1, 3, 2. Kafka vẫn giữ đúng thứ tự log nhưng lịch sử nguồn phải là 1, 2, 3. Kafka tách producer khỏi processor và giữ log để replay; Spark mới giải quyết quan hệ phiên bản. Checkpoint lưu tiến độ đã xử lý; nếu Kafka đã xoá offset do retention thì checkpoint không tự tạo lại dữ liệu.}
+\end{frame}
+
+\begin{frame}{Spark: two stateful stages before output publication}
+
+  \centering
+  \includegraphics[width=\linewidth,height=3.45cm,keepaspectratio]{spark-stages.png}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}\small
+      \textbf{Key 1: \texttt{snapshot\_id}}\\[4pt]
+      Validate content hash and source binding.\\
+      Same binding: suppress retry. Conflict: diagnostic.
+    \end{column}
+    \begin{column}{.48\textwidth}\small
+      \textbf{Key 2: \texttt{asset\_id}}\\[4pt]
+      Retain normalized versions + emitted-edge flags.\\
+      Event-time timers and a version cap bound state.
+    \end{column}
+  \end{columns}
+
+
+  \vnote{Khoảng 65 giây. Đi theo sơ đồ từ parse tới output. SQL parse và kiểm tra envelope, Kafka key, thời gian. Sau đó có hai phép group và hai stateful operator native của Spark. Operator đầu group theo snapshot ID để kiểm tra binding về asset, version, thời gian nguồn, format, hash và URI. Binding giống nhau là retry; binding khác là conflict, kể cả khi cùng ID xuất hiện ở asset khác. Ingest time không thuộc danh tính nguồn. Operator sau mới group theo asset, chuẩn hoá nội dung, giữ buffer version và cờ cặp nào đã phát. Watermark và timer event time cùng giới hạn số version giữ bộ nhớ có giới hạn. Raw Kafka đi nhánh riêng nên bản ghi bị business logic từ chối vẫn còn bằng chứng. State được Spark checkpoint, không chỉ là dictionary Python trên driver.}
+\end{frame}
+
+\begin{frame}{Version state: buffer gaps and emit each adjacent pair}
+
+  \centering
+  \includegraphics[width=.85\linewidth,height=2.45cm,keepaspectratio]{version-order.png}
+  \renewcommand{\arraystretch}{1.2}
+  {\small\begin{tabularx}{\linewidth}{@{}p{.15\linewidth}p{.25\linewidth}X@{}}
+    \toprule
+    \textbf{Input} & \textbf{Retained versions} & \textbf{New output} \\
+    \midrule
+    v1 & \{1\} & Baseline only; no predecessor \\
+    v3 & \{1, 3\} & Hold the gap; no 1 $\rightarrow$ 3 comparison \\
+    v2 & \{1, 2, 3\} & Emit 1 $\rightarrow$ 2 and 2 $\rightarrow$ 3; mark both edges \\
+    Retry v2 & Unchanged & No new logical diff while identity/state is retained \\
+    \bottomrule
+  \end{tabularx}}
+
+
+  \vnote{Khoảng 60 giây. Đây là một trace nhỏ của thuật toán, không chỉ là hình sắp xếp. Khi v1 đến, lưu baseline. V3 đến nhưng thiếu v2 thì giữ khoảng trống và chưa tạo diff 1 sang 3. Khi v2 đến trong thời hạn còn giữ state, tìm được cả hai hàng xóm nên tạo 1 sang 2 và 2 sang 3. Cờ emitted-edge ghi nhận hai cặp đã phát. Nếu gửi lại v2 với cùng binding trong state còn giữ thì không tạo diff mới. Nếu dữ liệu quá muộn hoặc version đã bị eviction thì không hứa phục hồi online vô hạn; raw vẫn là bằng chứng của những record đã fetch. Timer tiến theo watermark event time, không đơn thuần theo đồng hồ treo tường.}
+\end{frame}
+
+\begin{frame}[fragile]{From normalized text to an explainable rule alert}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.46\textwidth}
+      \begin{block}{Diff: version 10 $\rightarrow$ 11}
+        {\ttfamily\small
+          \textcolor{MediumRed}{- logging enabled}\\[4pt]
+          \textcolor{MediumRed}{- telnet disabled}\\[4pt]
+          \textcolor{MediumBlue}{+ logging disabled}\\[4pt]
+          \textcolor{MediumBlue}{+ telnet enabled}}
+      \end{block}
+      \small Normalization handles selected text noise and masks supported secret patterns.
+    \end{column}
+    \begin{column}{.50\textwidth}
+      \textbf{Actual YAML rule}\par
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+id: telnet-enabled
+severity: critical
+operation: added
+pattern: "^telnet enabled$"
+\end{lstlisting}
+      \small An added line matches the regex.\\[4pt]
+      The alert links the asset, snapshot and rule.\\[8pt]
+      Logging disabled: a separate \textbf{high} rule.
+    \end{column}
+  \end{columns}
+  \medskip
+  {\small Line comparison and explicit rules; alerts are not verified security incidents.}
+
+
+  \vnote{Khoảng 50 giây. Chuẩn hoá thực hiện trước diff: xử lý một số nhiễu văn bản và che các mẫu secret được hỗ trợ, không sửa raw gốc. Bên trái là bốn dòng thay đổi của ví dụ đầu bài. Bên phải là các trường thật của rule YAML: chỉ xét dòng được thêm, match chính xác telnet enabled và tạo alert critical. Alert mang asset ID, snapshot ID, rule ID để truy ngược bằng chứng. Logging bị tắt được rule khác báo high. Logic nằm trong package processing dùng lại cho Spark và demo nhỏ; API không tính lại. Đây là so sánh dòng và rule tường minh, không phải parser hiểu mọi ngữ nghĩa cấu hình hoặc mô hình AI.}
+\end{frame}
+
+\begin{frame}[fragile]{MinIO: raw evidence and typed Parquet history}
+
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.42\textwidth}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+config-lake/
+  raw/snapshots/
+  processed/snapshots/
+  processed/diffs/
+  processed/alerts/
+  processed/diagnostics/
+  _commits/
+  analytics/
+\end{lstlisting}
+    \end{column}
+    \begin{column}{.54\textwidth}\small
+      \textbf{Raw}: binary key/value plus Kafka topic, partition, offset and timestamp.\par\medskip
+      \textbf{Processed}: typed normalized snapshots, diffs, alerts and diagnostics; Snappy Parquet.\par\medskip
+      \textbf{Namespace}: query ID + batch ID.\\
+      \textbf{Date folders}: UTC year/month/day.\\
+      Snapshot date uses source event time.
+    \end{column}
+  \end{columns}
+  \medskip
+  {\footnotesize\texttt{processed/snapshots/query\_id=.../batch\_id=.../year=2026/month=10/day=5/}}
+  \begin{block}{Three different meanings of partition}
+    \small Kafka: a log shard.\quad Spark: execution tasks.\quad Lake: date-based file paths.
+  \end{block}
+
+
+  \vnote{Khoảng 55 giây. MinIO cung cấp object storage tương thích S3, Parquet là định dạng file có schema theo cột. Raw giữ byte và provenance của record Kafka được fetch, processed giữ snapshot đã chuẩn hoá cùng diff, alert và diagnostic. Query ID và batch ID chia vùng ghi để nhận diện lần retry; date folder dùng năm tháng ngày UTC, riêng snapshot lấy event time. Không partition theo asset ID. Ba chữ partition rất dễ lẫn: Kafka là shard log, Spark là phân chia task khi thực thi, lake là tổ chức file theo ngày. Thiết kế thư mục không tự chứng minh query pruning hay tăng tốc; cần đo reader thực tế. Chỉ các file được manifest commit khai báo mới là lịch sử được chấp nhận.}
+\end{frame}
+
+\begin{frame}{Commit protocol: publish verified history before serving}
+
+  \centering
+  \includegraphics[width=\linewidth,height=3.4cm,keepaspectratio]{commit-order.png}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}\small
+      \textbf{Manifest binds physical output}\\[4pt]
+      File paths, byte sizes, SHA-256 and counts.\\
+      Reader applies the typed dataset schema.
+    \end{column}
+    \begin{column}{.48\textwidth}\small
+      \textbf{Retry checks the full typed multiset}\\[4pt]
+      Values and row multiplicity must match.\\
+      Equal row counts alone are insufficient.
+    \end{column}
+  \end{columns}
+
+
+  \vnote{Khoảng 55 giây. Một batch đi qua sáu bước. Trước hết ghi Parquet rồi kiểm tra inventory file, kích thước, SHA-256, schema và row count. Sau đó publish manifest để reader biết tập file nào hoàn tất. Search và Kafka alerts chạy sau commit lake; callback thành công mới cho Spark tiến hành checkpoint progress. Khi retry batch đã commit, không chỉ so số lượng dòng mà so toàn bộ projection có kiểu dữ liệu theo multiset cả hai chiều, bao gồm số lần mỗi dòng xuất hiện. Nếu khớp mới tái sử dụng output; khác thì fail. Bảo đảm này không biến ba hệ thống MinIO, Elasticsearch và Kafka thành một transaction atomic.}
+\end{frame}
+
+\begin{frame}{Failure recovery: what happens if a batch stops midway?}
+
+  \renewcommand{\arraystretch}{1.65}
+  {\small\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{.27\linewidth}>{\raggedright\arraybackslash}p{.30\linewidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Failure point} & \textbf{Visible state} & \textbf{Retry behavior} \\
+    \midrule
+    Before lake manifest & Partial files are not committed history & Readers exclude the incomplete batch \\
+    After commit, during search & Lake is valid; search may be incomplete & Verify/reuse lake; index deterministic document IDs again \\
+    After alerts, before progress commit & Some alerts may already be delivered & Reprocessing may append physical alert duplicates \\
+    \bottomrule
+  \end{tabularx}}
+  \par\medskip
+  \textbf{Spark checkpoint:} source progress and operator state.\\[5pt]
+  \textbf{Lake manifest:} which verified data files are committed.
+
+
+  \vnote{Khoảng 50 giây. Ba tình huống giúp giải thích cơ chế recovery cụ thể. Lỗi trước manifest thì file có thể tồn tại nhưng reader không coi là lịch sử hoàn tất. Lỗi ở Elasticsearch sau khi lake commit thì batch Spark thất bại; khi retry, code kiểm tra và dùng lại lake, rồi index lại bằng deterministic document ID. Nếu alerts đã đến Kafka mà tiến độ batch chưa commit, retry có thể gửi lại alert vật lý. Vì vậy không gọi toàn hệ thống exactly once. Cần phân biệt hai marker: checkpoint thuộc Spark để tiếp tục source progress và state, manifest thuộc lake để công bố file hoàn tất. Đây là hành vi code; lần recovery Kubernetes trên image integrity mới vẫn chưa hoàn tất, không lấy kết quả image cũ thay cho nó.}
+\end{frame}
+
+\begin{frame}{Serving: historical analytics and metadata queries}
+
+  \centering
+  \includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{history-readers.png}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}\small
+      \textbf{Batch}: freeze input manifests; aggregate UTC windows, alert trends and prior-window flags.
+    \end{column}
+    \begin{column}{.48\textwidth}\small
+      \textbf{API}: filter asset/time; latest snapshot by version; cursor pagination. No raw config bodies.
+    \end{column}
+  \end{columns}
+
+
+  \vnote{Khoảng 60 giây. MinIO giữ lịch sử đã commit. Nhánh trên là Spark batch: chốt danh sách manifest đầu vào để commit mới không làm thay đổi dữ liệu giữa job, rồi tính tần suất thay đổi, xu hướng alert và ngưỡng bất thường theo các cửa sổ trước đó. Không dùng cửa sổ tương lai và không gọi đây là mô hình ML. Nhánh dưới là index Elasticsearch phục vụ truy vấn nhanh. Đường nét đứt từ lake là lệnh rebuild; khi chạy bình thường streaming index sau lake commit. FastAPI chỉ đọc metadata với filter asset, thời gian, latest theo version và cursor phân trang; không chạy Spark hoặc tính lại diff, không trả raw content. Dashboard research của bốn miền dùng bundle kết quả đã chấp nhận, khác với history gọi API.}
+\end{frame}
+
 \begin{frame}[fragile]{Progress: runnable code and a recorded pipeline replay}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.45\textwidth}
@@ -222,11 +388,10 @@ make processing-demo
   \end{columns}
   \par\medskip
   {\small\textbf{Recorded TerraDS replay:} 10,188 snapshots $\rightarrow$ 3,683 diffs; 29.4 MB Parquet.}
-  \source{Recorded replay: docs/phase12-acceptance.md; github.com/kongwoang/ConfigStream; Makefile; tests/unit/test\_state\_logic.py, test\_diff.py, test\_rules.py.}
+
   \vnote{Khoảng 60 giây. Repo có các thành phần ở cột trái. Hai lệnh bên phải chạy demo Python không cần service; 178 test của state, diff và rule đã được kiểm tra khi chuẩn bị slide. Dòng dưới là minh chứng tích hợp đã lưu: TerraDS đi qua Kafka, Spark và MinIO với 10.188 snapshot, 3.683 cặp liền kề và 29.402.997 byte Parquet. Phân biệt rõ demo nhỏ có thể chạy ngay với replay lịch sử đã được ghi nhận, không gọi đây là lần replay mới hôm nay. Nếu thầy yêu cầu demo trực tiếp, chuyển sang terminal đã chuẩn bị; không dùng kết quả này để suy ra HA hay scalability.}
 \end{frame}
 
-% Matched local comparison from accepted measurements
 \begin{frame}{RPKI: less storage, similar reconstruction time}
   \noindent{\small Same 14 daily observations. All three layouts reconstruct the exact same states.}
   \par\medskip
@@ -236,8 +401,7 @@ make processing-demo
     \keyline{R2 saves 92.6\% of analytical storage.}
     Reconstructing all 14 days still takes about 6.9 seconds.
   \end{flushleft}
-  \source{Recorded local E2R experiment: workloads/results/phase20/rpki-representations.json. MB = 1,000,000 bytes.\\
-  Time: median of 3 build medians, each with 3 warm cycles; whiskers show the range of build medians. Independent verification timed separately.}
+
   \vnote{Khoảng 60 giây. Đây là phép so sánh trên cùng 14 ngày RPKI đã quan sát, không so số lượng bản ghi giữa bốn miền. R1 lưu toàn bộ tập thành viên của mỗi ngày. R2 lưu ngày đầu và các tập thêm, bớt giữa các ngày. R3 giống R2 nhưng thêm trạng thái đầy đủ ở ngày 8. Cả ba cùng giữ các transition sidecar chung, dùng cùng encoding và Snappy; đây là layout thí nghiệm local, chưa thay định dạng production. Biểu đồ trái: dung lượng phân tích giảm từ 47,76 MB xuống 3,56 MB ở R2, tức giảm 92,6 phần trăm. Biểu đồ phải: dựng lại đủ 14 ngày mất 6,73 giây ở R1 và 6,88 giây ở R2, gần tương đương trong phép đo này. R3 nằm giữa về dung lượng. Tất cả trạng thái và kết quả truy vấn khớp chính xác, không chỉ khớp số lượng. Kết luận: lưu thay đổi là ứng viên tốt cho lịch sử RPKI đã thử. Đây là ba build, mỗi build ba lượt truy vấn warm, không phải tốc độ Spark live hay phép đo cold cache.}
 \end{frame}
 
@@ -250,16 +414,14 @@ make processing-demo
     \keyline{R2 saves 17.5\% across measured local experiment files.}
     Sources, provenance maps and query scratch still occupy most of the space.
   \end{flushleft}
-  \source{workloads/results/phase20/rpki-all-in-storage.json. Median accounted content bytes across 3 builds per layout.\\
-  Includes analytical files, sources, coordinate maps, metadata and retained scratch. Excludes deployed Kafka / checkpoint costs and filesystem overhead.}
+
   \vnote{Khoảng 45 giây. Nếu chỉ nói tiết kiệm 92,6 phần trăm thì người nghe dễ hiểu thành toàn bộ hệ thống tiết kiệm như vậy. Khi cộng cả archive nguồn, ánh xạ về bản ghi gốc, metadata và file làm việc còn giữ lại, tổng file local giảm từ khoảng 251,98 MB xuống 207,90 MB, tức khoảng 17,5 phần trăm. Phần màu xanh đậm là dữ liệu phân tích đã tối ưu; phần xám vẫn lớn. Ý nghĩa thực tế: cần đo toàn bộ những thành phần đang giữ để quyết định tối ưu, không chỉ đo file đầu ra nhỏ nhất. Đây vẫn chỉ là tổng các thành phần của thí nghiệm biểu diễn local, chưa phải tổng disk của deployment vì không bao gồm Kafka, checkpoint hay overhead hệ thống file. Không suy kết quả RPKI thành mức tiết kiệm cho Terraform, RIS hoặc DNS.}
 \end{frame}
 
-% 10 — Actual application, no mocked live data
 \begin{frame}{Dashboard: four domains in one evidence overview}
   \centering
   \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{dashboard.png}
-  \source{Actual frontend captured on 25 October 2026. This overview displays the accepted evidence bundle, not a live replay.}
+
   \vnote{Khoảng 30 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
 \end{frame}
 
@@ -271,12 +433,10 @@ make processing-demo
     \textbf{2. Select} versions, adjacent diffs or alerts.\\[5pt]
     \textbf{3. Inspect} safe metadata from the configuration API.
   \end{flushleft}
-  \source{Recorded Phase 20V UI capture, 14 October 2026; docs/phase20v-demo-script.md.\\
-  The demonstrated asset is an owned fixture with 2 versions / 1 diff. Raw configuration bodies are not returned.}
+
   \vnote{Khoảng 35 giây. Trang lịch sử cấu hình có ba thao tác chính: lọc asset và ngày UTC, chọn tab versions hoặc adjacent diffs hoặc alerts, rồi xem metadata trả về từ API. Ảnh chụp là buổi rehearsal đã ghi nhận ngày 14 tháng 10, với asset do nhóm tạo có hai phiên bản và một diff. Con số TerraDS ở thẻ tổng quan là aggregate đã lưu, không có nghĩa toàn bộ lịch sử TerraDS được phục vụ qua API này. Trang history cần backend đang chạy; ảnh không chứng minh API hiện tại đang online.}
 \end{frame}
 
-% Checkpoint answer and next work
 \begin{frame}{Checkpoint readiness and next milestone}
   \renewcommand{\arraystretch}{1.6}
   \begin{tabularx}{\linewidth}{@{}p{.26\linewidth}X@{}}
@@ -288,78 +448,17 @@ make processing-demo
     Architecture & Kafka, stateful Spark, committed lake and serving \\
     \bottomrule
   \end{tabularx}
-  \medskip
+  \par\medskip
   \textbf{Next:} rehearse the latest integrated demo, repeat recovery checks,\\
   and extend workload measurements.\par\medskip
   {\small Existing deployment evidence is local / single-node. Scaling and HA remain open.}
   \vfill
   {\large\color{DarkBlue}\bfseries Thank you --- questions?}
-  \vnote{Khoảng 55 giây. Chốt lại ba yêu cầu của thầy: code chạy được, dữ liệu đã chuẩn bị, và kiến trúc đã có implementation cùng kết quả tích hợp. Nhóm đã chạy pipeline trước đây; bước tiếp theo là diễn tập lại trên image mới nhất, kiểm tra recovery và mở rộng phép đo. Không nói cả hệ thống production đã hoàn thành. Nếu thầy hỏi sâu về Kafka, state, layout Parquet hoặc dashboard experiments và operations thì chuyển sang các slide phụ phía sau.}
+  \vnote{Khoảng 55 giây. Chốt lại ba yêu cầu của thầy: code chạy được, dữ liệu đã chuẩn bị, và kiến trúc đã có implementation cùng kết quả tích hợp. Nhóm đã chạy pipeline trước đây; bước tiếp theo là diễn tập lại trên image mới nhất, kiểm tra recovery và mở rộng phép đo. Không nói cả hệ thống production đã hoàn thành. Các cơ chế chính vừa được trình bày theo đường đi dữ liệu. Nếu cần xem thêm bảng thí nghiệm hoặc trạng thái vận hành trên dashboard thì mở hai slide phụ.}
 \end{frame}
 
 \appendix
 \setbeamertemplate{footline}{\hfill Appendix \insertframenumber\,/\,\inserttotalframenumber\hspace{1em}\vspace{0.5em}}
-
-\begin{frame}{Kafka: an offset is not a configuration version}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{.48\textwidth}
-      \begin{block}{Three configuration input topics}
-        \texttt{config.assets}: asset metadata\par\medskip
-        \texttt{config.events}: audit events\par\medskip
-        \texttt{config.snapshots}: versioned input
-      \end{block}
-    \end{column}
-    \begin{column}{.48\textwidth}
-      \begin{block}{What the processor reads}
-        Spark reads \texttt{config.snapshots}.\par\medskip
-        Kafka keys use \texttt{asset\_id}.\par\medskip
-        Offsets locate records within a partition.
-      \end{block}
-    \end{column}
-  \end{columns}
-  \keyline{Partition order preserves delivery order, not source-version order.}
-  No total order or atomic publication across these topics.
-  \source{messaging/kafka\_producer.py; spark/streaming/kafka\_source.py; docs/kafka-topics.md.}
-  \vnote{Slide phụ, không tính vào thời gian trình bày chính. Kafka tách nguồn phát khỏi processor và cho phép replay khi record còn retention. Asset, event và snapshot là ba loại thông điệp riêng. Spark dùng snapshot để xử lý state; không đợi event ở topic khác xuất hiện trước. Cùng asset ID giúp phân vùng, nhưng producer có thể gửi v3 trước v2 nên offset không thay được số phiên bản. Không giả định thứ tự hoặc atomicity giữa các topic.}
-\end{frame}
-
-\begin{frame}{Spark: identity checks precede per-asset version state}
-  \centering
-  \includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{spark-stages.png}
-  \begin{flushleft}\small
-    Raw fetched Kafka records have a separate archival branch.\\
-    Invalid input and conflicts produce diagnostics. Watermarks and state retention bound repair.
-  \end{flushleft}
-  \source{spark/streaming/validation.py, identity.py, stateful.py; processing/state.py.\\
-  Current code structure; this diagram does not certify the latest image's Kubernetes recovery.}
-  \vnote{Slide phụ. Bước parse kiểm tra envelope, thời gian, hình thức hash và Kafka key. Sau đó IdentityProcessor group theo snapshot ID và kiểm tra binding về nguồn, gồm kiểm tra content hash qua schema; exact retry trong state được bỏ qua, conflicting identity thành diagnostic. Chỉ sau bước này mới group theo asset. Bên trong processor theo asset, code chuẩn hoá snapshot trước khi thêm vào buffer, rồi tạo các diff liền kề và áp dụng rule. Kiểm tra danh tính snapshot và sắp thứ tự phiên bản theo asset là hai bước riêng. Raw được lấy từ nhánh Kafka trước validation để còn giữ bằng chứng của bản ghi không được business logic chấp nhận.}
-\end{frame}
-
-\begin{frame}[fragile]{Parquet layout separates raw evidence and processed history}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{.43\textwidth}
-\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
-config-lake/
-  raw/snapshots/
-  processed/snapshots/
-  processed/diffs/
-  processed/alerts/
-  processed/diagnostics/
-  _commits/
-  analytics/
-\end{lstlisting}
-    \end{column}
-    \begin{column}{.53\textwidth}
-      \textbf{Raw}: binary Kafka key/value, topic, partition, offset and timestamp.\par\medskip
-      \textbf{Processed}: typed snapshots, diffs, alerts and diagnostics.\par\medskip
-      Each configuration batch has a query/batch namespace and UTC date partitions.
-    \end{column}
-  \end{columns}
-  \medskip
-  {\small Example: \texttt{processed/snapshots/query\_id=.../batch\_id=.../year=2026/month=10/day=5/}}
-  \source{spark/streaming/sinks/lake.py; docs/data-lake.md. Configuration layout only; other domains use separate temporal paths.}
-  \vnote{Slide phụ. Đây là layout của đường cấu hình, không phải schema chung cho cả bốn loại dữ liệu. Raw giữ byte Kafka và provenance; processed giữ các output đã chuẩn hoá. Query ID và batch ID xác định vùng ghi, còn year/month/day giúp đọc theo ngày. Ngày của raw lấy từ Kafka timestamp; ngày của các output khác lấy theo loại record. Kafka partition là phân vùng log, Spark execution partition là phân công xử lý, date partition là tổ chức file: ba khái niệm khác nhau. Chỉ raw được query fetch trong retention mới có thể lưu; không thể khôi phục record đã bị Kafka xoá trước khi đọc.}
-\end{frame}
 
 \begin{frame}{Dashboard: inspect the evidence behind a comparison}
   \centering
@@ -368,7 +467,7 @@ config-lake/
     The experiment view exposes storage, query measurements and evidence references.\par\medskip
     Compare each number within its declared workload and measurement boundary.
   \end{flushleft}
-  \source{Recorded Phase 20V Experiments capture; accepted RPKI results. Research views read the pinned evidence bundle.}
+
   \vnote{Slide phụ. Đây là màn hình experiments để đối chiếu kết quả với phạm vi và bằng chứng của phép đo. Bảng hiển thị R1, R2, R3 với byte phân tích và tổng component đã đo, có scope và bằng chứng. Các tab khác cho phép xem matched processing và negative findings. Đây là dữ liệu thí nghiệm đã được export và kiểm tra hash, không phải một job benchmark vừa chạy khi mở trang. Kết quả RPKI khớp hai biểu đồ trong phần trình bày chính.}
 \end{frame}
 
@@ -380,8 +479,7 @@ config-lake/
     \textbf{Check API now}: a fresh readiness request when the backend is available.\\[5pt]
     The READY label in this historical capture applies only to its displayed timestamp.
   \end{flushleft}
-  \source{Recorded Phase 20V Operations capture, 14 October 2026; docs/phase20v-data-contracts.md.\\
-  The UI does not expose live Kafka lag or live cluster-wide resource metrics.}
+
   \vnote{Slide phụ. Ảnh có chữ LIVE READY nhưng đó là trạng thái của request tại timestamp trong ảnh, không phải trạng thái hiện tại. Các thẻ node, Kafka lag và resource là bằng chứng chạy đã lưu. Khi demo thật, bấm Check API now mới tạo request readiness và giao diện làm hết hiệu lực kết quả sau thời gian quy định. Readiness thành công chứng minh API và dependencies cần thiết cho request đó, không chứng minh toàn bộ pipeline đang ingest dữ liệu. Dashboard không có quyền đọc kubeconfig hay Kafka credentials và không phải một hệ thống monitoring cluster trực tiếp.}
 \end{frame}
 

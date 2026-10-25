@@ -4,7 +4,7 @@ Reviewed on 25 October 2026 against main revision `b5da3b3`, the supplied `Confi
 
 Reference file SHA-256: `c56b7954f40c3a4d2d7580856d3b166d6d86a882949de35ab6bf384288278565`.
 
-The supplied v6 file adds useful architecture detail. This integration preserves the original SimplePlus theme, English slides and Vietnamese notes. Detailed implementation and secondary dashboard screens are placed in the appendix to keep the main talk around 12 minutes. PR #1 is used as a presentation reference; it is not merged wholesale. At the reviewed commit, the PR's dashboard addition is presentation content using screenshots already present on main, not new frontend functionality.
+The supplied v6 file adds useful architecture detail. This integration preserves the original SimplePlus theme, English slides and Vietnamese notes. The technical walkthrough is now in the main presentation; only the Experiments and Operations dashboard screens remain in the appendix. The 26 October revision expands the main talk to about 18 minutes. PR #1 is used as a presentation reference; it is not merged wholesale. At the reviewed commit, the PR's dashboard addition is presentation content using screenshots already present on main, not new frontend functionality.
 
 ## Accuracy decisions
 
@@ -27,9 +27,23 @@ The existing replay and single-node deployment receipts establish their recorded
 
 The three additional dashboard captures are historical Phase 20V images from 14 October 2026. The main overview capture remains the actual frontend capture from 25 October 2026. Screenshot bytes are preserved; cropping is specified in LaTeX.
 
+## Technical expansion — 26 October 2026
+
+The initial integration placed too much implementation detail in the appendix. The revised main section follows the v6 architecture narrative while retaining the corrections above:
+
+- A snapshot field table distinguishes source identity, version, event time, ingest time and content integrity; values are explicitly illustrative.
+- A Kafka offset/version example shows why delivery order cannot select the predecessor.
+- Spark's snapshot-ID and asset-ID state operators are explained separately, including source binding, retry/conflict behavior, emitted-edge flags, timers and retention.
+- A four-row execution trace shows the buffer/output for v1, v3, v2 and a retry. The diff slide includes the actual telnet YAML rule.
+- The lake slide explains raw versus processed data, query/batch namespaces and the different meanings of Kafka, Spark and date partitions.
+- Commit verification is followed by a failure-point table, distinguishing lake manifests from Spark checkpoints and logical deduplication from physical alert delivery.
+- A new editable `history-readers` diagram separates historical batch output from Elasticsearch/API serving; its dashed edge denotes an explicit index rebuild.
+
+The root README now leads with the detailed configuration architecture and places the dashboard below results. The four-domain diagram remains linked to make the configuration diagram's scope explicit.
+
 ## Validation
 
-- Both presentation and presenter PDFs compile to 20 pages: 15 main slides and 5 appendix slides, with separate numbering.
+- Both presentation and presenter PDFs compile to 23 pages: 21 main slides and 2 appendix slides, with separate numbering.
 - New diagrams have editable draw.io sources and validated exports.
 - Slide crops, architecture diagrams and the presenter layout were rendered and inspected.
 - Vietnamese Markdown notes and both contact sheets are regenerated from the final source/PDFs using `export-previews.py`.
