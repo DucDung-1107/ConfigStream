@@ -227,6 +227,35 @@ make processing-demo
   \vnote{Khoảng 40 giây. Đây là kết quả replay đã được ghi nhận trong repo, không phải lần chạy mới trong buổi thuyết trình. 10.188 snapshot qua đường tích hợp và cho 3.683 diff liền kề. Khoảng 29,4 MB là tổng Parquet raw và processed đã commit. Chỉ kết luận đường tích hợp chạy được trên phạm vi local đã thử; không kết luận Spark nhanh hơn baseline hay hệ thống đã đạt quy mô production. Cấu hình replay lịch sử có retention riêng, khác mặc định demo online.}
 \end{frame}
 
+% Matched local comparison from accepted measurements
+\begin{frame}{RPKI: less storage, similar reconstruction time}
+  \noindent{\small Same 14 daily observations. All three layouts reconstruct the exact same states.}
+  \par\medskip
+  \centering
+  \includegraphics[width=\linewidth,height=3.65cm,keepaspectratio]{rpki-storage-query.pdf}
+  \begin{flushleft}
+    \keyline{R2 saves 92.6\% of analytical storage.}
+    Reconstructing all 14 days still takes about 6.9 seconds.
+  \end{flushleft}
+  \source{Recorded local E2R experiment: workloads/results/phase20/rpki-representations.json. MB = 1,000,000 bytes.\\
+  Time: median of 3 build medians, each with 3 warm cycles; whiskers show the range of build medians. Independent verification timed separately.}
+  \vnote{Khoảng 60 giây. Đây là phép so sánh trên cùng 14 ngày RPKI đã quan sát, không so số lượng bản ghi giữa bốn miền. R1 lưu toàn bộ tập thành viên của mỗi ngày. R2 lưu ngày đầu và các tập thêm, bớt giữa các ngày. R3 giống R2 nhưng thêm trạng thái đầy đủ ở ngày 8. Cả ba cùng giữ các transition sidecar chung, dùng cùng encoding và Snappy; đây là layout thí nghiệm local, chưa thay định dạng production. Biểu đồ trái: dung lượng phân tích giảm từ 47,76 MB xuống 3,56 MB ở R2, tức giảm 92,6 phần trăm. Biểu đồ phải: dựng lại đủ 14 ngày mất 6,73 giây ở R1 và 6,88 giây ở R2, gần tương đương trong phép đo này. R3 nằm giữa về dung lượng. Tất cả trạng thái và kết quả truy vấn khớp chính xác, không chỉ khớp số lượng. Kết luận: lưu thay đổi là ứng viên tốt cho lịch sử RPKI đã thử. Đây là ba build, mỗi build ba lượt truy vấn warm, không phải tốc độ Spark live hay phép đo cold cache.}
+\end{frame}
+
+\begin{frame}{The storage saving depends on what we count}
+  \noindent{\small Same RPKI experiment, now including the other retained files.}
+  \par\medskip
+  \centering
+  \includegraphics[width=\linewidth,height=3.65cm,keepaspectratio]{rpki-total-storage.pdf}
+  \begin{flushleft}
+    \keyline{R2 saves 17.5\% across measured local experiment files.}
+    Sources, provenance maps and query scratch still occupy most of the space.
+  \end{flushleft}
+  \source{workloads/results/phase20/rpki-all-in-storage.json. Median accounted content bytes across 3 builds per layout.\\
+  Includes analytical files, sources, coordinate maps, metadata and retained scratch. Excludes deployed Kafka / checkpoint costs and filesystem overhead.}
+  \vnote{Khoảng 45 giây. Nếu chỉ nói tiết kiệm 92,6 phần trăm thì người nghe dễ hiểu thành toàn bộ hệ thống tiết kiệm như vậy. Khi cộng cả archive nguồn, ánh xạ về bản ghi gốc, metadata và file làm việc còn giữ lại, tổng file local giảm từ khoảng 251,98 MB xuống 207,90 MB, tức khoảng 17,5 phần trăm. Phần màu xanh đậm là dữ liệu phân tích đã tối ưu; phần xám vẫn lớn. Ý nghĩa thực tế: cần đo toàn bộ những thành phần đang giữ để quyết định tối ưu, không chỉ đo file đầu ra nhỏ nhất. Đây vẫn chỉ là tổng các thành phần của thí nghiệm biểu diễn local, chưa phải tổng disk của deployment vì không bao gồm Kafka, checkpoint hay overhead hệ thống file. Không suy kết quả RPKI thành mức tiết kiệm cho Terraform, RIS hoặc DNS.}
+\end{frame}
+
 % 10 — Actual application, no mocked live data
 \begin{frame}{Dashboard preview}
   \centering

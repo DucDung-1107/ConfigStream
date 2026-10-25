@@ -1,6 +1,6 @@
 # Ghi chú thuyết trình — Checkpoint 26/10/2026
 
-Slide tiếng Anh; ghi chú tiếng Việt. Tổng thời lượng dự kiến: khoảng 10 phút. Chỉnh nội dung gốc trong `main.tex` rồi cập nhật bản ghi chú này.
+Slide tiếng Anh; ghi chú tiếng Việt. Tổng thời lượng dự kiến: khoảng 11 phút 40 giây. Chỉnh nội dung gốc trong `main.tex` rồi cập nhật bản ghi chú này.
 
 ## 1. ConfigStream — Group 4
 
@@ -42,14 +42,22 @@ Khoảng 50 giây. Mở link repo nếu có mạng hoặc chuyển terminal đã
 
 Khoảng 40 giây. Đây là kết quả replay đã được ghi nhận trong repo, không phải lần chạy mới trong buổi thuyết trình. 10.188 snapshot qua đường tích hợp và cho 3.683 diff liền kề. Khoảng 29,4 MB là tổng Parquet raw và processed đã commit. Chỉ kết luận đường tích hợp chạy được trên phạm vi local đã thử; không kết luận Spark nhanh hơn baseline hay hệ thống đã đạt quy mô production. Cấu hình replay lịch sử có retention riêng, khác mặc định demo online.
 
-## 11. Dashboard preview
+## 11. RPKI: less storage, similar reconstruction time
+
+Khoảng 60 giây. Đây là phép so sánh trên cùng 14 ngày RPKI đã quan sát, không so số lượng bản ghi giữa bốn miền. R1 lưu toàn bộ tập thành viên của mỗi ngày. R2 lưu ngày đầu và các tập thêm, bớt giữa các ngày. R3 giống R2 nhưng thêm trạng thái đầy đủ ở ngày 8. Cả ba cùng giữ các transition sidecar chung, dùng cùng encoding và Snappy; đây là layout thí nghiệm local, chưa thay định dạng production. Biểu đồ trái: dung lượng phân tích giảm từ 47,76 MB xuống 3,56 MB ở R2, tức giảm 92,6 phần trăm. Biểu đồ phải: dựng lại đủ 14 ngày mất 6,73 giây ở R1 và 6,88 giây ở R2, gần tương đương trong phép đo này. R3 nằm giữa về dung lượng. Tất cả trạng thái và kết quả truy vấn khớp chính xác, không chỉ khớp số lượng. Kết luận: lưu thay đổi là ứng viên tốt cho lịch sử RPKI đã thử. Đây là ba build, mỗi build ba lượt truy vấn warm, không phải tốc độ Spark live hay phép đo cold cache.
+
+## 12. The storage saving depends on what we count
+
+Khoảng 45 giây. Nếu chỉ nói tiết kiệm 92,6 phần trăm thì người nghe dễ hiểu thành toàn bộ hệ thống tiết kiệm như vậy. Khi cộng cả archive nguồn, ánh xạ về bản ghi gốc, metadata và file làm việc còn giữ lại, tổng file local giảm từ khoảng 251,98 MB xuống 207,90 MB, tức khoảng 17,5 phần trăm. Phần màu xanh đậm là dữ liệu phân tích đã tối ưu; phần xám vẫn lớn. Ý nghĩa thực tế: cần đo toàn bộ những thành phần đang giữ để quyết định tối ưu, không chỉ đo file đầu ra nhỏ nhất. Đây vẫn chỉ là tổng các thành phần của thí nghiệm biểu diễn local, chưa phải tổng disk của deployment vì không bao gồm Kafka, checkpoint hay overhead hệ thống file. Không suy kết quả RPKI thành mức tiết kiệm cho Terraform, RIS hoặc DNS.
+
+## 13. Dashboard preview
 
 Khoảng 40 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.
 
-## 12. Checkpoint readiness
+## 14. Checkpoint readiness
 
 Khoảng 40 giây. Trả lời trực tiếp ba yêu cầu thầy đưa ra. Git đã có code chạy được; dữ liệu và manifest đã chuẩn bị; kiến trúc đã có implementation và minh chứng local. Chỉ vào đúng slide trước tương ứng mỗi hàng. Chưa gọi đây là bài hoàn thành cuối kỳ; vẫn cần củng cố demo tích hợp, đo đạc và cách trình bày kết quả.
 
-## 13. Next milestone
+## 15. Next milestone
 
 Khoảng 40 giây. Ba việc nhóm dự kiến ưu tiên tiếp: diễn tập demo tích hợp từ đầu, mở rộng đánh giá với đơn vị đo rõ ràng và chạy lại kiểm thử phục hồi trên revision mới nhất. Không nói những việc dự kiến này đã hoàn thành. Bằng chứng hiện có chủ yếu local hoặc single-node; chưa chứng minh HA hay horizontal scalability. Kết thúc và mời thầy góp ý về phạm vi dữ liệu và ưu tiên cho milestone tiếp theo.

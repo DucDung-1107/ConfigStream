@@ -1,11 +1,11 @@
 # Group 4 — first milestone checkpoint
 
-13 English slides for 26 October 2026, with Vietnamese speaker notes. Planned speaking time: approximately 10 minutes.
+15 English slides for 26 October 2026, with Vietnamese speaker notes. Planned speaking time: approximately 11–12 minutes.
 
 - [Presentation PDF](main.pdf): use this when projecting.
 - [Presenter PDF](speaker-notes.pdf): each page has the slide on the left and Vietnamese notes on the right.
 - [Speaker notes](speaker-notes.md): convenient rehearsal copy.
-- [Overview preview](preview.png): all 13 slides on one image.
+- [Overview preview](preview.png): all 15 slides on one image.
 - [LaTeX source](main.tex): edit slide text and `\vnote{...}` here.
 
 The deck introduces the problem, demonstrates version ordering, introduces all four data types (Terraform, RPKI, RIS and DNS), explains their separate processing paths, and maps implemented progress to the three checkpoint requirements: executable code in Git, prepared data, and system architecture.
@@ -58,3 +58,22 @@ make processing-demo
 These commands verify the small Python processing path. The historical full Kafka/Spark replay was not rerun while preparing the slides. Git revisions are not deployment events. Recorded local / single-node evidence does not establish distributed scalability or high availability.
 
 Before presenting, prepare the small demo terminal and use `main.pdf` on the projector. The slides can be presented without a live backend. If demonstrating the integrated stack, rehearse it separately before class.
+
+## Result comparisons
+
+Slides 11–12 visualize the accepted **local RPKI representation experiment**. R1 stores full daily sets, R2 stores the initial day plus changes, and R3 adds a day-8 checkpoint to R2. All share the same transition sidecars, canonical encoding and compression. Charts use recorded measurements; generating them does not run the workload.
+
+- Analytical storage: 47.76 / 3.56 / 6.95 MB for R1 / R2 / R3. R2 saves 92.6% against R1.
+- All-days reconstruction: 6.73 / 6.88 / 6.76 seconds. Each value is the median of three build-level medians, each with three warm cycles. Whiskers show the range of build medians, not confidence intervals. Exact output digests match.
+- Measured local retained files: 251.98 / 207.90 / 211.19 MB, including sources, coordinate maps, metadata and query scratch. R2 saves 17.5% on this broader accounting boundary. Deployed broker/checkpoint costs and filesystem overhead are outside this experiment figure.
+
+These results support a storage trade-off within the selected RPKI scope. They do not establish a speedup, cold-cache latency, production disk savings, or a conclusion for all four data domains.
+
+The charts are vector PDFs in `figs/`, with PNG previews. `plot-results.py` reads the accepted JSON evidence directly and writes the charts plus `figs/results-data.json` for numerical inspection. To regenerate using an environment with Matplotlib and NumPy:
+
+```sh
+python plot-results.py
+sh build.sh
+```
+
+Sources: `workloads/results/phase20/rpki-representations.json`, `workloads/results/phase20/rpki-all-in-storage.json`; methodology: `docs/phase20-storage-query.md`.
