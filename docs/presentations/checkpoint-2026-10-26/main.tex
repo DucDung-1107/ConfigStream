@@ -5,7 +5,8 @@
 \usepackage[T1,T5]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx,booktabs,array,tabularx,listings,hyperref}
-\usepackage{pgfpages}
+\usepackage{pgfpages,appendixnumberbeamer}
+\pdfstringdefDisableCommands{\def\translate#1{#1}}
 \graphicspath{{figs/}}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{\hfill\insertframenumber\,/\,\inserttotalframenumber\hspace{1em}\vspace{0.5em}}
@@ -69,20 +70,6 @@ telnet enabled
   \vnote{Khoảng 45 giây. Mở đầu bằng ví dụ cụ thể: cùng một router nhưng phiên bản sau tắt logging và bật telnet. Đây là dữ liệu minh hoạ do nhóm tạo, không phải sự cố thực tế. Nếu chỉ giữ file hiện tại, ta không biết thay đổi xảy ra lúc nào và khác phiên bản trước ra sao. Nhóm muốn lưu lịch sử và chỉ ra phần thay đổi thay vì chỉ giữ trạng thái cuối cùng.}
 \end{frame}
 
-% 3 — Product intent
-\begin{frame}{What ConfigStream provides}
-  \vspace{.55cm}
-  \centering
-  \includegraphics[width=\linewidth,height=3.25cm,keepaspectratio]{goals.png}
-  \vspace{.55cm}
-  \begin{flushleft}
-  \keyline{A searchable history of configuration changes}
-  For configuration histories, one asset ID links versions, differences and alerts.
-  \end{flushleft}
-  \source{Implemented contracts: schemas/; processing/; api/routes/documents.py.}
-  \vnote{Khoảng 35 giây. Giải thích ba việc hệ thống làm: lưu phiên bản đã được chấp nhận, so sánh các phiên bản và tra cứu lịch sử cùng cảnh báo theo rule. Asset là đối tượng như router hoặc một file cấu hình. ID của asset giúp nối lịch sử lại với nhau. Cảnh báo là kết quả rule, không đồng nghĩa với một sự cố bảo mật đã được xác nhận.}
-\end{frame}
-
 % Four distinct temporal data types
 \begin{frame}{Four datasets, four meanings of change}
   \begin{columns}[T,onlytextwidth]
@@ -136,6 +123,30 @@ telnet enabled
   \vnote{Khoảng 60 giây. Bốn hàng là bốn đường xử lý đã có trong repo, không phải tất cả đều đi qua bộ diff cấu hình. Hàng Terraform giữ logic phiên bản và rule. RPKI xử lý tập thành viên của các ngày đầy đủ và thay đổi giữa chúng. RIS giữ các lần xảy ra sự kiện, chỉ hoà giải bản gửi lại cùng danh tính nguồn; không xoá sự kiện chỉ vì nội dung giống nhau. DNS giữ phép đo và nhóm kết quả có thông tin nguồn để so sánh mô tả. Các luồng dùng chung công nghệ Kafka, Spark và lưu Parquet trên MinIO nhưng có schema, topic và metadata commit riêng. Elasticsearch và FastAPI phục vụ đường cấu hình; dashboard hiện có bản tổng hợp bằng chứng của cả bốn miền, không phải API live chung cho mọi miền. Dữ liệu thực ở đây được phát lại từ các nguồn đã cố định.}
 \end{frame}
 
+% Configuration architecture reviewed against the v6 reference and current code.
+\begin{frame}{Configuration path: transport, compute, store, serve}
+  \centering
+  \includegraphics[width=\linewidth,height=4.75cm,keepaspectratio]{config-path.png}
+  \begin{flushleft}\small
+    Lake writes complete before search indexing and alert publication.\\
+    Search can be rebuilt from committed Parquet; batch analytics reads the lake.
+  \end{flushleft}
+  \source{Lake-enabled configuration path: spark/streaming/outputs.py; search/reindex.py; analytics/main.py.}
+  \vnote{Khoảng 50 giây. Đi theo hàng chính từ trái sang phải: nguồn gửi snapshot qua Kafka, Spark xử lý state, diff và rule, rồi ghi vào MinIO. Nhánh dưới bên phải là Spark batch đọc lịch sử đã commit để phân tích. Nhánh search giữ metadata phục vụ FastAPI và giao diện, không chứa toàn bộ nội dung cấu hình. Nhánh trên là cảnh báo Kafka. Các mũi tên biểu diễn đường dữ liệu; thứ tự thực thi trong callback là lake trước, search sau, rồi mới phát alerts. Khi index mất hoặc cần tạo lại, có lệnh reindex đọc committed Parquet. Đây là cấu hình bật lake và search, không nói mọi chế độ chạy đều bắt buộc có tất cả thành phần.}
+\end{frame}
+
+\begin{frame}{A commit manifest marks readable history}
+  \centering
+  \includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{commit-order.png}
+  \begin{flushleft}
+    \textbf{Readers use committed files.} Partial writes stay outside accepted history.\\[5pt]
+    An exact retry verifies and reuses the committed batch.
+  \end{flushleft}
+  \source{Current lake-enabled code: spark/streaming/sinks/lake.py; spark/streaming/outputs.py.\\
+  No atomic transaction across sinks. Latest integrity changes still need a completed Kubernetes recovery rerun.}
+  \vnote{Khoảng 45 giây. File xuất hiện trên MinIO chưa có nghĩa batch đã hoàn tất. Với code hiện tại, Spark ghi Parquet, lập inventory đường dẫn, kích thước và SHA-256, đọc lại theo schema để kiểm tra số dòng, rồi mới publish manifest. Reader chỉ đọc các đường dẫn được manifest khai báo. Sau đó callback mới index metadata, gửi alerts và trả quyền điều khiển để Spark tiến hành checkpoint. Nếu batch đã commit mà bước sau lỗi, retry kiểm tra đầy đủ projection, kể cả số lần xuất hiện của dòng, rồi tái sử dụng Parquet. Cảnh báo Kafka vẫn có thể lặp về mặt vật lý; không có giao dịch atomic xuyên các sink. Phần integrity mới đã có kiểm thử local nhưng lần recovery trên Kubernetes của image mới nhất chưa hoàn tất, nên không gán bằng chứng deployment cũ cho nó.}
+\end{frame}
+
 % Accepted data, with domain-specific units
 \begin{frame}{Prepared data: accepted scope for each dataset}
   \renewcommand{\arraystretch}{1.65}
@@ -184,7 +195,7 @@ telnet enabled
 \end{frame}
 
 % 8 — Executable repository
-\begin{frame}[fragile]{Executable code is available in Git}
+\begin{frame}[fragile]{Progress: runnable code and a recorded pipeline replay}
   \begin{columns}[T,onlytextwidth]
     \begin{column}{.45\textwidth}
       {\large\bfseries\color{DarkBlue}Repository}\par\medskip
@@ -209,22 +220,10 @@ make processing-demo
       {\small Rechecked on 25 October 2026}
     \end{column}
   \end{columns}
-  \source{github.com/kongwoang/ConfigStream; Makefile; tests/unit/test\_state\_logic.py, test\_diff.py, test\_rules.py.}
-  \vnote{Khoảng 50 giây. Mở link repo nếu có mạng hoặc chuyển terminal đã chuẩn bị. Hai lệnh trên chạy demo xử lý thuần Python, không cần dựng Kafka hay MinIO. Không dùng demo nhỏ này để nói cả stack đang online. Nhóm vừa kiểm tra 178 test của state logic, diff và rule. CI của revision mã nguồn 3980ce1 đã đạt trước khi thêm slide. Nếu thầy muốn xem thực thi, chạy make processing-demo; phần output chính chính là ví dụ vừa giải thích.}
-\end{frame}
-
-% 9 — Recorded integrated evidence, separate from today's small demo
-\begin{frame}{A complete local replay has been recorded}
-  \vspace{.45cm}
-  \centering
-  \includegraphics[width=\linewidth,height=3.25cm,keepaspectratio]{replay.png}
-  \vspace{.45cm}
-  \begin{flushleft}
-  \textbf{29.4 MB} of raw and processed Parquet committed.\\[5pt]
-  This demonstrates the integrated path on the selected local workload.
-  \end{flushleft}
-  \source{Recorded acceptance: docs/phase12-acceptance.md. 29,402,997 bytes; not a new replay or a scale benchmark.}
-  \vnote{Khoảng 40 giây. Đây là kết quả replay đã được ghi nhận trong repo, không phải lần chạy mới trong buổi thuyết trình. 10.188 snapshot qua đường tích hợp và cho 3.683 diff liền kề. Khoảng 29,4 MB là tổng Parquet raw và processed đã commit. Chỉ kết luận đường tích hợp chạy được trên phạm vi local đã thử; không kết luận Spark nhanh hơn baseline hay hệ thống đã đạt quy mô production. Cấu hình replay lịch sử có retention riêng, khác mặc định demo online.}
+  \par\medskip
+  {\small\textbf{Recorded TerraDS replay:} 10,188 snapshots $\rightarrow$ 3,683 diffs; 29.4 MB Parquet.}
+  \source{Recorded replay: docs/phase12-acceptance.md; github.com/kongwoang/ConfigStream; Makefile; tests/unit/test\_state\_logic.py, test\_diff.py, test\_rules.py.}
+  \vnote{Khoảng 60 giây. Repo có các thành phần ở cột trái. Hai lệnh bên phải chạy demo Python không cần service; 178 test của state, diff và rule đã được kiểm tra khi chuẩn bị slide. Dòng dưới là minh chứng tích hợp đã lưu: TerraDS đi qua Kafka, Spark và MinIO với 10.188 snapshot, 3.683 cặp liền kề và 29.402.997 byte Parquet. Phân biệt rõ demo nhỏ có thể chạy ngay với replay lịch sử đã được ghi nhận, không gọi đây là lần replay mới hôm nay. Nếu thầy yêu cầu demo trực tiếp, chuyển sang terminal đã chuẩn bị; không dùng kết quả này để suy ra HA hay scalability.}
 \end{frame}
 
 % Matched local comparison from accepted measurements
@@ -257,45 +256,133 @@ make processing-demo
 \end{frame}
 
 % 10 — Actual application, no mocked live data
-\begin{frame}{Dashboard preview}
+\begin{frame}{Dashboard: four domains in one evidence overview}
   \centering
   \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{dashboard.png}
   \source{Actual frontend captured on 25 October 2026. This overview displays the accepted evidence bundle, not a live replay.}
-  \vnote{Khoảng 40 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
+  \vnote{Khoảng 30 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
 \end{frame}
 
-% 11 — Direct answer to the instructor
-\begin{frame}{Checkpoint readiness}
-  \renewcommand{\arraystretch}{1.8}
+\begin{frame}{Dashboard: inspect configuration history by asset}
+  \centering
+  \includegraphics[width=\linewidth,height=4.1cm,keepaspectratio,trim=300bp 215bp 24bp 350bp,clip]{history-desktop.png}
+  \begin{flushleft}\small
+    \textbf{1. Filter} by asset and UTC dates.\quad
+    \textbf{2. Select} versions, adjacent diffs or alerts.\\[5pt]
+    \textbf{3. Inspect} safe metadata from the configuration API.
+  \end{flushleft}
+  \source{Recorded Phase 20V UI capture, 14 October 2026; docs/phase20v-demo-script.md.\\
+  The demonstrated asset is an owned fixture with 2 versions / 1 diff. Raw configuration bodies are not returned.}
+  \vnote{Khoảng 35 giây. Trang lịch sử cấu hình có ba thao tác chính: lọc asset và ngày UTC, chọn tab versions hoặc adjacent diffs hoặc alerts, rồi xem metadata trả về từ API. Ảnh chụp là buổi rehearsal đã ghi nhận ngày 14 tháng 10, với asset do nhóm tạo có hai phiên bản và một diff. Con số TerraDS ở thẻ tổng quan là aggregate đã lưu, không có nghĩa toàn bộ lịch sử TerraDS được phục vụ qua API này. Trang history cần backend đang chạy; ảnh không chứng minh API hiện tại đang online.}
+\end{frame}
+
+% Checkpoint answer and next work
+\begin{frame}{Checkpoint readiness and next milestone}
+  \renewcommand{\arraystretch}{1.6}
   \begin{tabularx}{\linewidth}{@{}p{.26\linewidth}X@{}}
     \toprule
     \textbf{Requirement} & \textbf{What the group can show} \\
     \midrule
-    Git + executable code & Repository, runnable demo and automated tests \\
-    Data ready & Terraform, RPKI, RIS, DNS and source manifests \\
-    Architecture ready & Four processing paths, shared storage and dashboard \\
+    Executable code & Runnable demo, domain pipelines and tests \\
+    Prepared data & Terraform, RPKI, RIS, DNS and source manifests \\
+    Architecture & Kafka, stateful Spark, committed lake and serving \\
     \bottomrule
   \end{tabularx}
-  \vspace{.45cm}
-  \keyline{The core workflow is implemented and demonstrated locally}
-  \vnote{Khoảng 40 giây. Trả lời trực tiếp ba yêu cầu thầy đưa ra. Git đã có code chạy được; dữ liệu và manifest đã chuẩn bị; kiến trúc đã có implementation và minh chứng local. Chỉ vào đúng slide trước tương ứng mỗi hàng. Chưa gọi đây là bài hoàn thành cuối kỳ; vẫn cần củng cố demo tích hợp, đo đạc và cách trình bày kết quả.}
-\end{frame}
-
-% 12 — Honest next milestone
-\begin{frame}{Next milestone}
-  \begin{enumerate}\setlength{\itemsep}{.8em}
-    \item \textbf{Rehearse the integrated demo}\\
-      Start the services, send a change, inspect the stored result.
-    \item \textbf{Evaluate larger workloads}\\
-      Measure throughput, latency and storage with clear units.
-    \item \textbf{Strengthen recovery evidence}\\
-      Repeat failure and restart checks for the latest revision.
-  \end{enumerate}
-  \vspace{.35cm}
-  {\small Current evidence is local / single-node; distributed scale and HA remain open.}
+  \medskip
+  \textbf{Next:} rehearse the latest integrated demo, repeat recovery checks,\\
+  and extend workload measurements.\par\medskip
+  {\small Existing deployment evidence is local / single-node. Scaling and HA remain open.}
   \vfill
   {\large\color{DarkBlue}\bfseries Thank you --- questions?}
-  \vnote{Khoảng 40 giây. Ba việc nhóm dự kiến ưu tiên tiếp: diễn tập demo tích hợp từ đầu, mở rộng đánh giá với đơn vị đo rõ ràng và chạy lại kiểm thử phục hồi trên revision mới nhất. Không nói những việc dự kiến này đã hoàn thành. Bằng chứng hiện có chủ yếu local hoặc single-node; chưa chứng minh HA hay horizontal scalability. Kết thúc và mời thầy góp ý về phạm vi dữ liệu và ưu tiên cho milestone tiếp theo.}
+  \vnote{Khoảng 55 giây. Chốt lại ba yêu cầu của thầy: code chạy được, dữ liệu đã chuẩn bị, và kiến trúc đã có implementation cùng kết quả tích hợp. Nhóm đã chạy pipeline trước đây; bước tiếp theo là diễn tập lại trên image mới nhất, kiểm tra recovery và mở rộng phép đo. Không nói cả hệ thống production đã hoàn thành. Nếu thầy hỏi sâu về Kafka, state, layout Parquet hoặc dashboard experiments và operations thì chuyển sang các slide phụ phía sau.}
+\end{frame}
+
+\appendix
+\setbeamertemplate{footline}{\hfill Appendix \insertframenumber\,/\,\inserttotalframenumber\hspace{1em}\vspace{0.5em}}
+
+\begin{frame}{Kafka: an offset is not a configuration version}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}
+      \begin{block}{Three configuration input topics}
+        \texttt{config.assets}: asset metadata\par\medskip
+        \texttt{config.events}: audit events\par\medskip
+        \texttt{config.snapshots}: versioned input
+      \end{block}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \begin{block}{What the processor reads}
+        Spark reads \texttt{config.snapshots}.\par\medskip
+        Kafka keys use \texttt{asset\_id}.\par\medskip
+        Offsets locate records within a partition.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \keyline{Partition order preserves delivery order, not source-version order.}
+  No total order or atomic publication across these topics.
+  \source{messaging/kafka\_producer.py; spark/streaming/kafka\_source.py; docs/kafka-topics.md.}
+  \vnote{Slide phụ, không tính vào thời gian trình bày chính. Kafka tách nguồn phát khỏi processor và cho phép replay khi record còn retention. Asset, event và snapshot là ba loại thông điệp riêng. Spark dùng snapshot để xử lý state; không đợi event ở topic khác xuất hiện trước. Cùng asset ID giúp phân vùng, nhưng producer có thể gửi v3 trước v2 nên offset không thay được số phiên bản. Không giả định thứ tự hoặc atomicity giữa các topic.}
+\end{frame}
+
+\begin{frame}{Spark: identity checks precede per-asset version state}
+  \centering
+  \includegraphics[width=\linewidth,height=3.8cm,keepaspectratio]{spark-stages.png}
+  \begin{flushleft}\small
+    Raw fetched Kafka records have a separate archival branch.\\
+    Invalid input and conflicts produce diagnostics. Watermarks and state retention bound repair.
+  \end{flushleft}
+  \source{spark/streaming/validation.py, identity.py, stateful.py; processing/state.py.\\
+  Current code structure; this diagram does not certify the latest image's Kubernetes recovery.}
+  \vnote{Slide phụ. Bước parse kiểm tra envelope, thời gian, hình thức hash và Kafka key. Sau đó IdentityProcessor group theo snapshot ID và kiểm tra binding về nguồn, gồm kiểm tra content hash qua schema; exact retry trong state được bỏ qua, conflicting identity thành diagnostic. Chỉ sau bước này mới group theo asset. Bên trong processor theo asset, code chuẩn hoá snapshot trước khi thêm vào buffer, rồi tạo các diff liền kề và áp dụng rule. Kiểm tra danh tính snapshot và sắp thứ tự phiên bản theo asset là hai bước riêng. Raw được lấy từ nhánh Kafka trước validation để còn giữ bằng chứng của bản ghi không được business logic chấp nhận.}
+\end{frame}
+
+\begin{frame}[fragile]{Parquet layout separates raw evidence and processed history}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.43\textwidth}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+config-lake/
+  raw/snapshots/
+  processed/snapshots/
+  processed/diffs/
+  processed/alerts/
+  processed/diagnostics/
+  _commits/
+  analytics/
+\end{lstlisting}
+    \end{column}
+    \begin{column}{.53\textwidth}
+      \textbf{Raw}: binary Kafka key/value, topic, partition, offset and timestamp.\par\medskip
+      \textbf{Processed}: typed snapshots, diffs, alerts and diagnostics.\par\medskip
+      Each configuration batch has a query/batch namespace and UTC date partitions.
+    \end{column}
+  \end{columns}
+  \medskip
+  {\small Example: \texttt{processed/snapshots/query\_id=.../batch\_id=.../year=2026/month=10/day=5/}}
+  \source{spark/streaming/sinks/lake.py; docs/data-lake.md. Configuration layout only; other domains use separate temporal paths.}
+  \vnote{Slide phụ. Đây là layout của đường cấu hình, không phải schema chung cho cả bốn loại dữ liệu. Raw giữ byte Kafka và provenance; processed giữ các output đã chuẩn hoá. Query ID và batch ID xác định vùng ghi, còn year/month/day giúp đọc theo ngày. Ngày của raw lấy từ Kafka timestamp; ngày của các output khác lấy theo loại record. Kafka partition là phân vùng log, Spark execution partition là phân công xử lý, date partition là tổ chức file: ba khái niệm khác nhau. Chỉ raw được query fetch trong retention mới có thể lưu; không thể khôi phục record đã bị Kafka xoá trước khi đọc.}
+\end{frame}
+
+\begin{frame}{Dashboard: inspect the evidence behind a comparison}
+  \centering
+  \includegraphics[width=\linewidth,height=4.1cm,keepaspectratio,trim=300bp 1125bp 24bp 375bp,clip]{experiments-desktop.png}
+  \begin{flushleft}
+    The experiment view exposes storage, query measurements and evidence references.\par\medskip
+    Compare each number within its declared workload and measurement boundary.
+  \end{flushleft}
+  \source{Recorded Phase 20V Experiments capture; accepted RPKI results. Research views read the pinned evidence bundle.}
+  \vnote{Slide phụ. Đây là màn hình experiments để đối chiếu kết quả với phạm vi và bằng chứng của phép đo. Bảng hiển thị R1, R2, R3 với byte phân tích và tổng component đã đo, có scope và bằng chứng. Các tab khác cho phép xem matched processing và negative findings. Đây là dữ liệu thí nghiệm đã được export và kiểm tra hash, không phải một job benchmark vừa chạy khi mở trang. Kết quả RPKI khớp hai biểu đồ trong phần trình bày chính.}
+\end{frame}
+
+\begin{frame}{Dashboard: distinguish recorded runs from an API probe}
+  \centering
+  \includegraphics[width=\linewidth,height=4.0cm,keepaspectratio,trim=300bp 845bp 24bp 70bp,clip]{operations-desktop.png}
+  \begin{flushleft}\small
+    Top cards: recorded Kubernetes, lag and resource evidence.\\[5pt]
+    \textbf{Check API now}: a fresh readiness request when the backend is available.\\[5pt]
+    The READY label in this historical capture applies only to its displayed timestamp.
+  \end{flushleft}
+  \source{Recorded Phase 20V Operations capture, 14 October 2026; docs/phase20v-data-contracts.md.\\
+  The UI does not expose live Kafka lag or live cluster-wide resource metrics.}
+  \vnote{Slide phụ. Ảnh có chữ LIVE READY nhưng đó là trạng thái của request tại timestamp trong ảnh, không phải trạng thái hiện tại. Các thẻ node, Kafka lag và resource là bằng chứng chạy đã lưu. Khi demo thật, bấm Check API now mới tạo request readiness và giao diện làm hết hiệu lực kết quả sau thời gian quy định. Readiness thành công chứng minh API và dependencies cần thiết cho request đó, không chứng minh toàn bộ pipeline đang ingest dữ liệu. Dashboard không có quyền đọc kubeconfig hay Kafka credentials và không phải một hệ thống monitoring cluster trực tiếp.}
 \end{frame}
 
 \end{document}
