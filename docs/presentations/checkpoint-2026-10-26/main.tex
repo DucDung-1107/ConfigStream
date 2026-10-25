@@ -1,0 +1,301 @@
+% Checkpoint 1, Group 4. Based on the supplied SimplePlus blank template.
+% Build: latexmk -pdf -outdir=_build main.tex
+\documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+\usetheme{SimplePlus}
+\usepackage[T1,T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,booktabs,array,tabularx,listings,hyperref}
+\usepackage{pgfpages}
+\graphicspath{{figs/}}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill\insertframenumber\,/\,\inserttotalframenumber\hspace{1em}\vspace{0.5em}}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{block body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\newcommand{\source}[1]{\par\vfill{\tiny\color{gray}#1}}
+\newcommand{\keyline}[1]{\par\medskip{\large\color{DarkBlue}\bfseries #1}\par}
+\newcommand{\vnote}[1]{\note{\fontencoding{T5}\selectfont #1}}
+\lstset{basicstyle=\ttfamily\small,columns=fullflexible,keepspaces=true,
+  showstringspaces=false,frame=none,breaklines=true,aboveskip=5pt,belowskip=5pt}
+\ifdefined\PRESENTNOTES
+  \setbeameroption{show notes on second screen=right}
+\fi
+
+\title{ConfigStream}
+\subtitle{Scalable Configuration Change Storage\\and Streaming Analytics}
+\author{\texorpdfstring{\normalsize Phạm Công Hoàng \quad Lê Tiến Hợp\\[3pt]
+  Mai Vũ Hoàng \quad Nguyễn Đức Dũng}{Phạm Công Hoàng, Lê Tiến Hợp, Mai Vũ Hoàng, Nguyễn Đức Dũng}}
+\institute{Group 4 \enspace $\cdot$ \enspace Big Data Storage \& Processing}
+\date{First milestone checkpoint \enspace $\cdot$ \enspace 26 October 2026}
+
+\begin{document}
+
+% 1 — Title
+\begin{frame}
+  \vspace*{-2.0em}
+  \titlepage
+  \vnote{Khoảng 25 giây. Chào thầy và các bạn. Nhóm 4 trình bày ConfigStream, hệ thống lưu trữ và phân tích thay đổi cấu hình. Buổi checkpoint này tập trung vào bài toán, dữ liệu, kiến trúc và những phần nhóm đã triển khai được. Chưa trình bày như một sản phẩm đã hoàn thiện hoặc đã chứng minh khả năng mở rộng.}
+\end{frame}
+
+% 2 — One concrete problem
+\begin{frame}[fragile]{The problem: configuration changes over time}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.47\textwidth}
+      \begin{block}{Router configuration: version 10}
+\begin{lstlisting}
+hostname router-001
+logging enabled
+telnet disabled
+\end{lstlisting}
+      \end{block}
+    \end{column}
+    \begin{column}{.47\textwidth}
+      \begin{alertblock}{Version 11}
+\begin{lstlisting}
+hostname router-001
+logging disabled
+telnet enabled
+\end{lstlisting}
+      \end{alertblock}
+    \end{column}
+  \end{columns}
+  \vspace{.5cm}
+  \keyline{What changed, when, and on which asset?}
+  A current configuration file alone cannot answer all three.
+  \source{Illustrative input from the executable demo: processing/demo.py.}
+  \vnote{Khoảng 45 giây. Mở đầu bằng ví dụ cụ thể: cùng một router nhưng phiên bản sau tắt logging và bật telnet. Đây là dữ liệu minh hoạ do nhóm tạo, không phải sự cố thực tế. Nếu chỉ giữ file hiện tại, ta không biết thay đổi xảy ra lúc nào và khác phiên bản trước ra sao. Nhóm muốn lưu lịch sử và chỉ ra phần thay đổi thay vì chỉ giữ trạng thái cuối cùng.}
+\end{frame}
+
+% 3 — Product intent
+\begin{frame}{What ConfigStream provides}
+  \vspace{.55cm}
+  \centering
+  \includegraphics[width=\linewidth,height=3.25cm,keepaspectratio]{goals.png}
+  \vspace{.55cm}
+  \begin{flushleft}
+  \keyline{A searchable history of configuration changes}
+  For configuration histories, one asset ID links versions, differences and alerts.
+  \end{flushleft}
+  \source{Implemented contracts: schemas/; processing/; api/routes/documents.py.}
+  \vnote{Khoảng 35 giây. Giải thích ba việc hệ thống làm: lưu phiên bản đã được chấp nhận, so sánh các phiên bản và tra cứu lịch sử cùng cảnh báo theo rule. Asset là đối tượng như router hoặc một file cấu hình. ID của asset giúp nối lịch sử lại với nhau. Cảnh báo là kết quả rule, không đồng nghĩa với một sự cố bảo mật đã được xác nhận.}
+\end{frame}
+
+% Four distinct temporal data types
+\begin{frame}{Four datasets, four meanings of change}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}
+      \begin{block}{Terraform / TerraDS: versions}
+        Infrastructure code stored in Git.\par\medskip
+        \textbf{v1 $\rightarrow$ v2}: which lines changed?
+      \end{block}
+      \vspace{.15cm}
+      \begin{block}{RIS: routing events}
+        BGP announcements and withdrawals.\par\medskip
+        \textbf{Announce $\rightarrow$ withdraw}: what happened?
+      \end{block}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \begin{block}{RPKI: observed daily states}
+        Observed route-authorization records.\par\medskip
+        \textbf{Day 1 $\rightarrow$ day 2}: which members differ?
+      \end{block}
+      \vspace{.15cm}
+      \begin{block}{DNS: measurements}
+        Recorded DNS query and response data.\par\medskip
+        \textbf{Name $\rightarrow$ IP}: what was observed, when?
+      \end{block}
+    \end{column}
+  \end{columns}
+  \source{Conceptual examples. Sources and accepted scopes: frontend/public/research/v1/catalog.json.}
+  \vnote{Khoảng 65 giây. Nhóm dùng bốn loại dữ liệu có ý nghĩa thời gian khác nhau. Terraform từ TerraDS là các phiên bản file mã hạ tầng trong Git: so sánh để biết dòng nào đổi, không coi commit là lần triển khai. RPKI là tập bản ghi uỷ quyền định tuyến quan sát theo ngày; so sánh thành viên giữa hai ngày đầy đủ, không suy ra chính xác thao tác của quản trị viên. RIS ghi nhận sự kiện BGP, ví dụ quảng bá hoặc rút tuyến; hai sự kiện giống nội dung vẫn có thể là hai lần xảy ra khác nhau. DNS là phép đo truy vấn và phản hồi: thấy tên miền trả về địa chỉ nào tại thời điểm quan sát, không coi đó là toàn bộ trạng thái DNS. Ví dụ trên slide chỉ minh hoạ cách hiểu. Điểm chung là cần lưu lịch sử; cách định nghĩa thay đổi phải riêng cho từng loại.}
+\end{frame}
+
+% 4 — The one technical idea to remember
+\begin{frame}{Configuration example: handling late arrivals}
+  \centering
+  \includegraphics[width=.91\linewidth,height=4.25cm,keepaspectratio]{version-order.png}
+  \begin{flushleft}
+  Compare \textbf{v1 $\rightarrow$ v2} and \textbf{v2 $\rightarrow$ v3}, once both endpoints are available.
+  \end{flushleft}
+  \source{processing/state.py; spark/streaming/stateful.py. Online repair is bounded by retained state.}
+  \vnote{Khoảng 55 giây. Chỉ vào hàng trên: dữ liệu có thể đến theo thứ tự 1, 3, 2. Nếu so sánh theo thứ tự đến, ta sẽ tạo cặp 1 sang 3 và bỏ qua phiên bản 2. Hàng dưới là cách nhóm xử lý: giữ các phiên bản theo asset và chỉ tạo diff giữa các phiên bản liền kề. Nếu 2 đến khi state còn giữ được 1 và 3 thì tạo đủ hai cặp đúng. State có giới hạn lưu giữ, nên không hứa sửa được mọi dữ liệu đến muộn vô hạn.}
+\end{frame}
+
+% Architecture across the four data domains
+\begin{frame}{System architecture: four separate processing paths}
+  \centering
+  \includegraphics[width=\linewidth,height=4.7cm,keepaspectratio]{four-paths.png}
+  \begin{flushleft}\small
+    Kafka + Spark + MinIO (Parquet), with separate schemas and processing.\\
+    Config search: Elasticsearch + FastAPI. Dashboard: accepted results from all four.
+  \end{flushleft}
+  \source{spark/streaming/; spark/rpki\_stream.py; spark/ris.py; spark/dns.py; domain architecture docs.}
+  \vnote{Khoảng 60 giây. Bốn hàng là bốn đường xử lý đã có trong repo, không phải tất cả đều đi qua bộ diff cấu hình. Hàng Terraform giữ logic phiên bản và rule. RPKI xử lý tập thành viên của các ngày đầy đủ và thay đổi giữa chúng. RIS giữ các lần xảy ra sự kiện, chỉ hoà giải bản gửi lại cùng danh tính nguồn; không xoá sự kiện chỉ vì nội dung giống nhau. DNS giữ phép đo và nhóm kết quả có thông tin nguồn để so sánh mô tả. Các luồng dùng chung công nghệ Kafka, Spark và lưu Parquet trên MinIO nhưng có schema, topic và metadata commit riêng. Elasticsearch và FastAPI phục vụ đường cấu hình; dashboard hiện có bản tổng hợp bằng chứng của cả bốn miền, không phải API live chung cho mọi miền. Dữ liệu thực ở đây được phát lại từ các nguồn đã cố định.}
+\end{frame}
+
+% Accepted data, with domain-specific units
+\begin{frame}{Prepared data: accepted scope for each dataset}
+  \renewcommand{\arraystretch}{1.65}
+  {\small
+  \begin{tabularx}{\linewidth}{@{}p{.18\linewidth}p{.34\linewidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Dataset} & \textbf{Accepted amount} & \textbf{Selected scope} \\
+    \midrule
+    Terraform & \textbf{10,188} Git versions & 6,505 file histories / 375 repositories \\
+    RPKI & \textbf{14} complete daily observations & ripencc.tal, 1--14 Sep 2026 \\
+    RIS & \textbf{4,725,156} event occurrences & rrc00, 1 Sep 2026, 00:00--01:00 UTC \\
+    DNS & \textbf{2,234,863} raw measurements & Two .li source objects, 1--2 Sep 2026 \\
+    \bottomrule
+  \end{tabularx}}\par
+  \medskip
+  {\small Controlled synthetic inputs also test retries and late arrivals.\\
+  Source manifests and result receipts are versioned in Git.}
+  \source{Accepted evidence: frontend/public/research/v1/catalog.json and its linked validation artifacts. Units differ; do not sum the rows.}
+  \vnote{Khoảng 55 giây. Đây là phạm vi đã được kiểm chứng trong các lần chạy ghi nhận, không phải tổng kích thước mọi nguồn ngoài Internet và không phải lần chạy mới hôm nay. Terraform có 10.188 phiên bản của 6.505 lịch sử file thuộc 375 repo. RPKI có 14 ngày đầy đủ trong phạm vi ripencc.tal; số 14 là số ngày quan sát, không phải số bản ghi bên trong. RIS có khoảng 4,73 triệu lần xảy ra sự kiện trong một giờ ở collector rrc00. DNS có khoảng 2,23 triệu dòng phép đo từ hai đối tượng nguồn .li đã chọn. Không cộng bốn con số vì đơn vị khác nhau. Nhóm còn có generator để chủ động kiểm thử dữ liệu lặp và đến muộn. Dữ liệu lớn lưu ngoài Git; repo giữ manifest và bằng chứng kết quả.}
+\end{frame}
+
+% 7 — Visible processing result
+\begin{frame}[fragile]{Implemented: differences and rule alerts}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}
+      \begin{block}{Diff: version 10 $\rightarrow$ 11}
+        {\ttfamily\small
+          \textcolor{MediumRed}{- logging enabled}\\[3pt]
+          \textcolor{MediumRed}{- telnet disabled}\\[3pt]
+          \textcolor{MediumBlue}{+ logging disabled}\\[3pt]
+          \textcolor{MediumBlue}{+ telnet enabled}}
+      \end{block}
+    \end{column}
+    \begin{column}{.46\textwidth}
+      {\large\bfseries\color{DarkBlue}Rules detect}\par\medskip
+      \textbf{Logging disabled}\\
+      High severity\par\medskip
+      \textbf{Telnet enabled}\\
+      Critical severity
+    \end{column}
+  \end{columns}
+  \vspace{.55cm}
+  Repeated delivery must not invent another logical change.
+  \source{processing/demo.py; processing/diff.py; rules/default.yaml; tests/unit/test\_rules.py.}
+  \vnote{Khoảng 45 giây. Quay lại ví dụ đầu: output chỉ ra các dòng bị bỏ và thêm. Rule mặc định báo logging bị tắt ở mức high và telnet được bật ở mức critical. Đây là rule minh hoạ đã có trong code, không phải mô hình AI dự đoán. Chuẩn hoá xử lý các khác biệt văn bản được hỗ trợ; không phải parser hiểu mọi ý nghĩa cấu hình. Việc gửi lại cùng snapshot cũng không được tạo thêm thay đổi logic mới.}
+\end{frame}
+
+% 8 — Executable repository
+\begin{frame}[fragile]{Executable code is available in Git}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.45\textwidth}
+      {\large\bfseries\color{DarkBlue}Repository}\par\medskip
+      \begin{tabular}{@{}ll@{}}
+        \texttt{generator/} & input data \\[5pt]
+        \texttt{processing/} & diff and rules \\[5pt]
+        \texttt{spark/} & streaming jobs \\[5pt]
+        \texttt{api/} & read API \\[5pt]
+        \texttt{frontend/} & dashboard
+      \end{tabular}
+    \end{column}
+    \begin{column}{.49\textwidth}
+      \begin{block}{Small demo, no services required}
+\begin{lstlisting}
+make setup
+make processing-demo
+\end{lstlisting}
+      \end{block}
+      \medskip
+      \textbf{178 core tests passed}\\
+      State logic, diffs and rules\\
+      {\small Rechecked on 25 October 2026}
+    \end{column}
+  \end{columns}
+  \source{github.com/kongwoang/ConfigStream; Makefile; tests/unit/test\_state\_logic.py, test\_diff.py, test\_rules.py.}
+  \vnote{Khoảng 50 giây. Mở link repo nếu có mạng hoặc chuyển terminal đã chuẩn bị. Hai lệnh trên chạy demo xử lý thuần Python, không cần dựng Kafka hay MinIO. Không dùng demo nhỏ này để nói cả stack đang online. Nhóm vừa kiểm tra 178 test của state logic, diff và rule. CI của revision mã nguồn 3980ce1 đã đạt trước khi thêm slide. Nếu thầy muốn xem thực thi, chạy make processing-demo; phần output chính chính là ví dụ vừa giải thích.}
+\end{frame}
+
+% 9 — Recorded integrated evidence, separate from today's small demo
+\begin{frame}{A complete local replay has been recorded}
+  \vspace{.45cm}
+  \centering
+  \includegraphics[width=\linewidth,height=3.25cm,keepaspectratio]{replay.png}
+  \vspace{.45cm}
+  \begin{flushleft}
+  \textbf{29.4 MB} of raw and processed Parquet committed.\\[5pt]
+  This demonstrates the integrated path on the selected local workload.
+  \end{flushleft}
+  \source{Recorded acceptance: docs/phase12-acceptance.md. 29,402,997 bytes; not a new replay or a scale benchmark.}
+  \vnote{Khoảng 40 giây. Đây là kết quả replay đã được ghi nhận trong repo, không phải lần chạy mới trong buổi thuyết trình. 10.188 snapshot qua đường tích hợp và cho 3.683 diff liền kề. Khoảng 29,4 MB là tổng Parquet raw và processed đã commit. Chỉ kết luận đường tích hợp chạy được trên phạm vi local đã thử; không kết luận Spark nhanh hơn baseline hay hệ thống đã đạt quy mô production. Cấu hình replay lịch sử có retention riêng, khác mặc định demo online.}
+\end{frame}
+
+% Matched local comparison from accepted measurements
+\begin{frame}{RPKI: less storage, similar reconstruction time}
+  \noindent{\small Same 14 daily observations. All three layouts reconstruct the exact same states.}
+  \par\medskip
+  \centering
+  \includegraphics[width=\linewidth,height=3.65cm,keepaspectratio]{rpki-storage-query.pdf}
+  \begin{flushleft}
+    \keyline{R2 saves 92.6\% of analytical storage.}
+    Reconstructing all 14 days still takes about 6.9 seconds.
+  \end{flushleft}
+  \source{Recorded local E2R experiment: workloads/results/phase20/rpki-representations.json. MB = 1,000,000 bytes.\\
+  Time: median of 3 build medians, each with 3 warm cycles; whiskers show the range of build medians. Independent verification timed separately.}
+  \vnote{Khoảng 60 giây. Đây là phép so sánh trên cùng 14 ngày RPKI đã quan sát, không so số lượng bản ghi giữa bốn miền. R1 lưu toàn bộ tập thành viên của mỗi ngày. R2 lưu ngày đầu và các tập thêm, bớt giữa các ngày. R3 giống R2 nhưng thêm trạng thái đầy đủ ở ngày 8. Cả ba cùng giữ các transition sidecar chung, dùng cùng encoding và Snappy; đây là layout thí nghiệm local, chưa thay định dạng production. Biểu đồ trái: dung lượng phân tích giảm từ 47,76 MB xuống 3,56 MB ở R2, tức giảm 92,6 phần trăm. Biểu đồ phải: dựng lại đủ 14 ngày mất 6,73 giây ở R1 và 6,88 giây ở R2, gần tương đương trong phép đo này. R3 nằm giữa về dung lượng. Tất cả trạng thái và kết quả truy vấn khớp chính xác, không chỉ khớp số lượng. Kết luận: lưu thay đổi là ứng viên tốt cho lịch sử RPKI đã thử. Đây là ba build, mỗi build ba lượt truy vấn warm, không phải tốc độ Spark live hay phép đo cold cache.}
+\end{frame}
+
+\begin{frame}{The storage saving depends on what we count}
+  \noindent{\small Same RPKI experiment, now including the other retained files.}
+  \par\medskip
+  \centering
+  \includegraphics[width=\linewidth,height=3.65cm,keepaspectratio]{rpki-total-storage.pdf}
+  \begin{flushleft}
+    \keyline{R2 saves 17.5\% across measured local experiment files.}
+    Sources, provenance maps and query scratch still occupy most of the space.
+  \end{flushleft}
+  \source{workloads/results/phase20/rpki-all-in-storage.json. Median accounted content bytes across 3 builds per layout.\\
+  Includes analytical files, sources, coordinate maps, metadata and retained scratch. Excludes deployed Kafka / checkpoint costs and filesystem overhead.}
+  \vnote{Khoảng 45 giây. Nếu chỉ nói tiết kiệm 92,6 phần trăm thì người nghe dễ hiểu thành toàn bộ hệ thống tiết kiệm như vậy. Khi cộng cả archive nguồn, ánh xạ về bản ghi gốc, metadata và file làm việc còn giữ lại, tổng file local giảm từ khoảng 251,98 MB xuống 207,90 MB, tức khoảng 17,5 phần trăm. Phần màu xanh đậm là dữ liệu phân tích đã tối ưu; phần xám vẫn lớn. Ý nghĩa thực tế: cần đo toàn bộ những thành phần đang giữ để quyết định tối ưu, không chỉ đo file đầu ra nhỏ nhất. Đây vẫn chỉ là tổng các thành phần của thí nghiệm biểu diễn local, chưa phải tổng disk của deployment vì không bao gồm Kafka, checkpoint hay overhead hệ thống file. Không suy kết quả RPKI thành mức tiết kiệm cho Terraform, RIS hoặc DNS.}
+\end{frame}
+
+% 10 — Actual application, no mocked live data
+\begin{frame}{Dashboard preview}
+  \centering
+  \includegraphics[width=\linewidth,height=5.5cm,keepaspectratio]{dashboard.png}
+  \source{Actual frontend captured on 25 October 2026. This overview displays the accepted evidence bundle, not a live replay.}
+  \vnote{Khoảng 40 giây. Đây là ảnh giao diện thật được mở từ frontend hiện tại. Bốn thẻ phía trên tương ứng Terraform, RPKI, RIS và DNS vừa giới thiệu. Biểu đồ bên dưới là số sự kiện RIS theo thời gian nguồn, không phải throughput xử lý của Spark. Phần lịch sử cấu hình có API để tra cứu theo asset và thời gian khi backend chạy. Các con số trên ảnh thuộc những đơn vị khác nhau, không cộng lại thành một chỉ số tổng. Ảnh này không chứng minh backend đang chạy trực tiếp trong buổi checkpoint.}
+\end{frame}
+
+% 11 — Direct answer to the instructor
+\begin{frame}{Checkpoint readiness}
+  \renewcommand{\arraystretch}{1.8}
+  \begin{tabularx}{\linewidth}{@{}p{.26\linewidth}X@{}}
+    \toprule
+    \textbf{Requirement} & \textbf{What the group can show} \\
+    \midrule
+    Git + executable code & Repository, runnable demo and automated tests \\
+    Data ready & Terraform, RPKI, RIS, DNS and source manifests \\
+    Architecture ready & Four processing paths, shared storage and dashboard \\
+    \bottomrule
+  \end{tabularx}
+  \vspace{.45cm}
+  \keyline{The core workflow is implemented and demonstrated locally}
+  \vnote{Khoảng 40 giây. Trả lời trực tiếp ba yêu cầu thầy đưa ra. Git đã có code chạy được; dữ liệu và manifest đã chuẩn bị; kiến trúc đã có implementation và minh chứng local. Chỉ vào đúng slide trước tương ứng mỗi hàng. Chưa gọi đây là bài hoàn thành cuối kỳ; vẫn cần củng cố demo tích hợp, đo đạc và cách trình bày kết quả.}
+\end{frame}
+
+% 12 — Honest next milestone
+\begin{frame}{Next milestone}
+  \begin{enumerate}\setlength{\itemsep}{.8em}
+    \item \textbf{Rehearse the integrated demo}\\
+      Start the services, send a change, inspect the stored result.
+    \item \textbf{Evaluate larger workloads}\\
+      Measure throughput, latency and storage with clear units.
+    \item \textbf{Strengthen recovery evidence}\\
+      Repeat failure and restart checks for the latest revision.
+  \end{enumerate}
+  \vspace{.35cm}
+  {\small Current evidence is local / single-node; distributed scale and HA remain open.}
+  \vfill
+  {\large\color{DarkBlue}\bfseries Thank you --- questions?}
+  \vnote{Khoảng 40 giây. Ba việc nhóm dự kiến ưu tiên tiếp: diễn tập demo tích hợp từ đầu, mở rộng đánh giá với đơn vị đo rõ ràng và chạy lại kiểm thử phục hồi trên revision mới nhất. Không nói những việc dự kiến này đã hoàn thành. Bằng chứng hiện có chủ yếu local hoặc single-node; chưa chứng minh HA hay horizontal scalability. Kết thúc và mời thầy góp ý về phạm vi dữ liệu và ưu tiên cho milestone tiếp theo.}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,33 @@
+{
+  "scope": "14 scoped RPKI observations, 2026-09-01 through 2026-09-14",
+  "source": [
+    "workloads/results/phase20/rpki-representations.json",
+    "workloads/results/phase20/rpki-all-in-storage.json"
+  ],
+  "unit": "MB = 1,000,000 bytes",
+  "modes": [
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "analytical_mb": [
+    47.756423,
+    3.555516,
+    6.95489
+  ],
+  "all_days_seconds": [
+    6.733104665763676,
+    6.880251917871647,
+    6.76448341680225
+  ],
+  "local_file_mb": [
+    251.982367,
+    207.904155,
+    211.192936
+  ],
+  "r2_analytical_saving_percent": 92.55489465783482,
+  "r2_local_file_saving_percent": 17.492577962806422,
+  "query_summary": "Median of three build-level medians, each with three warm cycles; whiskers are range of build medians, not confidence intervals",
+  "storage_summary": "Median accounted content bytes across three builds; excludes deployed broker and checkpoint costs",
+  "correctness": "Exact all-days output digests agree across R1, R2, R3"
+}
